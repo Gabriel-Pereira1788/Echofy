@@ -1,4 +1,4 @@
-import {api} from '@infra';
+import {api} from '@api';
 import {AuthCredentialsAPI, AuthSignInDTO, AuthSignUpDTO} from './auth-types';
 
 async function signIn(signInDTO: AuthSignInDTO) {

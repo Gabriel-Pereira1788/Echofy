@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   Button,
@@ -6,6 +6,7 @@ import {
   CheckBox,
   TouchableOpacityBox,
   FormInput,
+  FormInputPassword,
 } from '@components';
 import {SocialSignIn} from './components/SocialSignIn';
 import {AuthStackProps} from '@router';
@@ -15,11 +16,11 @@ import {zodResolver} from '@hookform/resolvers/zod';
 
 import {useForm} from 'react-hook-form';
 import {SignInSchema, signInSchema} from './signInSchema';
+import {useRemindAccessData} from './useRemindAccessData';
+import {useToastActions} from '@store';
 
 export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const {control, handleSubmit} = useForm<SignInSchema>({
+  const {control, getValues, setValue, handleSubmit} = useForm<SignInSchema>({
     defaultValues: {
       email: '',
       password: '',
@@ -27,11 +28,20 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
     resolver: zodResolver(signInSchema),
   });
 
-  const {isLoading, signIn} = useAuthSignIn({});
-
-  const onChange = useCallback(() => {
-    setIsChecked(prev => !prev);
-  }, []);
+  const toastActions = useToastActions();
+  const {isLoading, signIn} = useAuthSignIn({
+    onSuccess: () => {
+      toastActions.show({
+        title: 'Success!',
+        message: 'Welcome user!',
+        type: 'success',
+      });
+    },
+  });
+  const {isRemembered, onChangeIsRemembered} = useRemindAccessData({
+    getValues,
+    setValue,
+  });
 
   function redirectToSignUpScreen() {
     navigation.navigate('SignUpScreen');
@@ -45,8 +55,16 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
     <SharedAuthLayout title="Login to Your Account">
       <Box gap="sp15" width={'100%'}>
         <FormInput placeholder="Email" name="email" control={control} />
-        <FormInput placeholder="Password" name="password" control={control} />
-        <CheckBox value={isChecked} onChange={onChange} label="Remember me" />
+        <FormInputPassword
+          placeholder="Password"
+          name="password"
+          control={control}
+        />
+        <CheckBox
+          value={isRemembered}
+          onChange={onChangeIsRemembered}
+          label="Remember me"
+        />
         <Button
           text="Entrar"
           onPress={handleSubmit(onSubmit)}

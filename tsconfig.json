@@ -4,14 +4,19 @@
     "jsx": "react",
     "baseUrl": "./",
     "paths": {
-      "@styles": ["src/styles"],
-      "@screens": ["src/screens"],
-      "@components": ["src/components"],
-      "@router": ["src/router"],
-      "@assets": ["src/assets"],
-      "@shared": ["src/shared"],
+      "@api": ["src/api"],
+      "@styles": ["src/app/styles"],
+      "@screens": ["src/app/screens"],
+      "@components": ["src/app/components"],
+      "@router": ["src/app/router"],
+      "@assets": ["src/app/assets"],
+      "@shared": ["src/app/shared"],
       "@domain": ["src/domain"],
-      "@infra": ["src/infra"]
+      "@infra": ["src/infra"],
+      "@types": ["src/@types"],
+      "@providers": ["src/app/providers"],
+      "@utils": ["src/app/helpers/utils"],
+      "@store": ["src/app/store"]
     }
   }
 }

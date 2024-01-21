@@ -1,2 +1,2 @@
-export * from './api/api';
 export * from './config';
+export * from './storage';

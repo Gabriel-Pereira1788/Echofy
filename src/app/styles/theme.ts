@@ -50,6 +50,7 @@ export const theme = createTheme({
     sp16: 16,
     sp15: 15,
     sp20: 20,
+    sp23: 23,
     sp25: 25,
     sp28: 28,
     sp50: 50,
@@ -57,6 +58,7 @@ export const theme = createTheme({
   borderRadii: {
     rd4: 4,
     rd8: 8,
+    rd12: 12,
   },
 });
 
