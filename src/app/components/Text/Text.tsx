@@ -1,8 +1,10 @@
-import {Theme, theme} from '@styles';
 import React from 'react';
 import {Text as TextRN, TextStyle} from 'react-native';
-import {TextProps, FontStyleProps} from './textTypes';
+
+import {theme} from '@styles';
+
 import {$fontSize, $fontWeight} from './textConstants';
+import {TextProps, FontStyleProps} from './textTypes';
 
 export function Text({
   text,

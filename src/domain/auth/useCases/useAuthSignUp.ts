@@ -1,8 +1,9 @@
 import {useAuthContext} from '@providers';
+import {MutationConfig} from 'src/domain/types';
+
 import {authService} from '../auth-service';
 import {AuthCredentials, AuthSignUpDTO} from '../auth-types';
 import {useAuthMutation} from '../hooks';
-import {MutationConfig} from 'src/domain/types';
 
 export function useAuthSignUp(config: MutationConfig<AuthCredentials>) {
   const {refreshCredentials} = useAuthContext();

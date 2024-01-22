@@ -1,5 +1,6 @@
-import {Box, Text} from '@components';
 import React from 'react';
+
+import {Box, Text} from '@components';
 
 type Props = {};
 
@@ -19,19 +20,22 @@ export function SocialSignIn({}: Props) {
           paddingHorizontal="sp50"
           borderRadius="rd8"
           borderColor="neutral80"
-          borderWidth={1}></Box>
+          borderWidth={1}
+        />
         <Box
           paddingVertical="sp28"
           paddingHorizontal="sp50"
           borderRadius="rd8"
           borderColor="neutral80"
-          borderWidth={1}></Box>
+          borderWidth={1}
+        />
         <Box
           paddingVertical="sp28"
           paddingHorizontal="sp50"
           borderRadius="rd8"
           borderColor="neutral80"
-          borderWidth={1}></Box>
+          borderWidth={1}
+        />
       </Box>
     </>
   );

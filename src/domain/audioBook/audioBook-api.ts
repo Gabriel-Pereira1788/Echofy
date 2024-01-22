@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {CredentialsAPI} from './audioBook-types';
 
 const CLIENT_ID = '201f7d16fe244215aa21b99ba2aa5423';
@@ -26,8 +27,6 @@ async function getAuthorization() {
 
   return credentials.data;
 }
-
-async function getById(id: string) {}
 
 async function get() {
   const response = await api.get('https://api.spotify.com/v1/audiobooks');

@@ -1,6 +1,7 @@
 import React from 'react';
-import {Box, BoxProps} from '../Box/Box';
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
+
+import {Box, BoxProps} from '../Box/Box';
 
 export interface ITouchableOpacityBoxProps extends TouchableOpacityProps {
   children: React.ReactNode;

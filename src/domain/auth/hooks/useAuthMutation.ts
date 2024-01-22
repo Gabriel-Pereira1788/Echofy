@@ -1,4 +1,6 @@
 import {useMutation} from '@tanstack/react-query';
+import {AxiosError} from 'axios';
+
 import {MutationConfig} from '../../types';
 
 interface AuthMutationsProps<Variables, Response> {
@@ -17,7 +19,8 @@ export function useAuthMutation<Variables, Response>(
     },
     onError: error => {
       if (props.onError) {
-        props.onError(error);
+        const Error = error as AxiosError;
+        props.onError(Error);
       }
     },
   });

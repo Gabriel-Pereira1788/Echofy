@@ -1,7 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useCallback, useEffect, useState} from 'react';
-import {UseFormGetValues, UseFormSetValue} from 'react-hook-form';
-import {SignInSchema} from './signInSchema';
+
 import {StorageKeys, storage} from '@infra';
+import {UseFormGetValues, UseFormSetValue} from 'react-hook-form';
+
+import {SignInSchema} from '../signInSchema';
 
 type Props = {
   getValues: UseFormGetValues<SignInSchema>;
@@ -31,8 +34,8 @@ export function useRemindAccessData({getValues, setValue}: Props) {
 
   useEffect(() => {
     const accessData = getAccessData();
-
-    if (!!accessData) {
+    console.log('entrou aqui', accessData);
+    if (accessData) {
       setIsRemembered(true);
       setValue('email', accessData.email);
       setValue('password', accessData.password);

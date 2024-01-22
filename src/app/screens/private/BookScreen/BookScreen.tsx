@@ -1,7 +1,9 @@
 import React from 'react';
-import {Box, Button, Text} from '@components';
+
 import {SharedWrapperScreen} from '@shared';
 import TrackPlayer from 'react-native-track-player';
+
+import {Box, Button} from '@components';
 
 type Props = {};
 

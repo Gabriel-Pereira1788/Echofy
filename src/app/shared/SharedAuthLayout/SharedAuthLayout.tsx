@@ -1,5 +1,6 @@
-import {Box, Text} from '@components';
 import React from 'react';
+
+import {Box, Text} from '@components';
 
 interface SharedAuthLayoutProps extends React.PropsWithChildren {
   title: string;

@@ -1,2 +1,2 @@
 export * from './useCases';
-export type {AuthCredentials} from './auth-types';
+export type {AuthCredentials, AuthSignInDTO} from './auth-types';

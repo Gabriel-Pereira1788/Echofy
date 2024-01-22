@@ -1,6 +1,8 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {BookScreen} from '@screens';
 import React from 'react';
+
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import {BookScreen} from '@screens';
 export type AppStackParamList = {
   BookScreen: undefined;
 };

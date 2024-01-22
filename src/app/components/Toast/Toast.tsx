@@ -1,9 +1,11 @@
 import React, {useEffect, useRef} from 'react';
+import {Animated} from 'react-native';
+
+import {useToastActions, useToastStore} from '@store';
+
 import {Box, BoxProps} from '../Box/Box';
 import {Icon} from '../Icon/Icon';
 import {Text} from '../Text/Text';
-import {useToastActions, useToastStore} from '@store';
-import {Animated} from 'react-native';
 
 type Props = {};
 
@@ -49,6 +51,7 @@ export function Toast({}: Props) {
   }
   return (
     <Animated.View
+      testID="toast"
       style={{
         alignSelf: 'center',
         position: 'absolute',

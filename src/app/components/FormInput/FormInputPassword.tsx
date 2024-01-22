@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-import {theme} from '@styles';
 import {Controller, FieldValues, UseControllerProps} from 'react-hook-form';
 
 import {Input, IInputProps} from '../Input/Input';
@@ -14,12 +13,6 @@ export function FormInputPassword<TFieldValue extends FieldValues>({
   errorMessage,
   ...props
 }: FormInputPasswordProps & UseControllerProps<TFieldValue>) {
-  const [isShowingPassword, setIsShowingPassword] = useState(false);
-
-  function toggleShowingPassword() {
-    setIsShowingPassword(prev => !prev);
-  }
-
   return (
     <Controller
       control={control}
@@ -29,7 +22,7 @@ export function FormInputPassword<TFieldValue extends FieldValues>({
         <Input
           errorMessage={fieldState.error?.message || errorMessage}
           textContentType="oneTimeCode"
-          secureTextEntry={!isShowingPassword}
+          secureTextEntry={true}
           onChangeText={field.onChange}
           value={field.value}
           {...props}

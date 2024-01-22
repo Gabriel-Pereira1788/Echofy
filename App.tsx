@@ -8,13 +8,14 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
 
-import {theme} from './src/app/styles/theme';
-import {ThemeProvider} from '@shopify/restyle';
-import {Router} from './src/app/router/Routes';
-import {QueryClientProvider} from '@tanstack/react-query';
 import {queryClient} from '@infra';
-import {AuthProvider} from './src/app/providers';
+import {ThemeProvider} from '@shopify/restyle';
+import {QueryClientProvider} from '@tanstack/react-query';
+
 import {Toast} from './src/app/components/Toast/Toast';
+import {AuthProvider} from './src/app/providers';
+import {Router} from './src/app/router/Routes';
+import {theme} from './src/app/styles/theme';
 
 global.Buffer = require('buffer').Buffer;
 function App(): React.JSX.Element {

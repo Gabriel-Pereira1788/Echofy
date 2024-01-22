@@ -1,6 +1,7 @@
+import React, {createContext, useContext, useEffect, useState} from 'react';
+
 import {AuthCredentials} from '@domain';
 import {StorageKeys, storage} from '@infra';
-import React, {createContext, useContext, useEffect, useState} from 'react';
 
 type Props = {
   uid?: string;

@@ -1,5 +1,6 @@
-import {Box} from '@components';
 import React from 'react';
+
+import {Box} from '@components';
 
 export function SharedWrapperScreen({children}: React.PropsWithChildren) {
   return (

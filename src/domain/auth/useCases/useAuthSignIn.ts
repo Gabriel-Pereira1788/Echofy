@@ -1,8 +1,9 @@
+import {useAuthContext} from '@providers';
+
+import {MutationConfig} from '../../types';
 import {authService} from '../auth-service';
 import {AuthCredentials, AuthSignInDTO} from '../auth-types';
-import {MutationConfig} from '../../types';
 import {useAuthMutation} from '../hooks';
-import {useAuthContext} from '@providers';
 
 export function useAuthSignIn(config: MutationConfig<AuthCredentials>) {
   const {refreshCredentials} = useAuthContext();
@@ -16,7 +17,7 @@ export function useAuthSignIn(config: MutationConfig<AuthCredentials>) {
       }
     },
     onError: err => {
-      console.log('error', err);
+      console.log('error', err.response?.status);
       if (config.onError) {
         config.onError(err);
       }

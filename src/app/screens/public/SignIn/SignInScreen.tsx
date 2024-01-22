@@ -1,4 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
+
+import {useAuthSignIn} from '@domain';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {AuthStackProps} from '@router';
+import {SharedAuthLayout} from '@shared';
+import {useToastActions} from '@store';
+import {useForm} from 'react-hook-form';
+
 import {
   Text,
   Button,
@@ -8,16 +16,10 @@ import {
   FormInput,
   FormInputPassword,
 } from '@components';
-import {SocialSignIn} from './components/SocialSignIn';
-import {AuthStackProps} from '@router';
-import {SharedAuthLayout} from '@shared';
-import {useAuthSignIn} from '@domain';
-import {zodResolver} from '@hookform/resolvers/zod';
 
-import {useForm} from 'react-hook-form';
+import {SocialSignIn} from './components/SocialSignIn';
+import {useRemindAccessData} from './hooks/useRemindAccessData';
 import {SignInSchema, signInSchema} from './signInSchema';
-import {useRemindAccessData} from './useRemindAccessData';
-import {useToastActions} from '@store';
 
 export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
   const {control, getValues, setValue, handleSubmit} = useForm<SignInSchema>({
@@ -35,6 +37,17 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
         title: 'Success!',
         message: 'Welcome user!',
         type: 'success',
+      });
+    },
+    onError: err => {
+      console.log('err', err.status);
+      toastActions.show({
+        title: 'Erro!',
+        message:
+          err.response?.status === 404
+            ? 'Invalid email or password.'
+            : 'Something is wrong, try again later.',
+        type: 'error',
       });
     },
   });
@@ -66,7 +79,7 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
           label="Remember me"
         />
         <Button
-          text="Entrar"
+          text="Login"
           onPress={handleSubmit(onSubmit)}
           disabled={isLoading}
         />

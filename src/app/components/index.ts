@@ -7,3 +7,4 @@ export * from './CheckBox/CheckBox';
 export * from './TouchableOpacityBox/TouchableOpacityBox';
 export * from './FormInput/FormInput';
 export * from './FormInput/FormInputPassword';
+export * from './Toast/Toast';

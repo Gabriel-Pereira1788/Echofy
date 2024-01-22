@@ -1,8 +1,9 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
+
 import {Box, BoxProps} from '../Box/Box';
-import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 import {Icon} from '../Icon/Icon';
 import {Text} from '../Text/Text';
+import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
 export interface CheckBoxProps {
   value: boolean;
@@ -17,8 +18,15 @@ export function CheckBox({onChange, value, label}: CheckBoxProps) {
 
   return (
     <Box flexDirection="row" gap="sp7" alignItems="center">
-      <TouchableOpacityBox boxProps={$wrapperBoxStyle} onPress={onPress}>
-        {value && <Icon color="neutral80" iconName="tickSquare" size="sp28" />}
+      <TouchableOpacityBox
+        testID="checkbox"
+        boxProps={$wrapperBoxStyle}
+        onPress={onPress}>
+        {value && (
+          <Box testID="icon-checked">
+            <Icon color="neutral80" iconName="tickSquare" size="sp28" />
+          </Box>
+        )}
       </TouchableOpacityBox>
       {label && <Text text={label} preset="regular/14" color="neutral80" />}
     </Box>

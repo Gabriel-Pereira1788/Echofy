@@ -1,8 +1,9 @@
 import React from 'react';
-import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
-import {Text} from '../Text/Text';
-import {BoxProps} from '../Box/Box';
 import {TouchableOpacityProps} from 'react-native';
+
+import {BoxProps} from '../Box/Box';
+import {Text} from '../Text/Text';
+import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
 export interface ButtonProps extends TouchableOpacityProps {
   text: string;

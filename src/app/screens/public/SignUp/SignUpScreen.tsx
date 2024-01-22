@@ -1,15 +1,18 @@
 import React from 'react';
-import {Button, Input, Box, FormInput} from '@components';
-import {TextDataPolicy} from './components/TextDataPolicy';
-import {SharedAuthLayout} from '@shared';
-import {AuthStackProps} from '@router';
+
 import {useAuthSignUp} from '@domain';
-import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {AuthStackProps} from '@router';
+import {SharedAuthLayout} from '@shared';
+import {useForm} from 'react-hook-form';
+
+import {Button, Box, FormInput} from '@components';
+
+import {TextDataPolicy} from './components/TextDataPolicy';
 import {SignUpSchema, signUpSchema} from './signUpSchema';
 
 export function SignUpScreen({}: AuthStackProps<'SignUpScreen'>) {
-  const {isLoading, signUp} = useAuthSignUp();
+  const {isLoading, signUp} = useAuthSignUp({});
 
   const {control, handleSubmit} = useForm<SignUpSchema>({
     defaultValues: {

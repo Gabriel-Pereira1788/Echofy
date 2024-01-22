@@ -19,6 +19,7 @@ module.exports = {
           '@providers': './src/app/providers',
           '@store': './src/app/store',
           '@utils': './src/app/helpers/utils',
+          '@test': './src/test',
         },
       },
     ],

@@ -1,6 +1,8 @@
-import {Theme} from '@styles';
-import {FontSize, FontWeight} from './textConstants';
 import {ReactNode} from 'react';
+
+import {Theme} from '@styles';
+
+import {FontSize, FontWeight} from './textConstants';
 
 export interface FontStyleProps {
   size?: FontSize;
