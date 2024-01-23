@@ -3,7 +3,10 @@ import {AuthSignInDTO} from '@domain';
 import {HttpResponse, http} from 'msw';
 
 import {authCredentialsMock, authSignInValidation} from './mock/user';
-export const authSignInHandler = [
+export const authHandler = [
+  http.post(`${BASE_URL}auth/signUp`, async () => {
+    return HttpResponse.json(authCredentialsMock, {status: 200});
+  }),
   http.post(`${BASE_URL}auth/signIn`, async ({request}) => {
     const authSignIn = (await request.json()) as AuthSignInDTO;
 

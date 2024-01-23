@@ -1,5 +1,5 @@
 import {setupServer} from 'msw/node';
 
-import {authSignInHandler} from './handlers';
+import {authHandler} from './handlers';
 
-export const server = setupServer(...authSignInHandler);
+export const server = setupServer(...authHandler);

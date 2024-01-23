@@ -10,9 +10,20 @@ import {Button, Box, FormInput} from '@components';
 
 import {TextDataPolicy} from './components/TextDataPolicy';
 import {SignUpSchema, signUpSchema} from './signUpSchema';
+import {useToastActions} from '@store';
 
-export function SignUpScreen({}: AuthStackProps<'SignUpScreen'>) {
-  const {isLoading, signUp} = useAuthSignUp({});
+export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
+  const toastActions = useToastActions();
+  const {isLoading, signUp} = useAuthSignUp({
+    onSuccess: () => {
+      toastActions.show({
+        title: 'Success!',
+        message: 'Registered successfully.',
+        type: 'success',
+      });
+    },
+    onError: () => {},
+  });
 
   const {control, handleSubmit} = useForm<SignUpSchema>({
     defaultValues: {
@@ -28,6 +39,10 @@ export function SignUpScreen({}: AuthStackProps<'SignUpScreen'>) {
     await signUp(data);
   }
 
+  function onCancel() {
+    navigation.pop();
+  }
+
   return (
     <SharedAuthLayout title="Register">
       <Box gap="sp15" width={'100%'}>
@@ -40,11 +55,11 @@ export function SignUpScreen({}: AuthStackProps<'SignUpScreen'>) {
         />
         <TextDataPolicy />
         <Button
-          text="Entrar"
+          text="Sign Up"
           onPress={handleSubmit(onSubmit)}
           disabled={isLoading}
         />
-        <Button text="Cancel" type="outline" />
+        <Button text="Cancel" type="outline" onPress={onCancel} />
       </Box>
     </SharedAuthLayout>
   );
