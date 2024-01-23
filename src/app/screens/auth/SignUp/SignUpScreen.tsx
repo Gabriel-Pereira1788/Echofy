@@ -4,13 +4,13 @@ import {useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {AuthStackProps} from '@router';
 import {SharedAuthLayout} from '@shared';
+import {useToastActions} from '@store';
 import {useForm} from 'react-hook-form';
 
 import {Button, Box, FormInput} from '@components';
 
 import {TextDataPolicy} from './components/TextDataPolicy';
 import {SignUpSchema, signUpSchema} from './signUpSchema';
-import {useToastActions} from '@store';
 
 export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
   const toastActions = useToastActions();

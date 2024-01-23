@@ -1,6 +1,8 @@
-import {act, fireEvent, renderScreen, screen, server, waitFor} from '@test';
-import {SignUpScreen} from '../../SignUpScreen';
 import React from 'react';
+
+import {act, fireEvent, renderScreen, screen, server, waitFor} from '@test';
+
+import {SignUpScreen} from '../../SignUpScreen';
 
 const navigation: any = {
   pop: jest.fn(),
