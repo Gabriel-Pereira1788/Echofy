@@ -1,14 +1,16 @@
 import {useAuthContext} from '@providers';
-import {MutationConfig} from 'src/domain/types';
 
+import {CommonError, MutationConfig} from '../../types';
 import {authService} from '../auth-service';
 import {AuthCredentials, AuthSignUpDTO} from '../auth-types';
 import {useAuthMutation} from '../hooks';
 
-export function useAuthSignUp(config: MutationConfig<AuthCredentials>) {
+export function useAuthSignUp(
+  config: MutationConfig<AuthCredentials, CommonError>,
+) {
   const {refreshCredentials} = useAuthContext();
 
-  const {isLoading, mutate} = useAuthMutation({
+  const {isLoading, isSuccess, mutate} = useAuthMutation({
     serviceFn: authService.signUp,
     onSuccess: ac => {
       refreshCredentials(ac);
@@ -20,7 +22,11 @@ export function useAuthSignUp(config: MutationConfig<AuthCredentials>) {
     },
     onError: err => {
       if (config.onError) {
-        config.onError(err);
+        const ERROR_MESSAGE = 'Something is wrong, try again later.';
+        config.onError({
+          message: ERROR_MESSAGE,
+          status: err && err.response ? err.response?.status : 500,
+        });
       }
       console.log('signUpError', err);
     },
@@ -28,6 +34,7 @@ export function useAuthSignUp(config: MutationConfig<AuthCredentials>) {
 
   return {
     isLoading,
+    isSuccess,
     signUp: (variables: AuthSignUpDTO) => mutate(variables),
   };
 }

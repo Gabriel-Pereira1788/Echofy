@@ -43,10 +43,7 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
       console.log('err', err.status);
       toastActions.show({
         title: 'Erro!',
-        message:
-          err.response?.status === 404
-            ? 'Invalid email or password.'
-            : 'Something is wrong, try again later.',
+        message: err.message,
         type: 'error',
       });
     },

@@ -10,7 +10,11 @@ interface AuthMutationsProps<Variables, Response> {
 export function useAuthMutation<Variables, Response>(
   props: AuthMutationsProps<Variables, Response> & MutationConfig<Response>,
 ) {
-  const {isPending, mutate} = useMutation<Response, Error, Variables>({
+  const {isPending, isSuccess, mutate} = useMutation<
+    Response,
+    Error,
+    Variables
+  >({
     mutationFn: variables => props.serviceFn(variables),
     onSuccess: data => {
       if (props.onSuccess) {
@@ -19,13 +23,14 @@ export function useAuthMutation<Variables, Response>(
     },
     onError: error => {
       if (props.onError) {
-        const Error = error as AxiosError;
+        const Error = error as AxiosError<{message: string}>;
         props.onError(Error);
       }
     },
   });
 
   return {
+    isSuccess,
     isLoading: isPending,
     mutate,
   };

@@ -1,6 +1,11 @@
 import {AxiosError} from 'axios';
 
-export interface MutationConfig<TData> {
+export interface MutationConfig<TData, TError = AxiosError<{message: string}>> {
   onSuccess?: (data: TData) => void;
-  onError?: (error: AxiosError) => void;
+  onError?: (error: TError) => void;
 }
+
+export type CommonError = {
+  status: number;
+  message: string;
+};
