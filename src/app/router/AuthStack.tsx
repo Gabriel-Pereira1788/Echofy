@@ -2,11 +2,15 @@ import React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {SignInScreen, SignUpScreen} from '@screens';
+import {PersonalizationScreen, SignInScreen, SignUpScreen} from '@screens';
+
+import {WelcomeScreen} from '../screens/public/Welcome/WelcomeScreen';
 
 export type AuthStackParamList = {
   SignInScreen: undefined;
   SignUpScreen: undefined;
+  WelcomeScreen: {id: string};
+  PersonalizationScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
@@ -22,6 +26,22 @@ export function AuthStack() {
       <Stack.Screen
         name="SignInScreen"
         component={SignInScreen}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+        }}
+      />
+      <Stack.Screen
+        name="WelcomeScreen"
+        component={WelcomeScreen}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+        }}
+      />
+      <Stack.Screen
+        name="PersonalizationScreen"
+        component={PersonalizationScreen}
         options={{
           headerTransparent: true,
           headerTitle: '',

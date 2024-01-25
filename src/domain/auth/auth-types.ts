@@ -15,10 +15,12 @@ export interface AuthCredentialsAPI {
   birthDate: string;
   email: string;
   token: string;
+  firstLogin?: boolean;
 }
 
 export interface AuthCredentials {
   email: string;
   birthDate: string;
   id: string;
+  firstLogin?: boolean;
 }

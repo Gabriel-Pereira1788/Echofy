@@ -32,12 +32,16 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
 
   const toastActions = useToastActions();
   const {isLoading, signIn} = useAuthSignIn({
-    onSuccess: () => {
+    onSuccess: ac => {
       toastActions.show({
         title: 'Success!',
         message: 'Welcome user!',
         type: 'success',
       });
+
+      if (ac.firstLogin) {
+        navigation.navigate('WelcomeScreen', {id: ac.id});
+      }
     },
     onError: err => {
       console.log('err', err.status);

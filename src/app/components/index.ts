@@ -8,3 +8,4 @@ export * from './TouchableOpacityBox/TouchableOpacityBox';
 export * from './FormInput/FormInput';
 export * from './FormInput/FormInputPassword';
 export * from './Toast/Toast';
+export * from './Image/Image';

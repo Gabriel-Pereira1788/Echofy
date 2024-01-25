@@ -44,6 +44,7 @@ export const theme = createTheme({
     white: pallete.white,
   },
   spacing: {
+    sp3: 3,
     sp7: 7,
 
     sp10: 10,
@@ -59,6 +60,7 @@ export const theme = createTheme({
     rd4: 4,
     rd8: 8,
     rd12: 12,
+    rd15: 15,
   },
 });
 

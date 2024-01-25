@@ -6,13 +6,15 @@ export type FontSize =
   | 'medium20'
   | 'medium24'
   | 'big32'
-  | 'big48';
+  | 'big48'
+  | 'big55';
 
 export type FontWeight = 'light' | 'regular' | 'medium' | 'semiBold' | 'bold';
 
 export const $fontSize: Record<FontSize, number> = {
   big32: 32,
   big48: 48,
+  big55: 55,
   medium16: 16,
   medium20: 20,
   medium24: 24,
