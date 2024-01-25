@@ -7,9 +7,12 @@ import {Text} from '../Text/Text';
 
 export interface IInputProps extends TextInputProps {
   errorMessage?: string;
+  disabled?: boolean;
 }
 
-export function Input({errorMessage, ...rest}: IInputProps) {
+export function Input({errorMessage, disabled, ...rest}: IInputProps) {
+  rest.onChange = !disabled ? rest.onChange : undefined;
+  rest.onChangeText = !disabled ? rest.onChangeText : undefined;
   return (
     <Box>
       <Box

@@ -1,2 +1,2 @@
-export * from './audioBook';
-export * from './auth';
+export * from './Auth';
+export * from './Book';

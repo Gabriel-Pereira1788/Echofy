@@ -1,7 +1,7 @@
 import {BASE_URL} from '@api';
 import {AuthSignInDTO} from '@domain';
 import {HttpResponse, http} from 'msw';
-import {AuthSignUpDTO} from 'src/domain/auth/auth-types';
+import {AuthSignUpDTO} from 'src/domain/Auth/auth-types';
 
 import {authCredentialsAPIMock, authSignInValidation} from './mock/user';
 export const authHandler = [

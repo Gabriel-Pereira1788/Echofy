@@ -1,34 +1,39 @@
-import React, {useCallback, useState} from 'react';
-import {FlatList, ListRenderItem} from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {ActivityIndicator} from 'react-native';
 
+import {BookCategory, useBookCategories} from '@domain';
 import {AuthStackProps} from '@router';
 import {SharedPublicLayout} from '@shared';
+import {theme} from '@styles';
 
-import {Box, Button, Input, Text} from '@components';
+import {Box, Button, Text} from '@components';
 
-import {mockedCategories} from './mock/mockCategories';
+import {
+  PersonalizationScreenRenderCategories,
+  PersonalizationScreenSearch,
+} from './components';
 
 export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'>) {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const {categories, isLoading} = useBookCategories();
 
-  function handleSelectCategory(category: string) {
-    setSelectedCategories(prev => [...prev, category]);
-  }
-  const renderItem: ListRenderItem<string> = useCallback(
-    ({item}) => {
-      const isSelected = selectedCategories.find(category => category === item);
-      return (
-        <Box alignItems="center" justifyContent="center" marginHorizontal="sp3">
-          <Button
-            text={item}
-            type={isSelected ? 'selected' : 'category'}
-            onPress={() => handleSelectCategory(item)}
-          />
-        </Box>
-      );
-    },
-    [selectedCategories],
+  const allCategories = useRef<BookCategory[]>([]);
+  const [categoriesToRender, setCategoriesToRender] = useState<BookCategory[]>(
+    [],
   );
+
+  const changeCategoriesToRender = useCallback(
+    (newCategoriesToRender: BookCategory[]) => {
+      setCategoriesToRender(newCategoriesToRender);
+    },
+    [],
+  );
+
+  useEffect(() => {
+    if (categories && categories.length > 0) {
+      setCategoriesToRender(categories);
+      allCategories.current = categories;
+    }
+  }, [categories]);
   return (
     <SharedPublicLayout>
       <Box gap="sp28" padding="sp15">
@@ -44,17 +49,21 @@ export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'
             preset="regular/14"
           />
         </Box>
-        <Input placeholder="Search Categories" />
-
-        <Box flexDirection="row">
-          <FlatList
-            data={mockedCategories}
-            numColumns={3}
-            keyExtractor={(_, index) => index.toString()}
-            renderItem={renderItem}
-            scrollEnabled={false}
-            ItemSeparatorComponent={() => <Box height={10} />}
-          />
+        <PersonalizationScreenSearch
+          disabled={isLoading}
+          allCategories={allCategories.current}
+          categoriesToRender={categoriesToRender}
+          changeCategoriesToRender={changeCategoriesToRender}
+        />
+        <Box flexDirection="row" alignSelf="center">
+          {isLoading && !categories ? (
+            <ActivityIndicator size={20} color={theme.colors.primary80} />
+          ) : (
+            <PersonalizationScreenRenderCategories
+              categories={categoriesToRender!}
+              changeCategoriesToRender={changeCategoriesToRender}
+            />
+          )}
         </Box>
 
         <Box gap="sp7">

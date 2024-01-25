@@ -2,7 +2,7 @@ import {
   AuthCredentials,
   AuthCredentialsAPI,
   AuthSignInDTO,
-} from 'src/domain/auth/auth-types';
+} from 'src/domain/Auth/auth-types';
 
 export const authCredentialsAPIMock: AuthCredentialsAPI = {
   id: '3e919f78-11e6-4a46-93ad-be96e57118e3',

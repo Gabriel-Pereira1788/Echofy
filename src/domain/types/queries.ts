@@ -1,1 +1,3 @@
-export enum Queries {}
+export enum Queries {
+  BookCategories = '@bookCategories',
+}
