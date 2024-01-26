@@ -6,41 +6,31 @@ import {Box, Button} from '@components';
 
 type Props = {
   category: BookCategory;
-  categories: BookCategory[];
-  changeCategoriesToRender: (newCategories: BookCategory[]) => void;
+  allCategories: BookCategory[];
+  changeSelectedCategories: (newCategories: BookCategory[]) => void;
 };
 
 export function PersonalizationScreenCategoryItem({
   category,
-  categories,
-  changeCategoriesToRender,
+  allCategories,
+  changeSelectedCategories,
 }: Props) {
-  function selectCategory() {
-    const newSelectedCategories = categories.map(_category => {
+  const selectCategory = () => handleSelectCategory(true);
+
+  const unSelectCategory = () => handleSelectCategory(false);
+
+  function handleSelectCategory(isSelected: boolean) {
+    const newSelectedCategories = allCategories.map(_category => {
       if (_category.text === category.text) {
         return {
           text: _category.text,
-          isSelected: true,
+          isSelected,
         };
       }
 
       return _category;
     });
-    changeCategoriesToRender(newSelectedCategories);
-  }
-
-  function unSelectCategory() {
-    const newSelectedCategories = categories.map(_category => {
-      if (_category.text === category.text) {
-        return {
-          text: _category.text,
-          isSelected: false,
-        };
-      }
-
-      return _category;
-    });
-    changeCategoriesToRender(newSelectedCategories);
+    changeSelectedCategories(newSelectedCategories);
   }
   return (
     <Box alignItems="center" justifyContent="center" marginHorizontal="sp3">

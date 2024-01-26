@@ -8,28 +8,30 @@ import {Box, Text, TouchableOpacityBox} from '@components';
 import {PersonalizationScreenCategoryItem} from '../PersonalizationScreenCategoryItem/PersonalizationScreenCategoryItem';
 
 type Props = {
-  categories: BookCategory[];
-  changeCategoriesToRender: (newCategories: BookCategory[]) => void;
+  categoriesToRender: BookCategory[];
+  allCategories: BookCategory[];
+  changeSelectedCategories: (newCategories: BookCategory[]) => void;
 };
 
 export function PersonalizationScreenRenderCategories({
-  categories,
-  changeCategoriesToRender,
+  categoriesToRender,
+  allCategories,
+  changeSelectedCategories,
 }: Props) {
   const [renderLimit, setRenderLimit] = useState(8);
 
-  const dataCategories = filterCategories(categories);
+  const dataCategories = filterCategories(categoriesToRender);
   const renderItem: ListRenderItem<BookCategory> = useCallback(
     ({item}) => {
       return (
         <PersonalizationScreenCategoryItem
           category={item}
-          categories={categories}
-          changeCategoriesToRender={changeCategoriesToRender}
+          allCategories={allCategories}
+          changeSelectedCategories={changeSelectedCategories}
         />
       );
     },
-    [categories, changeCategoriesToRender],
+    [allCategories, changeSelectedCategories],
   );
 
   function onLoadMore() {

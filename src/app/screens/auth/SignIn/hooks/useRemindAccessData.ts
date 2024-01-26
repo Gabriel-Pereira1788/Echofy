@@ -34,7 +34,6 @@ export function useRemindAccessData({getValues, setValue}: Props) {
 
   useEffect(() => {
     const accessData = getAccessData();
-    console.log('entrou aqui', accessData);
     if (accessData) {
       setIsRemembered(true);
       setValue('email', accessData.email);

@@ -1,3 +1,5 @@
+import {BookCategory} from '../Book';
+
 export interface AuthSignInDTO {
   email: string;
   password: string;
@@ -16,6 +18,7 @@ export interface AuthCredentialsAPI {
   email: string;
   token: string;
   firstLogin?: boolean;
+  userCategories?: string[];
 }
 
 export interface AuthCredentials {
@@ -23,4 +26,10 @@ export interface AuthCredentials {
   birthDate: string;
   id: string;
   firstLogin?: boolean;
+  userCategories?: string[];
+}
+
+export interface FinishRegisterVariables {
+  uid: string;
+  userSelectedCategories: BookCategory[];
 }

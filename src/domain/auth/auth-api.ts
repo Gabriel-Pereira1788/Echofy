@@ -1,6 +1,11 @@
 import {api} from '@api';
 
-import {AuthCredentialsAPI, AuthSignInDTO, AuthSignUpDTO} from './auth-types';
+import {
+  AuthCredentials,
+  AuthCredentialsAPI,
+  AuthSignInDTO,
+  AuthSignUpDTO,
+} from './auth-types';
 
 async function signIn(signInDTO: AuthSignInDTO) {
   const response = await api.post<AuthCredentialsAPI>('auth/signIn', signInDTO);
@@ -14,7 +19,17 @@ async function signUp(signUpDTO: AuthSignUpDTO) {
   return response.data;
 }
 
+async function update(uid: string, body: Partial<AuthCredentials>) {
+  const response = await api.patch<AuthCredentialsAPI>(
+    `auth/update/${uid}`,
+    body,
+  );
+
+  return response.data;
+}
+
 export const authApi = {
   signIn,
   signUp,
+  update,
 };

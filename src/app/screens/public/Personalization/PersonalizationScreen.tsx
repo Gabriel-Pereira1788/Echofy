@@ -6,19 +6,25 @@ import {AuthStackProps} from '@router';
 import {SharedPublicLayout} from '@shared';
 import {theme} from '@styles';
 
-import {Box, Button, Text} from '@components';
+import {Box, Button} from '@components';
 
 import {
+  PersonalizationScreenHeader,
   PersonalizationScreenRenderCategories,
   PersonalizationScreenSearch,
 } from './components';
 
-export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'>) {
+export function PersonalizationScreen({
+  navigation,
+}: AuthStackProps<'PersonalizationScreen'>) {
   const {categories, isLoading} = useBookCategories();
 
   const allCategories = useRef<BookCategory[]>([]);
   const [categoriesToRender, setCategoriesToRender] = useState<BookCategory[]>(
     [],
+  );
+  const selectedCategories = categoriesToRender.filter(
+    _category => _category.isSelected,
   );
 
   const changeCategoriesToRender = useCallback(
@@ -27,6 +33,22 @@ export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'
     },
     [],
   );
+
+  const changeSelectedCategories = useCallback(
+    (newSelectedCategories: BookCategory[]) => {
+      setCategoriesToRender(newSelectedCategories);
+      allCategories.current = newSelectedCategories;
+    },
+    [],
+  );
+
+  function onSubmitSelectedCategories() {
+    navigation.navigate('ReadyToGoScreen', {selectedCategories});
+  }
+
+  function onSkip() {
+    navigation.navigate('ReadyToGoScreen', {selectedCategories});
+  }
 
   useEffect(() => {
     if (categories && categories.length > 0) {
@@ -37,22 +59,10 @@ export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'
   return (
     <SharedPublicLayout>
       <Box gap="sp28" padding="sp15">
-        <Box gap="sp10">
-          <Text
-            text="Personalize Suggestion"
-            color="neutral80"
-            preset="semiBold/16"
-          />
-          <Text
-            text="Choose min 3 topic you like, we will give you more often that relate to it."
-            color="neutral80"
-            preset="regular/14"
-          />
-        </Box>
+        <PersonalizationScreenHeader />
         <PersonalizationScreenSearch
           disabled={isLoading}
           allCategories={allCategories.current}
-          categoriesToRender={categoriesToRender}
           changeCategoriesToRender={changeCategoriesToRender}
         />
         <Box flexDirection="row" alignSelf="center">
@@ -60,15 +70,20 @@ export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'
             <ActivityIndicator size={20} color={theme.colors.primary80} />
           ) : (
             <PersonalizationScreenRenderCategories
-              categories={categoriesToRender!}
-              changeCategoriesToRender={changeCategoriesToRender}
+              allCategories={allCategories.current}
+              categoriesToRender={categoriesToRender!}
+              changeSelectedCategories={changeSelectedCategories}
             />
           )}
         </Box>
 
         <Box gap="sp7">
-          <Button text="Submit" />
-          <Button text="Skip" type="outline" />
+          <Button
+            text="Submit"
+            disabled={selectedCategories.length < 3}
+            onPress={onSubmitSelectedCategories}
+          />
+          <Button text="Skip" type="outline" onPress={onSkip} />
         </Box>
       </Box>
     </SharedPublicLayout>

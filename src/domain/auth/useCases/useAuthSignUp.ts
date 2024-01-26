@@ -15,7 +15,6 @@ export function useAuthSignUp(
     onSuccess: ac => {
       refreshCredentials(ac);
 
-      console.log('success', ac);
       if (config.onSuccess) {
         config.onSuccess(ac);
       }

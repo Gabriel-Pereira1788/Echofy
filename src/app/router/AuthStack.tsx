@@ -1,15 +1,22 @@
 import React from 'react';
 
+import {BookCategory} from '@domain';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {PersonalizationScreen, SignInScreen, SignUpScreen} from '@screens';
+import {
+  PersonalizationScreen,
+  ReadyToGoScreen,
+  SignInScreen,
+  SignUpScreen,
+} from '@screens';
 
 import {WelcomeScreen} from '../screens/public/Welcome/WelcomeScreen';
 
 export type AuthStackParamList = {
   SignInScreen: undefined;
   SignUpScreen: undefined;
-  WelcomeScreen: {id: string};
+  WelcomeScreen: {uid: string};
+  ReadyToGoScreen: {selectedCategories: BookCategory[]};
   PersonalizationScreen: undefined;
 };
 
@@ -39,6 +46,16 @@ export function AuthStack() {
           headerTitle: '',
         }}
       />
+
+      <Stack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+        }}
+      />
+
       <Stack.Screen
         name="PersonalizationScreen"
         component={PersonalizationScreen}
@@ -48,8 +65,8 @@ export function AuthStack() {
         }}
       />
       <Stack.Screen
-        name="SignUpScreen"
-        component={SignUpScreen}
+        name="ReadyToGoScreen"
+        component={ReadyToGoScreen}
         options={{
           headerTransparent: true,
           headerTitle: '',

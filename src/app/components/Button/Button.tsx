@@ -13,7 +13,7 @@ export interface ButtonProps extends TouchableOpacityProps {
 }
 
 export function Button({text, type = 'filled', ...rest}: ButtonProps) {
-  const $wrapperStyle = buildWrapperStyle(type);
+  const $wrapperStyle = buildWrapperStyle(type, rest.disabled);
   const $colorText = buildColorText(type);
   return (
     <TouchableOpacityBox boxProps={$wrapperStyle} {...rest}>
@@ -29,12 +29,16 @@ const buildColorText = (type: ButtonProps['type']): keyof Theme['colors'] => {
   return 'white';
 };
 
-const buildWrapperStyle = (type: ButtonProps['type']): BoxProps => {
+const buildWrapperStyle = (
+  type: ButtonProps['type'],
+  disabled?: boolean,
+): BoxProps => {
   const commonStyle: BoxProps = {
     padding: 'sp16',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 'rd8',
+    opacity: disabled ? 0.3 : 1,
   };
   if (type === 'selected') {
     return {
