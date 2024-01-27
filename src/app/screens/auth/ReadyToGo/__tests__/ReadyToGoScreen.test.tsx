@@ -81,7 +81,7 @@ describe('ReadyToGoScreen', () => {
   });
 
   it('should be dispatch finish register correctly', async () => {
-    const SUCCESS_MESSAGE = 'Welcome!';
+    const SUCCESS_MESSAGE = 'Registration completed successfully!';
 
     const {buttonFinish} = customRenderScreen({});
     fireEvent.press(buttonFinish);
