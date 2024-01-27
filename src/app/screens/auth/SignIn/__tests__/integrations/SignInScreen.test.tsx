@@ -1,6 +1,14 @@
 import React from 'react';
 
-import {act, fireEvent, renderScreen, screen, server, waitFor} from '@test';
+import {
+  act,
+  authCredentialsAPIMock,
+  fireEvent,
+  renderScreen,
+  screen,
+  server,
+  waitFor,
+} from '@test';
 
 import {SignInScreen} from '../../SignInScreen';
 
@@ -102,7 +110,7 @@ describe('SignInScreen', () => {
   it('should send login data successfully', async () => {
     const {inputEmail, inputPassword, buttonLogin} = customRenderScreen();
 
-    const SUCCESS_MESSAGE = 'Welcome user!';
+    const SUCCESS_MESSAGE = 'Welcome!';
     fireEvent.changeText(inputEmail, 'johnDoe@gmail.com');
     fireEvent.changeText(inputPassword, 'johnDoe555');
 
@@ -114,6 +122,9 @@ describe('SignInScreen', () => {
     act(() => jest.runAllTimers());
 
     expect(screen.queryByTestId('toast')).toBeNull();
+    expect(navigation.navigate).toHaveBeenCalledWith('WelcomeScreen', {
+      uid: authCredentialsAPIMock.id,
+    });
   });
 
   it('should send login data wrong credentials', async () => {

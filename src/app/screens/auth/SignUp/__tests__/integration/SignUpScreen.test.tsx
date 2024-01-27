@@ -1,11 +1,20 @@
 import React from 'react';
 
-import {act, fireEvent, renderScreen, screen, server, waitFor} from '@test';
+import {
+  act,
+  authCredentialsAPIMock,
+  fireEvent,
+  renderScreen,
+  screen,
+  server,
+  waitFor,
+} from '@test';
 
 import {SignUpScreen} from '../../SignUpScreen';
 
 const navigation: any = {
   pop: jest.fn(),
+  navigate: jest.fn(),
 };
 function customRenderScreen() {
   renderScreen(<SignUpScreen navigation={navigation} route={{} as any} />);
@@ -113,5 +122,8 @@ describe('SignUp', () => {
     act(() => jest.runAllTimers());
 
     expect(screen.queryByTestId('toast')).toBeNull();
+    expect(navigation.navigate).toHaveBeenCalledWith('WelcomeScreen', {
+      uid: authCredentialsAPIMock.id,
+    });
   });
 });

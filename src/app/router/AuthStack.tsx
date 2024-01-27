@@ -10,7 +10,7 @@ import {
   SignUpScreen,
 } from '@screens';
 
-import {WelcomeScreen} from '../screens/public/Welcome/WelcomeScreen';
+import {WelcomeScreen} from '../screens/auth/Welcome/WelcomeScreen';
 
 export type AuthStackParamList = {
   SignInScreen: undefined;

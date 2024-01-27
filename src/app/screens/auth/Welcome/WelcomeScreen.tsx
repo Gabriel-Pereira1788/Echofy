@@ -9,6 +9,10 @@ export function WelcomeScreen({navigation}: AuthStackProps<'WelcomeScreen'>) {
   function redirectToPersonalizationScreen() {
     navigation.navigate('PersonalizationScreen');
   }
+
+  function onSkip() {
+    navigation.navigate('ReadyToGoScreen', {selectedCategories: []});
+  }
   return (
     <SharedPublicLayout>
       <Box gap="sp28" padding="sp15">
@@ -30,7 +34,7 @@ export function WelcomeScreen({navigation}: AuthStackProps<'WelcomeScreen'>) {
             text="Personalize Your Account"
             onPress={redirectToPersonalizationScreen}
           />
-          <Button text="Skip" type="outline" />
+          <Button text="Skip" type="outline" onPress={onSkip} />
         </Box>
       </Box>
     </SharedPublicLayout>

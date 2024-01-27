@@ -27,7 +27,7 @@ export function useAuthSignUp(
           status: err && err.response ? err.response?.status : 500,
         });
       }
-      console.log('signUpError', err);
+      console.log('signUpError', err.response);
     },
   });
 

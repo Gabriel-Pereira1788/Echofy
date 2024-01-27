@@ -15,6 +15,7 @@ export function useAuthFinishRegister(
       }
     },
     onError: err => {
+      console.log('error on finish register', err);
       if (config.onError) {
         const ERROR_MESSAGE = 'Something is wrong.';
         config.onError({

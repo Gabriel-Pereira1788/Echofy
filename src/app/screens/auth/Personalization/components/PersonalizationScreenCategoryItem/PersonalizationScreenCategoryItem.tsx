@@ -33,8 +33,13 @@ export function PersonalizationScreenCategoryItem({
     changeSelectedCategories(newSelectedCategories);
   }
   return (
-    <Box alignItems="center" justifyContent="center" marginHorizontal="sp3">
+    <Box
+      alignItems="center"
+      justifyContent="center"
+      marginHorizontal="sp3"
+      testID="category-item">
       <Button
+        testID="category-item-button"
         text={category.text}
         type={category.isSelected ? 'selected' : 'category'}
         onPress={() =>

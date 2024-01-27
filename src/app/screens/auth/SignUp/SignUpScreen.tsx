@@ -15,14 +15,24 @@ import {SignUpSchema, signUpSchema} from './signUpSchema';
 export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
   const toastActions = useToastActions();
   const {isLoading, signUp} = useAuthSignUp({
-    onSuccess: () => {
+    onSuccess: ac => {
       toastActions.show({
         title: 'Success!',
         message: 'Registered successfully.',
         type: 'success',
       });
+
+      if (ac.firstLogin) {
+        navigation.navigate('WelcomeScreen', {uid: ac.id});
+      }
     },
-    onError: () => {},
+    onError: error => {
+      toastActions.show({
+        title: 'Error!',
+        message: error.message,
+        type: 'error',
+      });
+    },
   });
 
   const {control, handleSubmit} = useForm<SignUpSchema>({

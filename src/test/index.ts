@@ -1,3 +1,10 @@
 export * from './utils';
 
-export {server, authCredentialsMock} from './serverHandlers';
+export {
+  server,
+  authCredentialsMock,
+  authCredentialsAPIMock,
+  bookCategoryMock,
+  allCategoriesMock,
+  authCredentialsValidatedAPIMock,
+} from './serverHandlers';

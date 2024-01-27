@@ -35,12 +35,12 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
     onSuccess: ac => {
       toastActions.show({
         title: 'Success!',
-        message: 'Welcome user!',
+        message: 'Welcome!',
         type: 'success',
       });
 
       if (ac.firstLogin) {
-        navigation.navigate('WelcomeScreen', {id: ac.id});
+        navigation.navigate('WelcomeScreen', {uid: ac.id});
       }
     },
     onError: err => {

@@ -3,8 +3,15 @@ import {AuthSignInDTO} from '@domain';
 import {HttpResponse, http} from 'msw';
 import {AuthSignUpDTO} from 'src/domain/Auth/auth-types';
 
-import {authCredentialsAPIMock, authSignInValidation} from './mock/user';
+import {
+  authCredentialsAPIMock,
+  authCredentialsMock,
+  authSignInValidation,
+} from './mock/user';
 export const authHandler = [
+  http.patch(`${BASE_URL}auth/update/${authCredentialsMock.id}`, async () => {
+    return HttpResponse.json(authCredentialsAPIMock, {status: 200});
+  }),
   http.post(`${BASE_URL}auth/signUp`, async ({request}) => {
     const authSignUp = (await request.json()) as AuthSignUpDTO;
     if (

@@ -33,7 +33,9 @@ function wrapAllProviders() {
 
   return ({children}: React.PropsWithChildren) => (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>{children}</AuthProvider>
+      <ThemeProvider theme={theme}>
+        <AuthProvider>{children}</AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

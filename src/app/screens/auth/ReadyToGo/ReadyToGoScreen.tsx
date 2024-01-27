@@ -4,6 +4,7 @@ import {useAuthFinishRegister} from '@domain';
 import {useAuthContext} from '@providers';
 import {AuthStackProps} from '@router';
 import {SharedPublicLayout} from '@shared';
+import {useToastActions} from '@store';
 
 import {Box, Button, Image, Text} from '@components';
 
@@ -11,8 +12,21 @@ export function ReadyToGoScreen({route}: AuthStackProps<'ReadyToGoScreen'>) {
   const params = route.params;
 
   const {uid} = useAuthContext();
+  const toastActions = useToastActions();
+
+  console.log('uid', uid);
   const {finishRegister, isLoading} = useAuthFinishRegister({
-    onSuccess: ac => {},
+    onSuccess: () => {
+      toastActions.show({
+        title: 'Registration completed successfully!',
+        message: '',
+        type: 'success',
+      });
+    },
+
+    onError: error => {
+      console.log('error', error);
+    },
   });
 
   async function onFinishRegister() {
@@ -26,7 +40,7 @@ export function ReadyToGoScreen({route}: AuthStackProps<'ReadyToGoScreen'>) {
   return (
     <SharedPublicLayout>
       <Box gap="sp28" width={'100%'} alignItems="center" padding="sp16">
-        <Box>
+        <Box testID="wrapper-image">
           <Image imageName="huray" width={250} height={250} />
         </Box>
         <Text text="You are ready to go!" preset="semiBold/16" color="black" />
