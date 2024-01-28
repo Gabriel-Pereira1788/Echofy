@@ -1,9 +1,9 @@
 import React from 'react';
 
+import {useAuthContext} from '@providers';
 import {SharedWrapperScreen} from '@shared';
 
 import {Button, Text} from '@components';
-import {useAuthContext} from '@providers';
 
 export function HomeScreen() {
   const {removeCredentials} = useAuthContext();

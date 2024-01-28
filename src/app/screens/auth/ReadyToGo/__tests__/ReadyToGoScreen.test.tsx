@@ -41,13 +41,14 @@ function customRenderScreen({
   };
 }
 const mockUid = authCredentialsMock.id;
-
+const mockRefreshCredentials = jest.fn();
 jest.mock('@providers', () => {
   const originalModule = jest.requireActual('@providers');
   return {
     ...originalModule,
     useAuthContext: () => ({
       uid: mockUid,
+      refreshCredentials: mockRefreshCredentials,
     }),
   };
 });
@@ -92,5 +93,6 @@ describe('ReadyToGoScreen', () => {
     act(() => jest.runAllTimers());
 
     expect(screen.queryByTestId('toast')).toBeNull();
+    expect(mockRefreshCredentials).toHaveBeenCalled();
   });
 });

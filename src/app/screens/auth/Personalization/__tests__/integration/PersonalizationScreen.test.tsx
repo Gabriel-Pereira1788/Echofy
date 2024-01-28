@@ -72,19 +72,13 @@ describe('PersonalizationScreen', () => {
     const categorySecond = categoryItens[1];
     const categoryThird = categoryItens[2];
 
-    act(() => {
-      fireEvent.press(categoryFirst);
-    });
-    act(() => {
-      fireEvent.press(categorySecond);
-    });
-    act(() => {
-      fireEvent.press(categoryThird);
-    });
+    fireEvent.press(categoryFirst);
 
-    act(() => {
-      fireEvent.press(buttonSubmit);
-    });
+    fireEvent.press(categorySecond);
+
+    fireEvent.press(categoryThird);
+
+    fireEvent.press(buttonSubmit);
 
     expect(mockReset).toHaveBeenCalled();
   });
