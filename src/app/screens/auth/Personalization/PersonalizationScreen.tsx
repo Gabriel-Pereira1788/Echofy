@@ -7,6 +7,7 @@ import {SharedPublicLayout} from '@shared';
 import {theme} from '@styles';
 
 import {Box, Button} from '@components';
+import {useResetAuthStack} from '@hooks';
 
 import {
   PersonalizationScreenHeader,
@@ -14,11 +15,9 @@ import {
   PersonalizationScreenSearch,
 } from './components';
 
-export function PersonalizationScreen({
-  navigation,
-}: AuthStackProps<'PersonalizationScreen'>) {
+export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'>) {
   const {categories, isLoading} = useBookCategories();
-
+  const {reset} = useResetAuthStack();
   const allCategories = useRef<BookCategory[]>([]);
   const [categoriesToRender, setCategoriesToRender] = useState<BookCategory[]>(
     [],
@@ -43,11 +42,11 @@ export function PersonalizationScreen({
   );
 
   function onSubmitSelectedCategories() {
-    navigation.navigate('ReadyToGoScreen', {selectedCategories});
+    reset({selectedCategories});
   }
 
   function onSkip() {
-    navigation.navigate('ReadyToGoScreen', {selectedCategories});
+    reset({selectedCategories});
   }
 
   useEffect(() => {

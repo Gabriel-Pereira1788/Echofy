@@ -1,25 +1,6 @@
 import {createTheme} from '@shopify/restyle';
 
-export const pallete = {
-  accent50: '#F77A55',
-  accent60: '#D4553E',
-  primary5: '#F3F1FE',
-  primary10: '#BBB1FA',
-  primary20: '#BBB1FA',
-  primary30: '#9487F1',
-  primary40: '#7466E3',
-  primary50: '#4838D1',
-  primary60: '#3528B3',
-  primary70: '#261C96',
-  primary80: '#191179',
-  primary90: '#100A64',
-  primary100: '#090638',
-  neutral5: '#F5F5FA',
-  neutral40: '#B8B8C7',
-  neutral80: '#2E2E5D',
-  black: '#000000',
-  white: '#ffffff',
-};
+import {pallete} from './pallete';
 
 export const theme = createTheme({
   colors: {
@@ -39,9 +20,26 @@ export const theme = createTheme({
     neutral5: pallete.neutral5,
     neutral40: pallete.neutral40,
     neutral80: pallete.neutral80,
-
     black: pallete.black,
     white: pallete.white,
+
+    bgInput: pallete.neutral5,
+    bgMain: pallete.white,
+    contrast: pallete.neutral5,
+
+    activeColor: pallete.primary50,
+    unactiveColor: pallete.primary85,
+
+    base: pallete.white,
+
+    alertColor: pallete.primary80,
+
+    textActive: pallete.primary50,
+    textAuthor: pallete.primary50,
+    buttonText: pallete.primary50,
+    placeHolderTextColor: pallete.neutral40,
+    text: pallete.black,
+    border: pallete.primary50,
   },
   spacing: {
     sp3: 3,
@@ -65,3 +63,30 @@ export const theme = createTheme({
 });
 
 export type Theme = typeof theme;
+
+export const darkTheme = createTheme({
+  ...theme,
+  colors: {
+    ...theme.colors,
+
+    bgInput: pallete.neutral90,
+    bgMain: pallete.neutral100,
+
+    contrast: pallete.neutral80,
+
+    activeColor: pallete.grayLight,
+    unactiveColor: pallete.primary85,
+
+    base: pallete.black,
+
+    alertColor: pallete.primary20,
+
+    textActive: pallete.primary20,
+    textAuthor: pallete.neutral10,
+
+    buttonText: pallete.white,
+    placeHolderTextColor: pallete.neutral60,
+    text: pallete.white,
+    border: pallete.white,
+  },
+});

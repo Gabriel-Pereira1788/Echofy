@@ -24,7 +24,7 @@ export function Button({text, type = 'filled', ...rest}: ButtonProps) {
 
 const buildColorText = (type: ButtonProps['type']): keyof Theme['colors'] => {
   if (type === 'outline' || type === 'category') {
-    return 'primary50';
+    return 'buttonText';
   }
   return 'white';
 };
@@ -55,7 +55,7 @@ const buildWrapperStyle = (
       borderWidth: 1,
       width: 'auto',
       padding: 'sp10',
-      borderColor: 'primary50',
+      borderColor: 'border',
       borderRadius: 'rd15',
     };
   }
@@ -63,7 +63,7 @@ const buildWrapperStyle = (
     return {
       ...commonStyle,
       borderWidth: 1,
-      borderColor: 'primary50',
+      borderColor: 'border',
     };
   }
 

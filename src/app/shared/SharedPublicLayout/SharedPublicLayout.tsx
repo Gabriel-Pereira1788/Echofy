@@ -5,7 +5,7 @@ import {Box, Image} from '@components';
 
 export function SharedPublicLayout({children}: React.PropsWithChildren) {
   return (
-    <Box width={'100%'} flex={1} height={'100%'} backgroundColor="white">
+    <Box width={'100%'} flex={1} height={'100%'} backgroundColor="bgMain">
       <ScrollView style={{flex: 1}} nestedScrollEnabled>
         <Box position="relative" width={'100%'} alignItems="flex-end">
           <Image imageName="ellipseRound" />

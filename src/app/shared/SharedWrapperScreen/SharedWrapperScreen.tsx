@@ -10,7 +10,7 @@ export function SharedWrapperScreen({children}: React.PropsWithChildren) {
       padding="sp25"
       height={'100%'}
       alignItems="center"
-      backgroundColor="white"
+      backgroundColor="bgMain"
       justifyContent="center">
       {children}
     </Box>

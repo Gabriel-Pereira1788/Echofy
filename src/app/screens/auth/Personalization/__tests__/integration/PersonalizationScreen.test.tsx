@@ -4,6 +4,16 @@ import {act, allCategoriesMock, fireEvent, renderScreen, screen} from '@test';
 
 import {PersonalizationScreen} from '../../PersonalizationScreen';
 
+const mockReset = jest.fn();
+jest.mock('@hooks', () => {
+  const originalModule = jest.requireActual('@hooks');
+
+  return {
+    ...originalModule,
+    useResetAuthStack: () => ({reset: mockReset}),
+  };
+});
+
 const navigation: any = {
   navigate: jest.fn(),
 };
@@ -51,7 +61,7 @@ describe('PersonalizationScreen', () => {
 
     fireEvent.press(buttonSubmit);
 
-    expect(navigation.navigate).not.toHaveBeenCalled();
+    expect(mockReset).not.toHaveBeenCalled();
   });
 
   it('should be navigate to ready to go screen', async () => {
@@ -76,7 +86,7 @@ describe('PersonalizationScreen', () => {
       fireEvent.press(buttonSubmit);
     });
 
-    expect(navigation.navigate).toHaveBeenCalled();
+    expect(mockReset).toHaveBeenCalled();
   });
 
   it('should be dispatch search function correctly', async () => {

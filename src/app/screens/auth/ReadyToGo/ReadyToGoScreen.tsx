@@ -12,9 +12,9 @@ export function ReadyToGoScreen({route}: AuthStackProps<'ReadyToGoScreen'>) {
   const params = route.params;
 
   const {uid} = useAuthContext();
+
   const toastActions = useToastActions();
 
-  console.log('uid', uid);
   const {finishRegister, isLoading} = useAuthFinishRegister({
     onSuccess: () => {
       toastActions.show({
@@ -43,13 +43,12 @@ export function ReadyToGoScreen({route}: AuthStackProps<'ReadyToGoScreen'>) {
         <Box testID="wrapper-image">
           <Image imageName="huray" width={250} height={250} />
         </Box>
-        <Text text="You are ready to go!" preset="semiBold/16" color="black" />
+        <Text text="You are ready to go!" preset="semiBold/16" />
 
         {params.selectedCategories && params.selectedCategories.length > 0 && (
           <Text
             text="Congratulation,any interesting topics will be shortly in your hands!"
             preset="regular/14"
-            color="black"
           />
         )}
         <Box width={'100%'}>

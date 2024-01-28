@@ -6,6 +6,7 @@ import {useToastActions, useToastStore} from '@store';
 import {Box, BoxProps} from '../Box/Box';
 import {Icon} from '../Icon/Icon';
 import {Text} from '../Text/Text';
+import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
 type Props = {};
 
@@ -16,7 +17,7 @@ export function Toast({}: Props) {
   const toastActions = useToastActions();
 
   const animatedRef = useRef(new Animated.Value(0)).current;
-
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const fadeIn = React.useCallback(() => {
     Animated.timing(animatedRef, {
       toValue: 1,
@@ -36,13 +37,20 @@ export function Toast({}: Props) {
     [animatedRef],
   );
 
+  function onClose() {
+    fadeOut(toastActions.hide);
+    clearTimeout(timeoutRef.current);
+  }
+
   useEffect(() => {
     if (toast) {
       fadeIn();
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         fadeOut(toastActions.hide);
       }, SECONDS_FOR_HIDE_TOAST);
     }
+
+    return () => timeoutRef.current && clearTimeout(timeoutRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toast]);
 
@@ -64,18 +72,23 @@ export function Toast({}: Props) {
           <Box flex={1} alignItems="flex-start">
             <Icon
               iconName={toast.type === 'error' ? 'closeSquare' : 'tickSquare'}
-              color="primary80"
+              color="alertColor"
               size="sp23"
               type="light"
             />
           </Box>
           <Box flex={3} gap="sp7">
-            <Text preset="semiBold/16" text={toast.title} color="black" />
-            <Text preset="regular/14" text={toast.message} color="black" />
+            <Text preset="semiBold/16" text={toast.title} />
+            {toast.message && <Text preset="regular/14" text={toast.message} />}
           </Box>
-          <Box flex={1} alignItems="flex-end">
-            <Text text="X" color="black" />
-          </Box>
+          <TouchableOpacityBox
+            onPress={onClose}
+            boxProps={{
+              flex: 1,
+              alignItems: 'center',
+            }}>
+            <Text text="X" />
+          </TouchableOpacityBox>
         </Box>
       </Box>
     </Animated.View>
@@ -86,7 +99,7 @@ const $backgroundStyle: BoxProps = {
   width: '90%',
   height: '100%',
   borderRadius: 'rd12',
-  backgroundColor: 'primary80',
+  backgroundColor: 'alertColor',
   position: 'absolute',
   left: -4,
 };
@@ -98,7 +111,7 @@ const $innerWrapperStyle: BoxProps = {
   flexDirection: 'row',
   padding: 'sp16',
   borderRadius: 'rd12',
-  backgroundColor: 'white',
+  backgroundColor: 'contrast',
 };
 const $outerWrapperStyle: BoxProps = {
   flexDirection: 'row',
@@ -107,7 +120,7 @@ const $outerWrapperStyle: BoxProps = {
   alignSelf: 'center',
   marginTop: 'sp50',
   borderRadius: 'rd12',
-  backgroundColor: 'white',
+  backgroundColor: 'contrast',
   shadowColor: 'black',
   shadowOffset: {
     width: 0,

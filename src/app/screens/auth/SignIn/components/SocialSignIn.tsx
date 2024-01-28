@@ -8,7 +8,7 @@ export function SocialSignIn({}: Props) {
   return (
     <>
       <Box alignSelf="center">
-        <Text text="Or login with" color="neutral80" preset="regular/14" />
+        <Text text="Or login with" preset="regular/14" />
       </Box>
       <Box
         gap="sp15"

@@ -15,17 +15,19 @@ import {QueryClientProvider} from '@tanstack/react-query';
 import {Toast} from './src/app/components/Toast/Toast';
 import {AuthProvider} from './src/app/providers';
 import {Router} from './src/app/router/Routes';
-import {theme} from './src/app/styles/theme';
+import {darkTheme, theme} from './src/app/styles/theme';
 
 global.Buffer = require('buffer').Buffer;
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-
+  const backgroundColor = isDarkMode
+    ? darkTheme.colors.bgMain
+    : theme.colors.bgMain;
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
         <AuthProvider>
-          <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+          <SafeAreaView style={{flex: 1, backgroundColor}}>
             <StatusBar
               barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             />

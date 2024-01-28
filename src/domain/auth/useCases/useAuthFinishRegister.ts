@@ -1,3 +1,4 @@
+import {useAuthContext} from '@providers';
 import {CommonError, MutationConfig} from 'src/domain/types';
 
 import {authService} from '../auth-service';
@@ -7,9 +8,12 @@ import {useAuthMutation} from '../hooks';
 export function useAuthFinishRegister(
   config: MutationConfig<AuthCredentials, CommonError>,
 ) {
+  const {refreshCredentials} = useAuthContext();
   const {mutate, isLoading, isSuccess} = useAuthMutation({
     serviceFn: authService.finishRegister,
     onSuccess: ac => {
+      console.log('finishRegister', ac);
+      refreshCredentials(ac);
       if (config.onSuccess) {
         config.onSuccess(ac);
       }

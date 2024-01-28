@@ -95,11 +95,7 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
           <SocialSignIn />
 
           <Box alignSelf="center" flexDirection="row" gap="sp7">
-            <Text
-              text="Dont have an account ?"
-              color="neutral80"
-              preset="regular/14"
-            />
+            <Text text="Dont have an account ?" preset="regular/14" />
             <TouchableOpacityBox onPress={redirectToSignUpScreen}>
               <Text text="Register" color="accent50" preset="semiBold/14" />
             </TouchableOpacityBox>

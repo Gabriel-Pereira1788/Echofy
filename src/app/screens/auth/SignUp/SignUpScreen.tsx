@@ -7,7 +7,7 @@ import {SharedAuthLayout} from '@shared';
 import {useToastActions} from '@store';
 import {useForm} from 'react-hook-form';
 
-import {Button, Box, FormInput} from '@components';
+import {Button, Box, FormInput, FormInputPassword} from '@components';
 
 import {TextDataPolicy} from './components/TextDataPolicy';
 import {SignUpSchema, signUpSchema} from './signUpSchema';
@@ -57,7 +57,11 @@ export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
     <SharedAuthLayout title="Register">
       <Box gap="sp15" width={'100%'}>
         <FormInput placeholder="Email" name="email" control={control} />
-        <FormInput placeholder="Password" name="password" control={control} />
+        <FormInputPassword
+          placeholder="Password"
+          name="password"
+          control={control}
+        />
         <FormInput
           placeholder="Date of Birth"
           name="birthDate"

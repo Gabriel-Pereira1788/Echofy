@@ -19,6 +19,10 @@ type Preset =
 interface CommonTextProps<T> {
   text: string;
   color?: keyof Theme['colors'];
+  setColorsTheme?: {
+    dark: keyof Theme['colors'];
+    light: keyof Theme['colors'];
+  };
   preset?: T;
   children?: ReactNode;
 }

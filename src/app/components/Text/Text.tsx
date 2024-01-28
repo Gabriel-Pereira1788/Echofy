@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text as TextRN, TextStyle} from 'react-native';
+import {Text as TextRN, TextStyle, useColorScheme} from 'react-native';
 
-import {theme} from '@styles';
+import {darkTheme, theme} from '@styles';
 
 import {$fontSize, $fontWeight} from './textConstants';
 import {TextProps, FontStyleProps} from './textTypes';
@@ -9,19 +9,24 @@ import {TextProps, FontStyleProps} from './textTypes';
 export function Text({
   text,
   preset,
-  color = 'white',
+  color = 'text',
   children,
+  setColorsTheme,
   ...rest
 }: TextProps) {
-  const _color = theme.colors[color];
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const _color = isDarkMode
+    ? darkTheme.colors[setColorsTheme?.dark ?? color]
+    : theme.colors[setColorsTheme?.light ?? color];
 
   if (preset) {
     const style = makePresetFont(preset);
     return (
       <TextRN
         style={{
-          color: _color,
           ...style,
+          color: _color,
         }}>
         {text} {children}
       </TextRN>

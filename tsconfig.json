@@ -16,6 +16,7 @@
       "@types": ["src/@types"],
       "@providers": ["src/app/providers"],
       "@utils": ["src/app/helpers/utils"],
+      "@hooks": ["src/app/helpers/hooks"],
       "@test": ["src/test"],
       "@mocks": ["src/mocks"],
       "@store": ["src/app/store"]

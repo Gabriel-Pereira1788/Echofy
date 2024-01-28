@@ -30,7 +30,7 @@ function customRenderScreen() {
 
 const validBirthDate = '21/12/2001';
 const invalidBirthDate = '12/';
-const birthDateErrorMessage = 'Incorrectly.';
+const birthDateErrorMessage = 'Incorrect birth date.';
 
 const validEmail = 'johnDoe@gmail.com';
 const invalidEmail = 'johnD.com';

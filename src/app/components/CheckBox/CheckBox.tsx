@@ -24,11 +24,11 @@ export function CheckBox({onChange, value, label}: CheckBoxProps) {
         onPress={onPress}>
         {value && (
           <Box testID="icon-checked">
-            <Icon color="neutral80" iconName="tickSquare" size="sp28" />
+            <Icon color="border" iconName="tickSquare" size="sp28" />
           </Box>
         )}
       </TouchableOpacityBox>
-      {label && <Text text={label} preset="regular/14" color="neutral80" />}
+      {label && <Text text={label} preset="regular/14" />}
     </Box>
   );
 }
@@ -37,7 +37,7 @@ const $wrapperBoxStyle: BoxProps = {
   borderRadius: 'rd8',
   alignItems: 'center',
   justifyContent: 'center',
-  borderColor: 'primary20',
+  borderColor: 'border',
   borderWidth: 1,
   width: 25,
   height: 25,

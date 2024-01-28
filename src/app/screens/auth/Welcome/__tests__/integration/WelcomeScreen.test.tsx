@@ -4,6 +4,15 @@ import {fireEvent, renderScreen, screen, server} from '@test';
 
 import {WelcomeScreen} from '../../WelcomeScreen';
 
+const mockReset = jest.fn();
+jest.mock('@hooks', () => {
+  const originalModule = jest.requireActual('@hooks');
+
+  return {
+    ...originalModule,
+    useResetAuthStack: () => ({reset: mockReset}),
+  };
+});
 const navigation: any = {
   navigate: jest.fn(),
 };
@@ -49,9 +58,9 @@ describe('WelcomeScreen', () => {
   });
 
   it('should be skip personalization account', () => {
-    const {buttonRedirect} = customRenderScreen();
-    fireEvent.press(buttonRedirect);
+    const {buttonSkip} = customRenderScreen();
+    fireEvent.press(buttonSkip);
 
-    expect(navigation.navigate).toHaveBeenCalledWith('PersonalizationScreen');
+    expect(mockReset).toHaveBeenCalled();
   });
 });

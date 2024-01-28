@@ -7,6 +7,7 @@ type Props = {
   uid?: string;
   credentials: AuthCredentials | null;
   refreshCredentials: (ac: AuthCredentials) => void;
+  removeCredentials: () => void;
 };
 
 const AuthContext = createContext({} as Props);
@@ -21,6 +22,11 @@ export function AuthProvider({children}: React.PropsWithChildren) {
     storage.set(StorageKeys.Credentials, JSON.stringify(ac));
   }
 
+  function removeCredentials() {
+    setCredentials(null);
+    storage.remove(StorageKeys.Credentials);
+  }
+
   function getLastCredentials(): AuthCredentials {
     const credentials = storage.get(StorageKeys.Credentials);
 
@@ -33,7 +39,8 @@ export function AuthProvider({children}: React.PropsWithChildren) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{credentials, uid, refreshCredentials}}>
+    <AuthContext.Provider
+      value={{credentials, uid, refreshCredentials, removeCredentials}}>
       {children}
     </AuthContext.Provider>
   );

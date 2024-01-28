@@ -14,10 +14,10 @@ export function SharedAuthLayout({title, children}: SharedAuthLayoutProps) {
       padding="sp20"
       height={'100%'}
       alignItems="center"
-      backgroundColor="white"
+      backgroundColor="bgMain"
       justifyContent="center">
       <Box marginBottom="sp20" alignSelf="flex-start">
-        <Text text={title} color="black" preset="semiBold/16" />
+        <Text text={title} preset="semiBold/16" />
       </Box>
 
       {children}
