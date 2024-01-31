@@ -1,6 +1,13 @@
 import React from 'react';
 
-import {act, allCategoriesMock, fireEvent, renderScreen, screen} from '@test';
+import {
+  act,
+  allCategoriesMock,
+  fireEvent,
+  renderScreen,
+  screen,
+  server,
+} from '@test';
 
 import {PersonalizationScreen} from '../../PersonalizationScreen';
 
@@ -33,6 +40,14 @@ function customRender() {
   };
 }
 
+beforeAll(() => {
+  server.listen();
+});
+
+afterAll(() => {
+  server.close();
+});
+
 describe('PersonalizationScreen', () => {
   it('should be render component correctly', async () => {
     const {
@@ -42,7 +57,7 @@ describe('PersonalizationScreen', () => {
       titleElement,
       subtitleElement,
     } = customRender();
-    const categoryItens = await screen.findAllByTestId('category-item-button');
+
     expect(buttonSkip).toBeTruthy();
 
     expect(buttonSubmit).toBeTruthy();
@@ -50,6 +65,7 @@ describe('PersonalizationScreen', () => {
     const expectedCategoriesToRender = allCategoriesMock.filter(
       (_, index) => index < 8,
     );
+    const categoryItens = await screen.findAllByTestId('category-item-button');
     expect(categoryItens.length).toEqual(expectedCategoriesToRender.length);
     expect(inputSearch).toBeTruthy();
     expect(titleElement).toBeTruthy();

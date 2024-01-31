@@ -10,6 +10,7 @@ export interface FontStyleProps {
 }
 
 type Preset =
+  | 'medium/14'
   | 'medium/16'
   | 'semiBold/16'
   | 'regular/14'

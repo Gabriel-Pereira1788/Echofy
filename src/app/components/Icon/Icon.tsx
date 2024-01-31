@@ -1,23 +1,10 @@
 import React from 'react';
 
-import {CloseSquare, TickSquare} from '@assets';
-import {Theme} from '@styles';
+import {CloseSquare, Settings, TickSquare} from '@assets';
 
 import {useTheme} from '@hooks';
 
-type IconMappedKey = 'tickSquare' | 'closeSquare';
-export interface IconProps {
-  iconName: IconMappedKey;
-  color: keyof Theme['colors'];
-  size: keyof Theme['spacing'];
-}
-
-export interface IconBase {
-  size: string;
-  color: string;
-  type?: 'bold' | 'light';
-  testID?: string;
-}
+import {IconBase, IconMappedKey, IconProps} from './iconTypes';
 
 export function Icon({
   iconName,
@@ -27,13 +14,17 @@ export function Icon({
   testID,
 }: IconProps & IconBase) {
   const theme = useTheme();
+
   const IconRender = iconMapped[iconName];
+
   const _color = theme.colors[color];
   const _size = theme.spacing[size].toString();
+
   return <IconRender testID={testID} size={_size} color={_color} type={type} />;
 }
 
 const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   tickSquare: TickSquare,
   closeSquare: CloseSquare,
+  settings: Settings,
 };

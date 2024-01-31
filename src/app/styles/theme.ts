@@ -30,7 +30,8 @@ export const theme = createTheme({
     activeColor: pallete.primary50,
     unactiveColor: pallete.primary85,
 
-    base: pallete.white,
+    base: pallete.black,
+    baseIconColor: pallete.primary50,
 
     alertColor: pallete.primary80,
 
@@ -77,7 +78,8 @@ export const darkTheme = createTheme({
     activeColor: pallete.grayLight,
     unactiveColor: pallete.primary85,
 
-    base: pallete.black,
+    base: pallete.white,
+    baseIconColor: pallete.white,
 
     alertColor: pallete.primary20,
 

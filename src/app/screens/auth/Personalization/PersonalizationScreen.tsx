@@ -18,6 +18,7 @@ import {
 export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'>) {
   const {categories, isLoading} = useBookCategories();
   const {reset} = useResetAuthStack();
+
   const allCategories = useRef<BookCategory[]>([]);
   const [categoriesToRender, setCategoriesToRender] = useState<BookCategory[]>(
     [],
@@ -55,6 +56,7 @@ export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'
       allCategories.current = categories;
     }
   }, [categories]);
+
   return (
     <SharedPublicLayout>
       <Box gap="sp28" padding="sp15">

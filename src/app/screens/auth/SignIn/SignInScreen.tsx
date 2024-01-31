@@ -17,7 +17,6 @@ import {
   FormInputPassword,
 } from '@components';
 
-import {SocialSignIn} from './components/SocialSignIn';
 import {useRemindAccessData} from './hooks/useRemindAccessData';
 import {SignInSchema, signInSchema} from './signInSchema';
 
@@ -92,8 +91,6 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
         </TouchableOpacityBox>
 
         <Box width={'100%'} marginTop="sp20" gap="sp15">
-          <SocialSignIn />
-
           <Box alignSelf="center" flexDirection="row" gap="sp7">
             <Text text="Dont have an account ?" preset="regular/14" />
             <TouchableOpacityBox onPress={redirectToSignUpScreen}>

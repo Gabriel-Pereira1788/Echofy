@@ -1,2 +1,3 @@
-export * from './TickSquare';
-export * from './CloseSquare';
+export * from './tickSquare/TickSquare';
+export * from './closeSquare/CloseSquare';
+export * from './settings/Settings';

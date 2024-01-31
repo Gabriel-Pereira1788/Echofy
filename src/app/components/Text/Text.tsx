@@ -1,8 +1,9 @@
 import React from 'react';
-import {Text as TextRN, TextStyle, useColorScheme} from 'react-native';
+import {Text as TextRN, useColorScheme} from 'react-native';
 
 import {darkTheme, theme} from '@styles';
 
+import {makePresetFont} from './functions/makePresetFont';
 import {$fontSize, $fontWeight} from './textConstants';
 import {TextProps, FontStyleProps} from './textTypes';
 
@@ -43,32 +44,4 @@ export function Text({
       {text} {children}
     </TextRN>
   );
-}
-
-function makePresetFont(preset: TextProps['preset']): TextStyle | null {
-  switch (preset) {
-    case 'medium/16':
-      return {
-        fontSize: $fontSize.medium16,
-        fontWeight: $fontWeight.medium,
-      };
-    case 'semiBold/16':
-      return {
-        fontSize: $fontSize.medium16,
-        fontWeight: $fontWeight.semiBold,
-      };
-    case 'regular/14':
-      return {
-        fontSize: $fontSize.small14,
-        fontWeight: $fontWeight.regular,
-      };
-
-    case 'semiBold/14':
-      return {
-        fontSize: $fontSize.small14,
-        fontWeight: $fontWeight.semiBold,
-      };
-    default:
-      return null;
-  }
 }

@@ -1,16 +1,32 @@
 import React from 'react';
+import {ScrollView} from 'react-native';
 
-import {useAuthContext} from '@providers';
 import {SharedWrapperScreen} from '@shared';
 
-import {Button, Text} from '@components';
+import {Box, Icon} from '@components';
+
+import {HomeScreenBookSection} from './components/HomeScreenBookSection';
+import {HomeScreenCategories} from './components/HomeScreenCategories';
 
 export function HomeScreen() {
-  const {removeCredentials} = useAuthContext();
   return (
-    <SharedWrapperScreen>
-      <Text text="HomeScreen" />
-      <Button text="sign out" onPress={removeCredentials} />
+    <SharedWrapperScreen
+      showLogo
+      customPadding
+      headerRight={
+        <Icon iconName="settings" size="sp23" color="baseIconColor" />
+      }>
+      <ScrollView style={{flex: 1}} nestedScrollEnabled>
+        <HomeScreenCategories />
+        <Box flex={1} padding="sp25">
+          <HomeScreenBookSection
+            sectionBooks={[1, 2, 3, 4, 5]}
+            sectionTitle="Recommended For You"
+          />
+          {/* <Text text="HomeScreen" />
+        <Button text="sign out" onPress={removeCredentials} /> */}
+        </Box>
+      </ScrollView>
     </SharedWrapperScreen>
   );
 }
