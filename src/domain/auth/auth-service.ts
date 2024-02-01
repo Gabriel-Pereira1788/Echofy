@@ -16,7 +16,6 @@ async function signIn(data: AuthSignInDTO) {
 }
 
 async function signUp(data: AuthSignUpDTO) {
-  console.log('data sign up', data);
   const result = await authApi.signUp(data);
 
   const ac = authAdapter.toAuthCredentials(result);

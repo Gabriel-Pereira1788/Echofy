@@ -18,7 +18,7 @@ export function SharedScreenHeader({
   headerRight,
 }: Props) {
   const dynamicLogoSize = (dimensions.width / 100) * 40;
-  console.log('logoSize', dynamicLogoSize);
+
   return (
     <Box
       width={'100%'}

@@ -1,6 +1,7 @@
-import React from 'react';
-import {ScrollView} from 'react-native';
+import React, {useCallback} from 'react';
+import {FlatList, ListRenderItem} from 'react-native';
 
+import {BookSection, useBookSections} from '@domain';
 import {SharedWrapperScreen} from '@shared';
 
 import {Box, Icon} from '@components';
@@ -9,6 +10,20 @@ import {HomeScreenBookSection} from './components/HomeScreenBookSection';
 import {HomeScreenCategories} from './components/HomeScreenCategories';
 
 export function HomeScreen() {
+  const {bookSections} = useBookSections();
+
+  const renderItem: ListRenderItem<BookSection> = useCallback(
+    ({item, index}) => {
+      return (
+        <HomeScreenBookSection
+          sectionOrder={index}
+          sectionBooks={item.books}
+          sectionTitle={item.title}
+        />
+      );
+    },
+    [],
+  );
   return (
     <SharedWrapperScreen
       showLogo
@@ -16,17 +31,17 @@ export function HomeScreen() {
       headerRight={
         <Icon iconName="settings" size="sp23" color="baseIconColor" />
       }>
-      <ScrollView style={{flex: 1}} nestedScrollEnabled>
-        <HomeScreenCategories />
-        <Box flex={1} padding="sp25">
-          <HomeScreenBookSection
-            sectionBooks={[1, 2, 3, 4, 5]}
-            sectionTitle="Recommended For You"
-          />
-          {/* <Text text="HomeScreen" />
-        <Button text="sign out" onPress={removeCredentials} /> */}
-        </Box>
-      </ScrollView>
+      <Box flex={1}>
+        <FlatList
+          data={bookSections}
+          showsVerticalScrollIndicator={false}
+          style={{flex: 1}}
+          contentContainerStyle={{flexGrow: 1}}
+          ListHeaderComponent={<HomeScreenCategories />}
+          keyExtractor={(_, index) => String(index)}
+          renderItem={renderItem}
+        />
+      </Box>
     </SharedWrapperScreen>
   );
 }

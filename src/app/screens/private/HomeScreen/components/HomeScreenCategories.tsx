@@ -3,7 +3,7 @@ import {ListRenderItem, FlatList, StyleProp, ViewStyle} from 'react-native';
 
 import {BookCategory, useBookCategories} from '@domain';
 
-import {Box, Button, Text} from '@components';
+import {Box, Category, Text} from '@components';
 
 type Props = {};
 
@@ -12,7 +12,7 @@ export function HomeScreenCategories({}: Props) {
   const renderItem: ListRenderItem<BookCategory> = useCallback(
     ({item}) => (
       <Box>
-        <Button type="category" text={item.text} />
+        <Category text={item.text} />
       </Box>
     ),
     [],
@@ -21,14 +21,14 @@ export function HomeScreenCategories({}: Props) {
     <Box
       width={'100%'}
       alignItems="flex-start"
-      marginBottom="sp10"
+      marginBottom="sp25"
       justifyContent="flex-start"
       gap="sp10">
       <Box
         width={'100%'}
         flexDirection="row"
-        paddingLeft="sp25"
-        marginBottom="sp10">
+        marginBottom="sp10"
+        paddingLeft="sp25">
         <Text text="Categories" preset="medium/16" color="base" />
       </Box>
       {categories && (
@@ -48,7 +48,7 @@ export function HomeScreenCategories({}: Props) {
 const $contentContainerStyle: StyleProp<ViewStyle> = {
   flexGrow: 1,
   gap: 10,
-  paddingHorizontal: 24,
+  paddingHorizontal: 16,
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
 };

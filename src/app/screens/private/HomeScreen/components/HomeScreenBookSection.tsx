@@ -1,20 +1,41 @@
 import React, {useCallback} from 'react';
 import {FlatList, ListRenderItem, StyleProp, ViewStyle} from 'react-native';
 
-import {Box, Text, TouchableOpacityBox} from '@components';
+import {Book as BookData} from '@domain';
+import {dimensions} from '@utils';
+
+import {Book, Box, Text, TouchableOpacityBox} from '@components';
 
 export interface HomeScreenBookSectionProps {
-  sectionBooks: any[];
+  sectionOrder: number;
+  sectionBooks: BookData[];
   sectionTitle: string;
 }
 
 export function HomeScreenBookSection({
+  sectionOrder,
   sectionBooks,
   sectionTitle,
 }: HomeScreenBookSectionProps) {
-  const renderItem: ListRenderItem<any> = useCallback(() => {
-    return <Box width={280} height={300} backgroundColor="neutral40" />;
-  }, []);
+  const renderItem: ListRenderItem<BookData> = useCallback(
+    ({item}) => {
+      const dynamicWidth = (dimensions.width / 100) * 55;
+      const dynamicHeight =
+        (dimensions.height / 100) * (sectionOrder === 0 ? 45 : 40);
+      return (
+        <TouchableOpacityBox
+          activeOpacity={0.8}
+          boxProps={{
+            flex: 1,
+            width: dynamicWidth,
+            height: dynamicHeight,
+          }}>
+          <Book book={item} />
+        </TouchableOpacityBox>
+      );
+    },
+    [sectionOrder],
+  );
 
   return (
     <Box width={'100%'} flex={1} gap="sp10">
@@ -22,6 +43,8 @@ export function HomeScreenBookSection({
         width={'100%'}
         alignItems="center"
         justifyContent="space-between"
+        paddingHorizontal="sp25"
+        marginBottom="sp10"
         flexDirection="row">
         <Text text={sectionTitle} preset="medium/16" color="base" />
 
@@ -33,6 +56,9 @@ export function HomeScreenBookSection({
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
+        style={{
+          flex: 1,
+        }}
         data={sectionBooks}
         renderItem={renderItem}
         contentContainerStyle={$contentContainerStyle}
@@ -43,8 +69,8 @@ export function HomeScreenBookSection({
 
 const $contentContainerStyle: StyleProp<ViewStyle> = {
   flexGrow: 1,
-
+  paddingHorizontal: 16,
   justifyContent: 'flex-start',
   alignItems: 'stretch',
-  gap: 10,
+  gap: 15,
 };

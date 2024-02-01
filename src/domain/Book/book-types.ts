@@ -4,10 +4,39 @@ export interface BookApi {
   book_title: string;
   book_genres: string[];
   book_desc: string;
-  playlist_chapters: {chapter: number; src: string}[];
+  playlist_chapters: PlaylistChapter[];
+}
+
+export interface PlaylistChapter {
+  chapter: number;
+  src: string;
+}
+
+export interface Book {
+  id: string;
+  bookImage: string;
+  bookTitle: string;
+  bookGenres: string[];
+  bookDesc: string;
+  playlistChapters: PlaylistChapter[];
 }
 
 export interface BookCategory {
   isSelected: boolean;
   text: string;
+}
+
+export interface BookSectionApi {
+  docs: BookApi[];
+  nextPage: number;
+  page: number;
+  prevPage: number | null;
+  totalDocs: number;
+  totalPages: number;
+}
+
+export interface BookSection {
+  identify: string;
+  title: string;
+  books: Book[];
 }

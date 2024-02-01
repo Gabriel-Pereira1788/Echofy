@@ -57,7 +57,7 @@ describe('PersonalizationScreen', () => {
       titleElement,
       subtitleElement,
     } = customRender();
-
+    const categoryItens = await screen.findAllByTestId('category-item-button');
     expect(buttonSkip).toBeTruthy();
 
     expect(buttonSubmit).toBeTruthy();
@@ -65,7 +65,7 @@ describe('PersonalizationScreen', () => {
     const expectedCategoriesToRender = allCategoriesMock.filter(
       (_, index) => index < 8,
     );
-    const categoryItens = await screen.findAllByTestId('category-item-button');
+
     expect(categoryItens.length).toEqual(expectedCategoriesToRender.length);
     expect(inputSearch).toBeTruthy();
     expect(titleElement).toBeTruthy();
