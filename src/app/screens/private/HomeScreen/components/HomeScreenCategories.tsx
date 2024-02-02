@@ -37,7 +37,7 @@ export function HomeScreenCategories({}: Props) {
           showsHorizontalScrollIndicator={false}
           scrollEnabled
           contentContainerStyle={$contentContainerStyle}
-          data={categories}
+          data={categories.splice(0, 10)}
           renderItem={renderItem}
         />
       )}

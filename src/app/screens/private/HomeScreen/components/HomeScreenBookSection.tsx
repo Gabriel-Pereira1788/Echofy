@@ -1,42 +1,45 @@
 import React, {useCallback} from 'react';
 import {FlatList, ListRenderItem, StyleProp, ViewStyle} from 'react-native';
 
-import {Book as BookData} from '@domain';
-import {dimensions} from '@utils';
+import {Book as BookData, BookSection} from '@domain';
+import {getDynamicSize} from '@utils';
 
-import {Book, Box, Text, TouchableOpacityBox} from '@components';
+import {Box, Text, TouchableOpacityBox} from '@components';
+
+import {HomeScreenBookSectionItem} from './HomeScreenBookSectionItem';
 
 export interface HomeScreenBookSectionProps {
-  sectionOrder: number;
+  sectionIdentify: BookSection['identify'];
   sectionBooks: BookData[];
   sectionTitle: string;
 }
 
 export function HomeScreenBookSection({
-  sectionOrder,
+  sectionIdentify,
   sectionBooks,
   sectionTitle,
 }: HomeScreenBookSectionProps) {
   const renderItem: ListRenderItem<BookData> = useCallback(
     ({item}) => {
-      const dynamicWidth = (dimensions.width / 100) * 55;
-      const dynamicHeight =
-        (dimensions.height / 100) * (sectionOrder === 0 ? 45 : 40);
       return (
-        <TouchableOpacityBox
-          activeOpacity={0.8}
-          boxProps={{
-            flex: 1,
-            width: dynamicWidth,
-            height: dynamicHeight,
-          }}>
-          <Book book={item} />
-        </TouchableOpacityBox>
+        <HomeScreenBookSectionItem
+          book={item}
+          sectionIdentify={sectionIdentify}
+        />
       );
     },
-    [sectionOrder],
+    [sectionIdentify],
   );
 
+  const snapToOffsets = sectionBooks.map((book, index) => {
+    const {dynamicWidth} = getDynamicSize({
+      widthPercentage: sectionIdentify === 'recommended-for-you' ? 85 : 50,
+    });
+    const width = dynamicWidth / 0.5;
+    const startScroll = (width * 3) / 4;
+
+    return index * dynamicWidth + startScroll;
+  });
   return (
     <Box width={'100%'} flex={1} gap="sp10">
       <Box
@@ -55,6 +58,22 @@ export function HomeScreenBookSection({
 
       <FlatList
         horizontal
+        pagingEnabled
+        snapToAlignment="start"
+        initialNumToRender={3}
+        snapToOffsets={snapToOffsets}
+        getItemLayout={(data, index) => {
+          const {dynamicHeight} = getDynamicSize({
+            heightPercentage:
+              sectionIdentify === 'recommended-for-you' ? 55 : 40,
+          });
+
+          return {
+            length: dynamicHeight,
+            offset: dynamicHeight * index,
+            index,
+          };
+        }}
         showsHorizontalScrollIndicator={false}
         style={{
           flex: 1,

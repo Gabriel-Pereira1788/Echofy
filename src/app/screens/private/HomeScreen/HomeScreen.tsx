@@ -12,18 +12,15 @@ import {HomeScreenCategories} from './components/HomeScreenCategories';
 export function HomeScreen() {
   const {bookSections} = useBookSections();
 
-  const renderItem: ListRenderItem<BookSection> = useCallback(
-    ({item, index}) => {
-      return (
-        <HomeScreenBookSection
-          sectionOrder={index}
-          sectionBooks={item.books}
-          sectionTitle={item.title}
-        />
-      );
-    },
-    [],
-  );
+  const renderItem: ListRenderItem<BookSection> = useCallback(({item}) => {
+    return (
+      <HomeScreenBookSection
+        sectionBooks={item.books}
+        sectionTitle={item.title}
+        sectionIdentify={item.identify}
+      />
+    );
+  }, []);
   return (
     <SharedWrapperScreen
       showLogo
@@ -38,7 +35,7 @@ export function HomeScreen() {
           style={{flex: 1}}
           contentContainerStyle={{flexGrow: 1}}
           ListHeaderComponent={<HomeScreenCategories />}
-          keyExtractor={(_, index) => String(index)}
+          keyExtractor={item => item.identify}
           renderItem={renderItem}
         />
       </Box>

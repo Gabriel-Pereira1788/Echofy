@@ -9,3 +9,8 @@ export type CommonError = {
   status: number;
   message: string;
 };
+
+export type QueryParams = {
+  top?: number;
+  skip?: number;
+};

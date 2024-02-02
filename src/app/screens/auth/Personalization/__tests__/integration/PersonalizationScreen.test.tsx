@@ -41,6 +41,7 @@ function customRender() {
 }
 
 beforeAll(() => {
+  jest.useFakeTimers();
   server.listen();
 });
 
