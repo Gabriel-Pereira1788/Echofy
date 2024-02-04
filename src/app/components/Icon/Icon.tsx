@@ -1,6 +1,13 @@
 import React from 'react';
 
-import {CloseSquare, Settings, TickSquare} from '@assets';
+import {
+  CloseSquare,
+  DocumentIcon,
+  HomeIcon,
+  SearchIcon,
+  Settings,
+  TickSquare,
+} from '@assets';
 
 import {useTheme} from '@hooks';
 
@@ -27,4 +34,7 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   tickSquare: TickSquare,
   closeSquare: CloseSquare,
   settings: Settings,
+  home: HomeIcon,
+  search: SearchIcon,
+  document: DocumentIcon,
 };

@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {FlatList, ListRenderItem, StyleProp, ViewStyle} from 'react-native';
 
-import {Book as BookData, BookSection} from '@domain';
-import {getDynamicSize} from '@utils';
+import {Book, Book as BookData, BookSection} from '@domain';
+import {dimensions, getDynamicSize} from '@utils';
 
 import {Box, Text, TouchableOpacityBox} from '@components';
 
@@ -19,6 +19,8 @@ export function HomeScreenBookSection({
   sectionBooks,
   sectionTitle,
 }: HomeScreenBookSectionProps) {
+  const flatListRef = useRef<FlatList<Book>>(null);
+
   const renderItem: ListRenderItem<BookData> = useCallback(
     ({item}) => {
       return (
@@ -31,15 +33,6 @@ export function HomeScreenBookSection({
     [sectionIdentify],
   );
 
-  const snapToOffsets = sectionBooks.map((book, index) => {
-    const {dynamicWidth} = getDynamicSize({
-      widthPercentage: sectionIdentify === 'recommended-for-you' ? 85 : 50,
-    });
-    const width = dynamicWidth / 0.5;
-    const startScroll = (width * 3) / 4;
-
-    return index * dynamicWidth + startScroll;
-  });
   return (
     <Box width={'100%'} flex={1} gap="sp10">
       <Box
@@ -57,11 +50,13 @@ export function HomeScreenBookSection({
       </Box>
 
       <FlatList
+        ref={flatListRef}
         horizontal
         pagingEnabled
-        snapToAlignment="start"
+        snapToAlignment="center"
+        decelerationRate={'fast'}
         initialNumToRender={3}
-        snapToOffsets={snapToOffsets}
+        snapToInterval={snapToInterval(sectionIdentify)}
         getItemLayout={(data, index) => {
           const {dynamicHeight} = getDynamicSize({
             heightPercentage:
@@ -85,6 +80,16 @@ export function HomeScreenBookSection({
     </Box>
   );
 }
+
+const snapToInterval = (sectionIdentify: BookSection['identify']) => {
+  const {dynamicWidth} = getDynamicSize({
+    widthPercentage: sectionIdentify === 'recommended-for-you' ? 85 : 50,
+  });
+  const width = dimensions.width;
+  return sectionIdentify === 'recommended-for-you'
+    ? width - 50
+    : width - dynamicWidth - 50;
+};
 
 const $contentContainerStyle: StyleProp<ViewStyle> = {
   flexGrow: 1,

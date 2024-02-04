@@ -5,6 +5,11 @@ import {TextProps} from '../textTypes';
 
 export function makePresetFont(preset: TextProps['preset']): TextStyle | null {
   switch (preset) {
+    case 'medium/10':
+      return {
+        fontSize: $fontSize.small10,
+        fontWeight: $fontWeight.medium,
+      };
     case 'medium/14':
       return {
         fontSize: $fontSize.small14,

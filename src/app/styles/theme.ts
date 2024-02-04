@@ -1,6 +1,18 @@
 import {createTheme} from '@shopify/restyle';
+import {ViewStyle} from 'react-native/types';
 
 import {pallete} from './pallete';
+
+export const $shadowProps: ViewStyle = {
+  elevation: 10,
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: -3,
+  },
+  shadowOpacity: 0.05,
+  shadowRadius: 12,
+};
 
 export const theme = createTheme({
   colors: {
@@ -28,7 +40,7 @@ export const theme = createTheme({
     contrast: pallete.neutral5,
 
     activeColor: pallete.primary50,
-    unactiveColor: pallete.primary85,
+    unactiveColor: pallete.neutral60,
 
     base: pallete.black,
     baseIconColor: pallete.primary50,
@@ -76,7 +88,7 @@ export const darkTheme = createTheme({
     contrast: pallete.neutral80,
 
     activeColor: pallete.grayLight,
-    unactiveColor: pallete.primary85,
+    unactiveColor: pallete.primary20,
 
     base: pallete.white,
     baseIconColor: pallete.white,

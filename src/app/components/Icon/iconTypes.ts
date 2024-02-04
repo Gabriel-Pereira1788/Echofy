@@ -1,6 +1,12 @@
 import {Theme} from '@styles';
 
-export type IconMappedKey = 'tickSquare' | 'closeSquare' | 'settings';
+export type IconMappedKey =
+  | 'tickSquare'
+  | 'closeSquare'
+  | 'settings'
+  | 'home'
+  | 'search'
+  | 'document';
 export interface IconProps {
   iconName: IconMappedKey;
   color: keyof Theme['colors'];
