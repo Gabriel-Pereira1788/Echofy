@@ -14,7 +14,7 @@ import {
 
 import {$shadowProps} from '../styles/theme';
 
-import {AppTabParamList} from './AppStack';
+import {AppStackParamList} from './AppStack';
 import {mapScreenToProps} from './mapScreenProps';
 
 export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
@@ -23,7 +23,7 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
 
-        const tabItem = mapScreenToProps[route.name as keyof AppTabParamList];
+        const tabItem = mapScreenToProps[route.name as keyof AppStackParamList];
 
         const isFocused = state.index === index;
 

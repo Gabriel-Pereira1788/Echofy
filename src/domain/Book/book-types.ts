@@ -36,12 +36,14 @@ export interface BookSectionApi {
 }
 
 export interface BookSection {
-  identify:
-    | 'recommended-for-you'
-    | 'best-seller'
-    | 'ficiton'
-    | 'literature'
-    | 'adventure';
+  identify: CategoryIdentify;
   title: string;
   books: Book[];
 }
+
+export type CategoryIdentify =
+  | 'recommended-for-you'
+  | 'best-seller'
+  | 'fiction'
+  | 'literature'
+  | 'adventure';

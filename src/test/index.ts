@@ -6,5 +6,6 @@ export {
   authCredentialsAPIMock,
   bookCategoryMock,
   allCategoriesMock,
+  bookMock,
   authCredentialsValidatedAPIMock,
 } from './serverHandlers';

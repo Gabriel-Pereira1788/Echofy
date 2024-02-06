@@ -2,14 +2,15 @@ import React, {useCallback} from 'react';
 import {FlatList, ListRenderItem} from 'react-native';
 
 import {BookSection, useBookSections} from '@domain';
+import {AppStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
 
-import {Box, Icon} from '@components';
+import {Box, Icon, TouchableOpacityBox} from '@components';
 
 import {HomeScreenBookSection} from './components/HomeScreenBookSection';
 import {HomeScreenCategories} from './components/HomeScreenCategories';
 
-export function HomeScreen() {
+export function HomeScreen({navigation}: AppStackProps<'HomeScreen'>) {
   const {bookSections} = useBookSections();
 
   const renderItem: ListRenderItem<BookSection> = useCallback(({item}) => {
@@ -21,12 +22,18 @@ export function HomeScreen() {
       />
     );
   }, []);
+
+  function redirectToProfileScreen() {
+    navigation.navigate('ProfileScreen');
+  }
   return (
     <SharedWrapperScreen
       showLogo
       customPadding
       headerRight={
-        <Icon iconName="settings" size="sp23" color="baseIconColor" />
+        <TouchableOpacityBox onPress={redirectToProfileScreen}>
+          <Icon iconName="settings" size="sp23" color="baseIconColor" />
+        </TouchableOpacityBox>
       }>
       <Box flex={1}>
         <FlatList

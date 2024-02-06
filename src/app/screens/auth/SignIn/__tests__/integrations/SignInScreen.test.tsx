@@ -62,7 +62,7 @@ describe('SignInScreen', () => {
     expect(inputPassword).toBeTruthy();
   });
 
-  it('should render errors message for wrong field values.', async () => {
+  it('should be render errors message for wrong field values.', async () => {
     const {inputEmail, buttonLogin, inputPassword} = customRenderScreen();
 
     fireEvent.changeText(inputEmail, invalidEmail);
@@ -76,7 +76,7 @@ describe('SignInScreen', () => {
     expect(emailErrorText).toBeTruthy();
     expect(passwordErrorText).toBeTruthy();
   });
-  it('should change form values.', async () => {
+  it('should be change form values.', async () => {
     const {inputEmail, inputPassword} = customRenderScreen();
 
     fireEvent.changeText(inputEmail, validEmail);
@@ -86,7 +86,7 @@ describe('SignInScreen', () => {
     expect(inputPassword.props.value).toEqual(validPassword);
   });
 
-  test('should redirect to sign up screen.', async () => {
+  test('should be redirect to sign up screen.', async () => {
     const {buttonRedirectSignUp} = customRenderScreen();
 
     fireEvent.press(buttonRedirectSignUp);
@@ -107,7 +107,7 @@ describe('SignInScreen', () => {
     expect(iconUnChecked).toBeNull();
   });
 
-  it('should send login data successfully', async () => {
+  it('should be send login data successfully', async () => {
     const {inputEmail, inputPassword, buttonLogin} = customRenderScreen();
 
     const SUCCESS_MESSAGE = 'Welcome!';
@@ -127,7 +127,7 @@ describe('SignInScreen', () => {
     });
   });
 
-  it('should send login data wrong credentials', async () => {
+  it('should be send login data wrong credentials', async () => {
     const {inputEmail, inputPassword, buttonLogin} = customRenderScreen();
 
     const ERROR_MESSAGE = 'Invalid email or password.';

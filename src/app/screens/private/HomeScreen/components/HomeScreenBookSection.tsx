@@ -2,6 +2,7 @@ import React, {useCallback, useRef} from 'react';
 import {FlatList, ListRenderItem, StyleProp, ViewStyle} from 'react-native';
 
 import {Book, Book as BookData, BookSection} from '@domain';
+import {useNavigation} from '@react-navigation/native';
 import {dimensions, getDynamicSize} from '@utils';
 
 import {Box, Text, TouchableOpacityBox} from '@components';
@@ -21,6 +22,8 @@ export function HomeScreenBookSection({
 }: HomeScreenBookSectionProps) {
   const flatListRef = useRef<FlatList<Book>>(null);
 
+  const navigation = useNavigation();
+
   const renderItem: ListRenderItem<BookData> = useCallback(
     ({item}) => {
       return (
@@ -33,8 +36,13 @@ export function HomeScreenBookSection({
     [sectionIdentify],
   );
 
+  function redirectToCategoryBookScreen() {
+    navigation.navigate('CategoryBookScreen', {
+      categoryIdentify: sectionIdentify,
+    });
+  }
   return (
-    <Box width={'100%'} flex={1} gap="sp10">
+    <Box width={'100%'} flex={1} gap="sp10" testID="book-section">
       <Box
         width={'100%'}
         alignItems="center"
@@ -44,7 +52,7 @@ export function HomeScreenBookSection({
         flexDirection="row">
         <Text text={sectionTitle} preset="medium/16" color="base" />
 
-        <TouchableOpacityBox>
+        <TouchableOpacityBox onPress={redirectToCategoryBookScreen}>
           <Text text="See more" color="textActive" preset="medium/14" />
         </TouchableOpacityBox>
       </Box>

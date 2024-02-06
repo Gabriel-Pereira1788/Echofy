@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {ListRenderItem, FlatList, StyleProp, ViewStyle} from 'react-native';
 
 import {BookCategory, useBookCategories} from '@domain';
+import {useNavigation} from '@react-navigation/native';
 
 import {Box, Category, Text} from '@components';
 
@@ -9,14 +10,25 @@ type Props = {};
 
 export function HomeScreenCategories({}: Props) {
   const {categories} = useBookCategories();
+
+  const navigation = useNavigation();
+
   const renderItem: ListRenderItem<BookCategory> = useCallback(
-    ({item}) => (
-      <Box>
-        <Category text={item.text} />
-      </Box>
-    ),
-    [],
+    ({item}) => {
+      function redirectToCategoryBooksScreen() {
+        navigation.navigate('CategoryBookScreen', {
+          categoryIdentify: item.text,
+        });
+      }
+      return (
+        <Box testID="category">
+          <Category text={item.text} onPress={redirectToCategoryBooksScreen} />
+        </Box>
+      );
+    },
+    [navigation],
   );
+
   return (
     <Box
       width={'100%'}

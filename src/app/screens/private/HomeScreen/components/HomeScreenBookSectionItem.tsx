@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {Book as BookData, BookSection} from '@domain';
+import {useNavigation} from '@react-navigation/native';
 import {getDynamicSize} from '@utils';
 
 import {Book, TouchableOpacityBox} from '@components';
@@ -12,6 +13,7 @@ type Props = {
   sectionIdentify: BookSection['identify'];
 };
 export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
+  const navigation = useNavigation();
   if (sectionIdentify === 'best-seller') {
     return <HomeScreenBestSellerCard book={book} />;
   }
@@ -21,8 +23,12 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
     heightPercentage: sectionIdentify === 'recommended-for-you' ? 55 : 40,
   });
 
+  function redirectToBookScreen() {
+    navigation.navigate('BookScreen');
+  }
   return (
     <TouchableOpacityBox
+      onPress={redirectToBookScreen}
       activeOpacity={0.8}
       boxProps={{
         flex: 1,
