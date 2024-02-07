@@ -5,12 +5,14 @@ import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
 type Props = {
   text: string;
+  testID?: string;
   onPress?: () => void;
 };
 
-export function Category({text, onPress}: Props) {
+export function Category({testID, text, onPress}: Props) {
   return (
     <TouchableOpacityBox
+      testID={testID}
       boxProps={{
         width: 'auto',
         padding: 'sp10',

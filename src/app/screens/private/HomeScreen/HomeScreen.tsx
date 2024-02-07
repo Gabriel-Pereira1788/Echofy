@@ -31,7 +31,9 @@ export function HomeScreen({navigation}: AppStackProps<'HomeScreen'>) {
       showLogo
       customPadding
       headerRight={
-        <TouchableOpacityBox onPress={redirectToProfileScreen}>
+        <TouchableOpacityBox
+          onPress={redirectToProfileScreen}
+          testID="profile-button">
           <Icon iconName="settings" size="sp23" color="baseIconColor" />
         </TouchableOpacityBox>
       }>

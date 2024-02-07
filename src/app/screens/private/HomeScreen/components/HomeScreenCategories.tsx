@@ -21,8 +21,12 @@ export function HomeScreenCategories({}: Props) {
         });
       }
       return (
-        <Box testID="category">
-          <Category text={item.text} onPress={redirectToCategoryBooksScreen} />
+        <Box>
+          <Category
+            testID="category"
+            text={item.text}
+            onPress={redirectToCategoryBooksScreen}
+          />
         </Box>
       );
     },
