@@ -39,9 +39,11 @@ export function HomeScreen({navigation}: AppStackProps<'HomeScreen'>) {
       }>
       <Box flex={1}>
         <FlatList
+          testID="list-movies"
           data={bookSections}
           showsVerticalScrollIndicator={false}
           style={{flex: 1}}
+          maxToRenderPerBatch={3}
           contentContainerStyle={{flexGrow: 1}}
           ListHeaderComponent={<HomeScreenCategories />}
           keyExtractor={item => item.identify}

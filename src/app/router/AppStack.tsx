@@ -10,7 +10,7 @@ import {AppTabNavigator, AppTabParamList} from './AppTabNavigator';
 export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabParamList>;
 
-  BookScreen: undefined;
+  BookScreen: {id: string};
   HomeScreen: undefined;
   ProfileScreen: undefined;
   CategoryBookScreen: {categoryIdentify: string};

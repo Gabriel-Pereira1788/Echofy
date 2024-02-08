@@ -14,9 +14,6 @@ type Props = {
 };
 export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
   const navigation = useNavigation();
-  if (sectionIdentify === 'best-seller') {
-    return <HomeScreenBestSellerCard book={book} />;
-  }
 
   const {dynamicWidth, dynamicHeight} = getDynamicSize({
     widthPercentage: sectionIdentify === 'recommended-for-you' ? 85 : 50,
@@ -24,10 +21,17 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
   });
 
   function redirectToBookScreen() {
-    navigation.navigate('BookScreen');
+    navigation.navigate('BookScreen', {
+      id: book.id,
+    });
+  }
+
+  if (sectionIdentify === 'best-seller') {
+    return <HomeScreenBestSellerCard book={book} />;
   }
   return (
     <TouchableOpacityBox
+      testID="book-item"
       onPress={redirectToBookScreen}
       activeOpacity={0.8}
       boxProps={{
