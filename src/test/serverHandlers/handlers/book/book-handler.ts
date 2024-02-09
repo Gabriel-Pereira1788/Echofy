@@ -1,7 +1,7 @@
 import {BASE_URL} from '@api';
 import {HttpResponse, http} from 'msw';
 
-import {bookMock} from './mock/bookMock';
+import {bookMockApi} from './mock/bookMock';
 import {bookCategoryMock} from './mock/categoryMock';
 
 export const bookHandler = [
@@ -21,10 +21,10 @@ export const bookHandler = [
       );
     }
 
-    return HttpResponse.json(bookMock, {status: 200});
+    return HttpResponse.json(bookMockApi, {status: 200});
   }),
   http.get(`${BASE_URL}book/best-seller`, () => {
-    return HttpResponse.json(bookMock, {status: 200});
+    return HttpResponse.json(bookMockApi, {status: 200});
   }),
   http.get(`${BASE_URL}book/find-by-category/:category`, ({params}) => {
     const category = params.category;
@@ -38,6 +38,6 @@ export const bookHandler = [
       );
     }
 
-    return HttpResponse.json(bookMock, {status: 200});
+    return HttpResponse.json(bookMockApi, {status: 200});
   }),
 ];

@@ -4,13 +4,12 @@ import {
   act,
   allCategoriesMock,
   authCredentialsMock,
-  bookMock,
+  bookMockApi,
   fireEvent,
   renderScreen,
   screen,
   server,
 } from '@test';
-import {dimensions} from '@utils';
 
 import {HomeScreen} from '../../HomeScreen';
 
@@ -84,7 +83,7 @@ describe('HomeScreen', () => {
   });
 
   it('should be redirect to category screen', async () => {
-    const {listSections} = customRenderScreen();
+    const {} = customRenderScreen();
 
     const categoryItem = await screen.findByText(allCategoriesMock[0].text);
     act(() => {
@@ -113,20 +112,8 @@ describe('HomeScreen', () => {
   });
 
   it('should be press book item and redirect to book screen ', async () => {
-    const {listSections} = customRenderScreen();
+    const {} = customRenderScreen();
 
-    act(() => {
-      fireEvent.scroll(listSections, {
-        nativeEvent: {
-          contentSize: {height: 600, width: 400},
-          contentOffset: {y: 400, x: 0},
-          layoutMeasurement: {
-            height: dimensions.height,
-            width: dimensions.width,
-          }, // Dimensions of the device
-        },
-      });
-    });
     const bookItens = await screen.findAllByTestId('book-item');
 
     act(() => {
@@ -134,9 +121,9 @@ describe('HomeScreen', () => {
       fireEvent.press(bookItens[0]);
     });
 
-    expect(bookItens).toBeTruthy();
+    expect(bookItens.length).toEqual(3);
     expect(mockNavigate).toHaveBeenCalledWith('BookScreen', {
-      id: bookMock.docs[0].id,
+      id: bookMockApi.docs[0].id,
     });
   });
 });

@@ -1,7 +1,9 @@
 import React from 'react';
-import {Text as TextRN, useColorScheme} from 'react-native';
+import {Text as TextRN} from 'react-native';
 
 import {darkTheme, theme} from '@styles';
+
+import {useTheme} from '@hooks';
 
 import {makePresetFont} from './functions/makePresetFont';
 import {$fontSize, $fontWeight} from './textConstants';
@@ -15,8 +17,9 @@ export function Text({
   setColorsTheme,
   ...rest
 }: TextProps) {
-  const isDarkMode = useColorScheme() === 'dark';
+  const {colorScheme} = useTheme();
 
+  const isDarkMode = colorScheme === 'dark';
   const _color = isDarkMode
     ? darkTheme.colors[setColorsTheme?.dark ?? color]
     : theme.colors[setColorsTheme?.light ?? color];

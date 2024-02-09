@@ -58,6 +58,7 @@ export function HomeScreenBookSection({
       </Box>
 
       <FlatList
+        testID="section-books"
         ref={flatListRef}
         horizontal
         pagingEnabled

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {AuthProvider} from '@providers';
 import {ThemeProvider} from '@shopify/restyle';
-import {theme} from '@styles';
+import {darkTheme, theme} from '@styles';
 import {
   QueryClient,
   QueryClientConfig,
@@ -31,9 +31,10 @@ const queryClientConfig: QueryClientConfig = {
 function wrapAllProviders() {
   const queryClient = new QueryClient(queryClientConfig);
 
+  const isDarkMode = false;
   return ({children}: React.PropsWithChildren) => (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
         <AuthProvider>{children}</AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

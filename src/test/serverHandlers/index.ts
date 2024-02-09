@@ -9,6 +9,7 @@ import {
   authCredentialsValidatedAPIMock,
   bookHandler,
   bookMock,
+  bookMockApi,
 } from './handlers';
 
 export {
@@ -18,5 +19,6 @@ export {
   allCategoriesMock,
   bookCategoryMock,
   bookMock,
+  bookMockApi,
 };
 export const server = setupServer(...authHandler, ...bookHandler);

@@ -17,6 +17,7 @@ export function Book({book, renderTitle, renderAuthor}: BookProps) {
     <Box width={'100%'} height={'100%'} gap="sp10">
       <Box flex={1}>
         <Image
+          testID="book-image"
           style={{width: '100%', height: '100%', borderRadius: 10}}
           source={{
             uri: book.bookImage,
@@ -25,19 +26,18 @@ export function Book({book, renderTitle, renderAuthor}: BookProps) {
         />
       </Box>
 
-      {renderTitle ||
-        (renderAuthor && (
-          <Box
-            width={'100%'}
-            alignItems="flex-start"
-            justifyContent="center"
-            gap="sp3">
-            <Text
-              text={book.bookTitle}
-              setColorsTheme={{dark: 'neutral5', light: 'neutral80'}}
-            />
-          </Box>
-        ))}
+      {(renderTitle || renderAuthor) && (
+        <Box
+          width={'100%'}
+          alignItems="flex-start"
+          justifyContent="center"
+          gap="sp3">
+          <Text
+            text={book.bookTitle}
+            setColorsTheme={{dark: 'neutral5', light: 'neutral80'}}
+          />
+        </Box>
+      )}
     </Box>
   );
 }

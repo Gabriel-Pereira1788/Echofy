@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Book as BookData, BookSection} from '@domain';
 import {useNavigation} from '@react-navigation/native';
-import {getDynamicSize} from '@utils';
+import {dimensions, getDynamicSize} from '@utils';
 
 import {Book, TouchableOpacityBox} from '@components';
 
@@ -27,7 +27,16 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
   }
 
   if (sectionIdentify === 'best-seller') {
-    return <HomeScreenBestSellerCard book={book} />;
+    return (
+      <TouchableOpacityBox
+        boxProps={{
+          width: dimensions.width - 20,
+        }}
+        testID="best-seller-card"
+        onPress={redirectToBookScreen}>
+        <HomeScreenBestSellerCard book={book} />
+      </TouchableOpacityBox>
+    );
   }
   return (
     <TouchableOpacityBox
@@ -42,7 +51,7 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
       }}>
       <Book
         book={book}
-        renderAuthor={sectionIdentify !== 'recommended-for-you'}
+        renderTitle={sectionIdentify !== 'recommended-for-you'}
       />
     </TouchableOpacityBox>
   );

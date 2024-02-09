@@ -12,8 +12,7 @@ export function HomeScreenBestSellerCard({book}: Props) {
   return (
     <Box
       padding="sp15"
-      flex={1}
-      // width={'50%'}
+      width={'100%'}
       height={200}
       borderRadius="rd15"
       gap="sp10"
@@ -30,9 +29,11 @@ export function HomeScreenBestSellerCard({book}: Props) {
         marginTop="sp7"
         justifyContent="flex-start"
         gap="sp7">
-        <Text text="Light Mage" color="base" preset="semiBold/16" />
+        <Box width="auto">
+          <Text text={book.bookTitle} color="base" preset="semiBold/16" />
+        </Box>
         <Text
-          text="Laurie forest Mage"
+          text={'Light Mage'}
           color="base"
           preset="medium/14"
           setColorsTheme={{
