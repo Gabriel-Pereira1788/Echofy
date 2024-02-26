@@ -14,7 +14,7 @@ import {
 
 import {$shadowProps} from '../styles/theme';
 
-import {AppStackParamList} from './AppStack';
+import {AppTabParamList} from './AppTabNavigator';
 import {mapScreenToProps} from './mapScreenProps';
 
 export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
@@ -23,7 +23,7 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
 
-        const tabItem = mapScreenToProps[route.name as keyof AppStackParamList];
+        const tabItem = mapScreenToProps[route.name as keyof AppTabParamList];
 
         const isFocused = state.index === index;
 
@@ -86,7 +86,7 @@ const $itemWrapper: Omit<ITouchableOpacityBoxProps, 'children'> = {
 };
 
 const $boxWrapper: BoxProps = {
-  paddingTop: 'sp15',
+  paddingTop: 'sp7',
   backgroundColor: 'bgMain',
   flexDirection: 'row',
 };

@@ -1,6 +1,6 @@
 import {IconProps} from '../components/Icon/iconTypes';
 
-import {AppTabParamList} from './AppStack';
+import {AppTabParamList} from './AppTabNavigator';
 
 export type MappedScreenProps = Record<
   keyof AppTabParamList,
@@ -11,7 +11,7 @@ export type MappedScreenProps = Record<
 >;
 
 export const mapScreenToProps: MappedScreenProps = {
-  HomeScreen: {
+  HomeStackNavigator: {
     iconName: 'home',
     label: 'Home',
   },

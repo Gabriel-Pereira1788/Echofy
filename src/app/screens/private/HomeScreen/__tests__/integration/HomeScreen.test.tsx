@@ -6,24 +6,13 @@ import {
   authCredentialsMock,
   bookMockApi,
   fireEvent,
+  mockedNavigate,
   renderScreen,
   screen,
   server,
 } from '@test';
 
 import {HomeScreen} from '../../HomeScreen';
-
-const mockNavigate = jest.fn();
-
-jest.mock('@react-navigation/native', () => {
-  const originalModules = jest.requireActual('@react-navigation/native');
-  return {
-    useNavigation: () => ({
-      ...originalModules,
-      navigate: mockNavigate,
-    }),
-  };
-});
 
 const mockUid = authCredentialsMock.id;
 jest.mock('@providers', () => {
@@ -36,17 +25,12 @@ jest.mock('@providers', () => {
   };
 });
 
-function customRenderScreen() {
-  renderScreen(
-    <HomeScreen
-      navigation={{navigate: mockNavigate} as any}
-      route={{} as any}
-    />,
-  );
+async function customRenderScreen() {
+  renderScreen(<HomeScreen navigation={{} as any} route={{} as any} />);
 
   return {
-    textCategories: screen.getByText('Categories'),
-    profileButton: screen.getByTestId('profile-button'),
+    profileButton: await screen.findByTestId('profile-button'),
+    textCategories: await screen.findByText('Categories'),
     listSections: screen.getByTestId('list-movies'),
   };
 }
@@ -62,43 +46,44 @@ afterAll(() => {
 
 describe('HomeScreen', () => {
   it('render homeScreen correctly', async () => {
-    const {textCategories, profileButton, listSections} = customRenderScreen();
+    const {profileButton, listSections, textCategories} =
+      await customRenderScreen();
     const allCategories = await screen.findAllByTestId('category');
 
-    expect(allCategories.length).toEqual(
-      allCategoriesMock.splice(0, 10).length,
-    );
-    expect(listSections.props.data.length).toEqual(5);
+    expect(allCategories.length).toEqual(allCategoriesMock.slice(0, 10).length);
+    expect(listSections.props.data.length).toEqual(8);
     expect(profileButton).toBeTruthy();
     expect(textCategories).toBeTruthy();
   });
 
-  it('should be redirect to profile screen', () => {
-    const {profileButton} = customRenderScreen();
+  it('should be redirect to profile screen', async () => {
+    const {profileButton} = await customRenderScreen();
 
     fireEvent.press(profileButton);
 
     expect(profileButton).toBeTruthy();
-    expect(mockNavigate).toHaveBeenCalledWith('ProfileScreen');
+    expect(mockedNavigate).toHaveBeenCalledWith('ProfileScreen');
   });
 
   it('should be redirect to category screen', async () => {
-    const {} = customRenderScreen();
+    const {} = await customRenderScreen();
 
-    const categoryItem = await screen.findByText(allCategoriesMock[0].text);
+    const categoryItem = await screen.findAllByTestId('category');
+
     act(() => {
       jest.resetAllMocks();
-      fireEvent.press(categoryItem);
+      fireEvent.press(categoryItem[0]);
     });
 
-    expect(categoryItem).toBeTruthy();
-    expect(mockNavigate).toHaveBeenCalledWith('CategoryBookScreen', {
-      categoryIdentify: allCategoriesMock[0].text,
+    expect(categoryItem[0]).toBeTruthy();
+    expect(mockedNavigate).toHaveBeenCalledWith('CategoryBookScreen', {
+      categoryIdentify: allCategoriesMock[0].text.toLowerCase(),
+      categoryTitle: allCategoriesMock[0].text,
     });
   });
 
   it('should be press "see more" action', async () => {
-    const {} = customRenderScreen();
+    const {} = await customRenderScreen();
     const seeMoreItens = await screen.findAllByText('See more');
     act(() => {
       jest.resetAllMocks();
@@ -106,13 +91,14 @@ describe('HomeScreen', () => {
     });
 
     expect(seeMoreItens).toBeTruthy();
-    expect(mockNavigate).toHaveBeenCalledWith('CategoryBookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('CategoryBookScreen', {
       categoryIdentify: 'recommended-for-you',
+      categoryTitle: 'Recommended For You',
     });
   });
 
   it('should be press book item and redirect to book screen ', async () => {
-    const {} = customRenderScreen();
+    const {} = await customRenderScreen();
 
     const bookItens = await screen.findAllByTestId('book-item');
 
@@ -121,8 +107,8 @@ describe('HomeScreen', () => {
       fireEvent.press(bookItens[0]);
     });
 
-    expect(bookItens.length).toEqual(3);
-    expect(mockNavigate).toHaveBeenCalledWith('BookScreen', {
+    expect(bookItens.length).toEqual(21);
+    expect(mockedNavigate).toHaveBeenCalledWith('BookScreen', {
       id: bookMockApi.docs[0].id,
     });
   });

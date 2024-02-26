@@ -11,9 +11,12 @@ const mockSectionBooks = [bookMock, bookMock, bookMock];
 
 type Props = {
   sectionIdentify?: HomeScreenBookSectionProps['sectionIdentify'];
+  sectionTitle?: string;
 };
-function customRender({sectionIdentify}: Props) {
-  const sectionTitle = 'Recommended for you';
+function customRender({
+  sectionIdentify,
+  sectionTitle = 'Recommended for you',
+}: Props) {
   render(
     <HomeScreenBookSection
       sectionBooks={mockSectionBooks}
@@ -50,13 +53,14 @@ describe('HomeScreenBookSection', () => {
   it('should be redirect to category book screen on press see more button', () => {
     const sectionIdentify: HomeScreenBookSectionProps['sectionIdentify'] =
       'adventure';
-
-    const {seeMoreButton} = customRender({sectionIdentify});
+    const sectionTitle = 'Adventure';
+    const {seeMoreButton} = customRender({sectionIdentify, sectionTitle});
 
     fireEvent.press(seeMoreButton);
 
     expect(mockedNavigate).toHaveBeenCalledWith('CategoryBookScreen', {
       categoryIdentify: sectionIdentify,
+      categoryTitle: sectionTitle,
     });
   });
 

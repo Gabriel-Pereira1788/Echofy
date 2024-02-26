@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {ListRenderItem, FlatList, StyleProp, ViewStyle} from 'react-native';
 
-import {BookCategory, useBookCategories} from '@domain';
+import {BookCategory, CategoryIdentify, useBookCategories} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
 import {Box, Category, Text} from '@components';
@@ -17,7 +17,8 @@ export function HomeScreenCategories({}: Props) {
     ({item}) => {
       function redirectToCategoryBooksScreen() {
         navigation.navigate('CategoryBookScreen', {
-          categoryIdentify: item.text,
+          categoryIdentify: item.text.toLowerCase() as CategoryIdentify,
+          categoryTitle: item.text,
         });
       }
       return (
@@ -53,7 +54,7 @@ export function HomeScreenCategories({}: Props) {
           showsHorizontalScrollIndicator={false}
           scrollEnabled
           contentContainerStyle={$contentContainerStyle}
-          data={categories.splice(0, 10)}
+          data={categories.slice(0, 10)}
           renderItem={renderItem}
         />
       )}

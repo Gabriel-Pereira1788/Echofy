@@ -17,24 +17,20 @@ export function SharedScreenHeader({
   headerTitle,
   headerRight,
 }: Props) {
-  const dynamicLogoSize = (dimensions.width / 100) * 40;
+  const dynamicLogoSize = (dimensions.width / 100) * 35;
+  const alignItems = showLogo ? 'center' : 'flex-start';
 
   return (
     <Box
       width={'100%'}
-      height={100}
+      height={50}
       flexDirection="row"
       paddingHorizontal="sp25"
       justifyContent="space-between"
-      alignItems="center">
+      alignItems={alignItems}>
       {headerLeft ||
         (showLogo && (
-          <TouchableOpacityBox
-            boxProps={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
-            }}>
+          <Box>
             {showLogo ? (
               <Image
                 imageName="logo"
@@ -44,20 +40,16 @@ export function SharedScreenHeader({
             ) : (
               headerLeft
             )}
-          </TouchableOpacityBox>
+          </Box>
         ))}
       {headerTitle && (
-        <TouchableOpacityBox
-          boxProps={{
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+        <Box flex={1} flexDirection="row" justifyContent="center">
           <Text
             text={headerTitle}
             preset="medium/16"
             setColorsTheme={{dark: 'white', light: 'neutral80'}}
           />
-        </TouchableOpacityBox>
+        </Box>
       )}
 
       {headerRight && (

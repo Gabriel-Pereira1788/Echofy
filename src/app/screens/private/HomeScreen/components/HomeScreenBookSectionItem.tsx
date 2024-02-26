@@ -46,11 +46,12 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
       boxProps={{
         flex: 1,
         width: dynamicWidth,
-        height: dynamicHeight,
-        marginBottom: 'sp50',
+        height: '100%',
+        marginBottom: 'sp28',
       }}>
       <Book
         book={book}
+        boxImageSize={{height: dynamicHeight}}
         renderTitle={sectionIdentify !== 'recommended-for-you'}
       />
     </TouchableOpacityBox>

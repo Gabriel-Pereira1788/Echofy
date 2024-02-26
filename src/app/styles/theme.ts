@@ -30,6 +30,7 @@ export const theme = createTheme({
     primary90: pallete.primary90,
     primary100: pallete.primary100,
     neutral5: pallete.neutral5,
+    neutral10: pallete.neutral10,
     neutral40: pallete.neutral40,
     neutral80: pallete.neutral80,
     black: pallete.black,

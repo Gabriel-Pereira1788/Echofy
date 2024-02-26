@@ -1,6 +1,10 @@
+import {PaginatedResult} from '@infra';
+
+import {QueryParams} from '../types';
+
 import {bookAdapter} from './book-adapter';
 import {bookApi} from './book-api';
-import {BookApi, BookSection} from './book-types';
+import {Book, BookSection, CategoryIdentify} from './book-types';
 
 async function getCategories() {
   const result = await bookApi.getCategories();
@@ -21,7 +25,10 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
     bestSellerData,
     adventureBookData,
     fictionBookData,
-    literatureBookData,
+    fantasyBookData,
+    fairyTalesBookData,
+    philosophyBookData,
+    mysteryBookData,
   ] = await Promise.all([
     bookApi.getBestSeller({}),
     bookApi.getByCategory({
@@ -31,7 +38,16 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
       category: 'fiction',
     }),
     bookApi.getByCategory({
-      category: 'literature',
+      category: 'fantasy',
+    }),
+    bookApi.getByCategory({
+      category: 'fairy tales',
+    }),
+    bookApi.getByCategory({
+      category: 'philosophy',
+    }),
+    bookApi.getByCategory({
+      category: 'mystery',
     }),
   ]);
 
@@ -44,40 +60,67 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
     {
       identify: 'best-seller',
       title: 'Best Seller',
-      books: dontRepeatBooks(recommendedForYouData.docs, bestSellerData.docs),
+      books: bestSellerData.docs.map(doc => bookAdapter.toBookData(doc)),
     },
     {
       identify: 'fiction',
       title: 'Fiction',
-      books: dontRepeatBooks(recommendedForYouData.docs, fictionBookData.docs),
+      books: fictionBookData.docs.map(doc => bookAdapter.toBookData(doc)),
     },
     {
-      identify: 'literature',
-      title: 'Literature',
-      books: dontRepeatBooks(
-        recommendedForYouData.docs,
-        literatureBookData.docs,
-      ),
+      identify: 'fantasy',
+      title: 'fantasy',
+      books: fantasyBookData.docs.map(doc => bookAdapter.toBookData(doc)),
     },
     {
       identify: 'adventure',
       title: 'Adventure',
-      books: dontRepeatBooks(
-        recommendedForYouData.docs,
-        adventureBookData.docs,
-      ),
+      books: adventureBookData.docs.map(doc => bookAdapter.toBookData(doc)),
+    },
+    {
+      identify: 'fairy tales',
+      title: 'Fairy Tales',
+      books: fairyTalesBookData.docs.map(doc => bookAdapter.toBookData(doc)),
+    },
+    {
+      identify: 'philosophy',
+      title: 'Philosophy',
+      books: philosophyBookData.docs.map(doc => bookAdapter.toBookData(doc)),
+    },
+    {
+      identify: 'mystery',
+      title: 'Mystery',
+      books: mysteryBookData.docs.map(doc => bookAdapter.toBookData(doc)),
     },
   ];
 }
 
-function dontRepeatBooks(repeatedBook: BookApi[], listToRemove: BookApi[]) {
-  const filteredList = listToRemove.filter(
-    book => !repeatedBook.find(_book => _book.id === book.id),
-  );
-  return filteredList.map(book => bookAdapter.toBookData(book));
-}
+async function getBookListByCategory({
+  category,
+  skip,
+  top,
+}: {
+  category: CategoryIdentify;
+} & QueryParams): Promise<PaginatedResult<Book>> {
+  const result = await bookApi.getByCategory({
+    category,
+    top,
+    skip,
+  });
 
+  return {
+    docs: result.docs.map(doc => bookAdapter.toBookData(doc)),
+    meta: {
+      nextPage: result.nextPage,
+      page: result.page,
+      prevPage: result.prevPage,
+      totalDocs: result.totalDocs,
+      totalPages: result.totalPages,
+    },
+  };
+}
 export const bookService = {
   getCategories,
   getBookSections,
+  getBookListByCategory,
 };

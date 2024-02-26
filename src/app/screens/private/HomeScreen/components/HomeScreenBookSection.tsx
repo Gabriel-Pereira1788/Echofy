@@ -23,7 +23,6 @@ export function HomeScreenBookSection({
   const flatListRef = useRef<FlatList<Book>>(null);
 
   const navigation = useNavigation();
-
   const renderItem: ListRenderItem<BookData> = useCallback(
     ({item}) => {
       return (
@@ -39,10 +38,21 @@ export function HomeScreenBookSection({
   function redirectToCategoryBookScreen() {
     navigation.navigate('CategoryBookScreen', {
       categoryIdentify: sectionIdentify,
+      categoryTitle: sectionTitle,
     });
   }
   return (
-    <Box width={'100%'} flex={1} gap="sp10" testID="book-section">
+    <Box
+      width={'100%'}
+      flex={1}
+      gap="sp10"
+      testID="book-section"
+      marginBottom={
+        sectionIdentify === 'best-seller' ||
+        sectionIdentify === 'recommended-for-you'
+          ? 'sp16'
+          : 'sp23'
+      }>
       <Box
         width={'100%'}
         alignItems="center"

@@ -1,11 +1,14 @@
 import React from 'react';
 
-import {Box} from '@components';
+import {useNavigation} from '@react-navigation/native';
 
-import {SharedScreenHeader} from './components/SharedScreenHeader';
+import {Box, Icon, TouchableOpacityBox} from '@components';
+
+import {SharedScreenHeader} from '../SharedScreenHeader/SharedScreenHeader';
 
 interface Props extends React.PropsWithChildren {
   showLogo?: boolean;
+  goBack?: boolean;
   headerLeft?: React.JSX.Element;
   headerTitle?: string;
   headerRight?: React.JSX.Element;
@@ -14,13 +17,19 @@ interface Props extends React.PropsWithChildren {
 
 export function SharedWrapperScreen({
   children,
+  goBack,
   showLogo,
   headerLeft,
   headerRight,
   customPadding,
   headerTitle,
 }: Props) {
-  const renderHeader = showLogo || headerLeft || headerRight || headerTitle;
+  const navigation = useNavigation();
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
+  const renderHeader = headerLeft || headerRight || headerTitle || goBack;
   return (
     <Box
       width={'100%'}
@@ -28,12 +37,23 @@ export function SharedWrapperScreen({
       height={'100%'}
       justifyContent="center"
       backgroundColor="bgMain">
-      {renderHeader && (
+      {showLogo && (
         <SharedScreenHeader
           showLogo={showLogo}
           headerLeft={headerLeft}
           headerTitle={headerTitle}
           headerRight={headerRight}
+        />
+      )}
+
+      {renderHeader && (
+        <SharedScreenHeader
+          headerTitle={headerTitle}
+          headerLeft={
+            <TouchableOpacityBox onPress={handleGoBack}>
+              <Icon iconName="arrowLeft" color="baseIconColor" size="sp23" />
+            </TouchableOpacityBox>
+          }
         />
       )}
       <Box

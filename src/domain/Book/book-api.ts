@@ -2,7 +2,7 @@ import {api} from '@api';
 
 import {QueryParams} from '../types';
 
-import {BookSectionApi} from './book-types';
+import {BookSectionApi, CategoryIdentify} from './book-types';
 
 async function getCategories() {
   const response = await api.get<string[]>('book/categories');
@@ -20,10 +20,11 @@ async function getRecommendedForYou({
   return response.data;
 }
 
-async function getBestSeller({top = 10, skip = 0}: QueryParams) {
+async function getBestSeller({top = 10, skip = 0, page = 1}: QueryParams) {
   const response = await api.get<BookSectionApi>(
-    `book/best-seller?top=${top}&skip=${skip}`,
+    `book/best-seller?top=${top}&skip=${skip}&page=${page}`,
   );
+
   return response.data;
 }
 
@@ -31,7 +32,7 @@ async function getByCategory({
   category,
   top = 10,
   skip = 0,
-}: {category: string} & QueryParams) {
+}: {category: CategoryIdentify} & QueryParams) {
   const response = await api.get<BookSectionApi>(
     `book/find-by-category/${category}?top=${top}&skip=${skip}`,
   );

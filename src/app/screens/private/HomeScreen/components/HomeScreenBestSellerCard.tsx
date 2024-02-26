@@ -24,20 +24,30 @@ export function HomeScreenBestSellerCard({book}: Props) {
       </Box>
 
       <Box
-        width={'100%'}
+        width={'50%'}
         alignItems="flex-start"
         marginTop="sp7"
         justifyContent="flex-start"
         gap="sp7">
-        <Box width="auto">
+        <Box>
           <Text text={book.bookTitle} color="base" preset="semiBold/16" />
         </Box>
         <Text
-          text={'Light Mage'}
+          text={book.bookAuthor}
           color="base"
           preset="medium/14"
           setColorsTheme={{
             dark: 'neutral5',
+            light: 'neutral80',
+          }}
+        />
+
+        <Text
+          text={book.bookDesc.trim().slice(0, 100) + ' ...'}
+          color="base"
+          preset="medium/14"
+          setColorsTheme={{
+            dark: 'neutral40',
             light: 'neutral80',
           }}
         />

@@ -23,6 +23,7 @@ export function BookScreen({}: Props) {
 
     await TrackPlayer.play();
   }
+
   return (
     <SharedWrapperScreen>
       <Box

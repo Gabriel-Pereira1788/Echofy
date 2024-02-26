@@ -4,6 +4,9 @@ export interface BookApi {
   book_title: string;
   book_genres: string[];
   book_desc: string;
+  book_star_raiting: string;
+  book_read_link: string;
+  book_author: string;
   playlist_chapters: PlaylistChapter[];
 }
 
@@ -18,6 +21,8 @@ export interface Book {
   bookTitle: string;
   bookGenres: string[];
   bookDesc: string;
+  bookAuthor: string;
+  bookReadLink: string;
   playlistChapters: PlaylistChapter[];
 }
 
@@ -46,4 +51,8 @@ export type CategoryIdentify =
   | 'best-seller'
   | 'fiction'
   | 'literature'
-  | 'adventure';
+  | 'adventure'
+  | 'fantasy'
+  | 'fairy tales'
+  | 'philosophy'
+  | 'mystery';

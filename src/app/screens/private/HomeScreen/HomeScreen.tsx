@@ -1,17 +1,17 @@
 import React, {useCallback} from 'react';
-import {FlatList, ListRenderItem} from 'react-native';
+import {ActivityIndicator, FlatList, ListRenderItem} from 'react-native';
 
 import {BookSection, useBookSections} from '@domain';
-import {AppStackProps} from '@router';
+import {HomeStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
 
-import {Box, Icon, TouchableOpacityBox} from '@components';
+import {Box} from '@components';
 
 import {HomeScreenBookSection} from './components/HomeScreenBookSection';
-import {HomeScreenCategories} from './components/HomeScreenCategories';
+import {HomeScreenHeader} from './components/HomeScreenHeader';
 
-export function HomeScreen({navigation}: AppStackProps<'HomeScreen'>) {
-  const {bookSections} = useBookSections();
+export function HomeScreen({}: HomeStackProps<'HomeScreen'>) {
+  const {isLoading, bookSections} = useBookSections();
 
   const renderItem: ListRenderItem<BookSection> = useCallback(({item}) => {
     return (
@@ -23,32 +23,30 @@ export function HomeScreen({navigation}: AppStackProps<'HomeScreen'>) {
     );
   }, []);
 
-  function redirectToProfileScreen() {
-    navigation.navigate('ProfileScreen');
-  }
   return (
-    <SharedWrapperScreen
-      showLogo
-      customPadding
-      headerRight={
-        <TouchableOpacityBox
-          onPress={redirectToProfileScreen}
-          testID="profile-button">
-          <Icon iconName="settings" size="sp23" color="baseIconColor" />
-        </TouchableOpacityBox>
-      }>
+    <SharedWrapperScreen customPadding>
       <Box flex={1}>
         <FlatList
+          ListHeaderComponent={<HomeScreenHeader />}
           testID="list-movies"
           data={bookSections}
           showsVerticalScrollIndicator={false}
           style={{flex: 1}}
           maxToRenderPerBatch={3}
           contentContainerStyle={{flexGrow: 1}}
-          ListHeaderComponent={<HomeScreenCategories />}
           keyExtractor={item => item.identify}
           renderItem={renderItem}
         />
+        {isLoading && (
+          <Box
+            width={'100%'}
+            height={'100%'}
+            alignSelf="center"
+            alignItems="center"
+            justifyContent="center">
+            <ActivityIndicator size={20} />
+          </Box>
+        )}
       </Box>
     </SharedWrapperScreen>
   );

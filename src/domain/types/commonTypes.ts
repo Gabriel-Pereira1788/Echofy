@@ -13,4 +13,5 @@ export type CommonError = {
 export type QueryParams = {
   top?: number;
   skip?: number;
+  page?: number;
 };

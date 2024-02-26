@@ -9,11 +9,13 @@ function toBookCategory(categories: string[]): BookCategory[] {
 
 function toBookData(book: BookApi): Book {
   return {
+    id: book.id,
     bookDesc: book.book_desc,
     bookGenres: book.book_genres,
     bookImage: book.book_image,
     bookTitle: book.book_title,
-    id: book.id,
+    bookAuthor: book.book_author,
+    bookReadLink: book.book_read_link,
     playlistChapters: book.playlist_chapters,
   };
 }
