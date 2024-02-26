@@ -3,7 +3,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {SharedScreenHeader} from '@shared';
 
-import {Icon, TouchableOpacityBox} from '@components';
+import {Box, Icon, TouchableOpacityBox} from '@components';
 
 import {HomeScreenCategories} from './HomeScreenCategories';
 
@@ -26,7 +26,7 @@ export function HomeScreenHeader({}: Props) {
           </TouchableOpacityBox>
         }
       />
-
+      <Box height={20} />
       <HomeScreenCategories />
     </>
   );

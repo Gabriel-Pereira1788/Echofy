@@ -20,9 +20,9 @@ async function getRecommendedForYou({
   return response.data;
 }
 
-async function getBestSeller({top = 10, skip = 0, page = 1}: QueryParams) {
+async function getBestSeller({top = 10, skip = 0}: QueryParams) {
   const response = await api.get<BookSectionApi>(
-    `book/best-seller?top=${top}&skip=${skip}&page=${page}`,
+    `book/best-seller?top=${top}&skip=${skip}`,
   );
 
   return response.data;
@@ -31,8 +31,27 @@ async function getBestSeller({top = 10, skip = 0, page = 1}: QueryParams) {
 async function getByCategory({
   category,
   top = 10,
+  uid,
   skip = 0,
-}: {category: CategoryIdentify} & QueryParams) {
+}: {category: CategoryIdentify; uid: string} & QueryParams) {
+  if (category === 'recommended-for-you') {
+    const response = await getRecommendedForYou({
+      uid,
+      top,
+      skip,
+    });
+
+    return response;
+  }
+
+  if (category === 'best-seller') {
+    const response = await getBestSeller({
+      top,
+      skip,
+    });
+
+    return response;
+  }
   const response = await api.get<BookSectionApi>(
     `book/find-by-category/${category}?top=${top}&skip=${skip}`,
   );

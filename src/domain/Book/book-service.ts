@@ -30,24 +30,33 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
     philosophyBookData,
     mysteryBookData,
   ] = await Promise.all([
-    bookApi.getBestSeller({}),
+    bookApi.getByCategory({
+      category: 'best-seller',
+      uid,
+    }),
     bookApi.getByCategory({
       category: 'adventure',
+      uid,
     }),
     bookApi.getByCategory({
       category: 'fiction',
+      uid,
     }),
     bookApi.getByCategory({
       category: 'fantasy',
+      uid,
     }),
     bookApi.getByCategory({
       category: 'fairy tales',
+      uid,
     }),
     bookApi.getByCategory({
       category: 'philosophy',
+      uid,
     }),
     bookApi.getByCategory({
       category: 'mystery',
+      uid,
     }),
   ]);
 
@@ -99,13 +108,28 @@ async function getBookListByCategory({
   category,
   skip,
   top,
+  uid,
 }: {
   category: CategoryIdentify;
+  uid?: string;
 } & QueryParams): Promise<PaginatedResult<Book>> {
+  if (!uid) {
+    return {
+      docs: [],
+      meta: {
+        nextPage: null,
+        page: 0,
+        prevPage: null,
+        totalDocs: 0,
+        totalPages: 0,
+      },
+    };
+  }
   const result = await bookApi.getByCategory({
-    category,
+    uid,
     top,
     skip,
+    category,
   });
 
   return {

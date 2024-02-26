@@ -1,5 +1,5 @@
 export interface MetaData {
-  nextPage: number;
+  nextPage: number | null;
   page: number;
   prevPage: number | null;
   totalDocs: number;
@@ -8,5 +8,5 @@ export interface MetaData {
 
 export interface PaginatedResult<TData> {
   docs: TData[];
-  meta: MetaData;
+  meta: MetaData | null;
 }

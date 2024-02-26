@@ -25,7 +25,7 @@ export function BookScreen({}: Props) {
   }
 
   return (
-    <SharedWrapperScreen>
+    <SharedWrapperScreen goBack>
       <Box
         width={'100%'}
         flexDirection="row"

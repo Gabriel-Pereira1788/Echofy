@@ -12,12 +12,10 @@ export function usePaginatedList<TData>(
   const query = useInfiniteQuery({
     queryKey,
     queryFn: ({pageParam = 1}) => {
-      console.log('propsquery', pageParam);
       return fetchPage(pageParam as number);
     },
     getNextPageParam: ({meta}) => {
-      console.log('nextPage', meta);
-      return meta.nextPage ? meta.nextPage : null;
+      return meta?.nextPage ? meta?.nextPage : null;
     },
     initialPageParam: 1,
   });

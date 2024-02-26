@@ -50,7 +50,7 @@ export function SharedWrapperScreen({
         <SharedScreenHeader
           headerTitle={headerTitle}
           headerLeft={
-            <TouchableOpacityBox onPress={handleGoBack}>
+            <TouchableOpacityBox onPress={handleGoBack} testID="go-back">
               <Icon iconName="arrowLeft" color="baseIconColor" size="sp23" />
             </TouchableOpacityBox>
           }
