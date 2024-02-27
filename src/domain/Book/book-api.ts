@@ -57,9 +57,23 @@ async function getByCategory({
   );
   return response.data;
 }
+
+async function getBySearchText({
+  searchText,
+  top = 10,
+  skip = 0,
+}: {searchText: string} & QueryParams) {
+  const response = await api.get<BookSectionApi>(
+    `book/find-by-text/${searchText}?top=${top}&skip=${skip}`,
+  );
+
+  return response.data;
+}
+
 export const bookApi = {
   getCategories,
   getBestSeller,
   getByCategory,
+  getBySearchText,
   getRecommendedForYou,
 };

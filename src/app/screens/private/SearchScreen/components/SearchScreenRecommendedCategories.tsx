@@ -4,7 +4,7 @@ import {Box, Category, Text} from '@components';
 
 type Props = {};
 
-export function SearchRecommendedCategories({}: Props) {
+export function SearchScreenRecommendedCategories({}: Props) {
   return (
     <Box width={'100%'} gap="sp15" marginTop="sp20" flexWrap="wrap">
       <Text text="Recommended Categories" preset="medium/16" />

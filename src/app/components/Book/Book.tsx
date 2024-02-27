@@ -1,65 +1,59 @@
 import React from 'react';
-import {Image} from 'react-native';
 
 import {Book as BookData} from '@domain';
+import {getDynamicSize} from '@utils';
 
 import {Box} from '../Box/Box';
-import {Text} from '../Text/Text';
+import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
+
+import {BookAuthor} from './BookAuthor';
+import {BookImage} from './BookImage';
+import {BookTitle} from './BookTitle';
 
 export interface BookProps {
   book: BookData;
   renderTitle?: boolean;
   renderAuthor?: boolean;
-  boxImageSize?: {width?: number; height?: number};
+  size?: {width?: number | '100%'; height?: number | '100%'};
+  onPress?: () => void;
+  testID?: string;
 }
 
 export function Book({
   book,
   renderTitle,
   renderAuthor,
-  boxImageSize,
+  testID,
+  size,
+  onPress,
 }: BookProps) {
-  const imageHeight =
-    boxImageSize && boxImageSize.height ? boxImageSize.height : '100%';
-
-  const imageWidth =
-    boxImageSize && boxImageSize.width ? boxImageSize.width : 'auto';
+  const {dynamicWidth} = getDynamicSize({
+    widthPercentage: 40,
+  });
+  const $width = size && size.width ? size.width : dynamicWidth;
+  const $height = size && size.height ? size.height : dynamicWidth;
   return (
-    <Box
-      gap="sp10"
-      width={'100%'}
-      justifyContent="flex-start"
-      alignContent="center">
-      <Box height={imageHeight} width={imageWidth}>
-        <Image
-          testID="book-image"
-          style={{width: '100%', height: '100%', borderRadius: 10}}
-          source={{
-            uri: book.bookImage,
-          }}
-          resizeMode="stretch"
-        />
-      </Box>
+    <TouchableOpacityBox
+      testID={testID ? testID : 'book-item'}
+      activeOpacity={0.8}
+      disabled={!!onPress === false}
+      onPress={onPress}
+      boxProps={{
+        gap: 'sp10',
+        justifyContent: 'flex-start',
+        alignContent: 'center',
+        width: $width,
+      }}>
+      <BookImage bookImage={book.bookImage} height={$height} />
 
-      {(renderTitle || renderAuthor) && (
-        <Box
-          width={'100%'}
-          alignItems="flex-start"
-          justifyContent="center"
-          gap="sp3">
-          <Text
-            text={book.bookTitle}
-            setColorsTheme={{dark: 'neutral5', light: 'neutral80'}}
-          />
-          {renderAuthor && (
-            <Text
-              text={book.bookAuthor}
-              preset="medium/14"
-              setColorsTheme={{dark: 'neutral10', light: 'primary50'}}
-            />
-          )}
-        </Box>
-      )}
-    </Box>
+      <Box
+        width={'90%'}
+        alignItems="flex-start"
+        justifyContent="center"
+        gap="sp3">
+        {renderTitle && <BookTitle bookTitle={book.bookTitle} />}
+        {renderAuthor && <BookAuthor bookAuthor={book.bookAuthor} />}
+      </Box>
+    </TouchableOpacityBox>
   );
 }

@@ -143,8 +143,29 @@ async function getBookListByCategory({
     },
   };
 }
+
+async function getBooksBySearchText({
+  top,
+  skip,
+  searchText,
+}: {searchText: string} & QueryParams): Promise<PaginatedResult<Book>> {
+  const result = await bookApi.getBySearchText({top, skip, searchText});
+
+  return {
+    docs: result.docs.map(doc => bookAdapter.toBookData(doc)),
+    meta: {
+      nextPage: result.nextPage,
+      page: result.page,
+      prevPage: result.prevPage,
+      totalDocs: result.totalDocs,
+      totalPages: result.totalPages,
+    },
+  };
+}
+
 export const bookService = {
   getCategories,
   getBookSections,
+  getBooksBySearchText,
   getBookListByCategory,
 };

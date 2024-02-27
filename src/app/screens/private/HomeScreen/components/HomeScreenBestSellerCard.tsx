@@ -11,7 +11,8 @@ type Props = {
 export function HomeScreenBestSellerCard({book}: Props) {
   return (
     <Box
-      padding="sp15"
+      paddingVertical="sp10"
+      paddingHorizontal="sp15"
       width={'100%'}
       height={200}
       borderRadius="rd15"
@@ -19,14 +20,13 @@ export function HomeScreenBestSellerCard({book}: Props) {
       marginBottom="sp50"
       backgroundColor="contrast"
       flexDirection="row">
-      <Box width={140} height={'100%'}>
-        <Book book={book} />
+      <Box marginBottom="sp16">
+        <Book book={book} size={{width: 140, height: '100%'}} />
       </Box>
 
       <Box
         width={'50%'}
         alignItems="flex-start"
-        marginTop="sp7"
         justifyContent="flex-start"
         gap="sp7">
         <Box>

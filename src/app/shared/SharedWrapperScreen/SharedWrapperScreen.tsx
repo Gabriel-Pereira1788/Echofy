@@ -82,6 +82,9 @@ function WrapperScreen({
       <ScrollView
         nestedScrollEnabled
         style={{flex: 1}}
+        contentContainerStyle={{
+          justifyContent: 'flex-start',
+        }}
         showsVerticalScrollIndicator={false}>
         {children}
       </ScrollView>

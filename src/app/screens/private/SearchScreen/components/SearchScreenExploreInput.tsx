@@ -4,7 +4,7 @@ import {Box, IInputProps, Input, Text} from '@components';
 
 interface Props extends Pick<IInputProps, 'onChangeText'> {}
 
-export function SearchExploreInput({onChangeText}: Props) {
+export function SearchScreenExploreInput({onChangeText}: Props) {
   return (
     <Box width="100%" gap="sp10">
       <Text text="Explore" preset="semiBold/24" />

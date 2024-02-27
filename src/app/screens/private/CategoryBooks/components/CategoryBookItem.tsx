@@ -18,10 +18,14 @@ export function CategoryBookItem({book}: Props) {
   }
   return (
     <TouchableOpacityBox
-      style={{flex: 1 / 2}}
       onPress={redirectToBookScreen}
       testID="category-book-item">
-      <Book book={book} renderAuthor renderTitle boxImageSize={{height: 200}} />
+      <Book
+        book={book}
+        renderAuthor
+        renderTitle
+        onPress={redirectToBookScreen}
+      />
     </TouchableOpacityBox>
   );
 }

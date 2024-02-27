@@ -29,12 +29,13 @@ export function CategoryBookScreen({
 
   function handleOnEndReached() {
     console.log('trigger end reached');
+
     getMore();
   }
 
   return (
-    <SharedWrapperScreen headerTitle={categoryTitle} customPadding>
-      <Box flex={1} width={'100%'} padding="sp10">
+    <SharedWrapperScreen headerTitle={categoryTitle}>
+      <Box flex={1} width={'100%'}>
         {isLoading ? (
           <Box flex={1} alignItems="center" justifyContent="center">
             <ActivityIndicator size={20} />
@@ -73,9 +74,10 @@ const $flatListStyle: ViewStyle = {
 const $contentContainerStyle: ViewStyle = {
   gap: 20,
   flexGrow: 1,
+  width: '100%',
   paddingBottom: 50,
 };
 
 const $columnWrapperStyle: ViewStyle = {
-  gap: 20,
+  justifyContent: 'space-between',
 };

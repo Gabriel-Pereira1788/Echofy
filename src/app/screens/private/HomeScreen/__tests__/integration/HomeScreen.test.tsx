@@ -107,7 +107,7 @@ describe('HomeScreen', () => {
       fireEvent.press(bookItens[0]);
     });
 
-    expect(bookItens.length).toEqual(21);
+    expect(bookItens.length).toEqual(24);
     expect(mockedNavigate).toHaveBeenCalledWith('BookScreen', {
       id: bookMockApi.docs[0].id,
     });
