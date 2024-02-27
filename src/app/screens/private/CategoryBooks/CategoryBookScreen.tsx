@@ -28,6 +28,7 @@ export function CategoryBookScreen({
   }, []);
 
   function handleOnEndReached() {
+    console.log('trigger end reached');
     getMore();
   }
 

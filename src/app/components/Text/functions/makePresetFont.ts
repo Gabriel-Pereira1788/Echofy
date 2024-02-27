@@ -36,6 +36,11 @@ export function makePresetFont(preset: TextProps['preset']): TextStyle | null {
         fontSize: $fontSize.small14,
         fontWeight: $fontWeight.semiBold,
       };
+    case 'semiBold/24':
+      return {
+        fontSize: $fontSize.medium24,
+        fontWeight: $fontWeight.semiBold,
+      };
     default:
       return null;
   }

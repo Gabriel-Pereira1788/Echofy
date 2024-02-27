@@ -1,4 +1,5 @@
 import React from 'react';
+import {ScrollView} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -13,12 +14,14 @@ interface Props extends React.PropsWithChildren {
   headerTitle?: string;
   headerRight?: React.JSX.Element;
   customPadding?: boolean;
+  scrollEnabled?: boolean;
 }
 
 export function SharedWrapperScreen({
   children,
   goBack,
   showLogo,
+  scrollEnabled,
   headerLeft,
   headerRight,
   customPadding,
@@ -37,33 +40,57 @@ export function SharedWrapperScreen({
       height={'100%'}
       justifyContent="center"
       backgroundColor="bgMain">
-      {showLogo && (
-        <SharedScreenHeader
-          showLogo={showLogo}
-          headerLeft={headerLeft}
-          headerTitle={headerTitle}
-          headerRight={headerRight}
-        />
-      )}
+      <WrapperScreen scrollEnabled={!!scrollEnabled}>
+        {showLogo && (
+          <SharedScreenHeader
+            showLogo={showLogo}
+            headerLeft={headerLeft}
+            headerTitle={headerTitle}
+            headerRight={headerRight}
+          />
+        )}
 
-      {renderHeader && (
-        <SharedScreenHeader
-          headerTitle={headerTitle}
-          headerLeft={
-            <TouchableOpacityBox onPress={handleGoBack} testID="go-back">
-              <Icon iconName="arrowLeft" color="baseIconColor" size="sp23" />
-            </TouchableOpacityBox>
-          }
-        />
-      )}
-      <Box
-        flex={1}
-        alignItems="center"
-        justifyContent="center"
-        width="100%"
-        padding={customPadding ? undefined : 'sp25'}>
+        {renderHeader && !showLogo && (
+          <SharedScreenHeader
+            headerTitle={headerTitle}
+            headerLeft={
+              <TouchableOpacityBox onPress={handleGoBack} testID="go-back">
+                <Icon iconName="arrowLeft" color="baseIconColor" size="sp23" />
+              </TouchableOpacityBox>
+            }
+          />
+        )}
+        <Box
+          flex={1}
+          alignItems="center"
+          justifyContent="center"
+          width="100%"
+          padding={customPadding ? undefined : 'sp25'}>
+          {children}
+        </Box>
+      </WrapperScreen>
+    </Box>
+  );
+}
+
+function WrapperScreen({
+  children,
+  scrollEnabled,
+}: React.PropsWithChildren & {scrollEnabled: boolean}) {
+  if (scrollEnabled) {
+    return (
+      <ScrollView
+        nestedScrollEnabled
+        style={{flex: 1}}
+        showsVerticalScrollIndicator={false}>
         {children}
-      </Box>
+      </ScrollView>
+    );
+  }
+
+  return (
+    <Box flex={1} width={'100%'} height={'100%'} justifyContent="center">
+      {children}
     </Box>
   );
 }

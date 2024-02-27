@@ -16,6 +16,7 @@ type Preset =
   | 'semiBold/16'
   | 'regular/14'
   | 'semiBold/14'
+  | 'semiBold/24'
   | undefined;
 
 interface CommonTextProps<T> {

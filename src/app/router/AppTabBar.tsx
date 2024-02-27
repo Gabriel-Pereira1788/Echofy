@@ -58,6 +58,7 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
             style={{flex: 1}}>
             <Icon
               size={'sp23'}
+              type={isFocused ? 'bold' : 'light'}
               iconName={tabItem.iconName}
               color={isFocused ? 'activeColor' : 'unactiveColor'}
             />

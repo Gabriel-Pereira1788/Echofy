@@ -11,6 +11,7 @@ type Props = {};
 
 export function HomeScreenHeader({}: Props) {
   const navigation = useNavigation();
+
   function redirectToProfileScreen() {
     navigation.navigate('ProfileScreen');
   }
