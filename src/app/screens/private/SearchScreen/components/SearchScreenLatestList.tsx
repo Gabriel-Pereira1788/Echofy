@@ -2,14 +2,15 @@ import React, {useCallback} from 'react';
 import {FlatList, ListRenderItemInfo, StyleProp, ViewStyle} from 'react-native';
 
 import {Book as BookType} from '@domain';
+import {useSearchHistoryStore} from '@store';
 
 import {Book, Box, Text} from '@components';
 
-type Props = {
-  books: BookType[];
-};
+type Props = {};
 
-export default function SearchScreenLatestList({books}: Props) {
+export default function SearchScreenLatestList({}: Props) {
+  const searchHistory = useSearchHistoryStore();
+
   const renderItem = useCallback(({item}: ListRenderItemInfo<BookType>) => {
     return <Book book={item} renderTitle onPress={() => {}} />;
   }, []);
@@ -20,7 +21,7 @@ export default function SearchScreenLatestList({books}: Props) {
 
       <FlatList
         horizontal
-        data={books}
+        data={searchHistory}
         style={{flex: 1}}
         renderItem={renderItem}
         keyExtractor={item => item.id}

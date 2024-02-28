@@ -1,20 +1,21 @@
 import {mmkv} from './mmkv/mmkv';
-import {StorageKeys} from './types';
 
-function set(key: StorageKeys, value: string) {
-  mmkv.set(key, value);
+function setItem<T>(key?: string, value?: T) {
+  mmkv.set(key!, JSON.stringify(value!));
 }
 
-function get(key: StorageKeys) {
-  return mmkv.getString(key);
+async function getItem<T>(key?: string) {
+  const data = mmkv.getString(key!) as string;
+  const result = data ? ((await JSON.parse(data)) as T) : data;
+  return result as T;
 }
 
-function remove(key: StorageKeys) {
-  mmkv.delete(key);
+function removeItem(key?: string) {
+  mmkv.delete(key!);
 }
 
 export const storage = {
-  set,
-  get,
-  remove,
+  setItem,
+  getItem,
+  removeItem,
 };

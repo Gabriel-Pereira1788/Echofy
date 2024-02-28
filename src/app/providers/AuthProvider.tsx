@@ -19,23 +19,28 @@ export function AuthProvider({children}: React.PropsWithChildren) {
   function refreshCredentials(ac: AuthCredentials) {
     setCredentials(ac);
 
-    storage.set(StorageKeys.Credentials, JSON.stringify(ac));
+    storage.setItem(StorageKeys.Credentials, JSON.stringify(ac));
   }
 
   function removeCredentials() {
     setCredentials(null);
-    storage.remove(StorageKeys.Credentials);
+    storage.removeItem(StorageKeys.Credentials);
   }
 
-  function getLastCredentials(): AuthCredentials {
-    const credentials = storage.get(StorageKeys.Credentials);
+  async function getLastCredentials(): Promise<AuthCredentials | null> {
+    const ac = await storage.getItem<AuthCredentials>(StorageKeys.Credentials);
 
-    return credentials ? JSON.parse(credentials) : null;
+    return ac ? ac : null;
+  }
+
+  async function handleGetLastCredentials() {
+    const lastCredentials = await getLastCredentials();
+    setCredentials(lastCredentials);
   }
 
   useEffect(() => {
-    const lastCredentials = getLastCredentials();
-    setCredentials(lastCredentials);
+    handleGetLastCredentials();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

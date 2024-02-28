@@ -7,6 +7,7 @@ import {bookService} from '../book-service';
 export function useBookSections() {
   const {uid} = useAuthContext();
 
+  console.log('uid', uid);
   const {data, isPending, isError} = useQuery({
     queryKey: [Queries.BookSections],
     queryFn: () => bookService.getBookSections(uid),

@@ -20,25 +20,29 @@ export function useRemindAccessData({getValues, setValue}: Props) {
     const values = getValues();
 
     if (!!accessData && values.email && values.password) {
-      storage.remove(StorageKeys.AccessData);
+      storage.removeItem(StorageKeys.AccessData);
     } else {
-      storage.set(StorageKeys.AccessData, JSON.stringify(values));
+      storage.setItem(StorageKeys.AccessData, JSON.stringify(values));
     }
   }, []);
 
-  function getAccessData(): SignInSchema {
-    const data = storage.get(StorageKeys.AccessData);
+  async function getAccessData(): Promise<SignInSchema | null> {
+    const data = await storage.getItem<SignInSchema>(StorageKeys.AccessData);
 
-    return data ? JSON.parse(data) : null;
+    return data ? data : null;
   }
 
-  useEffect(() => {
-    const accessData = getAccessData();
+  async function handleGetAccessData() {
+    const accessData = await getAccessData();
     if (accessData) {
       setIsRemembered(true);
       setValue('email', accessData.email);
       setValue('password', accessData.password);
     }
+  }
+
+  useEffect(() => {
+    handleGetAccessData();
   }, []);
 
   return {

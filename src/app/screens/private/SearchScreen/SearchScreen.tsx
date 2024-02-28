@@ -1,15 +1,12 @@
 import React, {useCallback, useState} from 'react';
-import {
-  ActivityIndicator,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  ScrollView,
-} from 'react-native';
+import {ActivityIndicator, ScrollView} from 'react-native';
 
 import {useBookFindByText} from '@domain';
 import {SharedBrandHeader, SharedWrapperScreen} from '@shared';
+import {useSearchHistoryActions} from '@store';
 
 import {Box} from '@components';
+import {useScrollEndReached} from '@hooks';
 
 import {SearchScreenExploreInput} from './components/SearchScreenExploreInput';
 import SearchScreenLatestList from './components/SearchScreenLatestList';
@@ -18,25 +15,16 @@ import {SearchScreenResultsList} from './components/SearchScreenResultsList';
 
 export function SearchScreen() {
   const [searchText, setSearchText] = useState('');
+
+  const {onScroll} = useScrollEndReached(handleOnEndReached);
+  const {addToSearchHistory} = useSearchHistoryActions();
+
   const {list, hasNextPage, getMore, loadingNextPage} =
     useBookFindByText(searchText);
 
   const handleOnChangeText = useCallback((text: string) => {
     setSearchText(text);
   }, []);
-
-  function onScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
-    const {layoutMeasurement, contentSize, contentOffset} = event.nativeEvent;
-    const paddingBottom = 20;
-    const isEndReached =
-      layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - paddingBottom;
-
-    console.log('isEndReached', isEndReached);
-    if (isEndReached) {
-      handleOnEndReached();
-    }
-  }
 
   function handleOnEndReached() {
     hasNextPage && getMore();
@@ -55,10 +43,10 @@ export function SearchScreen() {
           {list && list.length > 0 ? (
             <SearchScreenResultsList
               books={list}
-              onEndReached={handleOnEndReached}
+              addToSearchHistory={addToSearchHistory}
             />
           ) : (
-            <SearchScreenLatestList books={[]} />
+            <SearchScreenLatestList />
           )}
 
           {loadingNextPage && <ActivityIndicator size={20} />}
