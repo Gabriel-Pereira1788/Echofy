@@ -1,11 +1,8 @@
 import React from 'react';
 
-import {dimensions} from '@utils';
-
-import {Box, Image, Text, TouchableOpacityBox} from '@components';
+import {Box, Text, TouchableOpacityBox} from '@components';
 
 type Props = {
-  showLogo?: boolean;
   headerLeft?: React.JSX.Element;
   headerTitle?: string;
   headerRight?: React.JSX.Element;
@@ -13,13 +10,9 @@ type Props = {
 
 export function SharedScreenHeader({
   headerLeft,
-  showLogo,
   headerTitle,
   headerRight,
 }: Props) {
-  const dynamicLogoSize = (dimensions.width / 100) * 35;
-  const alignItems = showLogo ? 'center' : 'flex-start';
-
   return (
     <Box
       width={'100%'}
@@ -27,21 +20,8 @@ export function SharedScreenHeader({
       flexDirection="row"
       paddingHorizontal="sp25"
       justifyContent="space-between"
-      alignItems={alignItems}>
-      {headerLeft ||
-        (showLogo && (
-          <Box>
-            {showLogo ? (
-              <Image
-                imageName="logo"
-                width={dynamicLogoSize}
-                height={dynamicLogoSize}
-              />
-            ) : (
-              headerLeft
-            )}
-          </Box>
-        ))}
+      alignItems={'center'}>
+      {headerLeft && headerLeft}
       {headerTitle && (
         <Box flex={1} flexDirection="row" justifyContent="center">
           <Text

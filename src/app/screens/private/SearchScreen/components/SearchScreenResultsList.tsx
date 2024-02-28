@@ -1,5 +1,4 @@
-import React, {useCallback} from 'react';
-import {FlatList, ListRenderItemInfo, ViewStyle} from 'react-native';
+import React from 'react';
 
 import {Book as BookType} from '@domain';
 
@@ -7,35 +6,23 @@ import {Book, Box, Text} from '@components';
 
 type Props = {books: BookType[]; onEndReached: () => void};
 
-export function SearchScreenResultsList({books, onEndReached}: Props) {
-  const renderItem = useCallback(({item}: ListRenderItemInfo<BookType>) => {
-    return <Book book={item} renderTitle renderAuthor />;
-  }, []);
+export function SearchScreenResultsList({books}: Props) {
   return (
     <Box gap="sp10" width={'100%'} flex={1}>
       <Text text="Search Results" preset="medium/16" />
 
-      <FlatList
-        numColumns={2}
-        data={books}
-        renderItem={renderItem}
-        onEndReached={onEndReached}
-        onScroll={() => {
-          console.log('scrolled');
-        }}
-        onEndReachedThreshold={0.3}
-        columnWrapperStyle={$columnWrapperStyle}
-        contentContainerStyle={$contentContainerStyle}
-      />
+      <Box
+        width={'100%'}
+        flexWrap="wrap"
+        flex={1}
+        flexDirection="row"
+        justifyContent="space-between"
+        rowGap="sp25">
+        {books &&
+          books.map(book => (
+            <Book key={book.id} book={book} renderAuthor renderTitle />
+          ))}
+      </Box>
     </Box>
   );
 }
-
-const $contentContainerStyle: ViewStyle = {
-  gap: 20,
-  width: '100%',
-  flexGrow: 1,
-};
-const $columnWrapperStyle: ViewStyle = {
-  justifyContent: 'space-between',
-};

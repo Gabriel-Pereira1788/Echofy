@@ -8,7 +8,6 @@ import {Box, Icon, TouchableOpacityBox} from '@components';
 import {SharedScreenHeader} from '../SharedScreenHeader/SharedScreenHeader';
 
 interface Props extends React.PropsWithChildren {
-  showLogo?: boolean;
   goBack?: boolean;
   headerLeft?: React.JSX.Element;
   headerTitle?: string;
@@ -20,7 +19,6 @@ interface Props extends React.PropsWithChildren {
 export function SharedWrapperScreen({
   children,
   goBack,
-  showLogo,
   scrollEnabled,
   headerLeft,
   headerRight,
@@ -41,16 +39,7 @@ export function SharedWrapperScreen({
       justifyContent="center"
       backgroundColor="bgMain">
       <WrapperScreen scrollEnabled={!!scrollEnabled}>
-        {showLogo && (
-          <SharedScreenHeader
-            showLogo={showLogo}
-            headerLeft={headerLeft}
-            headerTitle={headerTitle}
-            headerRight={headerRight}
-          />
-        )}
-
-        {renderHeader && !showLogo && (
+        {renderHeader && (
           <SharedScreenHeader
             headerTitle={headerTitle}
             headerLeft={
