@@ -41,10 +41,12 @@ export function SearchScreen({}: CommonStackProps<'MainScreen'>) {
         onScroll={onScroll}>
         <SharedBrandHeader />
         <SearchScreenExploreInput onChangeText={handleOnChangeText} />
-        <SearchScreenRecommendedCategories />
-        <Box flex={1} marginTop="sp50" width={'100%'}>
+        <Box flex={1} marginTop="sp10" width={'100%'}>
           {renderSearchHistory ? (
-            <SearchScreenLatestList />
+            <Box gap="sp20">
+              <SearchScreenRecommendedCategories />
+              <SearchScreenLatestList />
+            </Box>
           ) : (
             <SearchScreenResultsList books={list} />
           )}

@@ -28,7 +28,7 @@ export function SharedBrandHeader({}: Props) {
         </TouchableOpacityBox>
       }
       headerLeft={
-        <Box>
+        <Box testID="brand">
           <Image
             imageName="logo"
             width={dynamicLogoSize}

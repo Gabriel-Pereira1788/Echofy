@@ -7,7 +7,7 @@ import {Box, Category, Text} from '@components';
 
 type Props = {};
 
-const categories: CategoryIdentify[] = [
+export const categories: CategoryIdentify[] = [
   'adventure',
   'fantasy',
   'fiction',
@@ -29,12 +29,13 @@ export function SearchScreenRecommendedCategories({}: Props) {
       <Box
         justifyContent="space-between"
         flexDirection="row"
-        rowGap="sp15"
+        rowGap="sp3"
         flexWrap="wrap">
         {categories &&
           categories.map(category => (
             <Box minWidth="48%" key={category}>
               <Category
+                testID="category-item"
                 text={category}
                 onPress={() => redirectToCategoryScreen(category)}
               />

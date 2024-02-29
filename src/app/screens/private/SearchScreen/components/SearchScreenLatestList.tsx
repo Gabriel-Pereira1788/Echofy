@@ -4,7 +4,9 @@ import {FlatList, ListRenderItemInfo, StyleProp, ViewStyle} from 'react-native';
 import {Book as BookType} from '@domain';
 import {useSearchHistoryStore} from '@store';
 
-import {Book, Box, Text} from '@components';
+import {Box, Text} from '@components';
+
+import {SearchScreenBookItem} from './SearchScreenBookItem';
 
 type Props = {};
 
@@ -12,7 +14,7 @@ export default function SearchScreenLatestList({}: Props) {
   const searchHistory = useSearchHistoryStore();
 
   const renderItem = useCallback(({item}: ListRenderItemInfo<BookType>) => {
-    return <Book book={item} renderTitle onPress={() => {}} />;
+    return <SearchScreenBookItem item={item} />;
   }, []);
 
   return (
@@ -20,6 +22,7 @@ export default function SearchScreenLatestList({}: Props) {
       <Text text="Latest Search" preset="medium/16" />
 
       <FlatList
+        testID="latest-list"
         horizontal
         data={searchHistory}
         style={{flex: 1}}
