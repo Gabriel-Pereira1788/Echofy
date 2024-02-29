@@ -16,7 +16,7 @@ export default function SearchScreenLatestList({}: Props) {
   }, []);
 
   return (
-    <Box gap="sp10" width={'100%'} marginTop="sp50" flex={1}>
+    <Box gap="sp10" width={'100%'} flex={1}>
       <Text text="Latest Search" preset="medium/16" />
 
       <FlatList

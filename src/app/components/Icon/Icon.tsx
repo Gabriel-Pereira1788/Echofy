@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Activity,
   ArrowLeft,
   CloseSquare,
   DocumentIcon,
@@ -39,4 +40,5 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   search: SearchIcon,
   document: DocumentIcon,
   arrowLeft: ArrowLeft,
+  activity: Activity,
 };

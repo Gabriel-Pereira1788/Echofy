@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native';
 
-import {Box} from '../Box/Box';
+import {Box, BoxProps} from '../Box/Box';
 
 type Props = {
   height: number | '100%';
@@ -10,7 +10,12 @@ type Props = {
 
 export function BookImage({height, bookImage}: Props) {
   return (
-    <Box height={height} width={'100%'}>
+    <Box
+      height={height}
+      width={'100%'}
+      backgroundColor="transparent"
+      borderRadius="rd15"
+      {...$shadowBox}>
       <Image
         testID="book-image"
         style={{width: '100%', height: '100%', borderRadius: 10}}
@@ -22,3 +27,14 @@ export function BookImage({height, bookImage}: Props) {
     </Box>
   );
 }
+
+const $shadowBox: BoxProps = {
+  shadowOpacity: 0.53,
+  shadowRadius: 2.62,
+  elevation: 4,
+  shadowColor: 'black',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+};

@@ -16,33 +16,40 @@ import {
 } from '@screens';
 
 import {AppTabBar} from './AppTabBar';
+import {CommonStackProps} from './navigation';
 
 export type AppTabParamList = {
-  HomeStackNavigator: NavigatorScreenParams<HomeStackParamList>;
+  HomeStackNavigator: NavigatorScreenParams<CommonStackParamList>;
   SearchScreen: undefined;
   LibraryScreen: undefined;
 };
 
-export type HomeStackParamList = {
-  HomeScreen: undefined;
+const Tab = createBottomTabNavigator<AppTabParamList>();
+
+export type CommonStackParamList = {
+  MainScreen: undefined;
   CategoryBookScreen: {
     categoryIdentify: CategoryIdentify;
     categoryTitle: string;
   };
 };
-const Tab = createBottomTabNavigator<AppTabParamList>();
 
-const Stack = createStackNavigator<HomeStackParamList>();
-export function HomeStackNavigator() {
-  return (
+const Stack = createStackNavigator<CommonStackParamList>();
+function createCommonStackNavigator(
+  MainRouteComponent: (props: CommonStackProps<'MainScreen'>) => JSX.Element,
+) {
+  return () => (
     <Stack.Navigator
-      initialRouteName="HomeScreen"
+      initialRouteName={'MainScreen'}
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name={'MainScreen'} component={MainRouteComponent} />
       <Stack.Screen name="CategoryBookScreen" component={CategoryBookScreen} />
     </Stack.Navigator>
   );
 }
+
+const HomeScreenStack = createCommonStackNavigator(HomeScreen);
+const SearchScreenStack = createCommonStackNavigator(SearchScreen);
 
 export function AppTabNavigator() {
   function renderTabBar(props: BottomTabBarProps) {
@@ -56,9 +63,8 @@ export function AppTabNavigator() {
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="HomeStackNavigator" component={HomeStackNavigator} />
-      {/* <Tab.Screen name="BookScreen" component={BookScreen} /> */}
-      <Tab.Screen name="SearchScreen" component={SearchScreen} />
+      <Tab.Screen name="HomeStackNavigator" component={HomeScreenStack} />
+      <Tab.Screen name="SearchScreen" component={SearchScreenStack} />
       <Tab.Screen name="LibraryScreen" component={LibraryScreen} />
     </Tab.Navigator>
   );

@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {ActivityIndicator, FlatList, ListRenderItem} from 'react-native';
 
 import {BookSection, useBookSections} from '@domain';
-import {HomeStackProps} from '@router';
+import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
 
 import {Box} from '@components';
@@ -10,7 +10,7 @@ import {Box} from '@components';
 import {HomeScreenBookSection} from './components/HomeScreenBookSection';
 import {HomeScreenHeader} from './components/HomeScreenHeader';
 
-export function HomeScreen({}: HomeStackProps<'HomeScreen'>) {
+export function HomeScreen({}: CommonStackProps<'MainScreen'>) {
   const {isLoading, bookSections} = useBookSections();
 
   const renderItem: ListRenderItem<BookSection> = useCallback(({item}) => {

@@ -2,13 +2,16 @@ import React from 'react';
 
 import {Book as BookType} from '@domain';
 import {useNavigation} from '@react-navigation/native';
+import {useSearchHistoryActions} from '@store';
 
 import {Book, Box, Text} from '@components';
 
-type Props = {books: BookType[]; addToSearchHistory: (book: BookType) => void};
+type Props = {books: BookType[]};
 
-export function SearchScreenResultsList({books, addToSearchHistory}: Props) {
+export function SearchScreenResultsList({books}: Props) {
   const navigation = useNavigation();
+
+  const {addToSearchHistory} = useSearchHistoryActions();
 
   function onPressBookItem(item: BookType) {
     addToSearchHistory(item);
@@ -19,12 +22,12 @@ export function SearchScreenResultsList({books, addToSearchHistory}: Props) {
       <Text text="Search Results" preset="medium/16" />
 
       <Box
+        flex={1}
+        rowGap="sp25"
         width={'100%'}
         flexWrap="wrap"
-        flex={1}
         flexDirection="row"
-        justifyContent="space-between"
-        rowGap="sp25">
+        justifyContent="space-between">
         {books &&
           books.map(book => (
             <Book

@@ -1,4 +1,4 @@
-import {BookCategory} from '../Book';
+import {BookCategory, CategoryIdentify} from '../Book';
 
 export interface AuthSignInDTO {
   email: string;
@@ -26,7 +26,7 @@ export interface AuthCredentials {
   birthDate: string;
   id: string;
   firstLogin?: boolean;
-  userCategories?: string[];
+  userCategories?: CategoryIdentify[];
 }
 
 export interface FinishRegisterVariables {
