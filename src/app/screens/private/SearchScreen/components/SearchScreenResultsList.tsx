@@ -22,6 +22,7 @@ export function SearchScreenResultsList({books}: Props) {
         width={'100%'}
         flexWrap="wrap"
         flexDirection="row"
+        testID="results-list"
         justifyContent="space-between">
         {books &&
           books.map(book => (

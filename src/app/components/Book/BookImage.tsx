@@ -18,7 +18,7 @@ export function BookImage({height, bookImage}: Props) {
       {...$shadowBox}>
       <Image
         testID="book-image"
-        style={{width: '100%', height: '100%', borderRadius: 10}}
+        style={{width: '100%', height: '100%', borderRadius: 4}}
         source={{
           uri: bookImage,
         }}

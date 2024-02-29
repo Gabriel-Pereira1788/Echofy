@@ -78,7 +78,7 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
     },
     {
       identify: 'fantasy',
-      title: 'fantasy',
+      title: 'Fantasy',
       books: fantasyBookData.docs.map(doc => bookAdapter.toBookData(doc)),
     },
     {
@@ -149,6 +149,18 @@ async function getBooksBySearchText({
   skip,
   searchText,
 }: {searchText: string} & QueryParams): Promise<PaginatedResult<Book>> {
+  if (searchText.trim() === '') {
+    return {
+      docs: [],
+      meta: {
+        nextPage: null,
+        page: 0,
+        prevPage: null,
+        totalDocs: 0,
+        totalPages: 0,
+      },
+    };
+  }
   const result = await bookApi.getBySearchText({top, skip, searchText});
 
   return {

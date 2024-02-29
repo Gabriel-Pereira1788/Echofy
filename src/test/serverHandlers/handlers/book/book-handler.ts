@@ -26,6 +26,29 @@ export const bookHandler = [
   http.get(`${BASE_URL}book/best-seller`, () => {
     return HttpResponse.json(bookMockApi, {status: 200});
   }),
+  http.get(`${BASE_URL}book/find-by-text/:searchText`, ({params}) => {
+    const searchText = params.searchText as string;
+
+    if (searchText.trim() === '') {
+      return HttpResponse.json(
+        {
+          docs: [],
+          nextPage: null,
+          page: 0,
+          prevPage: null,
+          totalDocs: 0,
+          totalPages: 0,
+        },
+        {status: 200},
+      );
+    }
+    const booksFiltered = bookMockApi.docs.filter(book =>
+      book.book_title.includes(searchText as string),
+    );
+
+    const result = {...bookMockApi, docs: booksFiltered};
+    return HttpResponse.json(result, {status: 200});
+  }),
   http.get(`${BASE_URL}book/find-by-category/:category`, ({params}) => {
     const category = params.category;
 
