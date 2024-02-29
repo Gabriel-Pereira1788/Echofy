@@ -10,6 +10,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {
   CategoryBookScreen,
+  DetailsBookScreen,
   HomeScreen,
   LibraryScreen,
   SearchScreen,
@@ -28,6 +29,7 @@ const Tab = createBottomTabNavigator<AppTabParamList>();
 
 export type CommonStackParamList = {
   MainScreen: undefined;
+  DetailsBookScreen: {id: string};
   CategoryBookScreen: {
     categoryIdentify: CategoryIdentify;
     categoryTitle: string;
@@ -44,6 +46,7 @@ function createCommonStackNavigator(
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={'MainScreen'} component={MainRouteComponent} />
       <Stack.Screen name="CategoryBookScreen" component={CategoryBookScreen} />
+      <Stack.Screen name="DetailsBookScreen" component={DetailsBookScreen} />
     </Stack.Navigator>
   );
 }

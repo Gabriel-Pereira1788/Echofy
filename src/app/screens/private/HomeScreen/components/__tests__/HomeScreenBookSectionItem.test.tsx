@@ -46,7 +46,7 @@ describe('HomeScreenBookSectionItem', () => {
     const bestSellerCardElement = screen.getByTestId('best-seller-card');
 
     fireEvent.press(bestSellerCardElement);
-    expect(mockedNavigate).toHaveBeenCalledWith('BookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
       id: bookMock.id,
     });
     expect(bestSellerCardElement).toBeTruthy();
@@ -62,7 +62,7 @@ describe('HomeScreenBookSectionItem', () => {
     const bookItem = screen.getByTestId('book-item');
 
     fireEvent.press(bookItem);
-    expect(mockedNavigate).toHaveBeenCalledWith('BookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
       id: bookMock.id,
     });
   });

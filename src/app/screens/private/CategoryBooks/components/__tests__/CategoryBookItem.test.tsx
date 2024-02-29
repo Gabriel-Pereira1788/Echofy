@@ -16,7 +16,7 @@ describe('CategoryBookItem', () => {
     const categoryBookElement = getByTestId('category-book-item');
 
     fireEvent.press(categoryBookElement);
-    expect(mockedNavigate).toHaveBeenCalledWith('BookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
       id: bookMock.id,
     });
   });

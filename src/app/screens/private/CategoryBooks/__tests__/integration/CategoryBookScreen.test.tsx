@@ -78,7 +78,7 @@ describe('CategoryBookScreen', () => {
 
     fireEvent.press(allBookItens[0]);
 
-    expect(mockedNavigate).toHaveBeenCalledWith('BookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
       id: bookMockApi.docs[0].id,
     });
   });

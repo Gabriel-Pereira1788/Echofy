@@ -15,7 +15,7 @@ export function SearchScreenBookItem({item, onPress}: Props) {
 
   function redirectToBookScreen() {
     onPress?.();
-    navigation.navigate('BookScreen', {
+    navigation.navigate('DetailsBookScreen', {
       id: item.id,
     });
   }

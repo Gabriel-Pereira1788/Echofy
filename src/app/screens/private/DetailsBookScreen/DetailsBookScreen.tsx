@@ -7,7 +7,7 @@ import {Box, Button} from '@components';
 
 type Props = {};
 
-export function BookScreen({}: Props) {
+export function DetailsBookScreen({}: Props) {
   async function play() {
     console.log('play');
 

@@ -12,7 +12,7 @@ type Props = {
 export function CategoryBookItem({book}: Props) {
   const navigation = useNavigation();
   function redirectToBookScreen() {
-    navigation.navigate('BookScreen', {
+    navigation.navigate('DetailsBookScreen', {
       id: book.id,
     });
   }

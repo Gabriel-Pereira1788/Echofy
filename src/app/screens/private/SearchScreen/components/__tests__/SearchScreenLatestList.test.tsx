@@ -33,7 +33,7 @@ describe('SearchScreenLatestList', () => {
 
     fireEvent.press(bookItens[0]);
 
-    expect(mockedNavigate).toHaveBeenCalledWith('BookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
       id: bookMock.id,
     });
   });

@@ -108,7 +108,7 @@ describe('HomeScreen', () => {
     });
 
     expect(bookItens.length).toEqual(24);
-    expect(mockedNavigate).toHaveBeenCalledWith('BookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
       id: bookMockApi.docs[0].id,
     });
   });
