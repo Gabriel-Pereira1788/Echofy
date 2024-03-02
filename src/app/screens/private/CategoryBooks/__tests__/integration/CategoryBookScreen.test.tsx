@@ -1,18 +1,15 @@
 import React from 'react';
 
+import {createCommonStackNavigator} from '@router';
 import {
   act,
   authCredentialsMock,
   bookMockApi,
   fireEvent,
-  mockedGoBack,
-  mockedNavigate,
   renderScreen,
   screen,
   server,
 } from '@test';
-
-import {CategoryBookScreen} from '../../CategoryBookScreen';
 
 const mockUid = authCredentialsMock.id;
 jest.mock('@providers', () => {
@@ -24,6 +21,8 @@ jest.mock('@providers', () => {
     }),
   };
 });
+
+jest.unmock('@react-navigation/native');
 beforeAll(() => {
   server.listen();
   jest.useFakeTimers();
@@ -33,20 +32,16 @@ afterAll(() => {
   server.close();
 });
 
-const route = {
-  params: {
-    categoryIdentify: 'adventure',
-    categoryTitle: 'Adventure',
-  },
-};
-
+const TestCommonStack = createCommonStackNavigator(
+  () => <></>,
+  'CategoryBookScreen',
+);
 function customRender() {
-  renderScreen(
-    <CategoryBookScreen navigation={{} as any} route={route as any} />,
-  );
+  renderScreen(<TestCommonStack />);
 
+  const categoryTitle = /recommended for you/i;
   return {
-    titleScreenElement: screen.getByText(route.params.categoryTitle),
+    titleScreenElement: screen.getByText(categoryTitle),
     goBackElement: screen.getByTestId('go-back'),
   };
 }
@@ -71,23 +66,29 @@ describe('CategoryBookScreen', () => {
     expect(allBookItens.length).toEqual(bookMockApi.docs.length * 2);
   });
 
-  it('should be redirect to book screen', async () => {
+  it('Flow: select book item', async () => {
     const {} = customRender();
 
     const allBookItens = await screen.findAllByTestId('category-book-item');
-
+    expect(allBookItens.length).toEqual(bookMockApi.docs.length);
+    //1) select book item and redirect to book screen
     fireEvent.press(allBookItens[0]);
 
-    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
-      id: bookMockApi.docs[0].id,
-    });
-  });
+    //2) check if render book correctly
+    const bookTitleElement = await screen.findByText(
+      bookMockApi.docs[0].book_title,
+    );
 
-  it('dispatch go back screen', async () => {
-    const {goBackElement} = customRender();
+    expect(bookTitleElement).toBeTruthy();
 
-    fireEvent.press(goBackElement);
+    //3) return to category book screen
+    const goBackButton = screen.getByTestId('go-back');
+    fireEvent.press(goBackButton);
 
-    expect(mockedGoBack).toHaveBeenCalled();
+    //4 check if return correctly
+    const reRenderBookItens = await screen.findAllByTestId(
+      'category-book-item',
+    );
+    expect(reRenderBookItens.length).toEqual(bookMockApi.docs.length);
   });
 });

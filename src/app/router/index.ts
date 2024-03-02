@@ -1,3 +1,3 @@
 export * from './Routes';
 export * from './navigation';
-export {AppTabNavigator} from './AppTabNavigator';
+export {AppTabNavigator, createCommonStackNavigator} from './AppTabNavigator';

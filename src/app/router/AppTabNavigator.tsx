@@ -37,12 +37,14 @@ export type CommonStackParamList = {
 };
 
 const Stack = createStackNavigator<CommonStackParamList>();
-function createCommonStackNavigator(
+
+export function createCommonStackNavigator(
   MainRouteComponent: (props: CommonStackProps<'MainScreen'>) => JSX.Element,
+  initialRouteName: keyof CommonStackParamList = 'MainScreen',
 ) {
   return () => (
     <Stack.Navigator
-      initialRouteName={'MainScreen'}
+      initialRouteName={initialRouteName}
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={'MainScreen'} component={MainRouteComponent} />
       <Stack.Screen name="CategoryBookScreen" component={CategoryBookScreen} />

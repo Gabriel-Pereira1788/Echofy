@@ -6,7 +6,11 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {Book as BookType, useGetBookListByCategory} from '@domain';
+import {
+  Book as BookType,
+  CategoryIdentify,
+  useGetBookListByCategory,
+} from '@domain';
 import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
 
@@ -17,8 +21,13 @@ import {CategoryBookItem} from './components/CategoryBookItem';
 export function CategoryBookScreen({
   route,
 }: CommonStackProps<'CategoryBookScreen'>) {
-  const categoryIdentify = route.params.categoryIdentify;
-  const categoryTitle = route.params.categoryTitle;
+  const categoryIdentify: CategoryIdentify =
+    route && route.params
+      ? route.params.categoryIdentify
+      : 'recommended-for-you';
+
+  const categoryTitle =
+    route && route.params ? route.params.categoryTitle : 'Recommended For You';
 
   const {list, getMore, loadingNextPage, isLoading} =
     useGetBookListByCategory(categoryIdentify);
