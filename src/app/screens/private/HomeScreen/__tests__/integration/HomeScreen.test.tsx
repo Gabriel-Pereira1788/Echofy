@@ -1,18 +1,17 @@
 import React from 'react';
 
+import {AppTabNavigator} from '@router';
 import {
   act,
   allCategoriesMock,
   authCredentialsMock,
   bookMockApi,
   fireEvent,
-  mockedNavigate,
   renderScreen,
   screen,
+  sectionBooksMock,
   server,
 } from '@test';
-
-import {HomeScreen} from '../../HomeScreen';
 
 const mockUid = authCredentialsMock.id;
 jest.mock('@providers', () => {
@@ -26,7 +25,7 @@ jest.mock('@providers', () => {
 });
 
 async function customRenderScreen() {
-  renderScreen(<HomeScreen navigation={{} as any} route={{} as any} />);
+  renderScreen(<AppTabNavigator initialRouteName="HomeStackNavigator" />);
 
   return {
     profileButton: await screen.findByTestId('profile-button'),
@@ -35,6 +34,7 @@ async function customRenderScreen() {
   };
 }
 
+jest.unmock('@react-navigation/native');
 beforeAll(() => {
   server.listen();
   jest.useFakeTimers();
@@ -56,60 +56,87 @@ describe('HomeScreen', () => {
     expect(textCategories).toBeTruthy();
   });
 
-  it('should be redirect to profile screen', async () => {
-    const {profileButton} = await customRenderScreen();
-
-    fireEvent.press(profileButton);
-
-    expect(profileButton).toBeTruthy();
-    expect(mockedNavigate).toHaveBeenCalledWith('ProfileScreen');
-  });
-
-  it('should be redirect to category screen', async () => {
+  it('Flow: Select category', async () => {
     const {} = await customRenderScreen();
-
+    //1) select and navigate to category  screen
     const categoryItem = await screen.findAllByTestId('category');
+    expect(categoryItem[0]).toBeTruthy();
 
     act(() => {
       jest.resetAllMocks();
       fireEvent.press(categoryItem[0]);
     });
 
-    expect(categoryItem[0]).toBeTruthy();
-    expect(mockedNavigate).toHaveBeenCalledWith('CategoryBookScreen', {
-      categoryIdentify: allCategoriesMock[0].text.toLowerCase(),
-      categoryTitle: allCategoriesMock[0].text,
-    });
+    //2) check if render category correctly
+    const categoryTitle = await screen.findByText(allCategoriesMock[0].text);
+    expect(categoryTitle).toBeTruthy();
+
+    //3) render list of books by category
+    const allBookItens = await screen.findAllByTestId('category-book-item');
+    expect(allBookItens.length).toEqual(bookMockApi.docs.length);
+
+    //4) return to home screen
+    const goBackButton = screen.getByTestId('go-back');
+    fireEvent.press(goBackButton);
+
+    //5) check if is return correctly
+    const reRenderCategoryItens = await screen.findAllByTestId('category');
+    expect(reRenderCategoryItens[0]).toBeTruthy();
   });
 
-  it('should be press "see more" action', async () => {
+  it('Flow: Press "see more" on section item', async () => {
     const {} = await customRenderScreen();
+    //1) Select section item and press "see more" button
     const seeMoreItens = await screen.findAllByText('See more');
     act(() => {
       jest.resetAllMocks();
       fireEvent.press(seeMoreItens[0]);
     });
 
-    expect(seeMoreItens).toBeTruthy();
-    expect(mockedNavigate).toHaveBeenCalledWith('CategoryBookScreen', {
-      categoryIdentify: 'recommended-for-you',
-      categoryTitle: 'Recommended For You',
-    });
+    //2) Check if render category book screen correctly
+
+    const titleElement = screen.getByText(/recommended for you/i);
+
+    expect(titleElement).toBeTruthy();
+
+    //3 Check if render books itens correctly
+    const allBookItens = await screen.findAllByTestId('category-book-item');
+    expect(allBookItens.length).toEqual(bookMockApi.docs.length);
+
+    //4) return to home screen
+    const goBackButton = screen.getByTestId('go-back');
+    fireEvent.press(goBackButton);
+
+    //5) check if is  return correctly
+    const reRenderSeMoreItens = await screen.findAllByText('See more');
+    expect(reRenderSeMoreItens[0]).toBeTruthy();
   });
 
-  it('should be press book item and redirect to book screen ', async () => {
+  it('Flow: Select book item', async () => {
     const {} = await customRenderScreen();
 
     const bookItens = await screen.findAllByTestId('book-item');
+    expect(bookItens.length).toEqual(
+      sectionBooksMock.length * bookMockApi.docs.length,
+    );
 
+    //1) select book item and redirect to book screen
     act(() => {
       jest.resetAllMocks();
       fireEvent.press(bookItens[0]);
     });
 
-    expect(bookItens.length).toEqual(24);
-    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
-      id: bookMockApi.docs[0].id,
-    });
+    //2) check if render book screen correctly
+    const bookTitle = sectionBooksMock[0].books[0].bookTitle;
+    const bookTitleElement = await screen.findByText(bookTitle);
+    expect(bookTitleElement).toBeTruthy();
+
+    //3) return to home screen
+    const goBackButton = screen.getByTestId('go-back');
+    fireEvent.press(goBackButton);
+
+    //4) check if is return correctly
+    const reRenderBookItens = await screen.findAllByTestId('book-item');
+    expect(reRenderBookItens[0]).toBeTruthy();
   });
 });

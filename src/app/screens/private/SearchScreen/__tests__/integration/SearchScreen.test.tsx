@@ -1,9 +1,11 @@
 import React from 'react';
 
+import {AppTabNavigator} from '@router';
 import {
+  authCredentialsMock,
+  bookMock,
   bookMockApi,
   fireEvent,
-  mockedNavigate,
   renderScreen,
   screen,
   server,
@@ -11,10 +13,9 @@ import {
 } from '@test';
 
 import {categories} from '../../components/SearchScreenRecommendedCategories';
-import {SearchScreen} from '../../SearchScreen';
 
 function customRender() {
-  renderScreen(<SearchScreen navigation={{} as any} route={{} as any} />);
+  renderScreen(<AppTabNavigator initialRouteName="SearchStackNavigator" />);
 
   return {
     exploreInput: screen.getByPlaceholderText('Search Books or Author ...'),
@@ -25,6 +26,17 @@ function customRender() {
   };
 }
 
+jest.unmock('@react-navigation/native');
+const mockUid = authCredentialsMock.id;
+jest.mock('@providers', () => {
+  const originalModule = jest.requireActual('@providers');
+  return {
+    ...originalModule,
+    useAuthContext: () => ({
+      uid: mockUid,
+    }),
+  };
+});
 beforeAll(() => {
   server.listen();
   jest.useFakeTimers();
@@ -67,38 +79,56 @@ describe('SearchScreen', () => {
     );
   });
 
-  it('redirect to profile screen', () => {
-    const {profileButton} = customRender();
-
-    fireEvent.press(profileButton);
-
-    expect(mockedNavigate).toHaveBeenCalledWith('ProfileScreen');
-  });
-
-  it('redirect to category book screen', () => {
+  it('Flow: Select category', async () => {
     const {categoryItens} = customRender();
 
+    //1) select category and navigate to category book screen
     fireEvent.press(categoryItens[0]);
 
-    expect(mockedNavigate).toHaveBeenCalledWith('CategoryBookScreen', {
-      categoryIdentify: categories[0],
-      categoryTitle: categories[0],
-    });
+    //2) get category book screen title correctly
+    const categoryTitleElement = await screen.findByText(categories[0]);
+    expect(categoryTitleElement).toBeTruthy();
+
+    //3) render list of books by category
+    const allBookItens = await screen.findAllByTestId('category-book-item');
+    expect(allBookItens.length).toEqual(bookMockApi.docs.length);
+
+    //4) return to search screen
+    const goBackButton = screen.getByTestId('go-back');
+    fireEvent.press(goBackButton);
+
+    //5) check is return correctly
+    const exploreText = screen.getByText(/explore/i);
+    expect(exploreText).toBeTruthy();
   });
 
-  it('should be add book to history books and render history books', async () => {
+  it('Flow: Select Book', async () => {
     const {exploreInput} = customRender();
 
+    //1) Search book
     fireEvent.changeText(exploreInput, 'Alic');
-
+    //2) Render the result list
     await screen.findByTestId('results-list');
     const bookItens = await screen.findAllByTestId('book-item');
 
+    //3) navigate to book screen
     fireEvent.press(bookItens[0]);
 
+    //4) Check is render book correctly.
+
+    const bookTitle = await screen.findByText(bookMock.bookTitle);
+    expect(bookTitle).toBeTruthy();
+
+    //5) return to search screen
+
+    const goBackButton = screen.getByTestId('go-back');
+    fireEvent.press(goBackButton);
+
+    //6) clean input text
     fireEvent.changeText(exploreInput, '');
     const historyBooksList = await screen.findByTestId('latest-list');
 
+    //7) check render history books correctly
     const historyBooksRendered = historyBooksList.props.data.length;
     expect(historyBooksRendered).toEqual(1);
   });

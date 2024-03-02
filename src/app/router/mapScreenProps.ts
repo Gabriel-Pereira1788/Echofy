@@ -15,7 +15,7 @@ export const mapScreenToProps: MappedScreenProps = {
     iconName: 'home',
     label: 'Home',
   },
-  SearchScreen: {
+  SearchStackNavigator: {
     iconName: 'search',
     label: 'Search',
   },

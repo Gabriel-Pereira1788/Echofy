@@ -52,6 +52,7 @@ export const bookHandler = [
   http.get(`${BASE_URL}book/find-by-category/:category`, ({params}) => {
     const category = params.category;
 
+    console.log('category', category);
     if (!category) {
       return new HttpResponse(
         {message: 'incorrectly category.'},
@@ -60,7 +61,12 @@ export const bookHandler = [
         },
       );
     }
-
     return HttpResponse.json(bookMockApi, {status: 200});
+  }),
+  http.get(`${BASE_URL}book/find-book/:id`, ({params}) => {
+    const bookId = params.id;
+    const bookData = bookMockApi.docs.find(_book => _book.id === bookId);
+
+    return HttpResponse.json(bookData, {status: 200});
   }),
 ];

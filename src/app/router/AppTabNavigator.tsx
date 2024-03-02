@@ -21,7 +21,7 @@ import {CommonStackProps} from './navigation';
 
 export type AppTabParamList = {
   HomeStackNavigator: NavigatorScreenParams<CommonStackParamList>;
-  SearchScreen: undefined;
+  SearchStackNavigator: NavigatorScreenParams<CommonStackParamList>;
   LibraryScreen: undefined;
 };
 
@@ -54,20 +54,26 @@ function createCommonStackNavigator(
 const HomeScreenStack = createCommonStackNavigator(HomeScreen);
 const SearchScreenStack = createCommonStackNavigator(SearchScreen);
 
-export function AppTabNavigator() {
+type Props = {
+  initialRouteName?: keyof AppTabParamList;
+};
+
+export function AppTabNavigator({
+  initialRouteName = 'HomeStackNavigator',
+}: Props) {
   function renderTabBar(props: BottomTabBarProps) {
     return <AppTabBar {...props} />;
   }
 
   return (
     <Tab.Navigator
-      initialRouteName="HomeStackNavigator"
+      initialRouteName={initialRouteName}
       tabBar={renderTabBar}
       screenOptions={{
         headerShown: false,
       }}>
       <Tab.Screen name="HomeStackNavigator" component={HomeScreenStack} />
-      <Tab.Screen name="SearchScreen" component={SearchScreenStack} />
+      <Tab.Screen name="SearchStackNavigator" component={SearchScreenStack} />
       <Tab.Screen name="LibraryScreen" component={LibraryScreen} />
     </Tab.Navigator>
   );

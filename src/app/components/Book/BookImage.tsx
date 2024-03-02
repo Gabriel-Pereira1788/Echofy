@@ -1,5 +1,5 @@
-import React from 'react';
-import {Image} from 'react-native';
+import React, {Suspense} from 'react';
+import {ActivityIndicator, Image} from 'react-native';
 
 import {Box, BoxProps} from '../Box/Box';
 
@@ -16,14 +16,16 @@ export function BookImage({height, bookImage}: Props) {
       backgroundColor="transparent"
       borderRadius="rd15"
       {...$shadowBox}>
-      <Image
-        testID="book-image"
-        style={{width: '100%', height: '100%', borderRadius: 4}}
-        source={{
-          uri: bookImage,
-        }}
-        resizeMode="stretch"
-      />
+      <Suspense fallback={<ActivityIndicator size={10} />}>
+        <Image
+          testID="book-image"
+          style={{width: '100%', height: '100%', borderRadius: 4}}
+          source={{
+            uri: bookImage,
+          }}
+          resizeMode="stretch"
+        />
+      </Suspense>
     </Box>
   );
 }

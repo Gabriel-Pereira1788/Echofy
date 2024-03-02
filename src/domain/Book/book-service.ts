@@ -161,7 +161,7 @@ async function getBooksBySearchText({
       },
     };
   }
-  const result = await bookApi.getBySearchText({top, skip, searchText});
+  const result = await bookApi.findBySearchText({top, skip, searchText});
 
   return {
     docs: result.docs.map(doc => bookAdapter.toBookData(doc)),
@@ -175,7 +175,14 @@ async function getBooksBySearchText({
   };
 }
 
+async function getBookData(id: string) {
+  const result = await bookApi.findById(id);
+
+  return bookAdapter.toBookData(result);
+}
+
 export const bookService = {
+  getBookData,
   getCategories,
   getBookSections,
   getBooksBySearchText,

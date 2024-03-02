@@ -9,6 +9,7 @@ import {
   authCredentialsValidatedAPIMock,
   bookHandler,
   bookMock,
+  sectionBooksMock,
   bookMockApi,
 } from './handlers';
 
@@ -18,6 +19,7 @@ export {
   authCredentialsAPIMock,
   allCategoriesMock,
   bookCategoryMock,
+  sectionBooksMock,
   bookMock,
   bookMockApi,
 };

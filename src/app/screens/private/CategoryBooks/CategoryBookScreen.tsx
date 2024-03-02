@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import {Book as BookType, useGetBookListByCategory} from '@domain';
-import {HomeStackProps} from '@router';
+import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
 
 import {Box} from '@components';
@@ -16,7 +16,7 @@ import {CategoryBookItem} from './components/CategoryBookItem';
 
 export function CategoryBookScreen({
   route,
-}: HomeStackProps<'CategoryBookScreen'>) {
+}: CommonStackProps<'CategoryBookScreen'>) {
   const categoryIdentify = route.params.categoryIdentify;
   const categoryTitle = route.params.categoryTitle;
 

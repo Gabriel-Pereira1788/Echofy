@@ -13,6 +13,7 @@ export function Text({
   text,
   preset,
   color = 'text',
+  align = 'auto',
   children,
   setColorsTheme,
   ...rest
@@ -30,6 +31,7 @@ export function Text({
       <TextRN
         style={{
           ...style,
+          textAlign: align,
           color: _color,
         }}>
         {text} {children}

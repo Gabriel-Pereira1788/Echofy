@@ -12,6 +12,8 @@ export const setColorSchemeMock = (mode: 'dark' | 'light') => {
     mockTheme = theme;
   }
 };
+
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
 jest.mock('@hooks', () => {
   const originalImports = jest.requireActual('@hooks');
   return {

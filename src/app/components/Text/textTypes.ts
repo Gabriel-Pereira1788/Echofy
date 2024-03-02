@@ -21,6 +21,7 @@ type Preset =
 
 interface CommonTextProps<T> {
   text: string;
+  align?: 'center' | 'right' | 'left' | 'auto' | 'justify';
   color?: keyof Theme['colors'];
   setColorsTheme?: {
     dark: keyof Theme['colors'];

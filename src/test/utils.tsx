@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {AuthProvider} from '@providers';
+import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from '@shopify/restyle';
 import {darkTheme, theme} from '@styles';
 import {
@@ -47,7 +48,7 @@ function wrapperProvidersScreen() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <AuthProvider>
-          {children}
+          <NavigationContainer>{children}</NavigationContainer>
           <Toast />
         </AuthProvider>
       </ThemeProvider>

@@ -3,4 +3,5 @@ export enum Queries {
   BookSections = '@bookSections',
   BookByCategory = '@bookByCategory',
   BooksSearch = '@booksSearch',
+  Book = '@book',
 }

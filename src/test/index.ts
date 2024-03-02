@@ -6,6 +6,7 @@ export {
   authCredentialsAPIMock,
   bookCategoryMock,
   allCategoriesMock,
+  sectionBooksMock,
   bookMock,
   bookMockApi,
   authCredentialsValidatedAPIMock,
