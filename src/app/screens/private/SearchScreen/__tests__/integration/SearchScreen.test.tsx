@@ -116,8 +116,23 @@ describe('SearchScreen', () => {
 
     //4) Check is render book correctly.
 
-    const bookTitle = await screen.findByText(bookMock.bookTitle);
-    expect(bookTitle).toBeTruthy();
+    const bookTitleElement = await screen.findByText(bookMock.bookTitle);
+    expect(bookTitleElement).toBeTruthy();
+
+    const bookAuthor = screen.getByText(bookMock.bookAuthor);
+    expect(bookAuthor).toBeTruthy();
+
+    const bookCategories = screen.getAllByTestId('category-book-item');
+    expect(bookCategories.length).toEqual(
+      bookMock.bookGenres.slice(0, 3).length,
+    );
+
+    const summaryTextElement = screen.getByTestId('summary-text');
+    expect(summaryTextElement).toBeTruthy();
+
+    const text = summaryTextElement.props.children[0] as string;
+    const expectTextResume = bookMock.bookDesc.slice(0, 500) + '...';
+    expect(text.length).toEqual(expectTextResume.length);
 
     //5) return to search screen
 

@@ -9,7 +9,9 @@ export const buildWrapperStyle = (
     padding: 'sp16',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
     borderRadius: 'rd8',
+    gap: 'sp10',
     opacity: disabled ? 0.3 : 1,
   };
   if (type === 'selected') {

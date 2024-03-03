@@ -6,3 +6,4 @@ export * from './homeIcon/HomeIcon';
 export * from './searchIcon/SearchIcon';
 export * from './arrowLeft/ArrowLeft';
 export * from './activity/Activity';
+export * from './playIcon/PlayIcon';

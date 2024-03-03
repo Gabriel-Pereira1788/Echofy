@@ -16,11 +16,14 @@ export const pallete = {
 
   neutral5: '#F5F5FA',
   neutral10: '#EBEBF5',
+  neutral20: '#D5D5E3',
   neutral40: '#B8B8C7',
+  neutral50: '#9292A2',
   neutral60: '#6A6A8B',
   neutral80: '#2E2E5D',
   neutral90: '#1C1C4D',
   neutral100: '#0F0F29',
+
   grayLight: '#F9F9FA',
   black: '#000000',
   white: '#ffffff',

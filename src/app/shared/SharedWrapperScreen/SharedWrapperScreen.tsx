@@ -72,6 +72,7 @@ function WrapperScreen({
         nestedScrollEnabled
         style={{flex: 1}}
         contentContainerStyle={{
+          flexGrow: 1,
           justifyContent: 'flex-start',
         }}
         showsVerticalScrollIndicator={false}>

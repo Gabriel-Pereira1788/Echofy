@@ -1,47 +1,55 @@
 import React from 'react';
+import {ActivityIndicator} from 'react-native';
 
 import {useBookFindById} from '@domain';
 import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
 
-import {Box, Button, Text} from '@components';
+import {Box} from '@components';
+
+import {
+  DetailsBookAttribution,
+  DetailsBookCategories,
+  DetailsBookCover,
+  DetailsBookMediaOption,
+  DetailsBookSummary,
+} from './components';
 
 export function DetailsBookScreen({
   route,
 }: CommonStackProps<'DetailsBookScreen'>) {
-  const bookId = route.params.id;
-  const {bookData} = useBookFindById(bookId);
+  const bookId = route && route.params ? route.params.id : 'testID';
+  const {bookData, isLoading} = useBookFindById(bookId);
 
-  // console.log('bookData', bookData);
-  async function play() {
-    console.log('play');
-
-    // await TrackPlayer.setupPlayer();
-
-    // // Add a track to the queue
-    // await TrackPlayer.add({
-    //   id: 'trackId',
-    //   url: 'https://www.archive.org/download/prideandprejudice_1005_librivox/prideandprejudice_01_austen_64kb.mp3',
-    //   title: 'Track Title',
-    //   artist: 'Track Artist',
-    // });
-
-    // await TrackPlayer.play();
-  }
+  const bookTitle = bookData
+    ? bookData.bookTitle.length > 30
+      ? bookData.bookTitle.slice(0, 30) + '...'
+      : bookData.bookTitle
+    : '';
 
   return (
-    <SharedWrapperScreen goBack>
-      <Text text={bookData?.bookTitle ?? ''} />
+    <SharedWrapperScreen goBack headerTitle={bookTitle} scrollEnabled>
+      {isLoading && !bookData && <ActivityIndicator size={20} />}
 
-      <Box
-        width={'100%'}
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="center"
-        gap="sp7">
-        <Button text="Play Audio" onPress={play} />
-        <Button text="Read Book" type="outline" />
-      </Box>
+      {bookData && (
+        <Box
+          flex={1}
+          width={'100%'}
+          alignItems="center"
+          justifyContent="center">
+          <DetailsBookCover imageUrl={bookData.bookImage} />
+          <DetailsBookAttribution
+            author={bookData?.bookAuthor ?? ''}
+            title={bookData?.bookTitle ?? ''}
+          />
+          <DetailsBookCategories categories={bookData.bookGenres ?? []} />
+          <DetailsBookMediaOption
+            onPlayAudio={() => {}}
+            onReadBook={() => {}}
+          />
+          <DetailsBookSummary summary={bookData.bookDesc} />
+        </Box>
+      )}
     </SharedWrapperScreen>
   );
 }

@@ -31,7 +31,10 @@ export const theme = createTheme({
     primary100: pallete.primary100,
     neutral5: pallete.neutral5,
     neutral10: pallete.neutral10,
+    neutral20: pallete.neutral20,
     neutral40: pallete.neutral40,
+    neutral50: pallete.neutral50,
+    neutral60: pallete.neutral60,
     neutral80: pallete.neutral80,
     black: pallete.black,
     white: pallete.white,
@@ -47,6 +50,8 @@ export const theme = createTheme({
     baseIconColor: pallete.primary50,
 
     alertColor: pallete.primary80,
+
+    outlineCategoryColor: pallete.neutral60,
 
     textActive: pallete.primary50,
     textAuthor: pallete.primary50,
@@ -95,6 +100,7 @@ export const darkTheme = createTheme({
     baseIconColor: pallete.white,
 
     alertColor: pallete.primary20,
+    outlineCategoryColor: pallete.white,
 
     textActive: pallete.primary20,
     textAuthor: pallete.neutral10,

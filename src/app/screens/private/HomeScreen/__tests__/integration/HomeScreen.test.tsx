@@ -127,10 +127,24 @@ describe('HomeScreen', () => {
     });
 
     //2) check if render book screen correctly
-    const bookTitle = sectionBooksMock[0].books[0].bookTitle;
-    const bookTitleElement = await screen.findByText(bookTitle);
+    const bookData = sectionBooksMock[0].books[0];
+    const bookTitleElement = await screen.findByText(bookData.bookTitle);
     expect(bookTitleElement).toBeTruthy();
 
+    const bookAuthor = screen.getByText(bookData.bookAuthor);
+    expect(bookAuthor).toBeTruthy();
+
+    const bookCategories = screen.getAllByTestId('category-book-item');
+    expect(bookCategories.length).toEqual(
+      bookData.bookGenres.slice(0, 3).length,
+    );
+
+    const summaryTextElement = screen.getByTestId('summary-text');
+    expect(summaryTextElement).toBeTruthy();
+
+    const text = summaryTextElement.props.children[0] as string;
+    const expectTextResume = bookData.bookDesc.slice(0, 500) + '...';
+    expect(text.length).toEqual(expectTextResume.length);
     //3) return to home screen
     const goBackButton = screen.getByTestId('go-back');
     fireEvent.press(goBackButton);

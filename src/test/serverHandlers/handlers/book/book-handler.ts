@@ -64,7 +64,8 @@ export const bookHandler = [
     return HttpResponse.json(bookMockApi, {status: 200});
   }),
   http.get(`${BASE_URL}book/find-book/:id`, ({params}) => {
-    const bookId = params.id;
+    const bookId =
+      params && params.id !== 'testID' ? params.id : bookMockApi.docs[0].id;
     const bookData = bookMockApi.docs.find(_book => _book.id === bookId);
 
     return HttpResponse.json(bookData, {status: 200});

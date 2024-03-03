@@ -1,2 +1,2 @@
-export * from './buildColorText';
+export * from './buildColor';
 export * from './buildWrapperStyles';

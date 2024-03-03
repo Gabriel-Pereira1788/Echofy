@@ -6,6 +6,7 @@ import {
   CloseSquare,
   DocumentIcon,
   HomeIcon,
+  PlayIcon,
   SearchIcon,
   Settings,
   TickSquare,
@@ -41,4 +42,5 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   document: DocumentIcon,
   arrowLeft: ArrowLeft,
   activity: Activity,
+  play: PlayIcon,
 };

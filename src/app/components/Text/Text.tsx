@@ -11,6 +11,7 @@ import {TextProps, FontStyleProps} from './textTypes';
 
 export function Text({
   text,
+  testID,
   preset,
   color = 'text',
   align = 'auto',
@@ -29,12 +30,14 @@ export function Text({
     const style = makePresetFont(preset);
     return (
       <TextRN
+        testID={testID}
         style={{
           ...style,
           textAlign: align,
           color: _color,
         }}>
-        {text} {children}
+        {text}
+        {children}
       </TextRN>
     );
   }
@@ -45,7 +48,9 @@ export function Text({
   const fontWeight = $fontWeight[weight];
 
   return (
-    <TextRN style={{fontSize: fontSize, color: _color, fontWeight: fontWeight}}>
+    <TextRN
+      testID={testID}
+      style={{fontSize: fontSize, color: _color, fontWeight: fontWeight}}>
       {text} {children}
     </TextRN>
   );

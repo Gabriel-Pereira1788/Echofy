@@ -8,7 +8,8 @@ export type IconMappedKey =
   | 'search'
   | 'document'
   | 'arrowLeft'
-  | 'activity';
+  | 'activity'
+  | 'play';
 export interface IconProps {
   iconName: IconMappedKey;
   color: keyof Theme['colors'];
