@@ -14,3 +14,4 @@ export * from './Toast/Toast';
 export * from './Image/Image';
 export * from './Category/Category';
 export * from './Book/Book';
+export * from './Player/Player';

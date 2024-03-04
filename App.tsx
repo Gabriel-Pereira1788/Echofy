@@ -18,6 +18,7 @@ import {Router} from './src/app/router/Routes';
 import {darkTheme, theme} from './src/app/styles/theme';
 
 global.Buffer = require('buffer').Buffer;
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundColor = isDarkMode

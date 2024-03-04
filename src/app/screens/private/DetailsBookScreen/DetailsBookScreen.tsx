@@ -4,6 +4,7 @@ import {ActivityIndicator} from 'react-native';
 import {useBookFindById} from '@domain';
 import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
+import {usePlayerActions} from '@store';
 
 import {Box} from '@components';
 
@@ -20,6 +21,17 @@ export function DetailsBookScreen({
 }: CommonStackProps<'DetailsBookScreen'>) {
   const bookId = route && route.params ? route.params.id : 'testID';
   const {bookData, isLoading} = useBookFindById(bookId);
+  const {play} = usePlayerActions();
+
+  function onPlayAudio() {
+    if (bookData) {
+      play({
+        title: bookData.bookTitle,
+        author: bookData.bookAuthor,
+        coverURI: bookData.bookImage,
+      });
+    }
+  }
 
   const bookTitle = bookData
     ? bookData.bookTitle.length > 30
@@ -44,7 +56,7 @@ export function DetailsBookScreen({
           />
           <DetailsBookCategories categories={bookData.bookGenres ?? []} />
           <DetailsBookMediaOption
-            onPlayAudio={() => {}}
+            onPlayAudio={onPlayAudio}
             onReadBook={() => {}}
           />
           <DetailsBookSummary summary={bookData.bookDesc} />
