@@ -1,6 +1,6 @@
 # Echofy
 
-Echofy is a free platform designed to bring the world of audiobooks and e-books right to your fingertips. With a vast library of titles spanning various genres, Echofy provides users with a seamless experience for both listening to audiobooks and reading e-books.
+Echofy is a free platform in development  designed to bring the world of audiobooks and e-books right to your fingertips. With a vast library of titles spanning various genres, Echofy provides users with a seamless experience for both listening to audiobooks and reading e-books.
 
 ## Features:
 - Extensive Library: Access a diverse collection of audiobooks and e-books covering a wide range of topics and genres.
