@@ -19,9 +19,14 @@ import {mapScreenToProps} from './mapScreenProps';
 
 export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
   return (
-    <Box width={'100%'}>
+    <Box width={'100%'} position="relative">
       <Player />
-      <Box {...$boxWrapper} style={[{paddingBottom: 0}, $shadowProps]}>
+      <Box
+        onLayout={event => {
+          console.log('event', event.nativeEvent.layout.height);
+        }}
+        {...$boxWrapper}
+        style={[{paddingBottom: 0}, $shadowProps]}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
 
