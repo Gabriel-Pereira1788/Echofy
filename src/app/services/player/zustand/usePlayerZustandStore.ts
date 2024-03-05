@@ -8,16 +8,16 @@ interface PlayerState {
 
 interface PlayerStore {
   player: PlayerState | null;
-  play: (_player: PlayerState) => void;
-  stop: () => void;
+  show: (_player: PlayerState) => void;
+  hide: () => void;
 }
 
 export const usePlayerZustandStore = create<PlayerStore>(set => ({
   player: null,
-  play: _player => {
+  show: _player => {
     set({player: _player});
   },
-  stop: () => {
+  hide: () => {
     set({player: null});
   },
 }));

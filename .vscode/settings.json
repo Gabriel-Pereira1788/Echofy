@@ -15,7 +15,6 @@
     "**/Gemfile": true,
     "**/Gemfile.lock": true,
     "**/.watchmanconfig": true,
-    "**/index.js": true,
     "**/.bundle": true,
     "**/.node-version": true
   }

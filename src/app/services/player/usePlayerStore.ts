@@ -6,11 +6,11 @@ export function usePlayerStore() {
 }
 
 export function usePlayerActions() {
-  const play = usePlayerZustandStore(state => state.play);
-  const stop = usePlayerZustandStore(state => state.stop);
+  const show = usePlayerZustandStore(state => state.show);
+  const hide = usePlayerZustandStore(state => state.hide);
 
   return {
-    play,
-    stop,
+    show,
+    hide,
   };
 }

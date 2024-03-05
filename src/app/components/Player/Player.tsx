@@ -1,22 +1,29 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Animated} from 'react-native';
 
-import {usePlayerActions, usePlayerStore} from '@store';
+import {usePlayerStore, useTrackPlayerState} from '@services';
 
 import {Box, BoxProps} from '../Box/Box';
+import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
 import {PlayerAttribution} from './PlayerAttribution';
 import {PlayerButton} from './PlayerButton';
 import {PlayerImage} from './PlayerImage';
+import {PlayerModalController} from './PlayerModalController';
 import {PlayerProgress} from './PlayerProgress';
 
 type Props = {};
 
 export function Player({}: Props) {
   const player = usePlayerStore();
+  const trackState = useTrackPlayerState();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  console.log('trackState', trackState);
   const displayY = useRef(new Animated.Value(40)).current;
 
-  const {stop} = usePlayerActions();
+  // const {hide} = usePlayerActions();
   const slideUp = useCallback(() => {
     Animated.timing(displayY, {
       toValue: -40,
@@ -26,46 +33,68 @@ export function Player({}: Props) {
     }).start();
   }, [displayY]);
 
-  const slideDown = useCallback(
-    (callback: Animated.EndCallback) => {
-      Animated.timing(displayY, {
-        toValue: 40,
-        duration: 500,
-        useNativeDriver: true,
-      }).start(callback);
-    },
-    [displayY],
-  );
+  // const slideDown = useCallback(
+  //   (callback: Animated.EndCallback) => {
+  //     Animated.timing(displayY, {
+  //       toValue: 40,
+  //       duration: 500,
+  //       useNativeDriver: true,
+  //     }).start(callback);
+  //   },
+  //   [displayY],
+  // );
+
+  function onOpen() {
+    setIsModalOpen(true);
+  }
+
+  function onClose() {
+    setIsModalOpen(false);
+  }
 
   useEffect(() => {
     if (player) {
       slideUp();
-      setTimeout(() => {
-        slideDown(stop);
-      }, 3000);
     }
-  }, [player, slideUp, slideDown, stop]);
+  }, [player, slideUp]);
 
   return (
-    <Box position="absolute" bottom={0}>
-      <Animated.View
-        style={{
-          transform: [{translateY: displayY}],
-        }}>
-        {player && (
-          <Box width={'100%'}>
-            <PlayerProgress />
-            <Box {...$boxWrapperStyle}>
-              <PlayerImage uri={player.coverURI} />
+    <>
+      {player && (
+        <PlayerModalController
+          isOpen={isModalOpen}
+          author={player.author}
+          coverURI={player.coverURI}
+          title={player.title}
+          onClose={onClose}
+        />
+      )}
+      <Box position="absolute" bottom={0}>
+        <Animated.View
+          style={{
+            transform: [{translateY: displayY}],
+          }}>
+          {player && (
+            <TouchableOpacityBox
+              activeOpacity={0.8}
+              onPress={onOpen}
+              boxProps={{width: '100%'}}>
+              <PlayerProgress />
+              <Box {...$boxWrapperStyle}>
+                <PlayerImage uri={player.coverURI} />
 
-              <PlayerAttribution title={player.title} author={player.author} />
+                <PlayerAttribution
+                  title={player.title}
+                  author={player.author}
+                />
 
-              <PlayerButton />
-            </Box>
-          </Box>
-        )}
-      </Animated.View>
-    </Box>
+                <PlayerButton />
+              </Box>
+            </TouchableOpacityBox>
+          )}
+        </Animated.View>
+      </Box>
+    </>
   );
 }
 
