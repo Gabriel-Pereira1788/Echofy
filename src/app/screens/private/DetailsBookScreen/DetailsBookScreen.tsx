@@ -6,10 +6,9 @@ import {CommonStackProps} from '@router';
 import {usePlayerActions, useTrackPlayerController} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
-import {Box} from '@components';
+import {BookAttribution, Box} from '@components';
 
 import {
-  DetailsBookAttribution,
   DetailsBookCategories,
   DetailsBookCover,
   DetailsBookMediaOption,
@@ -58,8 +57,8 @@ export function DetailsBookScreen({
           width={'100%'}
           alignItems="center"
           justifyContent="center">
-          <DetailsBookCover imageUrl={bookData.bookImage} />
-          <DetailsBookAttribution
+          <DetailsBookCover coverURI={bookData.bookImage} />
+          <BookAttribution
             author={bookData?.bookAuthor ?? ''}
             title={bookData?.bookTitle ?? ''}
           />

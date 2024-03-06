@@ -28,6 +28,9 @@ beforeAll(() => {
   jest.useFakeTimers();
 });
 
+afterEach(() => {
+  server.resetHandlers();
+});
 afterAll(() => {
   server.close();
 });

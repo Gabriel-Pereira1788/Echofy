@@ -7,7 +7,7 @@ import {Box} from '../Box/Box';
 import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
 import {BookAuthor} from './BookAuthor';
-import {BookImage} from './BookImage';
+import {BookCover} from './BookCover';
 import {BookTitle} from './BookTitle';
 
 export interface BookProps {
@@ -44,7 +44,7 @@ export function Book({
         alignContent: 'center',
         width: $width,
       }}>
-      <BookImage bookImage={book.bookImage} height={$height} />
+      <BookCover uri={book.bookImage} height={$height} />
 
       <Box
         width={'90%'}

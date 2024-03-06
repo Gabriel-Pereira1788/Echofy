@@ -1,7 +1,13 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {Animated} from 'react-native';
 
-import {usePlayerStore, useTrackPlayerState} from '@services';
+import {
+  usePlayerStore,
+  useTrackPlayerProgress,
+  useTrackPlayerStoreActions,
+} from '@services';
+
+import {useAppSafeArea} from '@hooks';
 
 import {Box, BoxProps} from '../Box/Box';
 import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
@@ -9,18 +15,18 @@ import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 import {PlayerAttribution} from './PlayerAttribution';
 import {PlayerButton} from './PlayerButton';
 import {PlayerImage} from './PlayerImage';
-import {PlayerModalController} from './PlayerModalController';
 import {PlayerProgress} from './PlayerProgress';
 
 type Props = {};
 
 export function Player({}: Props) {
   const player = usePlayerStore();
-  const trackState = useTrackPlayerState();
+  const trackProgress = useTrackPlayerProgress();
+  const {openController} = useTrackPlayerStoreActions();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {bottom} = useAppSafeArea();
 
-  console.log('trackState', trackState);
+  console.log('trackProgress', trackProgress);
   const displayY = useRef(new Animated.Value(40)).current;
 
   // const {hide} = usePlayerActions();
@@ -44,14 +50,6 @@ export function Player({}: Props) {
   //   [displayY],
   // );
 
-  function onOpen() {
-    setIsModalOpen(true);
-  }
-
-  function onClose() {
-    setIsModalOpen(false);
-  }
-
   useEffect(() => {
     if (player) {
       slideUp();
@@ -59,42 +57,28 @@ export function Player({}: Props) {
   }, [player, slideUp]);
 
   return (
-    <>
-      {player && (
-        <PlayerModalController
-          isOpen={isModalOpen}
-          author={player.author}
-          coverURI={player.coverURI}
-          title={player.title}
-          onClose={onClose}
-        />
-      )}
-      <Box position="absolute" bottom={0}>
-        <Animated.View
-          style={{
-            transform: [{translateY: displayY}],
-          }}>
-          {player && (
-            <TouchableOpacityBox
-              activeOpacity={0.8}
-              onPress={onOpen}
-              boxProps={{width: '100%'}}>
-              <PlayerProgress />
-              <Box {...$boxWrapperStyle}>
-                <PlayerImage uri={player.coverURI} />
+    <Box position="absolute" bottom={bottom} zIndex={0}>
+      <Animated.View
+        style={{
+          transform: [{translateY: displayY}],
+        }}>
+        {player && (
+          <TouchableOpacityBox
+            activeOpacity={0.95}
+            onPress={openController}
+            boxProps={{width: '100%'}}>
+            <PlayerProgress />
+            <Box {...$boxWrapperStyle}>
+              <PlayerImage uri={player.coverURI} />
 
-                <PlayerAttribution
-                  title={player.title}
-                  author={player.author}
-                />
+              <PlayerAttribution title={player.title} author={player.author} />
 
-                <PlayerButton />
-              </Box>
-            </TouchableOpacityBox>
-          )}
-        </Animated.View>
-      </Box>
-    </>
+              <PlayerButton />
+            </Box>
+          </TouchableOpacityBox>
+        )}
+      </Animated.View>
+    </Box>
   );
 }
 

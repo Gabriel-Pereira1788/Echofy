@@ -6,11 +6,13 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import {StatusBar, useColorScheme} from 'react-native';
 
 import {queryClient} from '@infra';
+import {TrackPlayerController} from '@services';
 import {ThemeProvider} from '@shopify/restyle';
 import {QueryClientProvider} from '@tanstack/react-query';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {Toast} from './src/app/components/Toast/Toast';
 import {AuthProvider} from './src/app/providers';
@@ -28,13 +30,14 @@ function App(): React.JSX.Element {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
         <AuthProvider>
-          <SafeAreaView style={{flex: 1, backgroundColor}}>
+          <SafeAreaProvider style={{flex: 1, backgroundColor}}>
             <StatusBar
               barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             />
             <Router />
             <Toast />
-          </SafeAreaView>
+            <TrackPlayerController />
+          </SafeAreaProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

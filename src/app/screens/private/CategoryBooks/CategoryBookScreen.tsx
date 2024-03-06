@@ -43,7 +43,7 @@ export function CategoryBookScreen({
   }
 
   return (
-    <SharedWrapperScreen headerTitle={categoryTitle}>
+    <SharedWrapperScreen headerTitle={categoryTitle} goBack>
       <Box flex={1} width={'100%'}>
         {isLoading ? (
           <Box flex={1} alignItems="center" justifyContent="center">

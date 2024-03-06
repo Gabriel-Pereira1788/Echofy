@@ -1,27 +1,42 @@
 import React, {Suspense} from 'react';
 import {ActivityIndicator, Image} from 'react-native';
 
+import {Theme} from '@styles';
+
+import {useTheme} from '@hooks';
+
 import {Box, BoxProps} from '../Box/Box';
 
 type Props = {
   height: number | '100%';
-  bookImage: string;
+  uri: string;
+  disabledShadowBox?: boolean;
+  radius?: keyof Theme['borderRadii'];
 };
 
-export function BookImage({height, bookImage}: Props) {
+export function BookCover({
+  height,
+  uri,
+  disabledShadowBox = false,
+  radius,
+}: Props) {
+  const theme = useTheme();
+
+  const _shadowBox = disabledShadowBox ? undefined : $shadowBox;
+  const _radius = radius ? theme.borderRadii[radius] : 4;
   return (
     <Box
       height={height}
       width={'100%'}
       backgroundColor="transparent"
       borderRadius="rd15"
-      {...$shadowBox}>
+      {..._shadowBox}>
       <Suspense fallback={<ActivityIndicator size={10} />}>
         <Image
           testID="book-image"
-          style={{width: '100%', height: '100%', borderRadius: 4}}
+          style={{width: '100%', height: '100%', borderRadius: _radius}}
           source={{
-            uri: bookImage,
+            uri,
           }}
           resizeMode="stretch"
         />

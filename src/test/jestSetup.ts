@@ -1,5 +1,10 @@
 import {darkTheme, theme} from '@styles';
+import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 
+jest.mock('react-native-safe-area-context', () => ({
+  ...mockSafeAreaContext,
+  useSafeAreaInsets: jest.fn(mockSafeAreaContext.useSafeAreaInsets),
+}));
 let mockColorScheme = 'light';
 let mockTheme = theme;
 
@@ -12,6 +17,7 @@ export const setColorSchemeMock = (mode: 'dark' | 'light') => {
     mockTheme = theme;
   }
 };
+
 jest.mock('react-native-track-player', () => {
   return {
     useProgress: () => ({

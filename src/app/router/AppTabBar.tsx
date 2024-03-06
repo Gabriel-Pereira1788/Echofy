@@ -12,14 +12,20 @@ import {
   Player,
 } from '@components';
 
+import {useAppSafeArea} from '../helpers/hooks/useAppSafeArea';
 import {$shadowProps} from '../styles/theme';
 
 import {AppTabParamList} from './AppTabNavigator';
 import {mapScreenToProps} from './mapScreenProps';
 
 export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
+  const {bottom} = useAppSafeArea();
   return (
-    <Box width={'100%'} position="relative">
+    <Box
+      width={'100%'}
+      position="relative"
+      style={{paddingBottom: bottom}}
+      backgroundColor="bgMain">
       <Player />
       <Box
         onLayout={event => {

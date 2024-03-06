@@ -15,7 +15,6 @@ import {
   render,
   renderHook,
 } from '@testing-library/react-native';
-
 import {Toast} from '@components';
 
 const queryClientConfig: QueryClientConfig = {

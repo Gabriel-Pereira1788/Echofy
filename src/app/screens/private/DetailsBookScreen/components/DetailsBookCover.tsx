@@ -1,29 +1,20 @@
 import React from 'react';
-import {Image} from 'react-native';
 
-import {Box, BoxProps} from '@components';
+import {BookCover, Box, BoxProps} from '@components';
 
 type Props = {
-  imageUrl: string;
+  coverURI: string;
 };
 
-export function DetailsBookCover({imageUrl}: Props) {
+export function DetailsBookCover({coverURI}: Props) {
   return (
     <Box
       width={'90%'}
-      height={300}
       alignItems="center"
       justifyContent="center"
       marginVertical="sp25"
       {...$shadowBox}>
-      <Image
-        testID="book-image-cover"
-        style={{width: '100%', height: '100%', borderRadius: 4}}
-        source={{
-          uri: imageUrl,
-        }}
-        resizeMode="stretch"
-      />
+      <BookCover height={300} uri={coverURI} disabledShadowBox />
     </Box>
   );
 }

@@ -9,7 +9,7 @@ export interface Track {
   artwork: string;
 }
 
-export function useTrackPlayerState() {
+export function useTrackPlayerProgress() {
   const progress = useProgress();
 
   return {

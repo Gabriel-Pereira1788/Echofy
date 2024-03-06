@@ -7,7 +7,7 @@ type Props = {
   author: string;
 };
 
-export function DetailsBookAttribution({title, author}: Props) {
+export function BookAttribution({title, author}: Props) {
   return (
     <Box gap="sp3" width={'100%'} marginTop="sp10">
       <Text text={title} preset="medium/20" />

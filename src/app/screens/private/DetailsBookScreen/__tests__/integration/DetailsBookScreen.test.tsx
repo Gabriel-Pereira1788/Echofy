@@ -12,6 +12,10 @@ afterAll(() => {
   server.close();
 });
 
+afterEach(() => {
+  server.resetHandlers();
+});
+
 const TestCommonStack = createCommonStackNavigator(
   () => <></>,
   'DetailsBookScreen',
@@ -22,7 +26,7 @@ describe('DetailsBookScreen', () => {
 
     screen.debug();
     const bookData = bookMockApi.docs[0];
-    const imageCover = await screen.findByTestId('book-image-cover');
+    const imageCover = await screen.findByTestId('book-image');
     expect(imageCover).toBeTruthy();
 
     const bookTitle = screen.getByText(bookData.book_title);

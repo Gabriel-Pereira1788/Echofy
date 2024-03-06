@@ -42,6 +42,8 @@ beforeAll(() => {
 
 afterAll(() => {
   server.close();
+  jest.useRealTimers();
+  jest.resetAllMocks();
 });
 
 describe('HomeScreen', () => {
@@ -62,11 +64,7 @@ describe('HomeScreen', () => {
     const categoryItem = await screen.findAllByTestId('category');
     expect(categoryItem[0]).toBeTruthy();
 
-    act(() => {
-      jest.resetAllMocks();
-      fireEvent.press(categoryItem[0]);
-    });
-
+    fireEvent.press(categoryItem[0]);
     //2) check if render category correctly
     const categoryTitle = await screen.findByText(allCategoriesMock[0].text);
     expect(categoryTitle).toBeTruthy();
@@ -89,7 +87,6 @@ describe('HomeScreen', () => {
     //1) Select section item and press "see more" button
     const seeMoreItens = await screen.findAllByText('See more');
     act(() => {
-      jest.resetAllMocks();
       fireEvent.press(seeMoreItens[0]);
     });
 
@@ -122,7 +119,6 @@ describe('HomeScreen', () => {
 
     //1) select book item and redirect to book screen
     act(() => {
-      jest.resetAllMocks();
       fireEvent.press(bookItens[0]);
     });
 

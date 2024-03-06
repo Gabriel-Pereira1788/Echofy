@@ -30,7 +30,14 @@ export function SharedWrapperScreen({
     navigation.goBack();
   }
 
-  const renderHeader = headerLeft || headerRight || headerTitle || goBack;
+  const _headerLeft =
+    headerLeft && !goBack ? (
+      headerLeft
+    ) : (
+      <TouchableOpacityBox onPress={handleGoBack} testID="go-back">
+        <Icon iconName="arrowLeft" color="baseIconColor" size="sp23" />
+      </TouchableOpacityBox>
+    );
   return (
     <Box
       width={'100%'}
@@ -39,16 +46,12 @@ export function SharedWrapperScreen({
       justifyContent="center"
       backgroundColor="bgMain">
       <WrapperScreen scrollEnabled={!!scrollEnabled}>
-        {renderHeader && (
-          <SharedScreenHeader
-            headerTitle={headerTitle}
-            headerLeft={
-              <TouchableOpacityBox onPress={handleGoBack} testID="go-back">
-                <Icon iconName="arrowLeft" color="baseIconColor" size="sp23" />
-              </TouchableOpacityBox>
-            }
-          />
-        )}
+        <SharedScreenHeader
+          headerTitle={headerTitle}
+          headerLeft={headerLeft || goBack ? _headerLeft : undefined}
+          headerRight={headerRight}
+        />
+
         <Box
           flex={1}
           alignItems="center"

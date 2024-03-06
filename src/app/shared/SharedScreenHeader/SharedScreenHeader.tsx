@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {Box, Text, TouchableOpacityBox} from '@components';
+import {Box, BoxProps, Text, TouchableOpacityBox} from '@components';
+import {useAppSafeArea} from '@hooks';
 
 type Props = {
   headerLeft?: React.JSX.Element;
@@ -13,14 +14,14 @@ export function SharedScreenHeader({
   headerTitle,
   headerRight,
 }: Props) {
+  const {top} = useAppSafeArea();
+
+  console.log('safearea', top);
+  if (!headerLeft && !headerRight && !headerTitle) {
+    return null;
+  }
   return (
-    <Box
-      width={'100%'}
-      height={50}
-      flexDirection="row"
-      paddingHorizontal="sp25"
-      justifyContent="space-between"
-      alignItems={'center'}>
+    <Box {...$boxWrapper} style={{marginTop: top}}>
       {headerLeft && headerLeft}
       {headerTitle && (
         <Box flex={1} flexDirection="row" justifyContent="center">
@@ -45,3 +46,12 @@ export function SharedScreenHeader({
     </Box>
   );
 }
+
+const $boxWrapper: BoxProps = {
+  width: '100%',
+  height: 50,
+  flexDirection: 'row',
+  paddingHorizontal: 'sp25',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};
