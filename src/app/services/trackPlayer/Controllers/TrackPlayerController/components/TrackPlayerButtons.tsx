@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Box, Icon, TouchableOpacityBox} from '@components';
+import {Box, IconPress} from '@components';
 
 type Props = {};
 
@@ -11,10 +11,12 @@ export function TrackPlayerButtons({}: Props) {
       flexDirection="row"
       alignItems="center"
       justifyContent="space-between">
-      {/* TODO: Create "IconPress Component " */}
-      <TouchableOpacityBox>
-        <Icon iconName="volumeUp" size="sp20" color="playerButtonColor" />
-      </TouchableOpacityBox>
+      <IconPress
+        iconName="volumeUp"
+        size="sp25"
+        color="playerButtonColor"
+        onPress={() => {}}
+      />
 
       <Box
         gap="sp20"
@@ -22,23 +24,27 @@ export function TrackPlayerButtons({}: Props) {
         flex={1}
         alignItems="center"
         justifyContent="center">
-        <TouchableOpacityBox>
-          <Icon
-            iconName="arrowLeftCircle"
-            size="sp40"
-            color="playerButtonColor"
-          />
-        </TouchableOpacityBox>
-        <TouchableOpacityBox>
-          <Icon iconName="play" type="bold" size="sp60" color="white" />
-        </TouchableOpacityBox>
-        <TouchableOpacityBox>
-          <Icon
-            iconName="arrowRightCircle"
-            size="sp40"
-            color="playerButtonColor"
-          />
-        </TouchableOpacityBox>
+        <IconPress
+          iconName="arrowLeftCircle"
+          size="sp40"
+          color="playerButtonColor"
+          onPress={() => {}}
+        />
+
+        <IconPress
+          iconName="play"
+          type="bold"
+          size="sp60"
+          color="white"
+          onPress={() => {}}
+        />
+
+        <IconPress
+          iconName="arrowRightCircle"
+          size="sp40"
+          color="playerButtonColor"
+          onPress={() => {}}
+        />
       </Box>
     </Box>
   );

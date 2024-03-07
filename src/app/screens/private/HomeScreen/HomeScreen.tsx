@@ -23,8 +23,6 @@ export function HomeScreen({}: CommonStackProps<'MainScreen'>) {
     );
   }, []);
 
-  console.log('bookSections', bookSections);
-
   return (
     <SharedWrapperScreen customPadding>
       <Box flex={1}>

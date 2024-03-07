@@ -11,3 +11,7 @@ export * from './volumeUpIcon/VolumeUpIcon';
 export * from './arrowLeftCircleIcon/ArrowLeftCircleIcon';
 export * from './arrowRightCircleIcon/ArrowRightCircleIcon';
 export * from './volumeUpIcon/VolumeUpIcon';
+export * from './bookmarkIcon/BookMarkIcon';
+export * from './timeSquareIcon/TimeSquareIcon';
+export * from './downloadIcon/DownloadIcon';
+export * from './paperIcon/PaperIcon';

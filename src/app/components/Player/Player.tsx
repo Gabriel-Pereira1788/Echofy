@@ -67,7 +67,9 @@ export function Player({}: Props) {
             activeOpacity={0.95}
             onPress={openController}
             boxProps={{width: '100%'}}>
-            <PlayerProgress />
+            <PlayerProgress
+              percentageProgress={trackProgress.percentageProgress}
+            />
             <Box {...$boxWrapperStyle}>
               <PlayerImage uri={player.coverURI} />
 

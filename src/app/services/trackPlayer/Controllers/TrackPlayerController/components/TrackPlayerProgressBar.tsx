@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {Animated, Easing, ViewStyle} from 'react-native';
 
 import {
@@ -10,12 +10,15 @@ import {
 import {Box, BoxProps, Text} from '@components';
 import {useTheme} from '@hooks';
 
-type Props = {};
+type Props = {
+  percentageProgress: number;
+};
 
-export function TrackPlayerProgressBar({}: Props) {
+export function TrackPlayerProgressBar({percentageProgress}: Props) {
   const theme = useTheme();
 
   const animatedProgressValue = useRef(new Animated.Value(0)).current;
+  const totalProgressValue = useRef(0);
 
   const onSetProgressValue = useCallback(
     (value: number) => {
@@ -35,9 +38,19 @@ export function TrackPlayerProgressBar({}: Props) {
     onSetProgressValue(translationX);
   }
 
+  useEffect(() => {
+    const currentProgressValue =
+      (percentageProgress * totalProgressValue.current) / 100;
+    onSetProgressValue(currentProgressValue);
+  }, [percentageProgress, onSetProgressValue]);
+
   return (
     <Box {...$wrapper}>
-      <Box {...$outerProgressContainer}>
+      <Box
+        {...$outerProgressContainer}
+        onLayout={event => {
+          totalProgressValue.current = event.nativeEvent.layout.width;
+        }}>
         <Animated.View
           style={[
             {

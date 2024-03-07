@@ -2,9 +2,11 @@ import React from 'react';
 
 import {Box} from '../Box/Box';
 
-type Props = {};
+type Props = {
+  percentageProgress: number;
+};
 
-export function PlayerProgress({}: Props) {
+export function PlayerProgress({percentageProgress}: Props) {
   return (
     <Box width={'100%'} position="relative" flexDirection="row">
       <Box
@@ -15,7 +17,7 @@ export function PlayerProgress({}: Props) {
       />
       <Box
         flexDirection="row"
-        width={'40%'}
+        width={`${percentageProgress}%`}
         backgroundColor="primary50"
         height={3}
         position="absolute"

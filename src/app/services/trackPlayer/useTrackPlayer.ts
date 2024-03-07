@@ -12,9 +12,12 @@ export interface Track {
 export function useTrackPlayerProgress() {
   const progress = useProgress();
 
+  const percentageProgress =
+    progress.duration > 0 ? (progress.position / progress.duration) * 100 : 0;
   return {
     position: progress.position,
     duration: progress.duration,
+    percentageProgress: percentageProgress,
   };
 }
 

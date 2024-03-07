@@ -4,6 +4,7 @@ export type {TextProps} from './Text/textTypes';
 export * from './Button/Button';
 export * from './Input/Input';
 export * from './Icon/Icon';
+export * from './Icon/IconPress';
 export type {IconBase} from './Icon/iconTypes';
 export * from './CheckBox/CheckBox';
 export * from './TouchableOpacityBox/TouchableOpacityBox';

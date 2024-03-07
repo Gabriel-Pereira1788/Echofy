@@ -5,13 +5,17 @@ import {
   ArrowLeft,
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
+  BookMarkIcon,
   CloseSquare,
   DocumentIcon,
+  DownloadIcon,
   HomeIcon,
+  PaperIcon,
   PlayIcon,
   SearchIcon,
   Settings,
   TickSquare,
+  TimeSquareIcon,
   VolumeUpIcon,
 } from '@assets';
 
@@ -49,4 +53,8 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   volumeUp: VolumeUpIcon,
   arrowLeftCircle: ArrowLeftCircleIcon,
   arrowRightCircle: ArrowRightCircleIcon,
+  bookmark: BookMarkIcon,
+  paper: PaperIcon,
+  timeSquare: TimeSquareIcon,
+  download: DownloadIcon,
 };

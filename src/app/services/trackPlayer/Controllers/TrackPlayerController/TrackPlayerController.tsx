@@ -5,11 +5,16 @@ import {SharedScreenHeader} from '@shared';
 
 import {BookAttribution, Box, Icon, TouchableOpacityBox} from '@components';
 
-import {useTrackPlayerStore, useTrackPlayerStoreActions} from '../../';
+import {
+  useTrackPlayerProgress,
+  useTrackPlayerStore,
+  useTrackPlayerStoreActions,
+} from '../../';
 import {usePlayerStore} from '../../../player';
 
 import {TrackPlayerCover, TrackPlayerProgressBar} from './components';
 import {TrackPlayerButtons} from './components/TrackPlayerButtons';
+import {TrackPlayerFooter} from './components/TrackPlayerFooter';
 
 type Props = {};
 
@@ -18,6 +23,7 @@ export function TrackPlayerController({}: Props) {
 
   const {isOpened} = useTrackPlayerStore();
   const {closeController} = useTrackPlayerStoreActions();
+  const trackProgress = useTrackPlayerProgress();
 
   const _title = player
     ? player.title.length > 30
@@ -50,8 +56,11 @@ export function TrackPlayerController({}: Props) {
           <>
             <TrackPlayerCover coverURI={player.coverURI} />
             <BookAttribution title={player.title} author={player.author} />
-            <TrackPlayerProgressBar />
+            <TrackPlayerProgressBar
+              percentageProgress={trackProgress.percentageProgress}
+            />
             <TrackPlayerButtons />
+            <TrackPlayerFooter />
           </>
         )}
       </Box>
