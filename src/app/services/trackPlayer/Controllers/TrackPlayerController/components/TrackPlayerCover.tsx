@@ -14,7 +14,7 @@ export function TrackPlayerCover({coverURI}: Props) {
       marginVertical="sp25"
       position="relative">
       <Box
-        width={'90%'}
+        width={'85%'}
         height={319}
         position="absolute"
         {...$shadowBox}
@@ -28,12 +28,12 @@ export function TrackPlayerCover({coverURI}: Props) {
 const $shadowBox: BoxProps = {
   backgroundColor: 'black',
   borderRadius: 'rd12',
-  shadowOpacity: 0.4,
-  shadowRadius: 15.62,
+  shadowOpacity: 0.5,
+  shadowRadius: 11.62,
   elevation: 6,
-  shadowColor: 'base',
+  shadowColor: 'shadowCommonColor',
   shadowOffset: {
     width: 0,
-    height: 15,
+    height: 10,
   },
 };

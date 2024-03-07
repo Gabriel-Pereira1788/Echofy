@@ -16,7 +16,6 @@ export function SharedScreenHeader({
 }: Props) {
   const {top} = useAppSafeArea();
 
-  console.log('safearea', top);
   if (!headerLeft && !headerRight && !headerTitle) {
     return null;
   }

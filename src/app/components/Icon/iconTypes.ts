@@ -9,7 +9,10 @@ export type IconMappedKey =
   | 'document'
   | 'arrowLeft'
   | 'activity'
-  | 'play';
+  | 'play'
+  | 'volumeUp'
+  | 'arrowLeftCircle'
+  | 'arrowRightCircle';
 export interface IconProps {
   iconName: IconMappedKey;
   color: keyof Theme['colors'];

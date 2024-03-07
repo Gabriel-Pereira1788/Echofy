@@ -12,6 +12,7 @@ import {queryClient} from '@infra';
 import {TrackPlayerController} from '@services';
 import {ThemeProvider} from '@shopify/restyle';
 import {QueryClientProvider} from '@tanstack/react-query';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {Toast} from './src/app/components/Toast/Toast';
@@ -29,16 +30,18 @@ function App(): React.JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
-        <AuthProvider>
-          <SafeAreaProvider style={{flex: 1, backgroundColor}}>
-            <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
-            <Router />
-            <Toast />
-            <TrackPlayerController />
-          </SafeAreaProvider>
-        </AuthProvider>
+        <SafeAreaProvider style={{flex: 1, backgroundColor}}>
+          <GestureHandlerRootView style={{flex: 1}}>
+            <AuthProvider>
+              <StatusBar
+                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+              />
+              <Router />
+              <Toast />
+              <TrackPlayerController />
+            </AuthProvider>
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

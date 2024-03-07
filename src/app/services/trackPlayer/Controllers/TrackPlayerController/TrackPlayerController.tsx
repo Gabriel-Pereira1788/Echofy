@@ -8,7 +8,8 @@ import {BookAttribution, Box, Icon, TouchableOpacityBox} from '@components';
 import {useTrackPlayerStore, useTrackPlayerStoreActions} from '../../';
 import {usePlayerStore} from '../../../player';
 
-import {TrackPlayerCover} from './components';
+import {TrackPlayerCover, TrackPlayerProgressBar} from './components';
+import {TrackPlayerButtons} from './components/TrackPlayerButtons';
 
 type Props = {};
 
@@ -49,6 +50,8 @@ export function TrackPlayerController({}: Props) {
           <>
             <TrackPlayerCover coverURI={player.coverURI} />
             <BookAttribution title={player.title} author={player.author} />
+            <TrackPlayerProgressBar />
+            <TrackPlayerButtons />
           </>
         )}
       </Box>

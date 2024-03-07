@@ -3,6 +3,8 @@ import React from 'react';
 import {
   Activity,
   ArrowLeft,
+  ArrowLeftCircleIcon,
+  ArrowRightCircleIcon,
   CloseSquare,
   DocumentIcon,
   HomeIcon,
@@ -10,6 +12,7 @@ import {
   SearchIcon,
   Settings,
   TickSquare,
+  VolumeUpIcon,
 } from '@assets';
 
 import {useTheme} from '@hooks';
@@ -43,4 +46,7 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   arrowLeft: ArrowLeft,
   activity: Activity,
   play: PlayIcon,
+  volumeUp: VolumeUpIcon,
+  arrowLeftCircle: ArrowLeftCircleIcon,
+  arrowRightCircle: ArrowRightCircleIcon,
 };

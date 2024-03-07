@@ -3,7 +3,7 @@ import {ActivityIndicator} from 'react-native';
 
 import {useBookFindById} from '@domain';
 import {CommonStackProps} from '@router';
-import {usePlayerActions, useTrackPlayerController} from '@services';
+import {usePlayerActions} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
 import {BookAttribution, Box} from '@components';
@@ -14,7 +14,7 @@ import {
   DetailsBookMediaOption,
   DetailsBookSummary,
 } from './components';
-import {toTrackData} from './functions/toTrackData';
+// import {toTrackData} from './functions/toTrackData';
 
 export function DetailsBookScreen({
   route,
@@ -24,14 +24,14 @@ export function DetailsBookScreen({
 
   const playerActions = usePlayerActions();
 
-  const trackPlayer = useTrackPlayerController();
+  // const trackPlayer = useTrackPlayerController();
 
   async function onPlayAudio() {
     if (bookData) {
-      const tracks = toTrackData(bookData);
+      // const tracks = toTrackData(bookData);
 
-      await trackPlayer.initialize(tracks);
-      await trackPlayer.play();
+      // await trackPlayer.initialize(tracks);
+      // await trackPlayer.play();
 
       playerActions.show({
         title: bookData.bookTitle,

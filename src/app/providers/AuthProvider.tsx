@@ -1,4 +1,10 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import {AuthCredentials} from '@domain';
 import {StorageKeys, storage} from '@infra';
@@ -14,12 +20,12 @@ const AuthContext = createContext({} as Props);
 
 export function AuthProvider({children}: React.PropsWithChildren) {
   const [credentials, setCredentials] = useState<AuthCredentials | null>(null);
-  const uid = credentials ? credentials.id : undefined;
+  const uid = credentials && credentials.id ? credentials.id : undefined;
 
   function refreshCredentials(ac: AuthCredentials) {
     setCredentials(ac);
 
-    storage.setItem(StorageKeys.Credentials, JSON.stringify(ac));
+    storage.setItem(StorageKeys.Credentials, ac);
   }
 
   function removeCredentials() {
@@ -30,18 +36,18 @@ export function AuthProvider({children}: React.PropsWithChildren) {
   async function getLastCredentials(): Promise<AuthCredentials | null> {
     const ac = await storage.getItem<AuthCredentials>(StorageKeys.Credentials);
 
+    console.log('ac', ac);
     return ac ? ac : null;
   }
 
-  async function handleGetLastCredentials() {
+  const handleGetLastCredentials = useCallback(async () => {
     const lastCredentials = await getLastCredentials();
     setCredentials(lastCredentials);
-  }
+  }, []);
 
   useEffect(() => {
     handleGetLastCredentials();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleGetLastCredentials]);
 
   return (
     <AuthContext.Provider

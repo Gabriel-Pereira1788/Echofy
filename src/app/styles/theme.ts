@@ -53,6 +53,9 @@ export const theme = createTheme({
 
     outlineCategoryColor: pallete.neutral60,
 
+    shadowCommonColor: pallete.neutral100,
+
+    playerButtonColor: pallete.neutral80,
     textActive: pallete.primary50,
     textAuthor: pallete.primary50,
     buttonText: pallete.primary50,
@@ -71,7 +74,9 @@ export const theme = createTheme({
     sp23: 23,
     sp25: 25,
     sp28: 28,
+    sp40: 40,
     sp50: 50,
+    sp60: 60,
   },
   borderRadii: {
     rd4: 4,
@@ -98,6 +103,10 @@ export const darkTheme = createTheme({
 
     base: pallete.white,
     baseIconColor: pallete.white,
+
+    shadowCommonColor: pallete.primary30,
+
+    playerButtonColor: pallete.primary20,
 
     alertColor: pallete.primary20,
     outlineCategoryColor: pallete.white,

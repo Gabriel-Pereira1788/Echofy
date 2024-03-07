@@ -6,6 +6,7 @@ function setItem<T>(key?: string, value?: T) {
 
 async function getItem<T>(key?: string) {
   const data = mmkv.getString(key!) as string;
+
   const result = data ? ((await JSON.parse(data)) as T) : data;
   return result as T;
 }

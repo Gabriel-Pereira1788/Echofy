@@ -7,3 +7,7 @@ export * from './searchIcon/SearchIcon';
 export * from './arrowLeft/ArrowLeft';
 export * from './activity/Activity';
 export * from './playIcon/PlayIcon';
+export * from './volumeUpIcon/VolumeUpIcon';
+export * from './arrowLeftCircleIcon/ArrowLeftCircleIcon';
+export * from './arrowRightCircleIcon/ArrowRightCircleIcon';
+export * from './volumeUpIcon/VolumeUpIcon';

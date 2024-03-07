@@ -17,6 +17,7 @@ type Preset =
   | 'medium/20'
   | 'semiBold/16'
   | 'regular/14'
+  | 'regular/10'
   | 'regular/16'
   | 'semiBold/14'
   | 'semiBold/24'
