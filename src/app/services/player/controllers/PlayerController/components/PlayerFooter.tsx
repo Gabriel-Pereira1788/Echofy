@@ -4,7 +4,7 @@ import {Box, IconPress} from '@components';
 
 type Props = {};
 
-export function TrackPlayerFooter({}: Props) {
+export function PlayerFooter({}: Props) {
   return (
     <Box
       flexDirection="row"

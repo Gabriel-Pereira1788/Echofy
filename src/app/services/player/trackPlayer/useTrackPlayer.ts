@@ -1,5 +1,6 @@
 import {useCallback} from 'react';
 
+import {secondsToMinutesFormatter} from '@utils';
 import TrackPlayer, {Event, useProgress} from 'react-native-track-player';
 
 export interface Track {
@@ -12,14 +13,22 @@ export interface Track {
 export function useTrackPlayerProgress() {
   const progress = useProgress();
 
+  console.log('progress', progress.buffered);
   const percentageProgress =
     progress.duration > 0 ? (progress.position / progress.duration) * 100 : 0;
+
+  const minutesDuration = secondsToMinutesFormatter(progress.duration);
+  const minutesPosition = secondsToMinutesFormatter(progress.position);
   return {
     position: progress.position,
     duration: progress.duration,
+    minutesDuration,
+    minutesPosition,
     percentageProgress: percentageProgress,
   };
 }
+
+TrackPlayer.setupPlayer();
 
 export function useTrackPlayerController() {
   const initialize = useCallback(async (tracks: Track[]) => {
@@ -33,11 +42,12 @@ export function useTrackPlayerController() {
       console.log('state', state);
     });
 
-    TrackPlayer.addEventListener(Event.PlaybackError, err => {
+    TrackPlayer.addEventListener(Event.PlaybackError, async err => {
       console.log('err', err);
+      await TrackPlayer.retry();
     });
-    await TrackPlayer.setupPlayer();
 
+    await TrackPlayer.reset();
     await TrackPlayer.add(tracks);
   }, []);
 
@@ -50,15 +60,19 @@ export function useTrackPlayerController() {
   }
 
   async function skipToNext() {
-    await TrackPlayer.skipToNext();
+    await TrackPlayer.skipToNext(0);
   }
 
   async function skipToPrevious() {
-    await TrackPlayer.skipToPrevious();
+    await TrackPlayer.skipToPrevious(0);
   }
 
   async function seekTo(position: number) {
     await TrackPlayer.seekTo(position);
+  }
+
+  async function volumeControl(value: number) {
+    await TrackPlayer.setVolume(value);
   }
 
   return {
@@ -68,5 +82,6 @@ export function useTrackPlayerController() {
     seekTo,
     skipToNext,
     skipToPrevious,
+    volumeControl,
   };
 }

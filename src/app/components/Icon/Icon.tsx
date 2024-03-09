@@ -11,12 +11,15 @@ import {
   DownloadIcon,
   HomeIcon,
   PaperIcon,
+  PauseIcon,
   PlayIcon,
   SearchIcon,
   Settings,
   TickSquare,
   TimeSquareIcon,
+  VolumeDownIcon,
   VolumeUpIcon,
+  volumeOffIcon,
 } from '@assets';
 
 import {useTheme} from '@hooks';
@@ -50,6 +53,7 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   arrowLeft: ArrowLeft,
   activity: Activity,
   play: PlayIcon,
+  pause: PauseIcon,
   volumeUp: VolumeUpIcon,
   arrowLeftCircle: ArrowLeftCircleIcon,
   arrowRightCircle: ArrowRightCircleIcon,
@@ -57,4 +61,6 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   paper: PaperIcon,
   timeSquare: TimeSquareIcon,
   download: DownloadIcon,
+  volumeDown: VolumeDownIcon,
+  volumeOff: volumeOffIcon,
 };

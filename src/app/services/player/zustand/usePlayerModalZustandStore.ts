@@ -6,7 +6,7 @@ interface State {
   closeController: () => void;
 }
 
-export const useTrackPlayerZustandStore = create<State>(set => ({
+export const usePlayerModalZustandStore = create<State>(set => ({
   isOpened: false,
   openController: () => {
     set({isOpened: true});

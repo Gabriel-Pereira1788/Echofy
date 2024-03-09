@@ -10,13 +10,16 @@ export type IconMappedKey =
   | 'arrowLeft'
   | 'activity'
   | 'play'
+  | 'pause'
   | 'volumeUp'
   | 'arrowLeftCircle'
   | 'arrowRightCircle'
   | 'bookmark'
   | 'paper'
   | 'timeSquare'
-  | 'download';
+  | 'download'
+  | 'volumeDown'
+  | 'volumeOff';
 export interface IconProps {
   iconName: IconMappedKey;
   color: keyof Theme['colors'];

@@ -9,7 +9,7 @@ import {
   Text,
   Icon,
   Box,
-  Player,
+  MinimizePlayer,
 } from '@components';
 
 import {useAppSafeArea} from '../helpers/hooks/useAppSafeArea';
@@ -26,7 +26,7 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
       position="relative"
       style={{paddingBottom: bottom}}
       backgroundColor="bgMain">
-      <Player />
+      <MinimizePlayer />
       <Box
         onLayout={event => {
           console.log('event', event.nativeEvent.layout.height);

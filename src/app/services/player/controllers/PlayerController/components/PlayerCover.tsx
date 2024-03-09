@@ -6,7 +6,7 @@ type Props = {
   coverURI: string;
 };
 
-export function TrackPlayerCover({coverURI}: Props) {
+export function PlayerCover({coverURI}: Props) {
   return (
     <Box
       width={'90%'}

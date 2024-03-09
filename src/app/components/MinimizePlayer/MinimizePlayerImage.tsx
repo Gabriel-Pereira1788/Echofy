@@ -7,7 +7,7 @@ type Props = {
   uri: string;
 };
 
-export function PlayerImage({uri}: Props) {
+export function MinimizePlayerImage({uri}: Props) {
   return (
     <Box flex={0.5}>
       <Image

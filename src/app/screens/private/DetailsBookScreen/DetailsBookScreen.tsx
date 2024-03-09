@@ -37,6 +37,7 @@ export function DetailsBookScreen({
         title: bookData.bookTitle,
         author: bookData.bookAuthor,
         coverURI: bookData.bookImage,
+        currentStatus: 'play',
       });
     }
   }

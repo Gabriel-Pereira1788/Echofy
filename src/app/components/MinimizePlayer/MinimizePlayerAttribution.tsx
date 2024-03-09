@@ -8,7 +8,7 @@ type Props = {
   author: string;
 };
 
-export function PlayerAttribution({title, author}: Props) {
+export function MinimizePlayerAttribution({title, author}: Props) {
   const $title = title.length > 100 ? title.slice(0, 100) + '...' : title;
   return (
     <Box flex={1.5} height={'100%'} gap="sp10">

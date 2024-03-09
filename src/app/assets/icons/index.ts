@@ -15,3 +15,6 @@ export * from './bookmarkIcon/BookMarkIcon';
 export * from './timeSquareIcon/TimeSquareIcon';
 export * from './downloadIcon/DownloadIcon';
 export * from './paperIcon/PaperIcon';
+export * from './volumeDownIcon/VolumeDownIcon';
+export * from './volumeOffIcon/VolumeOffIcon';
+export * from './pauseIcon/PauseIcon';

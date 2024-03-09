@@ -6,7 +6,7 @@ type Props = {
   percentageProgress: number;
 };
 
-export function PlayerProgress({percentageProgress}: Props) {
+export function MinimizePlayerProgress({percentageProgress}: Props) {
   return (
     <Box width={'100%'} position="relative" flexDirection="row">
       <Box

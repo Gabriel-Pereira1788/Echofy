@@ -5,7 +5,8 @@ export * from './Button/Button';
 export * from './Input/Input';
 export * from './Icon/Icon';
 export * from './Icon/IconPress';
-export type {IconBase} from './Icon/iconTypes';
+export type {IconBase, IconMappedKey} from './Icon/iconTypes';
+
 export * from './CheckBox/CheckBox';
 export * from './TouchableOpacityBox/TouchableOpacityBox';
 export type {ITouchableOpacityBoxProps} from './TouchableOpacityBox/TouchableOpacityBox';
@@ -15,4 +16,4 @@ export * from './Toast/Toast';
 export * from './Image/Image';
 export * from './Category/Category';
 export * from './Book';
-export * from './Player/Player';
+export * from './MinimizePlayer/MinimizePlayer';

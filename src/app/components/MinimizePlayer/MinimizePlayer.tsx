@@ -1,10 +1,11 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {Animated} from 'react-native';
 
+import {useSlideAnimated} from '@animations';
 import {
   usePlayerStore,
   useTrackPlayerProgress,
-  useTrackPlayerStoreActions,
+  usePlayerModalStoreActions,
 } from '@services';
 
 import {useAppSafeArea} from '@hooks';
@@ -12,43 +13,23 @@ import {useAppSafeArea} from '@hooks';
 import {Box, BoxProps} from '../Box/Box';
 import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
-import {PlayerAttribution} from './PlayerAttribution';
-import {PlayerButton} from './PlayerButton';
-import {PlayerImage} from './PlayerImage';
-import {PlayerProgress} from './PlayerProgress';
+import {MinimizePlayerAttribution} from './MinimizePlayerAttribution';
+import {MinimizePlayerButton} from './MinimizePlayerButton';
+import {MinimizePlayerImage} from './MinimizePlayerImage';
+import {MinimizePlayerProgress} from './MinimizePlayerProgress';
 
 type Props = {};
 
-export function Player({}: Props) {
+export function MinimizePlayer({}: Props) {
   const player = usePlayerStore();
   const trackProgress = useTrackPlayerProgress();
-  const {openController} = useTrackPlayerStoreActions();
+  const {openController} = usePlayerModalStoreActions();
 
   const {bottom} = useAppSafeArea();
+  const {translationY, slideUp} = useSlideAnimated();
 
   console.log('trackProgress', trackProgress);
-  const displayY = useRef(new Animated.Value(40)).current;
-
   // const {hide} = usePlayerActions();
-  const slideUp = useCallback(() => {
-    Animated.timing(displayY, {
-      toValue: -40,
-      duration: 500,
-
-      useNativeDriver: true,
-    }).start();
-  }, [displayY]);
-
-  // const slideDown = useCallback(
-  //   (callback: Animated.EndCallback) => {
-  //     Animated.timing(displayY, {
-  //       toValue: 40,
-  //       duration: 500,
-  //       useNativeDriver: true,
-  //     }).start(callback);
-  //   },
-  //   [displayY],
-  // );
 
   useEffect(() => {
     if (player) {
@@ -60,22 +41,25 @@ export function Player({}: Props) {
     <Box position="absolute" bottom={bottom} zIndex={0}>
       <Animated.View
         style={{
-          transform: [{translateY: displayY}],
+          transform: [{translateY: translationY}],
         }}>
         {player && (
           <TouchableOpacityBox
             activeOpacity={0.95}
             onPress={openController}
             boxProps={{width: '100%'}}>
-            <PlayerProgress
+            <MinimizePlayerProgress
               percentageProgress={trackProgress.percentageProgress}
             />
             <Box {...$boxWrapperStyle}>
-              <PlayerImage uri={player.coverURI} />
+              <MinimizePlayerImage uri={player.coverURI} />
 
-              <PlayerAttribution title={player.title} author={player.author} />
+              <MinimizePlayerAttribution
+                title={player.title}
+                author={player.author}
+              />
 
-              <PlayerButton />
+              <MinimizePlayerButton playerStatus={player.currentStatus} />
             </Box>
           </TouchableOpacityBox>
         )}
