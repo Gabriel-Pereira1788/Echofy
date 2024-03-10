@@ -18,7 +18,6 @@ module.exports = {
           '@infra': './src/infra',
           '@types': './src/@types',
           '@providers': './src/app/providers',
-          '@store': './src/app/store',
           '@utils': './src/app/helpers/utils',
           '@services': './src/app/services',
           '@hooks': './src/app/helpers/hooks',

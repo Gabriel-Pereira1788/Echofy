@@ -4,6 +4,7 @@ import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {Box, Icon, TouchableOpacityBox} from '@components';
+import {useAppSafeArea} from '@hooks';
 
 import {SharedScreenHeader} from '../SharedScreenHeader/SharedScreenHeader';
 
@@ -12,6 +13,7 @@ interface Props extends React.PropsWithChildren {
   headerLeft?: React.JSX.Element;
   headerTitle?: string;
   headerRight?: React.JSX.Element;
+  footerElement?: React.JSX.Element;
   customPadding?: boolean;
   scrollEnabled?: boolean;
 }
@@ -22,10 +24,12 @@ export function SharedWrapperScreen({
   scrollEnabled,
   headerLeft,
   headerRight,
+  footerElement,
   customPadding,
   headerTitle,
 }: Props) {
   const navigation = useNavigation();
+  const {bottom} = useAppSafeArea();
   function handleGoBack() {
     navigation.goBack();
   }
@@ -61,6 +65,11 @@ export function SharedWrapperScreen({
           {children}
         </Box>
       </WrapperScreen>
+      {footerElement && (
+        <Box style={{marginBottom: bottom}} width="100%">
+          {footerElement}
+        </Box>
+      )}
     </Box>
   );
 }

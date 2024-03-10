@@ -8,6 +8,7 @@ export type IconMappedKey =
   | 'search'
   | 'document'
   | 'arrowLeft'
+  | 'arrowDown'
   | 'activity'
   | 'play'
   | 'pause'

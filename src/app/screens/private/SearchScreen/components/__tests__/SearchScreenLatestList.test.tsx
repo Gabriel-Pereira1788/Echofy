@@ -5,8 +5,8 @@ import {bookMock, fireEvent, mockedNavigate, render, screen} from '@test';
 import SearchScreenLatestList from '../SearchScreenLatestList';
 
 const mockedBooks = [bookMock, bookMock, bookMock];
-jest.mock('@store', () => {
-  const originalModule = jest.requireActual('@store');
+jest.mock('@services', () => {
+  const originalModule = jest.requireActual('@services');
   return {...originalModule, useSearchHistoryStore: () => mockedBooks};
 });
 function customRender() {

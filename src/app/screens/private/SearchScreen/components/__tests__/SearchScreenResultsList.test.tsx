@@ -15,8 +15,8 @@ function customRender() {
 }
 
 const mockAddToSearchHistory = jest.fn();
-jest.mock('@store', () => {
-  const originalModule = jest.requireActual('@store');
+jest.mock('@services', () => {
+  const originalModule = jest.requireActual('@services');
   return {
     ...originalModule,
     useSearchHistoryActions: () => ({

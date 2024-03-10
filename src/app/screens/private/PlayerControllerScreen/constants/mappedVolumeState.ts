@@ -1,6 +1,6 @@
 import {IconMappedKey} from '@components';
 
-import {KeyVolumeState} from '../components';
+export type KeyVolumeState = 'up' | 'down' | 'mute';
 
 export const mappedIconVolumeState: Record<KeyVolumeState, IconMappedKey> = {
   up: 'volumeUp',

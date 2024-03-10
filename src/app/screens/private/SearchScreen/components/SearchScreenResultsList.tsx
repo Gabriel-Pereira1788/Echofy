@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Book as BookType} from '@domain';
-import {useSearchHistoryActions} from '@store';
+import {useSearchHistoryActions} from '@services';
 
 import {Box, Text} from '@components';
 

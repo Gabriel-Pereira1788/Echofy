@@ -20,7 +20,6 @@
       "@hooks": ["src/app/helpers/hooks"],
       "@test": ["src/test"],
       "@mocks": ["src/mocks"],
-      "@store": ["src/app/store"],
       "@services": ["src/app/services"]
     }
   }

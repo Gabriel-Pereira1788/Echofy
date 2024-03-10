@@ -9,7 +9,6 @@ import React from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
 
 import {queryClient} from '@infra';
-import {PlayerController} from '@services';
 import {ThemeProvider} from '@shopify/restyle';
 import {QueryClientProvider} from '@tanstack/react-query';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -38,7 +37,6 @@ function App(): React.JSX.Element {
               />
               <Router />
               <Toast />
-              <PlayerController />
             </AuthProvider>
           </GestureHandlerRootView>
         </SafeAreaProvider>

@@ -2,11 +2,8 @@ import React, {useEffect} from 'react';
 import {Animated} from 'react-native';
 
 import {useSlideAnimated} from '@animations';
-import {
-  usePlayerStore,
-  useTrackPlayerProgress,
-  usePlayerModalStoreActions,
-} from '@services';
+import {useNavigation} from '@react-navigation/native';
+import {usePlayerStore, useTrackPlayerProgress} from '@services';
 
 import {useAppSafeArea} from '@hooks';
 
@@ -22,14 +19,17 @@ type Props = {};
 
 export function MinimizePlayer({}: Props) {
   const player = usePlayerStore();
+  const navigation = useNavigation();
   const trackProgress = useTrackPlayerProgress();
-  const {openController} = usePlayerModalStoreActions();
 
   const {bottom} = useAppSafeArea();
   const {translationY, slideUp} = useSlideAnimated();
 
-  console.log('trackProgress', trackProgress);
   // const {hide} = usePlayerActions();
+
+  function redirectToPlayerController() {
+    navigation.navigate('PlayerControllerScreen');
+  }
 
   useEffect(() => {
     if (player) {
@@ -46,7 +46,7 @@ export function MinimizePlayer({}: Props) {
         {player && (
           <TouchableOpacityBox
             activeOpacity={0.95}
-            onPress={openController}
+            onPress={redirectToPlayerController}
             boxProps={{width: '100%'}}>
             <MinimizePlayerProgress
               percentageProgress={trackProgress.percentageProgress}

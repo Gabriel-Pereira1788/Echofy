@@ -3,8 +3,8 @@ import React from 'react';
 import {useAuthFinishRegister} from '@domain';
 import {useAuthContext} from '@providers';
 import {AuthStackProps} from '@router';
+import {useToastActions} from '@services';
 import {SharedPublicLayout} from '@shared';
-import {useToastActions} from '@store';
 
 import {Box, Button, Image, Text} from '@components';
 

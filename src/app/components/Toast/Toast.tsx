@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import {Animated} from 'react-native';
 
-import {useToastActions, useToastStore} from '@store';
+import {useSlideAnimated} from '@animations';
+import {useToastActions, useToastStore} from '@services';
 
 import {Box, BoxProps} from '../Box/Box';
 import {Icon} from '../Icon/Icon';
@@ -16,37 +17,19 @@ export function Toast({}: Props) {
   const toast = useToastStore();
   const toastActions = useToastActions();
 
-  const animatedRef = useRef(new Animated.Value(0)).current;
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const fadeIn = React.useCallback(() => {
-    Animated.timing(animatedRef, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  }, [animatedRef]);
-
-  const fadeOut = React.useCallback(
-    (callback: Animated.EndCallback) => {
-      Animated.timing(animatedRef, {
-        toValue: 0,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start(callback);
-    },
-    [animatedRef],
-  );
+  const {translationY, slideDown, slideUp} = useSlideAnimated(-40);
 
   function onClose() {
-    fadeOut(toastActions.hide);
+    slideUp(toastActions.hide);
     clearTimeout(timeoutRef.current);
   }
 
   useEffect(() => {
     if (toast) {
-      fadeIn();
+      slideDown();
       timeoutRef.current = setTimeout(() => {
-        fadeOut(toastActions.hide);
+        slideUp(toastActions.hide);
       }, SECONDS_FOR_HIDE_TOAST);
     }
 
@@ -64,7 +47,7 @@ export function Toast({}: Props) {
         alignSelf: 'center',
         position: 'absolute',
         width: '70%',
-        opacity: animatedRef,
+        transform: [{translateY: translationY}],
       }}>
       <Box {...$outerWrapperStyle}>
         <Box {...$backgroundStyle} />

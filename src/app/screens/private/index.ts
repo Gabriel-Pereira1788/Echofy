@@ -4,3 +4,4 @@ export * from './LibraryScreen/LibraryScreen';
 export * from './SearchScreen/SearchScreen';
 export * from './ProfileScreen/ProfileScreen';
 export * from './CategoryBooks/CategoryBookScreen';
+export * from './PlayerControllerScreen/PlayerControllerScreen';

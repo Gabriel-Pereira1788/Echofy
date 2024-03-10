@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
   Activity,
+  ArrowDown,
   ArrowLeft,
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
@@ -51,6 +52,7 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   search: SearchIcon,
   document: DocumentIcon,
   arrowLeft: ArrowLeft,
+  arrowDown: ArrowDown,
   activity: Activity,
   play: PlayIcon,
   pause: PauseIcon,

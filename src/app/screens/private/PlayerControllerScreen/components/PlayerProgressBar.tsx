@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {Animated, ViewStyle} from 'react-native';
 
 import {useProgressAnimated} from '@animations';
+import {useTrackPlayerProgress} from '@services';
 import {
   GestureEvent,
   HandlerStateChangeEvent,
@@ -12,7 +13,6 @@ import {
 import {Box, BoxProps, Text} from '@components';
 import {useTheme} from '@hooks';
 
-import {useTrackPlayerProgress} from '../../..';
 import {makeSwipedPosition} from '../functions';
 
 type Props = {

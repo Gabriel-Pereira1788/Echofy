@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 
-import {PlayerStatus} from '@services';
+import {PlayerStatus, TrackState} from '@services';
 
 import {Box, IconPress} from '@components';
 
-import {
-  mappedIconVolumeState,
-  mappedNextVolumeState,
-} from '../constants/mappedVolumeState';
+import {mappedIconVolumeState} from '../constants/mappedVolumeState';
+import {useVolumeState} from '../hooks';
 
 type Props = {
   playerStatus: PlayerStatus;
+  trackState: TrackState;
   onSkipToNext: () => Promise<void>;
   onPlay: () => Promise<void>;
   onPause: () => Promise<void>;
@@ -18,26 +17,17 @@ type Props = {
   onVolumeControl: (value: number) => Promise<void>;
 };
 
-export type KeyVolumeState = 'up' | 'down' | 'mute';
-
 export function PlayerButtons({
   playerStatus,
+  trackState,
   onPlay,
   onPause,
   onSkipToNext,
   onVolumeControl,
   onSkipToPrevious,
 }: Props) {
-  const [volumeState, setVolumeState] = useState<KeyVolumeState>('up');
+  const {volumeState, changeVolumeState} = useVolumeState(onVolumeControl);
 
-  async function handleChangeVolumeState() {
-    const newVolumeState = mappedNextVolumeState[volumeState];
-
-    setVolumeState(newVolumeState.nextState);
-    await onVolumeControl(newVolumeState.nextValue);
-  }
-
-  console.log('playerStatus', playerStatus);
   async function handleTogglePlayerAction() {
     if (playerStatus === 'play') {
       await onPause();
@@ -45,6 +35,13 @@ export function PlayerButtons({
       await onPlay();
     }
   }
+
+  useEffect(() => {
+    if (trackState === 'playing') {
+      onVolumeControl(1);
+    }
+  }, [trackState, onVolumeControl]);
+
   return (
     <Box
       width={'100%'}
@@ -55,7 +52,7 @@ export function PlayerButtons({
         iconName={mappedIconVolumeState[volumeState]}
         size="sp25"
         color="playerButtonColor"
-        onPress={handleChangeVolumeState}
+        onPress={changeVolumeState}
       />
 
       <Box
@@ -74,7 +71,7 @@ export function PlayerButtons({
         <IconPress
           type="bold"
           size="sp60"
-          color="white"
+          color="baseIconColor"
           iconName={playerStatus === 'pause' ? 'play' : 'pause'}
           onPress={handleTogglePlayerAction}
         />

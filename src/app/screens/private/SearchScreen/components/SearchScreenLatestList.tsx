@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {FlatList, ListRenderItemInfo, StyleProp, ViewStyle} from 'react-native';
 
 import {Book as BookType} from '@domain';
-import {useSearchHistoryStore} from '@store';
+import {useSearchHistoryStore} from '@services';
 
 import {Box, Text} from '@components';
 

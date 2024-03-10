@@ -3,8 +3,8 @@ import React from 'react';
 import {useAuthSignIn} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {AuthStackProps} from '@router';
+import {useToastActions} from '@services';
 import {SharedAuthLayout} from '@shared';
-import {useToastActions} from '@store';
 import {useForm} from 'react-hook-form';
 
 import {

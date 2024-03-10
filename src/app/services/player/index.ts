@@ -1,6 +1,5 @@
 export * from './trackPlayer/useTrackPlayer';
-export * from './usePlayerModalStore';
+export type {TrackState, TrackMetadata} from './trackPlayer/types';
 export * from './usePlayerStore';
+export * from './trackPlayer/useTrackPlayer';
 export type {PlayerStatus} from './playerTypes';
-
-export {PlayerController} from './controllers/PlayerController/PlayerController';

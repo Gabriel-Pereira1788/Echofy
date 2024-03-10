@@ -36,6 +36,12 @@ jest.mock('react-native-track-player', () => {
     skipToNext: jest.fn(),
     skipToPrevious: jest.fn(),
     removeUpcomingTracks: jest.fn(),
+    Event: {
+      PlaybackState: 'playback-state',
+      PlaybackActiveTrackChanged: 'playback-active-track-changed',
+      MetadataCommonReceived: 'metadata-common-received',
+      PlaybackError: 'playback-error',
+    },
     // playback commands
     reset: jest.fn(),
     play: jest.fn(),
