@@ -9,12 +9,14 @@ import {
 import {SharedWrapperScreen} from '@shared';
 
 import {BookAttribution, IconPress} from '@components';
+import {useModalController} from '@hooks';
 
 import {
   PlayerCover,
   PlayerProgressBar,
   PlayerButtons,
   PlayerFooter,
+  PlayerSelectChapters,
 } from './components';
 
 export function PlayerControllerScreen({
@@ -23,6 +25,7 @@ export function PlayerControllerScreen({
   const player = usePlayerStore();
   const playerActions = usePlayerActions();
   const trackPlayerController = useTrackPlayerController();
+  const {Modal, onOpenModal} = useModalController(PlayerSelectChapters);
   const _title = player
     ? player.title.length > 30
       ? player.title.slice(0, 30) + '...'
@@ -43,6 +46,12 @@ export function PlayerControllerScreen({
     navigation.goBack();
   }
 
+  function handleOpenModal() {
+    onOpenModal();
+  }
+
+  console.log('render');
+
   return (
     <SharedWrapperScreen
       scrollEnabled
@@ -57,10 +66,12 @@ export function PlayerControllerScreen({
       }
       footerElement={
         <PlayerFooter
+          onOpenModal={handleOpenModal}
           metadata={trackPlayerController.metadata}
           onSpeedControl={trackPlayerController.setRate}
         />
       }>
+      <Modal tracks={trackPlayerController.tracks} />
       {player && (
         <>
           <PlayerCover coverURI={player.coverURI} />
@@ -74,7 +85,6 @@ export function PlayerControllerScreen({
             onPlay={onPlay}
             onPause={onPause}
             playerStatus={player.currentStatus}
-            trackState={trackPlayerController.trackState}
             onSkipToNext={trackPlayerController.skipToNext}
             onVolumeControl={trackPlayerController.volumeControl}
             onSkipToPrevious={trackPlayerController.skipToPrevious}

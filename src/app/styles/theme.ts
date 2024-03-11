@@ -38,7 +38,7 @@ export const theme = createTheme({
     neutral80: pallete.neutral80,
     black: pallete.black,
     white: pallete.white,
-    transparent: 'rgba(0,0,0,1)',
+    transparent: 'rgba(0,0,0,0.5)',
     bgInput: pallete.neutral5,
     bgMain: pallete.white,
     contrast: pallete.neutral5,

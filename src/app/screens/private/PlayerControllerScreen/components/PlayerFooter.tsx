@@ -10,9 +10,10 @@ import {useSpeedState} from '../hooks/useSpeedState';
 type Props = {
   metadata: TrackMetadata | null;
   onSpeedControl: (speed: number) => Promise<void>;
+  onOpenModal: () => void;
 };
 
-export function PlayerFooter({metadata, onSpeedControl}: Props) {
+export function PlayerFooter({metadata, onSpeedControl, onOpenModal}: Props) {
   const {speedState, changeSpeedState} = useSpeedState(onSpeedControl);
 
   const speedText = `Speed ${mappedSpeedState[speedState]}x`;
@@ -42,7 +43,7 @@ export function PlayerFooter({metadata, onSpeedControl}: Props) {
         iconName="paper"
         color="playerButtonColor"
         label={chapterText}
-        onPress={() => {}}
+        onPress={onOpenModal}
       />
       <IconPress
         size="sp25"

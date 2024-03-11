@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
-import {PlayerStatus, TrackState} from '@services';
+import {PlayerStatus} from '@services';
 
 import {Box, IconPress} from '@components';
 
@@ -9,7 +9,6 @@ import {useVolumeState} from '../hooks';
 
 type Props = {
   playerStatus: PlayerStatus;
-  trackState: TrackState;
   onSkipToNext: () => Promise<void>;
   onPlay: () => Promise<void>;
   onPause: () => Promise<void>;
@@ -19,7 +18,6 @@ type Props = {
 
 export function PlayerButtons({
   playerStatus,
-  trackState,
   onPlay,
   onPause,
   onSkipToNext,
@@ -36,27 +34,24 @@ export function PlayerButtons({
     }
   }
 
-  useEffect(() => {
-    if (trackState === 'playing') {
-      onVolumeControl(1);
-    }
-  }, [trackState, onVolumeControl]);
-
   return (
     <Box
       width={'100%'}
       flexDirection="row"
       alignItems="center"
       justifyContent="space-between">
-      <IconPress
-        iconName={mappedIconVolumeState[volumeState]}
-        size="sp25"
-        color="playerButtonColor"
-        onPress={changeVolumeState}
-      />
+      <Box alignSelf="center">
+        <IconPress
+          iconName={mappedIconVolumeState[volumeState]}
+          size="sp25"
+          color="playerButtonColor"
+          onPress={changeVolumeState}
+        />
+      </Box>
 
       <Box
         gap="sp20"
+        alignSelf="center"
         flexDirection="row"
         flex={1}
         alignItems="center"

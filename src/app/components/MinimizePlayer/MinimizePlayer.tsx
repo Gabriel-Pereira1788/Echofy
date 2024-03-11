@@ -23,7 +23,11 @@ export function MinimizePlayer({}: Props) {
   const trackProgress = useTrackPlayerProgress();
 
   const {bottom} = useAppSafeArea();
-  const {translationY, slideUp} = useSlideAnimated();
+  const {translationY, slideUp} = useSlideAnimated({
+    initialValue: 40,
+    slideUpValue: -40,
+    slideDownValue: 40,
+  });
 
   // const {hide} = usePlayerActions();
 

@@ -23,7 +23,7 @@ export function useTrackPlayerProgress() {
 }
 
 TrackPlayer.setupPlayer();
-
+let memoizedTracks: Track[] = [];
 export function useTrackPlayerController() {
   const [metadata, setMetadata] = useState<TrackMetadata | null>(null);
   const [trackState, setTrackState] = useState<TrackState>('none');
@@ -55,6 +55,7 @@ export function useTrackPlayerController() {
   const initialize = useCallback(async (tracks: Track[]) => {
     await TrackPlayer.reset();
     await TrackPlayer.add(tracks);
+    memoizedTracks = tracks;
   }, []);
 
   async function play() {
@@ -92,6 +93,7 @@ export function useTrackPlayerController() {
   return {
     metadata,
     trackState,
+    tracks: memoizedTracks,
     play,
     pause,
     setRate,

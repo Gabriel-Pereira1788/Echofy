@@ -12,6 +12,7 @@ export function PlayerCover({coverURI}: Props) {
       width={'90%'}
       borderRadius="rd12"
       marginVertical="sp25"
+      backgroundColor="black"
       position="relative">
       <Box
         width={'85%'}

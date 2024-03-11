@@ -24,15 +24,14 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
     <Box
       width={'100%'}
       position="relative"
-      style={{paddingBottom: bottom}}
+      style={[{minHeight: bottom, paddingBottom: bottom}, $shadowProps]}
       backgroundColor="bgMain">
       <MinimizePlayer />
       <Box
         onLayout={event => {
           console.log('event', event.nativeEvent.layout.height);
         }}
-        {...$boxWrapper}
-        style={[{paddingBottom: 0}, $shadowProps]}>
+        {...$boxWrapper}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
 
@@ -48,7 +47,6 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
             });
 
             if (!isFocused && !event.defaultPrevented) {
-              // The `merge: true` option makes sure that the params inside the tab screen are preserved
               navigation.navigate({name: route.name, merge: true} as any);
             }
           };
@@ -96,6 +94,7 @@ const $itemWrapper: Omit<ITouchableOpacityBoxProps, 'children'> = {
   accessibilityRole: 'button',
   boxProps: {
     alignItems: 'center',
+    backgroundColor: 'bgMain',
   },
 };
 

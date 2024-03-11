@@ -18,7 +18,11 @@ export function Toast({}: Props) {
   const toastActions = useToastActions();
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const {translationY, slideDown, slideUp} = useSlideAnimated(-40);
+  const {translationY, slideDown, slideUp} = useSlideAnimated({
+    initialValue: -40,
+    slideUpValue: 40,
+    slideDownValue: -40,
+  });
 
   function onClose() {
     slideUp(toastActions.hide);

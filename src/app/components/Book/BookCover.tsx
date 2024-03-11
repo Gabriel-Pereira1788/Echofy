@@ -28,7 +28,7 @@ export function BookCover({
     <Box
       height={height}
       width={'100%'}
-      backgroundColor="transparent"
+      backgroundColor="black"
       borderRadius="rd15"
       {..._shadowBox}>
       <Suspense fallback={<ActivityIndicator size={10} />}>

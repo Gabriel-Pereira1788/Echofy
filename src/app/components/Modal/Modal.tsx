@@ -1,25 +1,29 @@
-import React, {createRef, useImperativeHandle, useState} from 'react';
-import {Modal as ModalRN} from 'react-native';
+import React, {forwardRef, useImperativeHandle, useState} from 'react';
+import {ModalProps, Modal as ModalRN} from 'react-native';
 
-interface ModalActions {
-  show: (_content: () => JSX.Element) => void;
+export interface ModalActions {
+  show: () => void;
   close: () => void;
 }
-export const ModalRef = createRef<ModalActions>();
+type Props = {} & Omit<ModalProps, 'visible'>;
 
-export function Modal() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [content, setContent] = useState<JSX.Element>(<></>);
+export const Modal = forwardRef<ModalActions, Props>(
+  ({children, ...modalProps}, ref) => {
+    const [isVisible, setIsVisible] = useState(false);
 
-  function show(_content: () => JSX.Element) {
-    setIsVisible(true);
-    setContent(_content);
-  }
+    function show() {
+      setIsVisible(true);
+    }
 
-  function close() {
-    setIsVisible(false);
-  }
+    function close() {
+      setIsVisible(false);
+    }
 
-  useImperativeHandle(ModalRef, () => ({show, close}), []);
-  return <ModalRN visible={isVisible}>{content}</ModalRN>;
-}
+    useImperativeHandle(ref, () => ({show, close}), []);
+    return (
+      <ModalRN {...modalProps} visible={isVisible}>
+        {children}
+      </ModalRN>
+    );
+  },
+);
