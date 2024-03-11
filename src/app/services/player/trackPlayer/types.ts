@@ -13,4 +13,5 @@ export interface Track {
   title: string;
   artist: string;
   artwork: string;
+  chapterNumber: number;
 }

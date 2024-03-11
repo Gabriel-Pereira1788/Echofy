@@ -50,8 +50,6 @@ export function PlayerControllerScreen({
     onOpenModal();
   }
 
-  console.log('render');
-
   return (
     <SharedWrapperScreen
       scrollEnabled
@@ -71,7 +69,10 @@ export function PlayerControllerScreen({
           onSpeedControl={trackPlayerController.setRate}
         />
       }>
-      <Modal tracks={trackPlayerController.tracks} />
+      <Modal
+        trackChapters={trackPlayerController.tracks}
+        onSkipTo={trackPlayerController.skipTo}
+      />
       {player && (
         <>
           <PlayerCover coverURI={player.coverURI} />

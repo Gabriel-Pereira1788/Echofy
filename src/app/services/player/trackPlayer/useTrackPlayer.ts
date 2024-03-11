@@ -87,6 +87,9 @@ export function useTrackPlayerController() {
     await TrackPlayer.setVolume(value);
   }
 
+  async function skipTo(index: number) {
+    await TrackPlayer.skip(index);
+  }
   async function setRate(rate: number) {
     await TrackPlayer.setRate(rate);
   }
@@ -96,6 +99,7 @@ export function useTrackPlayerController() {
     tracks: memoizedTracks,
     play,
     pause,
+    skipTo,
     setRate,
     getVolume,
     initialize,
