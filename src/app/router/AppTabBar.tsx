@@ -21,71 +21,74 @@ import {mapScreenToProps} from './mapScreenProps';
 export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
   const {bottom} = useAppSafeArea();
   return (
-    <Box
-      width={'100%'}
-      position="relative"
-      style={[{minHeight: bottom, paddingBottom: bottom}, $shadowProps]}
-      backgroundColor="bgMain">
+    <>
       <MinimizePlayer />
       <Box
-        onLayout={event => {
-          console.log('event', event.nativeEvent.layout.height);
-        }}
-        {...$boxWrapper}>
-        {state.routes.map((route, index) => {
-          const {options} = descriptors[route.key];
+        width={'100%'}
+        position="relative"
+        style={[{minHeight: bottom, paddingBottom: bottom}, $shadowProps]}
+        backgroundColor="bgMain">
+        <Box
+          onLayout={event => {
+            console.log('event', event.nativeEvent.layout.height);
+          }}
+          {...$boxWrapper}>
+          {state.routes.map((route, index) => {
+            const {options} = descriptors[route.key];
 
-          const tabItem = mapScreenToProps[route.name as keyof AppTabParamList];
+            const tabItem =
+              mapScreenToProps[route.name as keyof AppTabParamList];
 
-          const isFocused = state.index === index;
+            const isFocused = state.index === index;
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
+            const onPress = () => {
+              const event = navigation.emit({
+                type: 'tabPress',
+                target: route.key,
+                canPreventDefault: true,
+              });
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate({name: route.name, merge: true} as any);
-            }
-          };
+              if (!isFocused && !event.defaultPrevented) {
+                navigation.navigate({name: route.name, merge: true} as any);
+              }
+            };
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: route.key,
-            });
-          };
+            const onLongPress = () => {
+              navigation.emit({
+                type: 'tabLongPress',
+                target: route.key,
+              });
+            };
 
-          return (
-            <TouchableOpacityBox
-              key={index}
-              {...$itemWrapper}
-              accessibilityState={isFocused ? {selected: true} : {}}
-              testID={options.tabBarTestID}
-              onPress={onPress}
-              onLongPress={onLongPress}
-              style={{flex: 1}}>
-              <Box marginBottom="sp3">
-                <Icon
-                  size={'sp23'}
-                  type={isFocused ? 'bold' : 'light'}
-                  iconName={tabItem.iconName}
+            return (
+              <TouchableOpacityBox
+                key={index}
+                {...$itemWrapper}
+                accessibilityState={isFocused ? {selected: true} : {}}
+                testID={options.tabBarTestID}
+                onPress={onPress}
+                onLongPress={onLongPress}
+                style={{flex: 1}}>
+                <Box marginBottom="sp3">
+                  <Icon
+                    size={'sp23'}
+                    type={isFocused ? 'bold' : 'light'}
+                    iconName={tabItem.iconName}
+                    color={isFocused ? 'activeColor' : 'unactiveColor'}
+                  />
+                </Box>
+                <Text
+                  text={tabItem.label}
+                  align="center"
+                  preset="medium/10"
                   color={isFocused ? 'activeColor' : 'unactiveColor'}
                 />
-              </Box>
-              <Text
-                text={tabItem.label}
-                align="center"
-                preset="medium/10"
-                color={isFocused ? 'activeColor' : 'unactiveColor'}
-              />
-            </TouchableOpacityBox>
-          );
-        })}
+              </TouchableOpacityBox>
+            );
+          })}
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 

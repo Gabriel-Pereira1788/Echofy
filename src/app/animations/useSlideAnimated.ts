@@ -22,8 +22,7 @@ export function useSlideAnimated({
         useNativeDriver: false,
       }).start(callback);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [translationY],
+    [translationY, slideUpValue],
   );
 
   const slideDown = useCallback(
@@ -34,8 +33,7 @@ export function useSlideAnimated({
         useNativeDriver: false,
       }).start(callback);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [translationY],
+    [translationY, slideDownValue],
   );
 
   return {

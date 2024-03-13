@@ -3,7 +3,15 @@ import {Animated} from 'react-native';
 
 import {useSlideAnimated} from '@animations';
 import {useNavigation} from '@react-navigation/native';
-import {usePlayerStore, useTrackPlayerProgress} from '@services';
+import {
+  usePlayerActions,
+  usePlayerStore,
+  useTrackPlayerProgress,
+} from '@services';
+import {
+  HandlerStateChangeEvent,
+  PanGestureHandler,
+} from 'react-native-gesture-handler';
 
 import {useAppSafeArea} from '@hooks';
 
@@ -18,21 +26,31 @@ import {MinimizePlayerProgress} from './MinimizePlayerProgress';
 type Props = {};
 
 export function MinimizePlayer({}: Props) {
-  const player = usePlayerStore();
   const navigation = useNavigation();
+
+  const player = usePlayerStore();
+  const playerActions = usePlayerActions();
+
   const trackProgress = useTrackPlayerProgress();
 
   const {bottom} = useAppSafeArea();
-  const {translationY, slideUp} = useSlideAnimated({
+  const {translationY, slideUp, slideDown} = useSlideAnimated({
     initialValue: 40,
     slideUpValue: -40,
     slideDownValue: 40,
   });
 
-  // const {hide} = usePlayerActions();
-
   function redirectToPlayerController() {
     navigation.navigate('PlayerControllerScreen');
+  }
+
+  function handleGestureEvent(
+    event: HandlerStateChangeEvent<Record<string, unknown>>,
+  ) {
+    const translationValue = event.nativeEvent.translationY as number;
+    if (translationValue >= 20) {
+      slideDown(playerActions.hide);
+    }
   }
 
   useEffect(() => {
@@ -43,31 +61,33 @@ export function MinimizePlayer({}: Props) {
 
   return (
     <Box position="absolute" bottom={bottom} zIndex={0}>
-      <Animated.View
-        style={{
-          transform: [{translateY: translationY}],
-        }}>
-        {player && (
-          <TouchableOpacityBox
-            activeOpacity={0.95}
-            onPress={redirectToPlayerController}
-            boxProps={{width: '100%'}}>
-            <MinimizePlayerProgress
-              percentageProgress={trackProgress.percentageProgress}
-            />
-            <Box {...$boxWrapperStyle}>
-              <MinimizePlayerImage uri={player.coverURI} />
-
-              <MinimizePlayerAttribution
-                title={player.title}
-                author={player.author}
+      <PanGestureHandler onEnded={handleGestureEvent}>
+        <Animated.View
+          style={{
+            transform: [{translateY: translationY}],
+          }}>
+          {player && (
+            <TouchableOpacityBox
+              activeOpacity={0.95}
+              onPress={redirectToPlayerController}
+              boxProps={{width: '100%'}}>
+              <MinimizePlayerProgress
+                percentageProgress={trackProgress.percentageProgress}
               />
+              <Box {...$boxWrapperStyle}>
+                <MinimizePlayerImage uri={player.coverURI} />
 
-              <MinimizePlayerButton playerStatus={player.currentStatus} />
-            </Box>
-          </TouchableOpacityBox>
-        )}
-      </Animated.View>
+                <MinimizePlayerAttribution
+                  title={player.title}
+                  author={player.author}
+                />
+
+                <MinimizePlayerButton playerStatus={player.currentStatus} />
+              </Box>
+            </TouchableOpacityBox>
+          )}
+        </Animated.View>
+      </PanGestureHandler>
     </Box>
   );
 }

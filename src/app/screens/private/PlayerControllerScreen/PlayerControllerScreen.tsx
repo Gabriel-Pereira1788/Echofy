@@ -25,7 +25,9 @@ export function PlayerControllerScreen({
   const player = usePlayerStore();
   const playerActions = usePlayerActions();
   const trackPlayerController = useTrackPlayerController();
+
   const {Modal, onOpenModal} = useModalController(PlayerSelectChapters);
+
   const _title = player
     ? player.title.length > 30
       ? player.title.slice(0, 30) + '...'
