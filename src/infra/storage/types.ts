@@ -4,4 +4,6 @@ export enum StorageKeys {
   SearchHistory = '@searchHistory',
   BookMarkPersistence = '@bookMarkPersistence',
   MinimizePlayer = '@minimizePlayer',
+  TrackPersistence = '@trackPersistence',
+  TrackProgressPersistence = '@trackProgressPersistence',
 }

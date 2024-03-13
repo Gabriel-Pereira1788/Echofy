@@ -1,9 +1,10 @@
 import {useCallback, useEffect, useState} from 'react';
 
+import {StorageKeys, storage} from '@infra';
 import {secondsToMinutesFormatter} from '@utils';
 import TrackPlayer, {Event, useProgress} from 'react-native-track-player';
 
-import {Track, TrackMetadata, TrackState} from './types';
+import {Track, TrackDataPersistence, TrackMetadata, TrackState} from './types';
 
 export function useTrackPlayerProgress() {
   const progress = useProgress();
@@ -13,6 +14,24 @@ export function useTrackPlayerProgress() {
 
   const minutesDuration = secondsToMinutesFormatter(progress.duration);
   const minutesPosition = secondsToMinutesFormatter(progress.position);
+
+  useEffect(() => {
+    if (progress.position) {
+      storage.setItem(StorageKeys.TrackProgressPersistence, progress.position);
+    }
+  }, [progress.position]);
+
+  useEffect(() => {
+    persistTrackProgress();
+  }, []);
+
+  async function persistTrackProgress() {
+    const persistedPosition = await storage.getItem<number>(
+      StorageKeys.TrackProgressPersistence,
+    );
+
+    console.log('progress returned', persistedPosition);
+  }
   return {
     position: progress.position,
     duration: progress.duration,
@@ -24,16 +43,41 @@ export function useTrackPlayerProgress() {
 
 TrackPlayer.setupPlayer();
 let memoizedTracks: Track[] = [];
+
 export function useTrackPlayerController() {
   const [metadata, setMetadata] = useState<TrackMetadata | null>(null);
   const [trackState, setTrackState] = useState<TrackState>('none');
 
   useEffect(() => {
+    persistTrackData();
+    setListeners();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function persistTrackData() {
+    const trackData = await storage.getItem<TrackDataPersistence>(
+      StorageKeys.TrackPersistence,
+    );
+
+    if (trackData && memoizedTracks.length === 0) {
+      console.log('trackDataPersisted', trackData.tracks);
+      initialize(trackData.tracks);
+    }
+  }
+
+  function setListeners() {
     TrackPlayer.addEventListener(Event.PlaybackState, data => {
       setTrackState(data.state as TrackState);
     });
     TrackPlayer.addEventListener(Event.PlaybackActiveTrackChanged, state => {
       console.log('state track changed', state);
+      if (state) {
+        const trackDataPersistence: TrackDataPersistence = {
+          currentIndex: state.index!,
+          tracks: memoizedTracks,
+        };
+        storage.setItem(StorageKeys.TrackPersistence, trackDataPersistence);
+      }
       setMetadata({
         currentIndex: state.index,
         lastIndex: state.lastIndex,
@@ -50,7 +94,7 @@ export function useTrackPlayerController() {
       console.log('err', err);
       await TrackPlayer.retry();
     });
-  }, []);
+  }
 
   const initialize = useCallback(async (tracks: Track[]) => {
     await TrackPlayer.reset();
@@ -61,8 +105,6 @@ export function useTrackPlayerController() {
   async function play() {
     await TrackPlayer.play();
   }
-
-  // TrackPlayer.
 
   async function pause() {
     await TrackPlayer.pause();

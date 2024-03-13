@@ -15,3 +15,8 @@ export interface Track {
   artwork: string;
   chapterNumber: number;
 }
+
+export interface TrackDataPersistence {
+  currentIndex: number;
+  tracks: Track[];
+}
