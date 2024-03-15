@@ -1,5 +1,6 @@
 export * from './useTrackPlayer';
 export * from './usePlayerStore';
+export * from './hooks';
+export * from './providers/AudioTrackerPersistenceProvider';
 
-export type {TrackState, TrackMetadata, Track} from './trackPlayer/types';
-export type {PlayerStatus} from './playerTypes';
+export type {PlayerStatus} from './types';

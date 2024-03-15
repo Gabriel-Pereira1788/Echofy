@@ -1,24 +1,43 @@
-import TrackPlayer, {Event} from 'react-native-track-player';
+import TrackPlayer, {Event, useProgress} from 'react-native-track-player';
+
+export {useProgress};
 
 import {Track, TrackListeners, TrackState} from './types';
 
-function setListeners(listeners: TrackListeners) {
-  TrackPlayer.addEventListener(Event.PlaybackState, event =>
-    listeners.playbackState(event.state as TrackState),
-  );
-  TrackPlayer.addEventListener(Event.PlaybackError, err => {
-    listeners.playbackError(err.message);
-  });
+const mappedEventsListener: Record<
+  keyof TrackListeners,
+  (listener: (value: any) => void) => void
+> = {
+  playbackError: (listener: TrackListeners['playbackError']) =>
+    TrackPlayer.addEventListener(Event.PlaybackError, err => {
+      listener(err.message);
+    }),
+  playbackState: (listener: TrackListeners['playbackState']) =>
+    TrackPlayer.addEventListener(Event.PlaybackState, _type => {
+      listener(_type.state as TrackState);
+    }),
+  trackChanged: (listener: TrackListeners['trackChanged']) =>
+    TrackPlayer.addEventListener(Event.PlaybackActiveTrackChanged, event => {
+      listener({
+        currentIndex: event.index,
+        lastIndex: event.lastIndex,
+        lastPosition: event.lastPosition,
+        track: event.track,
+        lastTrack: event.lastTrack,
+      });
+    }),
+};
 
-  TrackPlayer.addEventListener(Event.PlaybackActiveTrackChanged, event => {
-    listeners.trackChanged({
-      currentIndex: event.index,
-      lastIndex: event.lastIndex,
-      lastPosition: event.lastPosition,
-      track: event.track,
-      lastTrack: event.lastTrack,
-    });
-  });
+let allTracks: Track[] = [];
+function getTracks() {
+  return allTracks;
+}
+
+function setEventListener<Key extends keyof TrackListeners>(
+  keyEvent: Key,
+  event: TrackListeners[Key],
+) {
+  mappedEventsListener[keyEvent](event);
 }
 
 async function reset() {
@@ -49,6 +68,7 @@ async function seekTo(position: number) {
 }
 async function addTracks(tracks: Track[]) {
   await TrackPlayer.add(tracks);
+  allTracks = tracks;
 }
 
 async function setVolume(value: number) {
@@ -70,9 +90,10 @@ async function skipToPrevious() {
 async function setRate(rate: number) {
   await TrackPlayer.setRate(rate);
 }
+
 export const audioTracker = {
-  setListeners,
   reset,
+  getTracks,
   addTracks,
   setupPlayer,
   play,
@@ -83,6 +104,7 @@ export const audioTracker = {
   skipTo,
   skipToNext,
   skipToPrevious,
+  setEventListener,
   setRate,
   retry,
 };

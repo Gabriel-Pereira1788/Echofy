@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {TrackMetadata} from '@services';
+import {useAudioMetadata} from '@services';
 
 import {Box, IconPress} from '@components';
 
@@ -8,13 +8,14 @@ import {mappedSpeedState} from '../constants/mappedSpeedState';
 import {useSpeedState} from '../hooks/useSpeedState';
 
 type Props = {
-  metadata: TrackMetadata | null;
   onSpeedControl: (speed: number) => Promise<void>;
   onOpenModal: () => void;
 };
 
-export function PlayerFooter({metadata, onSpeedControl, onOpenModal}: Props) {
+export function PlayerFooter({onSpeedControl, onOpenModal}: Props) {
   const {speedState, changeSpeedState} = useSpeedState(onSpeedControl);
+
+  const metadata = useAudioMetadata();
 
   const speedText = `Speed ${mappedSpeedState[speedState]}x`;
   const chapterText = `Chapter ${

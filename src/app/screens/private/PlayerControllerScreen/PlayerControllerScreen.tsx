@@ -1,11 +1,8 @@
 import React from 'react';
 
+import {audioTracker} from '@infra';
 import {AppStackProps} from '@router';
-import {
-  usePlayerActions,
-  usePlayerStore,
-  useTrackPlayerController,
-} from '@services';
+import {usePlayerActions, usePlayerStore} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
 import {BookAttribution, IconPress} from '@components';
@@ -24,7 +21,6 @@ export function PlayerControllerScreen({
 }: AppStackProps<'PlayerControllerScreen'>) {
   const player = usePlayerStore();
   const playerActions = usePlayerActions();
-  const trackPlayerController = useTrackPlayerController();
 
   const {Modal, onOpenModal} = useModalController(PlayerSelectChapters);
 
@@ -35,12 +31,12 @@ export function PlayerControllerScreen({
     : '';
 
   async function onPlay() {
-    await trackPlayerController.play();
+    await audioTracker.play();
     playerActions.changeStatus('play');
   }
 
   async function onPause() {
-    await trackPlayerController.pause();
+    await audioTracker.pause();
     playerActions.changeStatus('pause');
   }
 
@@ -67,14 +63,10 @@ export function PlayerControllerScreen({
       footerElement={
         <PlayerFooter
           onOpenModal={handleOpenModal}
-          metadata={trackPlayerController.metadata}
-          onSpeedControl={trackPlayerController.setRate}
+          onSpeedControl={audioTracker.setRate}
         />
       }>
-      <Modal
-        trackChapters={trackPlayerController.tracks}
-        onSkipTo={trackPlayerController.skipTo}
-      />
+      <Modal onSkipTo={audioTracker.skipTo} />
       {player && (
         <>
           <PlayerCover coverURI={player.coverURI} />
@@ -82,15 +74,15 @@ export function PlayerControllerScreen({
           <PlayerProgressBar
             onPlay={onPlay}
             onPause={onPause}
-            onSeekTo={trackPlayerController.seekTo}
+            onSeekTo={audioTracker.seekTo}
           />
           <PlayerButtons
             onPlay={onPlay}
             onPause={onPause}
             playerStatus={player.currentStatus}
-            onSkipToNext={trackPlayerController.skipToNext}
-            onVolumeControl={trackPlayerController.volumeControl}
-            onSkipToPrevious={trackPlayerController.skipToPrevious}
+            onSkipToNext={audioTracker.skipToNext}
+            onVolumeControl={audioTracker.setVolume}
+            onSkipToPrevious={audioTracker.skipToPrevious}
           />
         </>
       )}

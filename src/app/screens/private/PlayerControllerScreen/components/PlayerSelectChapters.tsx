@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Animated, FlatList, Pressable} from 'react-native';
 
 import {useSlideModalAnimated} from '@animations';
-import {Track} from '@services';
+import {audioTracker} from '@infra';
 
 import {Box, Input, Modal, TouchableOpacityBox} from '@components';
 import {CommonModalProps} from '@hooks';
@@ -10,16 +10,15 @@ import {CommonModalProps} from '@hooks';
 import {PlayerSelectChapterItem} from './PlayerSelectChapterItem';
 
 export type PlayerSelectChaptersProps = {
-  trackChapters: Track[];
   onSkipTo: (index: number) => void;
 };
 
 export function PlayerSelectChapters({
-  trackChapters,
   refModalActions,
   onSkipTo,
   onClose,
 }: PlayerSelectChaptersProps & CommonModalProps) {
+  const trackChapters = audioTracker.getTracks();
   const [renderChapters, setRenderChapters] = useState(trackChapters);
   const slideModalAnimated = useSlideModalAnimated();
 

@@ -17,6 +17,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Toast} from './src/app/components/Toast/Toast';
 import {AuthProvider} from './src/app/providers';
 import {Router} from './src/app/router/Routes';
+import {AudioTrackerPersistenceProvider} from './src/app/services';
 import {darkTheme, theme} from './src/app/styles/theme';
 
 global.Buffer = require('buffer').Buffer;
@@ -37,6 +38,7 @@ function App(): React.JSX.Element {
               />
               <Router />
               <Toast />
+              <AudioTrackerPersistenceProvider />
             </AuthProvider>
           </GestureHandlerRootView>
         </SafeAreaProvider>
