@@ -21,17 +21,6 @@ export function useTrackPlayerProgress() {
     }
   }, [progress.position]);
 
-  useEffect(() => {
-    persistTrackProgress();
-  }, []);
-
-  async function persistTrackProgress() {
-    const persistedPosition = await storage.getItem<number>(
-      StorageKeys.TrackProgressPersistence,
-    );
-
-    console.log('progress returned', persistedPosition);
-  }
   return {
     position: progress.position,
     duration: progress.duration,
@@ -58,10 +47,17 @@ export function useTrackPlayerController() {
     const trackData = await storage.getItem<TrackDataPersistence>(
       StorageKeys.TrackPersistence,
     );
+    const persistedPosition = await storage.getItem<number>(
+      StorageKeys.TrackProgressPersistence,
+    );
 
     if (trackData && memoizedTracks.length === 0) {
       console.log('trackDataPersisted', trackData.tracks);
-      initialize(trackData.tracks);
+      await initialize(trackData.tracks);
+      await skipTo(trackData.currentIndex);
+      console.log('persistedPosition', persistedPosition);
+      await seekTo(persistedPosition);
+      await pause();
     }
   }
 

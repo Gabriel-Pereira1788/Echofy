@@ -1,11 +1,3 @@
-export interface TrackMetadata {
-  currentIndex?: number;
-  lastIndex?: number;
-  lastPosition?: number;
-  track?: Partial<Track>;
-  lastTrack?: Partial<Track>;
-}
-
 export type TrackState = 'ready' | 'none' | 'playing';
 
 export interface Track {
@@ -15,13 +7,16 @@ export interface Track {
   artwork: string;
   chapterNumber: number;
 }
-
-export interface TrackDataPersistence {
-  currentIndex: number;
-  tracks: Track[];
+export interface TrackMetadata {
+  currentIndex?: number;
+  lastIndex?: number;
+  lastPosition?: number;
+  track?: Partial<Track>;
+  lastTrack?: Partial<Track>;
 }
 
 export type TrackEvent<T> = (event: T) => Promise<void> | void;
+
 export interface TrackListeners {
   playbackState: TrackEvent<TrackState>;
   trackChanged: TrackEvent<TrackMetadata>;
