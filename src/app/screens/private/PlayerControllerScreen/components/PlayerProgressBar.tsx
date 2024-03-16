@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {Animated, ViewStyle} from 'react-native';
 
 import {useProgressAnimated} from '@animations';
+import {audioTracker} from '@infra';
 import {useTrackPlayerProgress} from '@services';
 import {
   GestureEvent,
@@ -18,10 +19,9 @@ import {makeSwipedPosition} from '../functions';
 type Props = {
   onPause: () => Promise<void>;
   onPlay: () => Promise<void>;
-  onSeekTo: (position: number) => Promise<void>;
 };
 
-export function PlayerProgressBar({onPause, onPlay, onSeekTo}: Props) {
+export function PlayerProgressBar({onPause, onPlay}: Props) {
   const theme = useTheme();
   const trackProgress = useTrackPlayerProgress();
 
@@ -64,7 +64,7 @@ export function PlayerProgressBar({onPause, onPlay, onSeekTo}: Props) {
         duration: trackProgress.duration,
       });
 
-      await onSeekTo(trackProgress.position - swipedPosition);
+      await audioTracker.seekTo(trackProgress.position - swipedPosition);
     } else {
       currentProgressValue.current =
         currentProgressValue.current + translationX;
@@ -75,7 +75,7 @@ export function PlayerProgressBar({onPause, onPlay, onSeekTo}: Props) {
         duration: trackProgress.duration,
       });
 
-      await onSeekTo(trackProgress.position + swipedPosition);
+      await audioTracker.seekTo(trackProgress.position + swipedPosition);
     }
 
     await onPlay();

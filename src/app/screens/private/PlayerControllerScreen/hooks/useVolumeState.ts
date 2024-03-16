@@ -1,3 +1,5 @@
+import {audioTracker} from '@infra';
+
 import {useMappedStatesChanged} from '@hooks';
 
 import {
@@ -5,9 +7,7 @@ import {
   mappedNextVolumeState,
 } from '../constants/mappedVolumeState';
 
-export function useVolumeState(
-  onVolumeControl: (volume: number) => Promise<void>,
-) {
+export function useVolumeState() {
   const {currentState, handleChangeState} = useMappedStatesChanged<
     KeyVolumeState,
     number
@@ -15,7 +15,7 @@ export function useVolumeState(
     initialState: 'up',
     mappedNextStates: mappedNextVolumeState,
     onChanged: async volume => {
-      await onVolumeControl(volume);
+      await audioTracker.setVolume(volume);
     },
   });
 

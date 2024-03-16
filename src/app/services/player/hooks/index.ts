@@ -1,1 +1,1 @@
-export * from './useAudioMetadata';
+export * from './useAudioTrack';

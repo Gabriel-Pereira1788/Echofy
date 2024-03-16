@@ -18,19 +18,37 @@ const mappedEventsListener: Record<
     }),
   trackChanged: (listener: TrackListeners['trackChanged']) =>
     TrackPlayer.addEventListener(Event.PlaybackActiveTrackChanged, event => {
-      listener({
-        currentIndex: event.index,
-        lastIndex: event.lastIndex,
-        lastPosition: event.lastPosition,
-        track: event.track,
-        lastTrack: event.lastTrack,
-      });
+      if (event.track) {
+        listener({
+          artist: event.track.artist!,
+          artwork: event.track.artwork!,
+          chapterNumber: event.index!,
+          title: event.track?.title!,
+          url: event.track?.url,
+        });
+      }
     }),
 };
 
 let allTracks: Track[] = [];
 function getTracks() {
   return allTracks;
+}
+
+async function getActiveTrack(): Promise<Track | null> {
+  const chapterNumber = await TrackPlayer.getActiveTrackIndex();
+  const result = await TrackPlayer.getActiveTrack();
+  if (result && chapterNumber) {
+    return {
+      artist: result?.artist!,
+      artwork: result.artwork!,
+      title: result.title!,
+      url: result.url!,
+      chapterNumber,
+    };
+  }
+
+  return null;
 }
 
 function setEventListener<Key extends keyof TrackListeners>(
@@ -94,6 +112,7 @@ async function setRate(rate: number) {
 export const audioTracker = {
   reset,
   getTracks,
+  getActiveTrack,
   addTracks,
   setupPlayer,
   play,

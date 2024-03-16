@@ -1,3 +1,5 @@
+import {audioTracker} from '@infra';
+
 import {useMappedStatesChanged} from '@hooks';
 
 import {
@@ -5,9 +7,7 @@ import {
   mappedNextSpeedState,
 } from '../constants/mappedSpeedState';
 
-export function useSpeedState(
-  onSpeedControl: (speed: number) => Promise<void>,
-) {
+export function useSpeedState() {
   const {currentState, handleChangeState} = useMappedStatesChanged<
     KeySpeedState,
     number
@@ -15,7 +15,7 @@ export function useSpeedState(
     initialState: 'normal',
     mappedNextStates: mappedNextSpeedState,
     onChanged: async value => {
-      await onSpeedControl(value);
+      await audioTracker.setRate(value);
     },
   });
 

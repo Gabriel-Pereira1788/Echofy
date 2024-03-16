@@ -1,25 +1,26 @@
 import React from 'react';
 
-import {useAudioMetadata} from '@services';
+import {useAudioTrack} from '@services';
 
 import {Box, IconPress} from '@components';
 
 import {mappedSpeedState} from '../constants/mappedSpeedState';
-import {useSpeedState} from '../hooks/useSpeedState';
+import {mappedIconVolumeState} from '../constants/mappedVolumeState';
+import {useSpeedState, useVolumeState} from '../hooks';
 
 type Props = {
-  onSpeedControl: (speed: number) => Promise<void>;
   onOpenModal: () => void;
 };
 
-export function PlayerFooter({onSpeedControl, onOpenModal}: Props) {
-  const {speedState, changeSpeedState} = useSpeedState(onSpeedControl);
+export function PlayerFooter({onOpenModal}: Props) {
+  const {speedState, changeSpeedState} = useSpeedState();
+  const {volumeState, changeVolumeState} = useVolumeState();
 
-  const metadata = useAudioMetadata();
+  const track = useAudioTrack();
 
   const speedText = `Speed ${mappedSpeedState[speedState]}x`;
   const chapterText = `Chapter ${
-    metadata && metadata.currentIndex ? metadata.currentIndex + 1 : 1
+    track && track.chapterNumber ? track.chapterNumber + 1 : 1
   }`;
 
   return (
@@ -33,11 +34,11 @@ export function PlayerFooter({onSpeedControl, onOpenModal}: Props) {
       paddingHorizontal="sp20"
       justifyContent="space-between">
       <IconPress
+        iconName={mappedIconVolumeState[volumeState]}
         size="sp25"
-        iconName="bookmark"
         color="playerButtonColor"
-        label="Bookmark"
-        onPress={() => {}}
+        label="Volume"
+        onPress={changeVolumeState}
       />
       <IconPress
         size="sp25"

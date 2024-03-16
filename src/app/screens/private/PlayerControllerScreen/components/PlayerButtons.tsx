@@ -1,31 +1,17 @@
 import React from 'react';
 
+import {audioTracker} from '@infra';
 import {PlayerStatus} from '@services';
 
 import {Box, IconPress} from '@components';
 
-import {mappedIconVolumeState} from '../constants/mappedVolumeState';
-import {useVolumeState} from '../hooks';
-
 type Props = {
   playerStatus: PlayerStatus;
-  onSkipToNext: () => Promise<void>;
   onPlay: () => Promise<void>;
   onPause: () => Promise<void>;
-  onSkipToPrevious: () => Promise<void>;
-  onVolumeControl: (value: number) => Promise<void>;
 };
 
-export function PlayerButtons({
-  playerStatus,
-  onPlay,
-  onPause,
-  onSkipToNext,
-  onVolumeControl,
-  onSkipToPrevious,
-}: Props) {
-  const {volumeState, changeVolumeState} = useVolumeState(onVolumeControl);
-
+export function PlayerButtons({playerStatus, onPlay, onPause}: Props) {
   async function handleTogglePlayerAction() {
     if (playerStatus === 'play') {
       await onPause();
@@ -40,14 +26,7 @@ export function PlayerButtons({
       flexDirection="row"
       alignItems="center"
       justifyContent="space-between">
-      <Box alignSelf="center">
-        <IconPress
-          iconName={mappedIconVolumeState[volumeState]}
-          size="sp25"
-          color="playerButtonColor"
-          onPress={changeVolumeState}
-        />
-      </Box>
+      <Box alignSelf="center" />
 
       <Box
         gap="sp20"
@@ -60,7 +39,7 @@ export function PlayerButtons({
           iconName="arrowLeftCircle"
           size="sp40"
           color="playerButtonColor"
-          onPress={onSkipToPrevious}
+          onPress={audioTracker.skipToPrevious}
         />
 
         <IconPress
@@ -75,7 +54,7 @@ export function PlayerButtons({
           iconName="arrowRightCircle"
           size="sp40"
           color="playerButtonColor"
-          onPress={onSkipToNext}
+          onPress={audioTracker.skipToNext}
         />
       </Box>
     </Box>

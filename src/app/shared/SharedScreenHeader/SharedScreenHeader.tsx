@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Box, BoxProps, Text, TouchableOpacityBox} from '@components';
+import {Box, BoxProps, Text} from '@components';
 import {useAppSafeArea} from '@hooks';
 
 type Props = {
@@ -21,9 +21,9 @@ export function SharedScreenHeader({
   }
   return (
     <Box {...$boxWrapper} style={{marginTop: top}}>
-      {headerLeft && headerLeft}
+      <Box flex={0.5}>{headerLeft && headerLeft}</Box>
       {headerTitle && (
-        <Box flex={1} flexDirection="row" justifyContent="center">
+        <Box flex={2} flexDirection="row" justifyContent="center">
           <Text
             text={headerTitle}
             preset="medium/16"
@@ -32,16 +32,9 @@ export function SharedScreenHeader({
         </Box>
       )}
 
-      {headerRight && (
-        <TouchableOpacityBox
-          boxProps={{
-            flex: 1,
-            alignItems: 'flex-end',
-            justifyContent: 'center',
-          }}>
-          {headerRight}
-        </TouchableOpacityBox>
-      )}
+      <Box flex={0.5} alignItems="flex-end" justifyContent="center">
+        {headerRight && headerRight}
+      </Box>
     </Box>
   );
 }

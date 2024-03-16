@@ -60,29 +60,17 @@ export function PlayerControllerScreen({
           onPress={goBack}
         />
       }
-      footerElement={
-        <PlayerFooter
-          onOpenModal={handleOpenModal}
-          onSpeedControl={audioTracker.setRate}
-        />
-      }>
+      footerElement={<PlayerFooter onOpenModal={handleOpenModal} />}>
       <Modal onSkipTo={audioTracker.skipTo} />
       {player && (
         <>
           <PlayerCover coverURI={player.coverURI} />
           <BookAttribution title={player.title} author={player.author} />
-          <PlayerProgressBar
-            onPlay={onPlay}
-            onPause={onPause}
-            onSeekTo={audioTracker.seekTo}
-          />
+          <PlayerProgressBar onPlay={onPlay} onPause={onPause} />
           <PlayerButtons
             onPlay={onPlay}
             onPause={onPause}
             playerStatus={player.currentStatus}
-            onSkipToNext={audioTracker.skipToNext}
-            onVolumeControl={audioTracker.setVolume}
-            onSkipToPrevious={audioTracker.skipToPrevious}
           />
         </>
       )}

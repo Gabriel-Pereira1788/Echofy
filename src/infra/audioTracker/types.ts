@@ -19,6 +19,6 @@ export type TrackEvent<T> = (event: T) => Promise<void> | void;
 
 export interface TrackListeners {
   playbackState: TrackEvent<TrackState>;
-  trackChanged: TrackEvent<TrackMetadata>;
+  trackChanged: TrackEvent<Track>;
   playbackError: TrackEvent<string>;
 }

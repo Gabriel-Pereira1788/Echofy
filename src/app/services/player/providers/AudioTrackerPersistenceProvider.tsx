@@ -22,7 +22,7 @@ export function AudioTrackerPersistenceProvider() {
       trackData.tracks.length > 0 &&
       currentTracks.length === 0
     ) {
-      console.log('tracks', trackData);
+      console.log('current-index', trackData.currentIndex);
       await initialize(trackData.tracks);
       await audioTracker.skipTo(trackData.currentIndex);
       await audioTracker.seekTo(persistedPosition);
@@ -37,10 +37,10 @@ export function AudioTrackerPersistenceProvider() {
   }
   useEffect(() => {
     persistTrackData();
-    audioTracker.setEventListener('trackChanged', _metadata => {
-      if (_metadata) {
+    audioTracker.setEventListener('trackChanged', _track => {
+      if (_track) {
         storage.setItem(StorageKeys.TrackPersistence, {
-          currentIndex: _metadata.currentIndex,
+          currentIndex: _track.chapterNumber,
           tracks: audioTracker.getTracks(),
         });
       }
