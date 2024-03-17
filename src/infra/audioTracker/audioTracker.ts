@@ -109,8 +109,13 @@ async function setRate(rate: number) {
   await TrackPlayer.setRate(rate);
 }
 
+async function getProgress() {
+  return await TrackPlayer.getProgress();
+}
+
 export const audioTracker = {
   reset,
+  getProgress,
   getTracks,
   getActiveTrack,
   addTracks,

@@ -3,11 +3,7 @@ import {Animated} from 'react-native';
 
 import {useSlideAnimated} from '@animations';
 import {useNavigation} from '@react-navigation/native';
-import {
-  usePlayerActions,
-  usePlayerStore,
-  useTrackPlayerProgress,
-} from '@services';
+import {usePlayerStore, useAudioProgress} from '@services';
 import {
   HandlerStateChangeEvent,
   PanGestureHandler,
@@ -29,15 +25,14 @@ export function MinimizePlayer({}: Props) {
   const navigation = useNavigation();
 
   const player = usePlayerStore();
-  const playerActions = usePlayerActions();
 
-  const trackProgress = useTrackPlayerProgress();
+  const trackProgress = useAudioProgress();
 
   const {bottom} = useAppSafeArea();
   const {translationY, slideUp, slideDown} = useSlideAnimated({
     initialValue: 40,
     slideUpValue: -40,
-    slideDownValue: 40,
+    slideDownValue: 41,
   });
 
   function redirectToPlayerController() {
@@ -48,20 +43,26 @@ export function MinimizePlayer({}: Props) {
     event: HandlerStateChangeEvent<Record<string, unknown>>,
   ) {
     const translationValue = event.nativeEvent.translationY as number;
+    console.log('translationValue', translationValue);
+    if (translationValue < 20) {
+      slideUp();
+    }
     if (translationValue >= 20) {
-      slideDown(playerActions.hide);
+      slideDown();
     }
   }
 
   useEffect(() => {
     if (player) {
       slideUp();
+    } else {
+      slideDown();
     }
-  }, [player, slideUp]);
+  }, [player, slideUp, slideDown]);
 
   return (
     <Box position="absolute" bottom={bottom} zIndex={0}>
-      <PanGestureHandler onEnded={handleGestureEvent}>
+      <PanGestureHandler onEnded={handleGestureEvent} hitSlop={20}>
         <Animated.View
           style={{
             transform: [{translateY: translationY}],

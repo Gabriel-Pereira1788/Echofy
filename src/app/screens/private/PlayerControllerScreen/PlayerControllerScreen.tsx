@@ -40,6 +40,12 @@ export function PlayerControllerScreen({
     playerActions.changeStatus('pause');
   }
 
+  async function closeTracker() {
+    goBack();
+    await audioTracker.reset();
+    await audioTracker.setVolume(1);
+    playerActions.hide();
+  }
   async function goBack() {
     navigation.goBack();
   }
@@ -52,6 +58,15 @@ export function PlayerControllerScreen({
     <SharedWrapperScreen
       scrollEnabled
       headerTitle={_title}
+      headerRight={
+        <IconPress
+          iconName="closeSquare"
+          type="light"
+          size="sp23"
+          color="baseIconColor"
+          onPress={closeTracker}
+        />
+      }
       headerLeft={
         <IconPress
           iconName="arrowDown"

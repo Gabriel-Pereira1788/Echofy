@@ -3,18 +3,13 @@ import {Animated, ViewStyle} from 'react-native';
 
 import {useProgressAnimated} from '@animations';
 import {audioTracker} from '@infra';
-import {useTrackPlayerProgress} from '@services';
-import {
-  GestureEvent,
-  HandlerStateChangeEvent,
-  PanGestureHandler,
-  PanGestureHandlerEventPayload,
-} from 'react-native-gesture-handler';
+import {useAudioProgress} from '@services';
+import {PanGestureHandler} from 'react-native-gesture-handler';
 
 import {Box, BoxProps, Text} from '@components';
 import {useTheme} from '@hooks';
 
-import {makeSwipedPosition} from '../functions';
+import {useSwipePosition} from '../hooks';
 
 type Props = {
   onPause: () => Promise<void>;
@@ -23,70 +18,26 @@ type Props = {
 
 export function PlayerProgressBar({onPause, onPlay}: Props) {
   const theme = useTheme();
-  const trackProgress = useTrackPlayerProgress();
+  const audioProgress = useAudioProgress();
 
   const remainingProgressValue = useRef(0);
-  const currentProgressValue = useRef(0);
   const {progressWidth, onSetProgressValue} = useProgressAnimated();
 
-  async function onBeginSwipeEvent() {
-    await onPause();
-  }
-
-  async function onSwipeEvent(
-    event: GestureEvent<PanGestureHandlerEventPayload>,
-  ) {
-    const translationX = event.nativeEvent.translationX;
-    console.log('translation', translationX);
-    if (translationX < 0) {
-      const positiveNumber = translationX * -1;
-      const translationValue = currentProgressValue.current - positiveNumber;
-
-      onSetProgressValue(translationValue);
-    } else {
-      onSetProgressValue(translationX + currentProgressValue.current);
-    }
-  }
-
-  async function onFinishSwipeEvent(
-    event: HandlerStateChangeEvent<Record<string, unknown>>,
-  ) {
-    const translationX = event.nativeEvent.translationX as number;
-
-    if (translationX < 0) {
-      const positiveNumber = translationX * -1;
-      currentProgressValue.current =
-        currentProgressValue.current - positiveNumber;
-
-      const swipedPosition = makeSwipedPosition({
-        partialValue: positiveNumber,
-        totalValue: remainingProgressValue.current,
-        duration: trackProgress.duration,
-      });
-
-      await audioTracker.seekTo(trackProgress.position - swipedPosition);
-    } else {
-      currentProgressValue.current =
-        currentProgressValue.current + translationX;
-
-      const swipedPosition = makeSwipedPosition({
-        partialValue: translationX,
-        totalValue: remainingProgressValue.current,
-        duration: trackProgress.duration,
-      });
-
-      await audioTracker.seekTo(trackProgress.position + swipedPosition);
-    }
-
-    await onPlay();
-  }
+  const {onGestureEvent, onEnded} = useSwipePosition({
+    remainingProgressValue: remainingProgressValue.current,
+    onSwipe: translatedPosition => onSetProgressValue(translatedPosition),
+    onFinishSwipe: async position => {
+      await audioTracker.seekTo(position);
+      await onPlay();
+    },
+  });
 
   useEffect(() => {
     const progressValue =
-      (trackProgress.percentageProgress * remainingProgressValue.current) / 100;
+      (audioProgress.percentageProgress * remainingProgressValue.current) / 100;
 
     onSetProgressValue(progressValue);
-  }, [trackProgress.percentageProgress, onSetProgressValue]);
+  }, [audioProgress.percentageProgress, onSetProgressValue]);
 
   return (
     <Box {...$wrapper}>
@@ -104,9 +55,9 @@ export function PlayerProgressBar({onPause, onPlay}: Props) {
             $innerProgressContainer,
           ]}>
           <PanGestureHandler
-            onBegan={onBeginSwipeEvent}
-            onGestureEvent={onSwipeEvent}
-            onEnded={onFinishSwipeEvent}
+            onBegan={onPause}
+            onGestureEvent={onGestureEvent}
+            onEnded={onEnded(audioProgress.duration, audioProgress.position)}
             hitSlop={{
               top: 20,
               left: 40,
@@ -128,8 +79,8 @@ export function PlayerProgressBar({onPause, onPlay}: Props) {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between">
-        <Text text={trackProgress.minutesPosition} preset="regular/10" />
-        <Text text={trackProgress.minutesDuration} preset="regular/10" />
+        <Text text={audioProgress.minutesPosition} preset="regular/10" />
+        <Text text={audioProgress.minutesDuration} preset="regular/10" />
       </Box>
     </Box>
   );

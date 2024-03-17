@@ -14,7 +14,7 @@ export function DetailsBookSummary({summary}: Props) {
     setReadMore(prev => !prev);
   }
   return (
-    <Box width={'100%'} gap="sp20">
+    <Box width={'100%'} gap="sp20" paddingBottom="sp10">
       <Text text="Summary" preset="semiBold/14" />
 
       <Text
@@ -27,6 +27,7 @@ export function DetailsBookSummary({summary}: Props) {
         }}>
         <TouchableOpacityBox
           testID="button-toggle-read-mode"
+          hitSlop={25}
           activeOpacity={0.8}
           onPress={toggleReadMore}>
           <Text

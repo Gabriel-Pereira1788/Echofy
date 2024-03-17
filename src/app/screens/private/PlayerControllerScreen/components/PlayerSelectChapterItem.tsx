@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Track} from '@services';
+import {Track} from '@infra';
 
 import {BookCover, Box, Text} from '@components';
 

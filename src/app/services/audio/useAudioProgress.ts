@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import {StorageKeys, storage, useProgress} from '@infra';
 import {secondsToMinutesFormatter} from '@utils';
 
-export function useTrackPlayerProgress() {
+export function useAudioProgress() {
   const progress = useProgress();
 
   const percentageProgress =
