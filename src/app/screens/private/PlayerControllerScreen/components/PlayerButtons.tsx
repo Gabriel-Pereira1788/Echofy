@@ -36,6 +36,7 @@ export function PlayerButtons({playerStatus, onPlay, onPause}: Props) {
         alignItems="center"
         justifyContent="center">
         <IconPress
+          testID="skip-to-previous"
           iconName="arrowLeftCircle"
           size="sp40"
           color="playerButtonColor"
@@ -43,6 +44,7 @@ export function PlayerButtons({playerStatus, onPlay, onPause}: Props) {
         />
 
         <IconPress
+          testID="play"
           type="bold"
           size="sp60"
           color="baseIconColor"
@@ -51,6 +53,7 @@ export function PlayerButtons({playerStatus, onPlay, onPause}: Props) {
         />
 
         <IconPress
+          testID="skip-to-next"
           iconName="arrowRightCircle"
           size="sp40"
           color="playerButtonColor"
