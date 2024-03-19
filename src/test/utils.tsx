@@ -15,6 +15,7 @@ import {
   render,
   renderHook,
 } from '@testing-library/react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import {Toast} from '@components';
 
@@ -35,9 +36,11 @@ function wrapAllProviders() {
   const isDarkMode = false;
   return ({children}: React.PropsWithChildren) => (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
-        <AuthProvider>{children}</AuthProvider>
-      </ThemeProvider>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
+      </GestureHandlerRootView>
     </QueryClientProvider>
   );
 }
@@ -46,12 +49,14 @@ function wrapperProvidersScreen() {
 
   return ({children}: React.PropsWithChildren) => (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <NavigationContainer>{children}</NavigationContainer>
-          <Toast />
-        </AuthProvider>
-      </ThemeProvider>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <ThemeProvider theme={theme}>
+          <AuthProvider>
+            <NavigationContainer>{children}</NavigationContainer>
+            <Toast />
+          </AuthProvider>
+        </ThemeProvider>
+      </GestureHandlerRootView>
     </QueryClientProvider>
   );
 }
@@ -79,3 +84,7 @@ export * from '@testing-library/react-native';
 
 export {customRenderHook as renderHook};
 export {customRender as render};
+export {
+  fireGestureHandler,
+  getByGestureTestId,
+} from 'react-native-gesture-handler/jest-utils';

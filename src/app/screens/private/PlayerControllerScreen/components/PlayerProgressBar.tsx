@@ -55,6 +55,7 @@ export function PlayerProgressBar({onPause, onPlay}: Props) {
             $innerProgressContainer,
           ]}>
           <PanGestureHandler
+            testID="pan"
             onBegan={onPause}
             onGestureEvent={onGestureEvent}
             onEnded={onEnded(audioProgress.duration, audioProgress.position)}
@@ -79,8 +80,16 @@ export function PlayerProgressBar({onPause, onPlay}: Props) {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between">
-        <Text text={audioProgress.minutesPosition} preset="regular/10" />
-        <Text text={audioProgress.minutesDuration} preset="regular/10" />
+        <Text
+          testID="minutes-position"
+          text={audioProgress.minutesPosition}
+          preset="regular/10"
+        />
+        <Text
+          testID="minutes-duration"
+          text={audioProgress.minutesDuration}
+          preset="regular/10"
+        />
       </Box>
     </Box>
   );

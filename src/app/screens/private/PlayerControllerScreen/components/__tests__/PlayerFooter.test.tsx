@@ -5,6 +5,10 @@ import {fireEvent, render, screen} from '@test';
 import {act} from 'react-test-renderer';
 
 import {PlayerFooter} from '..';
+import {
+  mappedNextSpeedState,
+  mappedSpeedState,
+} from '../../constants/mappedSpeedState';
 import {mappedNextVolumeState} from '../../constants/mappedVolumeState';
 
 const mockOnOpenModal = jest.fn();
@@ -31,6 +35,7 @@ describe('PlayerFooter', () => {
     const spySetVolume = jest.spyOn(audioTracker, 'setVolume');
     const {changeVolumeButton} = customRender();
 
+    //1)change state first time for down sound
     act(() => {
       fireEvent.press(changeVolumeButton);
     });
@@ -39,6 +44,7 @@ describe('PlayerFooter', () => {
       mappedNextVolumeState.up.nextValue,
     );
 
+    //2) change state second time for mute sound
     act(() => {
       fireEvent.press(changeVolumeButton);
     });
@@ -47,6 +53,7 @@ describe('PlayerFooter', () => {
       mappedNextVolumeState.down.nextValue,
     );
 
+    //3) change state third time for normal sound
     act(() => {
       fireEvent.press(changeVolumeButton);
     });
@@ -54,5 +61,43 @@ describe('PlayerFooter', () => {
     expect(spySetVolume).toHaveBeenCalledWith(
       mappedNextVolumeState.mute.nextValue,
     );
+  });
+
+  it('should be open modal chapters', () => {
+    const {chapterControlButton} = customRender();
+
+    fireEvent.press(chapterControlButton);
+
+    expect(mockOnOpenModal).toHaveBeenCalled();
+  });
+
+  it('should be change speed state', () => {
+    const spySetRate = jest.spyOn(audioTracker, 'setRate');
+    const {changeSpeedControlButton} = customRender();
+
+    //1) change state first time for speed faster
+    fireEvent.press(changeSpeedControlButton);
+
+    const speedElement1 = screen.getByText(`Speed ${mappedSpeedState.faster}x`);
+    expect(spySetRate).toHaveBeenCalledWith(
+      mappedNextSpeedState.normal.nextValue,
+    );
+    expect(speedElement1).toBeTruthy();
+
+    //2) change state second time for speed slowly
+    fireEvent.press(speedElement1);
+    const speedElement2 = screen.getByText(`Speed ${mappedSpeedState.slowly}x`);
+    expect(spySetRate).toHaveBeenCalledWith(
+      mappedNextSpeedState.faster.nextValue,
+    );
+    expect(speedElement2).toBeTruthy();
+
+    //3) change state third time for speed normal
+    fireEvent.press(speedElement2);
+    const speedElement3 = screen.getByText(`Speed ${mappedSpeedState.normal}x`);
+    expect(spySetRate).toHaveBeenCalledWith(
+      mappedNextSpeedState.slowly.nextValue,
+    );
+    expect(speedElement3).toBeTruthy();
   });
 });
