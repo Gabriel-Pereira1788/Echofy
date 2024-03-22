@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {fireGestureHandler, render, screen} from '@test';
+import {audioTracker} from '@infra';
+import {fireGestureHandler, render, screen, waitFor} from '@test';
 import {PanGesture, State} from 'react-native-gesture-handler';
 import {act} from 'react-test-renderer';
 
@@ -35,7 +36,8 @@ describe('PlayerProgressBar', () => {
     expect(swipeGestureElement).toBeTruthy();
   });
 
-  it('should be dispatch gesture event', () => {
+  it('should be dispatch gesture event', async () => {
+    const spySeekTo = jest.spyOn(audioTracker, 'seekTo');
     const {swipeGestureElement} = customRender();
 
     fireGestureHandler<PanGesture>(swipeGestureElement, [
@@ -50,5 +52,9 @@ describe('PlayerProgressBar', () => {
       jest.runAllTimers();
     });
     expect(mockOnPause).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(spySeekTo).toHaveBeenCalled();
+      expect(mockOnPlay).toHaveBeenCalled();
+    });
   });
 });
