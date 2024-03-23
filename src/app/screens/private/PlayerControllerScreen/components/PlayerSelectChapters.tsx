@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
-import {Animated, FlatList, Pressable} from 'react-native';
+import React, {useCallback} from 'react';
+import {Animated, FlatList, ListRenderItemInfo, Pressable} from 'react-native';
 
 import {useSlideModalAnimated} from '@animations';
-import {audioTracker} from '@infra';
+import {Track, audioTracker} from '@infra';
 
 import {Box, Input, Modal, TouchableOpacityBox} from '@components';
 import {CommonModalProps} from '@hooks';
+
+import {useSearchByText} from '../hooks';
 
 import {PlayerSelectChapterItem} from './PlayerSelectChapterItem';
 
@@ -19,27 +21,31 @@ export function PlayerSelectChapters({
   onClose,
 }: PlayerSelectChaptersProps & CommonModalProps) {
   const trackChapters = audioTracker.getTracks();
-  const [renderChapters, setRenderChapters] = useState(trackChapters);
-  const slideModalAnimated = useSlideModalAnimated();
+  const {chapters, onSearchChapter} = useSearchByText(trackChapters);
 
-  function onSearchChapter(text: string) {
-    if (text.trim() === '') {
-      setRenderChapters(trackChapters);
-      return;
-    }
-    const filteredChapters = trackChapters.filter(chapter =>
-      chapter.title.includes(text),
-    );
-    setRenderChapters(filteredChapters);
-  }
+  const slideModalAnimated = useSlideModalAnimated();
 
   function handleSkipTo(chapter: number) {
     return () => {
       onSkipTo(chapter);
     };
   }
+
+  const renderItem = useCallback(({item}: ListRenderItemInfo<Track>) => {
+    return (
+      <TouchableOpacityBox
+        testID="chapter-item"
+        onPress={handleSkipTo(item.chapterNumber)}
+        activeOpacity={0.8}>
+        <PlayerSelectChapterItem track={item} />
+      </TouchableOpacityBox>
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Modal
+      testID="modal"
       ref={refModalActions}
       animationType="fade"
       onRequestClose={onClose}
@@ -49,6 +55,7 @@ export function PlayerSelectChapters({
       }}>
       <Box backgroundColor="transparent" flex={1}>
         <Pressable
+          testID="close-area"
           style={{
             flex: 1,
           }}
@@ -56,6 +63,7 @@ export function PlayerSelectChapters({
         />
 
         <Animated.View
+          testID={'slide-element'}
           style={{
             height: slideModalAnimated.heightValue,
           }}>
@@ -69,8 +77,9 @@ export function PlayerSelectChapters({
             backgroundColor="bgMain"
             justifyContent="flex-start">
             <FlatList
+              testID="list-tracks"
               showsVerticalScrollIndicator={false}
-              data={renderChapters}
+              data={chapters}
               maxToRenderPerBatch={4}
               ListHeaderComponent={
                 <Box marginBottom="sp10">
@@ -80,13 +89,7 @@ export function PlayerSelectChapters({
                   />
                 </Box>
               }
-              renderItem={({item}) => (
-                <TouchableOpacityBox
-                  onPress={handleSkipTo(item.chapterNumber)}
-                  activeOpacity={0.8}>
-                  <PlayerSelectChapterItem track={item} />
-                </TouchableOpacityBox>
-              )}
+              renderItem={renderItem}
             />
           </Box>
         </Animated.View>
