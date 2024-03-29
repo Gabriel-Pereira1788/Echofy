@@ -70,6 +70,7 @@ export function MinimizePlayer({}: Props) {
           {player && (
             <TouchableOpacityBox
               activeOpacity={0.95}
+              testID="minimize-player"
               onPress={redirectToPlayerController}
               boxProps={{width: '100%'}}>
               <MinimizePlayerProgress

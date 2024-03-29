@@ -60,6 +60,7 @@ export function PlayerControllerScreen({
       headerTitle={_title}
       headerRight={
         <IconPress
+          testID="close-button"
           iconName="closeSquare"
           type="light"
           size="sp23"
@@ -69,6 +70,7 @@ export function PlayerControllerScreen({
       }
       headerLeft={
         <IconPress
+          testID="go-back-player-controller"
           iconName="arrowDown"
           size="sp20"
           color="baseIconColor"

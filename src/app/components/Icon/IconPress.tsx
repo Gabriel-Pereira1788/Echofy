@@ -10,12 +10,14 @@ type IconBaseProps = IconProps & IconBase;
 interface IconPressProps extends IconBaseProps {
   onPress: () => void;
   testID?: string;
+  iconTestId?: string;
   label?: string;
 }
 
 export function IconPress({
   onPress,
   label,
+  iconTestId,
   testID,
   ...iconProps
 }: IconPressProps) {
@@ -29,7 +31,7 @@ export function IconPress({
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Icon {...iconProps} />
+      <Icon {...iconProps} testID={iconTestId} />
       {label && (
         <Text text={label} preset="regular/10" color={iconProps.color} />
       )}

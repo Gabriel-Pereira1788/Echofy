@@ -45,6 +45,7 @@ export function PlayerButtons({playerStatus, onPlay, onPause}: Props) {
 
         <IconPress
           testID="play"
+          iconTestId="button-play-icon"
           type="bold"
           size="sp60"
           color="baseIconColor"

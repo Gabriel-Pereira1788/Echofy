@@ -7,6 +7,7 @@ import {IconBase} from '@components';
 export function PauseIcon({size, color}: IconBase) {
   return (
     <Svg
+      testID="pause-icon"
       fill={color}
       height={size}
       width={size}

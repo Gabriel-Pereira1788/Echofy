@@ -25,6 +25,7 @@ export function SharedScreenHeader({
       {headerTitle && (
         <Box flex={2} flexDirection="row" justifyContent="center">
           <Text
+            testID="header-title"
             text={headerTitle}
             preset="medium/16"
             setColorsTheme={{dark: 'white', light: 'neutral80'}}

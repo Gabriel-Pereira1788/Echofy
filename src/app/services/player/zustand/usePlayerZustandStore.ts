@@ -2,7 +2,7 @@ import {StorageKeys, storage} from '@infra';
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
-import {PlayerStore} from '../playerTypes';
+import {PlayerStore} from '../types';
 
 export const usePlayerZustandStore = create<PlayerStore>()(
   persist(

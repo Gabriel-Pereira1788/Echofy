@@ -7,7 +7,12 @@ import {IconBase} from '@components';
 export function PlayIcon({size, color, type}: IconBase) {
   if (type === 'bold') {
     return (
-      <Svg width={size} height={size} viewBox="0 0 61 60" fill="none">
+      <Svg
+        testID="play-icon"
+        width={size}
+        height={size}
+        viewBox="0 0 61 60"
+        fill="none">
         <Path
           fill-rule="evenodd"
           clip-rule="evenodd"
@@ -18,7 +23,12 @@ export function PlayIcon({size, color, type}: IconBase) {
     );
   }
   return (
-    <Svg width={size} height={size} viewBox="0 0 17 17" fill="none">
+    <Svg
+      testID="play-icon"
+      width={size}
+      height={size}
+      viewBox="0 0 17 17"
+      fill="none">
       <Path
         fill-rule="evenodd"
         clip-rule="evenodd"

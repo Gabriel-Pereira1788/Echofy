@@ -19,7 +19,7 @@ function customRender() {
   return {
     swipeGestureElement: screen.getByTestId('pan'),
     minutesPositionElement: screen.getByTestId('minutes-position'),
-    minutosDurationElement: screen.getByTestId('minutes-duration'),
+    minutesDurationElement: screen.getByTestId('minutes-duration'),
   };
 }
 
@@ -27,12 +27,12 @@ describe('PlayerProgressBar', () => {
   it('render component correctly', () => {
     const {
       minutesPositionElement,
-      minutosDurationElement,
+      minutesDurationElement,
       swipeGestureElement,
     } = customRender();
 
     expect(minutesPositionElement).toBeTruthy();
-    expect(minutosDurationElement).toBeTruthy();
+    expect(minutesDurationElement).toBeTruthy();
     expect(swipeGestureElement).toBeTruthy();
   });
 

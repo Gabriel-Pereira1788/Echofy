@@ -1,3 +1,3 @@
 export * from './usePlayerStore';
 
-export type {PlayerStatus} from './types';
+export type {PlayerStatus, PlayerState} from './types';
