@@ -3,8 +3,8 @@ import React from 'react';
 import {BookCategory} from '@domain';
 import {
   act,
-  authCredentialsMock,
   fireEvent,
+  mockRefreshCredentials,
   renderScreen,
   screen,
   server,
@@ -40,18 +40,6 @@ function customRenderScreen({
     ),
   };
 }
-const mockUid = authCredentialsMock.id;
-const mockRefreshCredentials = jest.fn();
-jest.mock('@providers', () => {
-  const originalModule = jest.requireActual('@providers');
-  return {
-    ...originalModule,
-    useAuthContext: () => ({
-      uid: mockUid,
-      refreshCredentials: mockRefreshCredentials,
-    }),
-  };
-});
 
 beforeAll(() => {
   server.listen();

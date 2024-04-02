@@ -8,6 +8,7 @@ export function useAudioTrack() {
   useEffect(() => {
     getTrackData();
     audioTracker.setEventListener('trackChanged', _track => {
+      console.log('TRIGGER EVENT LISTENER');
       setTrack(_track);
     });
 
@@ -16,6 +17,7 @@ export function useAudioTrack() {
 
   async function getTrackData() {
     const currentTrack = await audioTracker.getActiveTrack();
+    console.log('[CURRENT-TRACK]', currentTrack);
     if (currentTrack) {
       setTrack(currentTrack);
     }

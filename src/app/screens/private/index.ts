@@ -5,3 +5,4 @@ export * from './SearchScreen/SearchScreen';
 export * from './ProfileScreen/ProfileScreen';
 export * from './CategoryBooks/CategoryBookScreen';
 export * from './PlayerControllerScreen/PlayerControllerScreen';
+export * from './ReadBookScreen/ReadBookScreen';

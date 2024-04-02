@@ -1,22 +1,18 @@
 // import {useAuthContext} from '@providers';
 import {signUpDTO, signUpWrongDTO} from '@mocks';
-import {authCredentialsMock, renderHook, server, waitFor} from '@test';
+import {
+  authCredentialsMock,
+  mockRefreshCredentials,
+  renderHook,
+  server,
+  waitFor,
+} from '@test';
 
 import {useAuthSignUp} from '..';
 
-const mockRefreshCredentials = jest.fn();
-jest.mock('@providers', () => {
-  const originalModule = jest.requireActual('@providers');
-  return {
-    ...originalModule,
-    useAuthContext: () => ({
-      refreshCredentials: mockRefreshCredentials,
-    }),
-  };
-});
-
 beforeAll(() => {
   server.listen();
+  jest.useFakeTimers();
 });
 
 afterAll(() => {

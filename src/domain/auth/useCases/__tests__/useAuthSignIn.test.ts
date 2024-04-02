@@ -1,26 +1,24 @@
 // import {useAuthContext} from '@providers';
 import {signInDTO, signInWrongDTO} from '@mocks';
-import {authCredentialsMock, renderHook, server, waitFor} from '@test';
+import {
+  act,
+  authCredentialsMock,
+  mockRefreshCredentials,
+  renderHook,
+  server,
+  waitFor,
+} from '@test';
 
 import {useAuthSignIn} from '..';
 
-const mockRefreshCredentials = jest.fn();
-jest.mock('@providers', () => {
-  const originalModule = jest.requireActual('@providers');
-  return {
-    ...originalModule,
-    useAuthContext: () => ({
-      refreshCredentials: mockRefreshCredentials,
-    }),
-  };
-});
-
 beforeAll(() => {
   server.listen();
+  jest.useFakeTimers();
 });
 
 afterAll(() => {
   server.close();
+  jest.useRealTimers();
 });
 describe('useAuthSignIn', () => {
   test('run sign in routine correctly', async () => {
@@ -30,7 +28,10 @@ describe('useAuthSignIn', () => {
         onSuccess: mockedOnSuccess,
       }),
     );
-    result.current.signIn(signInDTO);
+
+    await act(() => {
+      result.current.signIn(signInDTO);
+    });
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
     expect(mockRefreshCredentials).toHaveBeenCalledWith(authCredentialsMock);
     expect(mockedOnSuccess).toHaveBeenCalledWith(authCredentialsMock);

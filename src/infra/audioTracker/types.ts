@@ -22,3 +22,27 @@ export interface TrackListeners {
   trackChanged: TrackEvent<Track>;
   playbackError: TrackEvent<string>;
 }
+
+export interface AudioTrackerImpl {
+  setEventListener<Key extends keyof TrackListeners>(
+    keyEvent: Key,
+    event: TrackListeners[Key],
+  ): void;
+
+  getActiveTrack: () => Promise<Track | null> | (Track | null);
+  getTracks: () => Track[];
+  reset: () => void;
+  setupPlayer: () => void;
+  retry: () => void;
+  play: () => void;
+  pause: () => void;
+  getVolume: () => void;
+  seekTo: (position: number) => void;
+  addTracks: (tracks: Track[]) => void;
+  setVolume: (value: number) => void;
+  skipTo: (index: number) => void;
+  skipToNext: () => void;
+  skipToPrevious: () => void;
+  setRate: (rate: number) => void;
+  getProgress: () => void;
+}

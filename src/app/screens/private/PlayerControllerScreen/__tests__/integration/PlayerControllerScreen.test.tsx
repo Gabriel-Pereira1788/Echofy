@@ -4,7 +4,6 @@ import {audioTracker} from '@infra';
 import {AppStack} from '@router';
 import {
   act,
-  authCredentialsMock,
   fireEvent,
   fireGestureHandler,
   renderScreen,
@@ -15,18 +14,8 @@ import {
 } from '@test';
 import {PanGesture, State} from 'react-native-gesture-handler';
 
-const mockUid = authCredentialsMock.id;
-jest.mock('@providers', () => {
-  const originalModule = jest.requireActual('@providers');
-  return {
-    ...originalModule,
-    useAuthContext: () => ({
-      uid: mockUid,
-    }),
-  };
-});
-
 jest.unmock('@react-navigation/native');
+
 beforeAll(() => {
   server.listen();
   jest.useFakeTimers();
@@ -75,6 +64,7 @@ async function customRenderScreen() {
     skipToNextButton: screen.getByTestId('skip-to-next'),
   };
 }
+
 describe('PlayerControllerScreen', () => {
   it('render screen correctly', async () => {
     const {
@@ -214,11 +204,18 @@ describe('PlayerControllerScreen', () => {
 
     const {skipToPreviousButton, skipToNextButton} = await customRenderScreen();
 
-    fireEvent.press(skipToPreviousButton);
-    expect(spyAudioSkipToPrev).toHaveBeenCalled();
-
-    fireEvent.press(skipToNextButton);
+    act(() => {
+      fireEvent.press(skipToNextButton);
+    });
 
     expect(spyAudioSkipToNext).toHaveBeenCalled();
+    expect(screen.getByText(/chapter 2/i)).toBeTruthy();
+
+    act(() => {
+      fireEvent.press(skipToPreviousButton);
+    });
+
+    expect(spyAudioSkipToPrev).toHaveBeenCalled();
+    expect(screen.getByText(/chapter 1/i)).toBeTruthy();
   });
 });

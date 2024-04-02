@@ -4,7 +4,6 @@ import {AppTabNavigator} from '@router';
 import {
   act,
   allCategoriesMock,
-  authCredentialsMock,
   bookMockApi,
   fireEvent,
   renderScreen,
@@ -12,17 +11,6 @@ import {
   sectionBooksMock,
   server,
 } from '@test';
-
-const mockUid = authCredentialsMock.id;
-jest.mock('@providers', () => {
-  const originalModule = jest.requireActual('@providers');
-  return {
-    ...originalModule,
-    useAuthContext: () => ({
-      uid: mockUid,
-    }),
-  };
-});
 
 async function customRenderScreen() {
   renderScreen(<AppTabNavigator initialRouteName="HomeStackNavigator" />);

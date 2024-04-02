@@ -1,5 +1,10 @@
+import {setAudioTrackerImpl} from '@infra';
 import {darkTheme, theme} from '@styles';
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
+
+import {audioTrackerJest} from '../infra/audioTracker/implementation/jest/audioTrackerJest';
+
+import {authCredentialsMock} from './serverHandlers';
 
 jest.mock('react-native-safe-area-context', () => ({
   ...mockSafeAreaContext,
@@ -17,6 +22,8 @@ export const setColorSchemeMock = (mode: 'dark' | 'light') => {
     mockTheme = theme;
   }
 };
+
+setAudioTrackerImpl(audioTrackerJest);
 
 jest.mock('react-native-track-player', () => {
   return {
@@ -73,6 +80,19 @@ jest.mock('@hooks', () => {
     useTheme: () => ({
       ...mockTheme,
       colorScheme: mockColorScheme,
+    }),
+  };
+});
+
+const mockUid = authCredentialsMock.id;
+export const mockRefreshCredentials = jest.fn();
+jest.mock('@providers', () => {
+  const originalModule = jest.requireActual('@providers');
+  return {
+    ...originalModule,
+    useAuthContext: () => ({
+      uid: mockUid,
+      refreshCredentials: mockRefreshCredentials,
     }),
   };
 });

@@ -3,6 +3,7 @@ import {ActivityIndicator} from 'react-native';
 
 import {useBookFindById} from '@domain';
 import {audioTracker} from '@infra';
+import {useNavigation} from '@react-navigation/native';
 import {CommonStackProps} from '@router';
 import {usePlayerActions} from '@services';
 import {SharedWrapperScreen} from '@shared';
@@ -22,7 +23,7 @@ export function DetailsBookScreen({
 }: CommonStackProps<'DetailsBookScreen'>) {
   const bookId = route && route.params ? route.params.id : 'testID';
   const {bookData, isLoading} = useBookFindById(bookId);
-
+  const navigation = useNavigation();
   const playerActions = usePlayerActions();
 
   async function onPlayAudio() {
@@ -40,6 +41,10 @@ export function DetailsBookScreen({
         currentStatus: 'play',
       });
     }
+  }
+
+  function redirectToReadBookScreen() {
+    navigation.navigate('ReadBookScreen');
   }
 
   const bookTitle = bookData
@@ -66,7 +71,7 @@ export function DetailsBookScreen({
           <DetailsBookCategories categories={bookData.bookGenres ?? []} />
           <DetailsBookMediaOption
             onPlayAudio={onPlayAudio}
-            onReadBook={() => {}}
+            onReadBook={redirectToReadBookScreen}
           />
           <DetailsBookSummary summary={bookData.bookDesc} />
         </Box>

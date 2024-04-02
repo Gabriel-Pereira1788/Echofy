@@ -1,26 +1,7 @@
 import React from 'react';
 
 import {createCommonStackNavigator} from '@router';
-import {
-  act,
-  authCredentialsMock,
-  bookMockApi,
-  fireEvent,
-  renderScreen,
-  screen,
-  server,
-} from '@test';
-
-const mockUid = authCredentialsMock.id;
-jest.mock('@providers', () => {
-  const originalModule = jest.requireActual('@providers');
-  return {
-    ...originalModule,
-    useAuthContext: () => ({
-      uid: mockUid,
-    }),
-  };
-});
+import {act, bookMockApi, fireEvent, renderScreen, screen, server} from '@test';
 
 jest.unmock('@react-navigation/native');
 beforeAll(() => {
