@@ -3,11 +3,11 @@ import {PaginatedResult} from '@infra';
 import {QueryParams} from '../types';
 
 import {bookAdapter} from './book-adapter';
-import {bookApi} from './book-api';
+import {bookController} from './book-controller';
 import {Book, BookSection, CategoryIdentify} from './book-types';
 
 async function getCategories() {
-  const result = await bookApi.getCategories();
+  const result = await bookController.getCategories();
   const categories = bookAdapter.toBookCategory(result);
   return categories;
 }
@@ -16,7 +16,7 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
   if (!uid) {
     return [];
   }
-  const recommendedForYouData = await bookApi.getRecommendedForYou({
+  const recommendedForYouData = await bookController.getRecommendedForYou({
     uid,
     top: 10,
   });
@@ -30,31 +30,31 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
     philosophyBookData,
     mysteryBookData,
   ] = await Promise.all([
-    bookApi.getByCategory({
+    bookController.findByCategory({
       category: 'best-seller',
       uid,
     }),
-    bookApi.getByCategory({
+    bookController.findByCategory({
       category: 'adventure',
       uid,
     }),
-    bookApi.getByCategory({
+    bookController.findByCategory({
       category: 'fiction',
       uid,
     }),
-    bookApi.getByCategory({
+    bookController.findByCategory({
       category: 'fantasy',
       uid,
     }),
-    bookApi.getByCategory({
+    bookController.findByCategory({
       category: 'fairy tales',
       uid,
     }),
-    bookApi.getByCategory({
+    bookController.findByCategory({
       category: 'philosophy',
       uid,
     }),
-    bookApi.getByCategory({
+    bookController.findByCategory({
       category: 'mystery',
       uid,
     }),
@@ -125,7 +125,7 @@ async function getBookListByCategory({
       },
     };
   }
-  const result = await bookApi.getByCategory({
+  const result = await bookController.findByCategory({
     uid,
     top,
     skip,
@@ -161,7 +161,7 @@ async function getBooksBySearchText({
       },
     };
   }
-  const result = await bookApi.findBySearchText({top, skip, searchText});
+  const result = await bookController.findBySearchText({top, skip, searchText});
 
   return {
     docs: result.docs.map(doc => bookAdapter.toBookData(doc)),
@@ -176,7 +176,7 @@ async function getBooksBySearchText({
 }
 
 async function getBookData(id: string) {
-  const result = await bookApi.findById(id);
+  const result = await bookController.findById(id);
 
   return bookAdapter.toBookData(result);
 }
