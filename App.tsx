@@ -5,10 +5,17 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
 
-import {queryClient, setAudioTrackerImpl, trackPlayer} from '@infra';
+import {
+  database,
+  queryClient,
+  realmImpl,
+  setAudioTrackerImpl,
+  setDatabaseImpl,
+  trackPlayer,
+} from '@infra';
 import {ThemeProvider} from '@shopify/restyle';
 import {QueryClientProvider} from '@tanstack/react-query';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -23,12 +30,21 @@ import {darkTheme, theme} from './src/app/styles/theme';
 global.Buffer = require('buffer').Buffer;
 
 setAudioTrackerImpl(trackPlayer);
+setDatabaseImpl(realmImpl);
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundColor = isDarkMode
     ? darkTheme.colors.bgMain
     : theme.colors.bgMain;
+
+  useEffect(() => {
+    handleInitializeDatabase();
+  }, []);
+
+  const handleInitializeDatabase = async () => {
+    await database.open();
+  };
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={isDarkMode ? darkTheme : theme}>

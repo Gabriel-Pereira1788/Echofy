@@ -1,41 +1,60 @@
+import {Schemas} from '@infra';
+
 import {QueryParams} from '../types';
 
-import {BookRepository, bookApi, bookSchema} from './repository';
+import {bookAdapter} from './book-adapter';
+import {
+  BookRepository,
+  bookApiRepository,
+  bookLocalRepository,
+} from './repository';
 
 async function getBestSeller(query: QueryParams) {
-  const data = await bookSchema.getBestSeller(query);
-  if (!data) {
-    const result = await bookApi.getBestSeller(query);
-    //CRIAR NO BANCO DE DADOS
-    return result;
-  } else {
-    return data;
-  }
+  // const data = await bookLocalRepository.getBestSeller(query);
+  // if (!data) {
+
+  // } else {
+  //   return data;
+  // }
+  const result = await bookApiRepository.getBestSeller(query);
+  //CRIAR NO BANCO DE DADOS
+  return result;
 }
 
 const getCategories: BookRepository['getCategories'] = async () => {
-  const result = await bookApi.getCategories();
-  return result;
+  const localCategories = await bookLocalRepository.getCategories();
+
+  if (localCategories && localCategories.length > 0) {
+    return localCategories;
+  } else {
+    const result = await bookApiRepository.getCategories();
+
+    bookLocalRepository.create(
+      Schemas.BookCategory,
+      bookAdapter.toCategorySchemaData(result),
+    );
+    return result;
+  }
 };
 
 const getRecommendedForYou: BookRepository['getRecommendedForYou'] =
   async query => {
-    const result = await bookApi.getRecommendedForYou(query);
+    const result = await bookApiRepository.getRecommendedForYou(query);
     return result;
   };
 
 const findByCategory: BookRepository['findByCategory'] = async query => {
-  const result = await bookApi.findByCategory(query);
+  const result = await bookApiRepository.findByCategory(query);
   return result;
 };
 
 const findBySearchText: BookRepository['findBySearchText'] = async query => {
-  const result = await bookApi.findBySearchText(query);
+  const result = await bookApiRepository.findBySearchText(query);
   return result;
 };
 
 const findById: BookRepository['findById'] = async query => {
-  const result = await bookApi.findById(query);
+  const result = await bookApiRepository.findById(query);
   return result;
 };
 

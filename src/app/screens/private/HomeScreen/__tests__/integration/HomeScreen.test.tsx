@@ -30,6 +30,7 @@ beforeAll(() => {
 
 afterAll(() => {
   server.close();
+  // database.close();
   jest.useRealTimers();
   jest.resetAllMocks();
 });
@@ -38,6 +39,7 @@ describe('HomeScreen', () => {
   it('render homeScreen correctly', async () => {
     const {profileButton, listSections, textCategories} =
       await customRenderScreen();
+
     const allCategories = await screen.findAllByTestId('category');
 
     expect(allCategories.length).toEqual(allCategoriesMock.slice(0, 10).length);

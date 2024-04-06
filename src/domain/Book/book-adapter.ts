@@ -1,3 +1,5 @@
+import {IBookCategorySchema} from '@infra';
+
 import {Book, BookApi, BookCategory} from './book-types';
 
 function toBookCategory(categories: string[]): BookCategory[] {
@@ -19,7 +21,12 @@ function toBookData(book: BookApi): Book {
     playlistChapters: book.playlist_chapters,
   };
 }
+
+function toCategorySchemaData(categories: string[]): IBookCategorySchema[] {
+  return categories.map(category => ({text: category}));
+}
 export const bookAdapter = {
-  toBookCategory,
   toBookData,
+  toBookCategory,
+  toCategorySchemaData,
 };

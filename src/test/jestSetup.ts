@@ -1,11 +1,14 @@
-import {setAudioTrackerImpl} from '@infra';
+import {setAudioTrackerImpl, setDatabaseImpl} from '@infra';
 import {darkTheme, theme} from '@styles';
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 
 import {audioTrackerJest} from '../infra/audioTracker/implementation/jest/audioTrackerJest';
+import {databaseJest} from '../infra/database/implementation/jest/databaseJest';
 
 import {authCredentialsMock} from './serverHandlers';
 
+setAudioTrackerImpl(audioTrackerJest);
+setDatabaseImpl(databaseJest);
 jest.mock('react-native-safe-area-context', () => ({
   ...mockSafeAreaContext,
   useSafeAreaInsets: jest.fn(mockSafeAreaContext.useSafeAreaInsets),
@@ -22,8 +25,6 @@ export const setColorSchemeMock = (mode: 'dark' | 'light') => {
     mockTheme = theme;
   }
 };
-
-setAudioTrackerImpl(audioTrackerJest);
 
 jest.mock('react-native-track-player', () => {
   return {

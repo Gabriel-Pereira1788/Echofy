@@ -1,3 +1,3 @@
-export * from './bookApi/book-api';
-export * from './bookSchema/book-schema';
+export * from './book-api-repository';
+export * from './book-local-repository';
 export type {BookRepository} from './types';

@@ -1,3 +1,5 @@
+import {Schemas} from '@infra';
+
 import {QueryParams} from '../../types';
 import {BookApi, BookSectionApi, CategoryIdentify} from '../book-types';
 
@@ -15,4 +17,5 @@ export interface BookRepository {
   findByCategory: (query: QueryByCategory) => Promise<BookSectionApi>;
   findBySearchText: (query: QuerySearchByText) => Promise<BookSectionApi>;
   findById: (id: string) => Promise<BookApi>;
+  create<TData>(schema: Schemas, data: Partial<TData>): void;
 }

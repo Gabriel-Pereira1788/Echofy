@@ -8,7 +8,7 @@ module.exports = {
   modulePathIgnorePatterns: ['.*/mockedData/.*'],
 
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-safe-area-context|@react-navigation)/)',
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-safe-area-context|@react-navigation|realm|@realm)/)',
   ],
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
 };

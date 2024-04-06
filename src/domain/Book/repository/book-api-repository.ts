@@ -1,8 +1,14 @@
 import {api} from '@api';
 
-import {QueryParams} from '../types';
+import {QueryParams} from '../../types';
+import {BookApi, BookSectionApi} from '../book-types';
 
-import {BookApi, BookSectionApi, CategoryIdentify} from './book-types';
+import {
+  BookRepository,
+  QueryByCategory,
+  QueryRecommended,
+  QuerySearchByText,
+} from './types';
 
 async function getCategories() {
   const response = await api.get<string[]>('book/categories');
@@ -13,7 +19,7 @@ async function getRecommendedForYou({
   uid,
   top = 10,
   skip = 0,
-}: {uid: string} & QueryParams) {
+}: QueryRecommended) {
   const response = await api.get<BookSectionApi>(
     `book/recommended-for-you/${uid}?top=${top}&skip=${skip}`,
   );
@@ -28,12 +34,12 @@ async function getBestSeller({top = 10, skip = 0}: QueryParams) {
   return response.data;
 }
 
-async function getByCategory({
+async function findByCategory({
   category,
   top = 10,
   uid,
   skip = 0,
-}: {category: CategoryIdentify; uid: string} & QueryParams) {
+}: QueryByCategory) {
   if (category === 'recommended-for-you') {
     const response = await getRecommendedForYou({
       uid,
@@ -62,7 +68,7 @@ async function findBySearchText({
   searchText,
   top = 10,
   skip = 0,
-}: {searchText: string} & QueryParams) {
+}: QuerySearchByText) {
   const response = await api.get<BookSectionApi>(
     `book/find-by-text/${searchText}?top=${top}&skip=${skip}`,
   );
@@ -76,10 +82,10 @@ async function findById(id: string) {
   return response.data;
 }
 
-export const bookApi = {
+export const bookApiRepository: Omit<BookRepository, 'create'> = {
   getCategories,
   getBestSeller,
-  getByCategory,
+  findByCategory,
   findById,
   findBySearchText,
   getRecommendedForYou,

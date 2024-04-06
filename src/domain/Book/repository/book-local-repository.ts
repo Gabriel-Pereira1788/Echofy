@@ -1,15 +1,23 @@
+import {IBookCategorySchema, Schemas, database} from '@infra';
 import {QueryParams} from 'src/domain/types';
 
-import {BookApi, BookSectionApi} from '../../book-types';
+import {BookApi, BookSectionApi} from '../book-types';
+
 import {
   BookRepository,
   QueryByCategory,
   QueryRecommended,
   QuerySearchByText,
-} from '../types';
+} from './types';
 
 async function getCategories() {
-  return [''];
+  console.log('ENTROU GET CATEGORIES');
+  const results = await database.getAll<IBookCategorySchema[]>(
+    Schemas.BookCategory,
+  );
+  console.log('SAIU GET CATEGORIES', results);
+  const categories = results.map(data => data.text);
+  return categories;
 }
 
 async function getRecommendedForYou(
@@ -83,11 +91,28 @@ async function findById(id: string): Promise<BookApi> {
   };
 }
 
-export const bookSchema: BookRepository = {
+function create<TData>(
+  schema: Schemas,
+  data: Partial<TData> | Partial<TData>[],
+) {
+  try {
+    if (Array.isArray(data)) {
+      data.forEach(value => {
+        database.create(schema, value);
+      });
+    } else {
+      database.create(schema, data);
+    }
+  } catch (error) {
+    console.log('ERROR ON CREATE', error);
+  }
+}
+export const bookLocalRepository: BookRepository = {
   getCategories,
   getRecommendedForYou,
   getBestSeller,
   findByCategory,
   findBySearchText,
   findById,
+  create,
 };

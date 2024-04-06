@@ -8,7 +8,6 @@ export const bookHandler = [
   http.get(`${BASE_URL}book/categories`, () => {
     return HttpResponse.json(bookCategoryMock, {status: 200});
   }),
-
   http.get(`${BASE_URL}book/recommended-for-you/:uid`, ({params}) => {
     const uid = params.uid;
 
