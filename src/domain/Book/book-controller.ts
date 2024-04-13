@@ -44,9 +44,12 @@ const getRecommendedForYou: BookRepository['getRecommendedForYou'] =
       return localResult;
     } else {
       const result = await bookApiRepository.getRecommendedForYou(query);
-      console.log('[DATA-CREATE]', result.docs);
-      database.create(Schemas.BookSection, result);
-      return result;
+      if (result) {
+        database.create(Schemas.BookSection, result);
+        return result;
+      } else {
+        return null;
+      }
     }
   };
 

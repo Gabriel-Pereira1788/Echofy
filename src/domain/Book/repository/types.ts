@@ -1,4 +1,5 @@
 import {Schemas} from '@infra';
+import {CrudSchemaData} from 'src/infra/database/types';
 
 import {QueryParams} from '../../types';
 import {BookApi, BookSectionApi, CategoryIdentify} from '../book-types';
@@ -12,10 +13,15 @@ export type QuerySearchByText = {searchText: string} & QueryParams;
 
 export interface BookRepository {
   getCategories: () => Promise<string[]>;
-  getRecommendedForYou: (query: QueryRecommended) => Promise<BookSectionApi>;
+  getRecommendedForYou: (
+    query: QueryRecommended,
+  ) => Promise<BookSectionApi | null>;
   getBestSeller: (query: QueryParams) => Promise<BookSectionApi>;
   findByCategory: (query: QueryByCategory) => Promise<BookSectionApi>;
   findBySearchText: (query: QuerySearchByText) => Promise<BookSectionApi>;
   findById: (id: string) => Promise<BookApi>;
-  create<TData>(schema: Schemas, data: Partial<TData>): void;
+  create<SchemaName extends Schemas>(
+    schema: SchemaName,
+    data: CrudSchemaData<SchemaName> | CrudSchemaData<SchemaName>[],
+  ): void;
 }

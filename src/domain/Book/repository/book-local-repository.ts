@@ -1,5 +1,6 @@
 import {IBookCategorySchema, Schemas, database} from '@infra';
 import {QueryParams} from 'src/domain/types';
+import {CrudSchemaData} from 'src/infra/database/types';
 
 import {BookApi, BookSectionApi} from '../book-types';
 
@@ -22,7 +23,7 @@ async function getCategories() {
 
 async function getRecommendedForYou(
   query: QueryRecommended,
-): Promise<BookSectionApi> {
+): Promise<BookSectionApi | null> {
   console.log('[QUERY]', query);
 
   const results = await database.read<BookSectionApi[]>(Schemas.BookSection, {
@@ -30,7 +31,11 @@ async function getRecommendedForYou(
     top: query.top,
   });
   console.log('[RESULTS]', results);
-  return results[0];
+  if (results && results.length > 0) {
+    return results[0];
+  } else {
+    return null;
+  }
 }
 
 async function getBestSeller(query: QueryParams): Promise<BookSectionApi> {
@@ -86,9 +91,9 @@ async function findById(id: string): Promise<BookApi> {
   };
 }
 
-function create<TData>(
-  schema: Schemas,
-  data: Partial<TData> | Partial<TData>[],
+function create<SchemaName extends Schemas>(
+  schema: SchemaName,
+  data: CrudSchemaData<SchemaName> | CrudSchemaData<SchemaName>[],
 ) {
   try {
     if (Array.isArray(data)) {

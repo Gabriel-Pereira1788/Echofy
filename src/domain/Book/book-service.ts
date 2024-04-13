@@ -64,7 +64,9 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
     {
       identify: 'recommended-for-you',
       title: 'Recommended For You',
-      books: recommendedForYouData.docs.map(doc => bookAdapter.toBookData(doc)),
+      books: recommendedForYouData
+        ? recommendedForYouData.docs.map(doc => bookAdapter.toBookData(doc))
+        : [],
     },
     {
       identify: 'best-seller',

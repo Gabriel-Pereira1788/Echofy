@@ -9,7 +9,10 @@ import {
 
 export interface DatabaseImpl {
   open: () => Promise<void>;
-  create<TData>(schema: Schemas, data: Partial<TData>): void;
+  create<SchemaName extends Schemas>(
+    schema: Schemas,
+    data: CrudSchemaData<SchemaName>,
+  ): void;
   findById<TData>(schema: Schemas, id: number): Promise<TData>;
   findBy<TData>(schema: Schemas, filter: string): Promise<TData>;
   getAll<TData>(schema: Schemas): Promise<TData>;
@@ -41,7 +44,7 @@ export type CrudSchemaData<SchemaName extends Schemas> =
     ? IBookSectionSchema
     : SchemaName extends Schemas.BookPlaylistChapters
     ? IBookPlaylistChapters
-    : any;
+    : unknown;
 
 export type SchemaObject<SchemaName extends Schemas> = Record<
   Schemas,

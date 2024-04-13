@@ -1,7 +1,7 @@
 import Realm, {Configuration} from 'realm';
 import {QueryParams} from 'src/domain/types';
 
-import {DatabaseImpl, Schemas} from '../../types';
+import {CrudSchemaData, DatabaseImpl, Schemas} from '../../types';
 
 import {buildSchemas, realmSchemas, schemas} from './schemas';
 
@@ -21,7 +21,10 @@ const open = async () => {
   realmDb = realm;
 };
 
-async function create<TData>(schemaName: Schemas, data: Partial<TData>) {
+async function create<SchemaName extends Schemas>(
+  schemaName: SchemaName,
+  data: CrudSchemaData<SchemaName>,
+) {
   try {
     const schema = schemas.getSchema(schemaName);
     realmDb?.write(() => {
