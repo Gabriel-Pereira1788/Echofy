@@ -1,24 +1,35 @@
-import Realm, {BSON} from 'realm';
+import Realm, {Configuration} from 'realm';
+import {QueryParams} from 'src/domain/types';
 
 import {DatabaseImpl, Schemas} from '../../types';
 
-import {BookCategorySchema, BookSchema, BookSectionSchema} from './schemas';
-const config = {
-  schema: [BookSchema, BookSectionSchema, BookCategorySchema],
-  path: 'bundle.realm',
-};
+import {buildSchemas, realmSchemas, schemas} from './schemas';
 
 let realmDb: Realm | null = null;
 
 const open = async () => {
+  const allSchemas = realmSchemas.map(item => item.schema);
+  const config: Configuration = {
+    schema: allSchemas,
+    schemaVersion: 7,
+    path: 'bundle.realm',
+  };
   const realm = await Realm.open(config);
+
+  buildSchemas(realm);
+
   realmDb = realm;
 };
 
-async function create<TData>(schema: Schemas, data: Partial<TData>) {
-  realmDb?.write(() => {
-    realmDb?.create(schema, {_id: new BSON.ObjectID(), name: schema, ...data});
-  });
+async function create<TData>(schemaName: Schemas, data: Partial<TData>) {
+  try {
+    const schema = schemas.getSchema(schemaName);
+    realmDb?.write(() => {
+      schema.create(data);
+    });
+  } catch (error) {
+    console.log('ERROR ON CREATE', error);
+  }
 }
 
 async function findById<TData>(schema: Schemas, id: number) {
@@ -39,6 +50,20 @@ async function getAll<TData>(schema: Schemas) {
 function close() {
   realmDb?.close();
 }
+
+async function read<TData>(schema: Schemas, query?: Partial<QueryParams>) {
+  const results = realmDb?.objects(schema);
+
+  if (query?.skip && query.top) {
+    const data = results?.slice(query.skip, query.top);
+    return data as TData;
+  } else if (query?.top) {
+    const data = results?.slice(0, query.top);
+    return data as TData;
+  }
+
+  return results as TData;
+}
 export const realmImpl: DatabaseImpl = {
   open,
   create,
@@ -46,4 +71,5 @@ export const realmImpl: DatabaseImpl = {
   findBy,
   getAll,
   close,
+  read,
 };

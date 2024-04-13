@@ -1,4 +1,4 @@
-import {Schemas} from '@infra';
+import {Schemas, database} from '@infra';
 
 import {QueryParams} from '../types';
 
@@ -39,8 +39,15 @@ const getCategories: BookRepository['getCategories'] = async () => {
 
 const getRecommendedForYou: BookRepository['getRecommendedForYou'] =
   async query => {
-    const result = await bookApiRepository.getRecommendedForYou(query);
-    return result;
+    const localResult = await bookLocalRepository.getRecommendedForYou(query);
+    if (localResult) {
+      return localResult;
+    } else {
+      const result = await bookApiRepository.getRecommendedForYou(query);
+      console.log('[DATA-CREATE]', result.docs);
+      database.create(Schemas.BookSection, result);
+      return result;
+    }
   };
 
 const findByCategory: BookRepository['findByCategory'] = async query => {

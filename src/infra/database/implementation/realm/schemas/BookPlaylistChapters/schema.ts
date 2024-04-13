@@ -1,15 +1,16 @@
 import Realm, {BSON, ObjectSchema} from 'realm';
 
-import {Schemas} from '../../../types';
+import {Schemas} from '../../../../types';
 
-export class BookCategorySchema extends Realm.Object<BookCategorySchema> {
+export class BookPlaylistChapters extends Realm.Object<BookPlaylistChapters> {
   _id!: BSON.ObjectId;
   name!: string;
   static schema: ObjectSchema = {
-    name: Schemas.BookCategory,
+    name: Schemas.BookPlaylistChapters,
     properties: {
       _id: 'objectId',
-      text: {type: 'string'},
+      chapter: {type: 'int'},
+      src: {type: 'string'},
       name: {type: 'string', indexed: 'full-text'},
     },
     primaryKey: '_id',

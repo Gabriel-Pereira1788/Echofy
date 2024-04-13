@@ -5,9 +5,9 @@ export const databaseJest: DatabaseImpl = {
   findBy: jest.fn(),
   findById: jest.fn(),
   getAll: jest.fn(() => {
-    console.log('Entrou aqui');
     return [];
   }),
   close: jest.fn(),
   open: jest.fn(),
+  read: jest.fn(),
 };

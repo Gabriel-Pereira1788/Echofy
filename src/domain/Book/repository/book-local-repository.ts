@@ -23,28 +23,23 @@ async function getCategories() {
 async function getRecommendedForYou(
   query: QueryRecommended,
 ): Promise<BookSectionApi> {
-  console.log(query);
-  return {
-    docs: [],
-    nextPage: 0,
-    page: 1,
-    prevPage: 1,
-    totalDocs: 1,
-    totalPages: 1,
-  };
+  console.log('[QUERY]', query);
+
+  const results = await database.read<BookSectionApi[]>(Schemas.BookSection, {
+    skip: query.skip,
+    top: query.top,
+  });
+  console.log('[RESULTS]', results);
+  return results[0];
 }
 
 async function getBestSeller(query: QueryParams): Promise<BookSectionApi> {
   console.log(query);
-
-  return {
-    docs: [],
-    nextPage: 0,
-    page: 1,
-    prevPage: 1,
-    totalDocs: 1,
-    totalPages: 1,
-  };
+  const results = await database.read<BookSectionApi[]>(Schemas.BookSection, {
+    skip: query.skip,
+    top: query.top,
+  });
+  return results[0];
 }
 
 async function findByCategory(query: QueryByCategory): Promise<BookSectionApi> {
