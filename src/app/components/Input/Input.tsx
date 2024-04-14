@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, TextInputProps} from 'react-native';
+import {Platform, TextInput, TextInputProps} from 'react-native';
 
 import {useTheme} from '@hooks';
 
@@ -15,10 +15,13 @@ export function Input({errorMessage, disabled, style, ...rest}: IInputProps) {
   const theme = useTheme();
   rest.onChange = !disabled ? rest.onChange : undefined;
   rest.onChangeText = !disabled ? rest.onChangeText : undefined;
+
+  const $padding: keyof typeof theme.spacing =
+    Platform.OS === 'ios' ? 'sp20' : 'sp10';
   return (
     <Box>
       <Box
-        padding="sp20"
+        padding={$padding}
         backgroundColor="bgInput"
         borderColor={errorMessage ? 'accent60' : 'bgInput'}
         borderWidth={errorMessage ? 1 : 0}

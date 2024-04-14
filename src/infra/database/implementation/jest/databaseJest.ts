@@ -4,7 +4,10 @@ export const databaseJest: DatabaseImpl = {
   create: jest.fn(),
   findBy: jest.fn(),
   findById: jest.fn(),
-  getAll: jest.fn(() => {
+  readPaginatedResult: jest.fn(() => {
+    return null;
+  }),
+  getAll: jest.fn(async () => {
     return [];
   }),
   close: jest.fn(),

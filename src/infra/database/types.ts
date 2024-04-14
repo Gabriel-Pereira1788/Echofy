@@ -15,8 +15,17 @@ export interface DatabaseImpl {
   ): void;
   findById<TData>(schema: Schemas, id: number): Promise<TData>;
   findBy<TData>(schema: Schemas, filter: string): Promise<TData>;
-  getAll<TData>(schema: Schemas): Promise<TData>;
-  read<TData>(schema: Schemas, query?: Partial<QueryParams>): Promise<TData>;
+  getAll<TData>(schema: Schemas): Promise<TData[]>;
+  read<SchemaName extends Schemas>(
+    schema: SchemaName,
+    query?: Partial<QueryParams>,
+    filter?: Filter<SchemaName>,
+  ): Promise<CrudSchemaData<SchemaName> | CrudSchemaData<SchemaName>[]>;
+  readPaginatedResult<SchemaName extends Schemas>(
+    schema: SchemaName,
+    query?: Partial<QueryParams>,
+    filter?: Filter<SchemaName>,
+  ): PaginatedDocs<CrudSchemaData<SchemaName>> | null;
   close: () => void;
 }
 
@@ -35,7 +44,7 @@ export interface DatabaseSchemaImpl<SchemaName extends Schemas> {
   update(id: string, newData: Partial<CrudSchemaData<SchemaName>>): void;
 }
 
-export type CrudSchemaData<SchemaName extends Schemas> =
+export type CrudSchemaData<SchemaName = Schemas> =
   SchemaName extends Schemas.Book
     ? IBookSchema
     : SchemaName extends Schemas.BookCategory
@@ -50,3 +59,18 @@ export type SchemaObject<SchemaName extends Schemas> = Record<
   Schemas,
   DatabaseSchemaImpl<SchemaName>
 >;
+
+export interface Filter<SchemaName = Schemas> {
+  field: keyof CrudSchemaData<SchemaName>;
+  valueMatch: string;
+  filter: string;
+}
+
+export interface PaginatedDocs<TData> {
+  docs: TData[];
+  nextPage: number | null;
+  page: number;
+  prevPage: number | null;
+  totalDocs: number;
+  totalPages: number;
+}

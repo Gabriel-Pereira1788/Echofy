@@ -1,4 +1,4 @@
-import {Schemas, database} from '@infra';
+import {Schemas} from '@infra';
 
 import {QueryParams} from '../types';
 
@@ -10,15 +10,19 @@ import {
 } from './repository';
 
 async function getBestSeller(query: QueryParams) {
-  // const data = await bookLocalRepository.getBestSeller(query);
-  // if (!data) {
-
-  // } else {
-  //   return data;
-  // }
-  const result = await bookApiRepository.getBestSeller(query);
-  //CRIAR NO BANCO DE DADOS
-  return result;
+  const localResult = await bookLocalRepository.getBestSeller(query);
+  console.log('BEST-SELLER-LOCAL-RESULT', localResult);
+  if (!localResult) {
+    return localResult;
+  } else {
+    const result = await bookApiRepository.getBestSeller(query);
+    if (result) {
+      bookLocalRepository.create(Schemas.Book, result.docs);
+      return result;
+    } else {
+      return null;
+    }
+  }
 }
 
 const getCategories: BookRepository['getCategories'] = async () => {
@@ -39,13 +43,17 @@ const getCategories: BookRepository['getCategories'] = async () => {
 
 const getRecommendedForYou: BookRepository['getRecommendedForYou'] =
   async query => {
+    console.log('ENTROU AQUI');
     const localResult = await bookLocalRepository.getRecommendedForYou(query);
+    console.log('RECOMMENDED-FOR-YOU-RESULTS', localResult);
     if (localResult) {
       return localResult;
     } else {
       const result = await bookApiRepository.getRecommendedForYou(query);
+
       if (result) {
-        database.create(Schemas.BookSection, result);
+        bookLocalRepository.create(Schemas.Book, result.docs);
+
         return result;
       } else {
         return null;

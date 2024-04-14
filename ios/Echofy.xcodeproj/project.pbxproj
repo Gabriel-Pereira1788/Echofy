@@ -11,10 +11,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		25025CB8F118310E5227A4E6 /* libPods-Echofy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B79A62501342D277F662494A /* libPods-Echofy.a */; };
+		3A3E00AF4F46FFBD87474EE1 /* libPods-Echofy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C153FB43C2F85DF4042D8A /* libPods-Echofy.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9B05F9AF2B59F81600ADD657 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05F9AE2B59F81600ADD657 /* dummy.swift */; };
-		A95ABB6CF1BFC6251877D373 /* libPods-Echofy-EchofyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEB254C64FFAB8E4F35F7BD /* libPods-Echofy-EchofyTests.a */; };
+		EB6FBBB4EBA159F5A1BF0389 /* libPods-Echofy-EchofyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B13E0B0EEBD4DED2C87FBBA7 /* libPods-Echofy-EchofyTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,19 +37,19 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Echofy/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Echofy/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Echofy/main.m; sourceTree = "<group>"; };
-		1A1D4046903783A203DA66CD /* Pods-Echofy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy.debug.xcconfig"; path = "Target Support Files/Pods-Echofy/Pods-Echofy.debug.xcconfig"; sourceTree = "<group>"; };
-		1CEB254C64FFAB8E4F35F7BD /* libPods-Echofy-EchofyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Echofy-EchofyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6048B4CBE8CCEC8305099AC2 /* Pods-Echofy-EchofyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy-EchofyTests.release.xcconfig"; path = "Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests.release.xcconfig"; sourceTree = "<group>"; };
-		725765D3139DA9F7600748C1 /* Pods-Echofy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy.release.xcconfig"; path = "Target Support Files/Pods-Echofy/Pods-Echofy.release.xcconfig"; sourceTree = "<group>"; };
+		324D7B04B994E26733DFF04E /* Pods-Echofy-EchofyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy-EchofyTests.release.xcconfig"; path = "Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Echofy/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8AD488FAA81EBFB667D0531B /* Pods-Echofy-EchofyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy-EchofyTests.debug.xcconfig"; path = "Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		86B2BA48275A83ED64009D37 /* Pods-Echofy-EchofyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy-EchofyTests.debug.xcconfig"; path = "Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B05F9AD2B59F81500ADD657 /* Echofy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Echofy-Bridging-Header.h"; sourceTree = "<group>"; };
 		9B05F9AE2B59F81600ADD657 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		9BBBDC382B6133FB00F819E7 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		9BBBDC3A2B61340C00F819E7 /* libReact-Fabric.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-Fabric.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BBBDC3C2B61352E00F819E7 /* libReact-RCTFabric.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTFabric.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BBBDC3E2B61354000F819E7 /* libReact-Fabric.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-Fabric.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B79A62501342D277F662494A /* libPods-Echofy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Echofy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6CAF79C08783F10BD724E34 /* Pods-Echofy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy.release.xcconfig"; path = "Target Support Files/Pods-Echofy/Pods-Echofy.release.xcconfig"; sourceTree = "<group>"; };
+		B13E0B0EEBD4DED2C87FBBA7 /* libPods-Echofy-EchofyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Echofy-EchofyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2C153FB43C2F85DF4042D8A /* libPods-Echofy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Echofy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D405BBB9BD554701BDFD6874 /* Pods-Echofy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy.debug.xcconfig"; path = "Target Support Files/Pods-Echofy/Pods-Echofy.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -58,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A95ABB6CF1BFC6251877D373 /* libPods-Echofy-EchofyTests.a in Frameworks */,
+				EB6FBBB4EBA159F5A1BF0389 /* libPods-Echofy-EchofyTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25025CB8F118310E5227A4E6 /* libPods-Echofy.a in Frameworks */,
+				3A3E00AF4F46FFBD87474EE1 /* libPods-Echofy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,8 +113,8 @@
 				9BBBDC3A2B61340C00F819E7 /* libReact-Fabric.a */,
 				9BBBDC382B6133FB00F819E7 /* hermes.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				B79A62501342D277F662494A /* libPods-Echofy.a */,
-				1CEB254C64FFAB8E4F35F7BD /* libPods-Echofy-EchofyTests.a */,
+				B2C153FB43C2F85DF4042D8A /* libPods-Echofy.a */,
+				B13E0B0EEBD4DED2C87FBBA7 /* libPods-Echofy-EchofyTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -153,10 +153,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1A1D4046903783A203DA66CD /* Pods-Echofy.debug.xcconfig */,
-				725765D3139DA9F7600748C1 /* Pods-Echofy.release.xcconfig */,
-				8AD488FAA81EBFB667D0531B /* Pods-Echofy-EchofyTests.debug.xcconfig */,
-				6048B4CBE8CCEC8305099AC2 /* Pods-Echofy-EchofyTests.release.xcconfig */,
+				D405BBB9BD554701BDFD6874 /* Pods-Echofy.debug.xcconfig */,
+				A6CAF79C08783F10BD724E34 /* Pods-Echofy.release.xcconfig */,
+				86B2BA48275A83ED64009D37 /* Pods-Echofy-EchofyTests.debug.xcconfig */,
+				324D7B04B994E26733DFF04E /* Pods-Echofy-EchofyTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -168,12 +168,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "EchofyTests" */;
 			buildPhases = (
-				5AB76B208B6DC010382F2720 /* [CP] Check Pods Manifest.lock */,
+				3448A78008967BAF609A0A9A /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				215FC00EB395489C081C5AEB /* [CP] Embed Pods Frameworks */,
-				23B40F585DB13839FD573E0D /* [CP] Copy Pods Resources */,
+				492A69090FCCCBBD90282F8F /* [CP] Embed Pods Frameworks */,
+				3A81F73A7EA0CFA10475A6EF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -189,13 +189,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Echofy" */;
 			buildPhases = (
-				A1B25139CA0D429120F46DC1 /* [CP] Check Pods Manifest.lock */,
+				06BFD5E5D5E52EA3CA2E7DBA /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				DE0032F2DB66A04DCD15ED6E /* [CP] Embed Pods Frameworks */,
-				75178AC0FD9D53E0D08B30E3 /* [CP] Copy Pods Resources */,
+				C019787F1B0D63DFB30E72C6 /* [CP] Embed Pods Frameworks */,
+				65AC0B63657ED5BF4A161CC8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -278,80 +278,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		215FC00EB395489C081C5AEB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		23B40F585DB13839FD573E0D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5AB76B208B6DC010382F2720 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Echofy-EchofyTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		75178AC0FD9D53E0D08B30E3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Echofy/Pods-Echofy-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Echofy/Pods-Echofy-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Echofy/Pods-Echofy-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1B25139CA0D429120F46DC1 /* [CP] Check Pods Manifest.lock */ = {
+		06BFD5E5D5E52EA3CA2E7DBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -373,7 +300,80 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE0032F2DB66A04DCD15ED6E /* [CP] Embed Pods Frameworks */ = {
+		3448A78008967BAF609A0A9A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Echofy-EchofyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A81F73A7EA0CFA10475A6EF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		492A69090FCCCBBD90282F8F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Echofy-EchofyTests/Pods-Echofy-EchofyTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		65AC0B63657ED5BF4A161CC8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Echofy/Pods-Echofy-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Echofy/Pods-Echofy-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Echofy/Pods-Echofy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C019787F1B0D63DFB30E72C6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -424,7 +424,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8AD488FAA81EBFB667D0531B /* Pods-Echofy-EchofyTests.debug.xcconfig */;
+			baseConfigurationReference = 86B2BA48275A83ED64009D37 /* Pods-Echofy-EchofyTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -452,7 +452,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6048B4CBE8CCEC8305099AC2 /* Pods-Echofy-EchofyTests.release.xcconfig */;
+			baseConfigurationReference = 324D7B04B994E26733DFF04E /* Pods-Echofy-EchofyTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -477,7 +477,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A1D4046903783A203DA66CD /* Pods-Echofy.debug.xcconfig */;
+			baseConfigurationReference = D405BBB9BD554701BDFD6874 /* Pods-Echofy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -505,7 +505,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 725765D3139DA9F7600748C1 /* Pods-Echofy.release.xcconfig */;
+			baseConfigurationReference = A6CAF79C08783F10BD724E34 /* Pods-Echofy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

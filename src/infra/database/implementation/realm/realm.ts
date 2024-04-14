@@ -1,7 +1,14 @@
 import Realm, {Configuration} from 'realm';
 import {QueryParams} from 'src/domain/types';
 
-import {CrudSchemaData, DatabaseImpl, Schemas} from '../../types';
+import {
+  CrudSchemaData,
+  DatabaseImpl,
+  Filter,
+  PaginatedDocs,
+  Schemas,
+} from '../../types';
+import {toPaginatedResult} from '../../utils/toPaginatedResult';
 
 import {buildSchemas, realmSchemas, schemas} from './schemas';
 
@@ -11,7 +18,7 @@ const open = async () => {
   const allSchemas = realmSchemas.map(item => item.schema);
   const config: Configuration = {
     schema: allSchemas,
-    schemaVersion: 7,
+    schemaVersion: 8,
     path: 'bundle.realm',
   };
   const realm = await Realm.open(config);
@@ -31,7 +38,7 @@ async function create<SchemaName extends Schemas>(
       schema.create(data);
     });
   } catch (error) {
-    console.log('ERROR ON CREATE', error);
+    console.log('ERROR ON CREATE', schemaName, error);
   }
 }
 
@@ -54,18 +61,63 @@ function close() {
   realmDb?.close();
 }
 
-async function read<TData>(schema: Schemas, query?: Partial<QueryParams>) {
-  const results = realmDb?.objects(schema);
+function readPaginatedResult<SchemaName extends Schemas>(
+  schema: SchemaName,
+  query?: Partial<QueryParams>,
+  filter?: Filter<SchemaName>,
+): PaginatedDocs<CrudSchemaData<SchemaName>> | null {
+  let results: CrudSchemaData<SchemaName>[] = [];
+  if (filter) {
+    realmDb
+      ?.objects(schema)
+      .filtered(filter.filter, filter.valueMatch)
+      .forEach(item => {
+        results.push(item as CrudSchemaData<SchemaName>);
+      });
+  } else {
+    realmDb?.objects(schema).forEach(item => {
+      results.push(item as CrudSchemaData<SchemaName>);
+    });
+  }
+
+  if (query?.skip && query.top) {
+    const data = toPaginatedResult<CrudSchemaData<SchemaName>>(results, query);
+
+    return data;
+  } else if (query?.top) {
+    const data = toPaginatedResult<CrudSchemaData<SchemaName>>(results, {
+      skip: 0,
+      top: query.top,
+    });
+    return data;
+  }
+
+  return null;
+}
+
+async function read<SchemaName extends Schemas>(
+  schema: SchemaName,
+  query?: Partial<QueryParams>,
+  filter?: Filter<SchemaName>,
+) {
+  let results;
+  if (filter) {
+    results = realmDb
+      ?.objects(schema as string)
+      .filtered(filter.filter, filter.valueMatch);
+  } else {
+    results = realmDb?.objects(schema as string);
+  }
 
   if (query?.skip && query.top) {
     const data = results?.slice(query.skip, query.top);
-    return data as TData;
+    return data as CrudSchemaData<SchemaName>;
   } else if (query?.top) {
     const data = results?.slice(0, query.top);
-    return data as TData;
+    return data as CrudSchemaData<SchemaName>;
   }
 
-  return results as TData;
+  return results as CrudSchemaData<SchemaName>;
 }
 export const realmImpl: DatabaseImpl = {
   open,
@@ -75,4 +127,5 @@ export const realmImpl: DatabaseImpl = {
   getAll,
   close,
   read,
+  readPaginatedResult,
 };

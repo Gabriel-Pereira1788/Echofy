@@ -3,8 +3,8 @@ export interface IBookCategorySchema {
 }
 
 export interface IBookSectionSchema {
-  docs: IBookSchema[]; //TODO remover any type
-  nextPage: number;
+  docs: IBookSchema[];
+  nextPage: number | null;
   page: number;
   prevPage: number | null;
   totalDocs: number;

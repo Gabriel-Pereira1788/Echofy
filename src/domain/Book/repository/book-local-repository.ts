@@ -1,6 +1,12 @@
-import {IBookCategorySchema, Schemas, database} from '@infra';
+import {
+  CrudSchemaData,
+  IBookCategorySchema,
+  IBookSchema,
+  PaginatedDocs,
+  Schemas,
+  database,
+} from '@infra';
 import {QueryParams} from 'src/domain/types';
-import {CrudSchemaData} from 'src/infra/database/types';
 
 import {BookApi, BookSectionApi} from '../book-types';
 
@@ -12,52 +18,73 @@ import {
 } from './types';
 
 async function getCategories() {
-  console.log('ENTROU GET CATEGORIES');
-  const results = await database.getAll<IBookCategorySchema[]>(
+  const results = await database.getAll<IBookCategorySchema>(
     Schemas.BookCategory,
   );
-  console.log('SAIU GET CATEGORIES', results);
+
   const categories = results.map(data => data.text);
   return categories;
 }
 
 async function getRecommendedForYou(
   query: QueryRecommended,
-): Promise<BookSectionApi | null> {
+): Promise<PaginatedDocs<IBookSchema> | null> {
   console.log('[QUERY]', query);
 
-  const results = await database.read<BookSectionApi[]>(Schemas.BookSection, {
+  const results = database.readPaginatedResult(Schemas.Book, {
     skip: query.skip,
     top: query.top,
   });
-  console.log('[RESULTS]', results);
-  if (results && results.length > 0) {
-    return results[0];
-  } else {
-    return null;
+
+  return results;
+}
+
+async function getBestSeller(
+  query: QueryParams,
+): Promise<PaginatedDocs<IBookSchema> | null> {
+  const results = database.readPaginatedResult(Schemas.Book, {
+    skip: query.skip,
+    top: query.top,
+  });
+  return results;
+}
+
+async function findByCategory(
+  query: QueryByCategory,
+): Promise<PaginatedDocs<IBookSchema> | null> {
+  console.log(query);
+  if (query.category === 'best-seller') {
+    const result = await getBestSeller({
+      top: query.top,
+      skip: query.skip,
+    });
+
+    return result;
   }
-}
 
-async function getBestSeller(query: QueryParams): Promise<BookSectionApi> {
-  console.log(query);
-  const results = await database.read<BookSectionApi[]>(Schemas.BookSection, {
-    skip: query.skip,
-    top: query.top,
-  });
-  return results[0];
-}
+  if (query.category === 'recommended-for-you') {
+    const result = await getRecommendedForYou({
+      uid: query.uid,
+      skip: query.skip,
+      top: query.top,
+    });
 
-async function findByCategory(query: QueryByCategory): Promise<BookSectionApi> {
-  console.log(query);
+    return result;
+  }
 
-  return {
-    docs: [],
-    nextPage: 0,
-    page: 1,
-    prevPage: 1,
-    totalDocs: 1,
-    totalPages: 1,
-  };
+  const result = database.readPaginatedResult(
+    Schemas.Book,
+    {
+      skip: query.skip,
+      top: query.top,
+    },
+    {
+      field: 'book_genres',
+      valueMatch: query.category,
+      filter: 'book_genres CONTAINS[c] $0',
+    },
+  );
+  return result;
 }
 
 async function findBySearchText(
@@ -104,7 +131,7 @@ function create<SchemaName extends Schemas>(
       database.create(schema, data);
     }
   } catch (error) {
-    console.log('ERROR ON CREATE', error);
+    console.log('ERROR ON CREATE', schema, error);
   }
 }
 export const bookLocalRepository: BookRepository = {

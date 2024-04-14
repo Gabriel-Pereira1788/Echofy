@@ -5,7 +5,7 @@ import {CrudSchemaData, Schemas} from '../../../../../types';
 
 export function create(realm: Realm) {
   return (value: CrudSchemaData<Schemas.BookPlaylistChapters>) => {
-    console.log('VALUE', value);
+    // console.log('VALUE', value);
     const item = realm.create(Schemas.BookPlaylistChapters, {
       _id: new BSON.ObjectID(),
       name: Schemas.BookPlaylistChapters,

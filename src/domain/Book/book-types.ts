@@ -33,7 +33,7 @@ export interface BookCategory {
 
 export interface BookSectionApi {
   docs: BookApi[];
-  nextPage: number;
+  nextPage: number | null;
   page: number;
   prevPage: number | null;
   totalDocs: number;

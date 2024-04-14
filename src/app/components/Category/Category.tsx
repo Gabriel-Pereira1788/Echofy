@@ -50,7 +50,7 @@ const $boxProps: BoxProps = {
 const $shadowCategoryBoxProps: BoxProps = {
   shadowOpacity: 0.1,
   shadowRadius: 1.92,
-  elevation: 4,
+  // elevation: 4,
   shadowColor: 'black',
   shadowOffset: {
     width: 0,

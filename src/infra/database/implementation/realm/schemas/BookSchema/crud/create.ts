@@ -8,7 +8,11 @@ import {schemas} from '../..';
 import {CrudSchemaData, Schemas} from '../../../../../types';
 
 export function create(realm: Realm) {
-  return (value: CrudSchemaData<Schemas.Book>): IBookSchema => {
+  return (value: CrudSchemaData<Schemas.Book>): IBookSchema | null => {
+    const results = realm.objects(Schemas.Book).filtered('id == $0', value.id);
+    if (results && results.length > 0) {
+      return null;
+    }
     const book = realm.create(Schemas.Book, {
       name: Schemas.Book,
       ...value,
@@ -20,7 +24,10 @@ export function create(realm: Realm) {
 
     for (let i = 0; i < value.playlist_chapters.length - 1; i++) {
       const chapter = value.playlist_chapters[i];
-      book.playlist_chapters.push(bookPlaylistChaptersSchema.create(chapter));
+      const chapterData = bookPlaylistChaptersSchema.create(chapter);
+      if (chapterData) {
+        book.playlist_chapters.push(chapterData);
+      }
     }
 
     return book as IBookSchema;

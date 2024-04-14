@@ -16,7 +16,10 @@ export function create(realm: Realm) {
     const bookSchema = schemas.getSchema(Schemas.Book);
     for (let i = 0; i < value.docs.length; i++) {
       const bookToCreate = value.docs[i];
-      bookSection.docs.push(bookSchema.create(bookToCreate));
+      const bookData = bookSchema.create(bookToCreate);
+      if (bookData) {
+        bookSection.docs.push(bookData);
+      }
     }
 
     return bookSection;
