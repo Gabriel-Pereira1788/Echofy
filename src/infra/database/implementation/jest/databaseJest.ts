@@ -3,6 +3,7 @@ import {DatabaseImpl} from '../../types';
 export const databaseJest: DatabaseImpl = {
   create: jest.fn(),
   findBy: jest.fn(),
+  reset: jest.fn(),
   findById: jest.fn(),
   readPaginatedResult: jest.fn(() => {
     return null;

@@ -1,6 +1,6 @@
-import {IBookCategorySchema, PaginatedResult} from '@infra';
+import {IBookCategorySchema, IBookSchema, PaginatedResult} from '@infra';
 
-import {Book, BookApi, BookCategory, BookSectionApi} from './book-types';
+import {Book, BookCategory, BookSectionApi} from './book-types';
 
 function toBookCategory(categories: string[]): BookCategory[] {
   return categories.map(category => ({
@@ -9,7 +9,7 @@ function toBookCategory(categories: string[]): BookCategory[] {
   }));
 }
 
-function toBookData(book: BookApi): Book {
+function toBookData(book: IBookSchema): Book {
   return {
     id: book.id,
     bookDesc: book.book_desc,

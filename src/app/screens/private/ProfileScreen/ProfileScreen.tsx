@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {database} from '@infra';
 import {useAuthContext} from '@providers';
 import {SharedWrapperScreen} from '@shared';
 
@@ -10,6 +11,7 @@ export function ProfileScreen() {
 
   async function signOut() {
     await removeCredentials();
+    await database.reset();
   }
   return (
     <SharedWrapperScreen>

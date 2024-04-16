@@ -2,7 +2,7 @@ import {IBookSchema, Schemas} from '@infra';
 import {CrudSchemaData, PaginatedDocs} from 'src/infra/database/types';
 
 import {QueryParams} from '../../types';
-import {BookApi, BookSectionApi, CategoryIdentify} from '../book-types';
+import {CategoryIdentify} from '../book-types';
 
 export type QueryByCategory = {
   category: CategoryIdentify;
@@ -22,8 +22,10 @@ export interface BookRepository {
   findByCategory: (
     query: QueryByCategory,
   ) => Promise<PaginatedDocs<IBookSchema> | null>;
-  findBySearchText: (query: QuerySearchByText) => Promise<BookSectionApi>;
-  findById: (id: string) => Promise<BookApi>;
+  findBySearchText: (
+    query: QuerySearchByText,
+  ) => Promise<PaginatedDocs<IBookSchema> | null>;
+  findById: (id: string) => Promise<IBookSchema | null>;
   create<SchemaName extends Schemas>(
     schema: SchemaName,
     data: CrudSchemaData<SchemaName> | CrudSchemaData<SchemaName>[],

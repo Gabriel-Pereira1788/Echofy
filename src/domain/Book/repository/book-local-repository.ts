@@ -1,60 +1,37 @@
-import {
-  CrudSchemaData,
-  IBookCategorySchema,
-  IBookSchema,
-  PaginatedDocs,
-  Schemas,
-  database,
-} from '@infra';
-import {QueryParams} from 'src/domain/types';
+import {IBookCategorySchema, Schemas, database} from '@infra';
 
-import {BookApi, BookSectionApi} from '../book-types';
+import {BookRepository} from './types';
 
-import {
-  BookRepository,
-  QueryByCategory,
-  QueryRecommended,
-  QuerySearchByText,
-} from './types';
-
-async function getCategories() {
+const getCategories: BookRepository['getCategories'] = async () => {
   const results = await database.getAll<IBookCategorySchema>(
     Schemas.BookCategory,
   );
 
   const categories = results.map(data => data.text);
   return categories;
-}
+};
 
-async function getRecommendedForYou(
-  query: QueryRecommended,
-): Promise<PaginatedDocs<IBookSchema> | null> {
-  console.log('[QUERY]', query);
+const getRecommendedForYou: BookRepository['getRecommendedForYou'] =
+  async query => {
+    const results = database.readPaginatedResult(Schemas.Book, {
+      skip: query.skip,
+      top: query.top,
+    });
 
-  const results = database.readPaginatedResult(Schemas.Book, {
-    skip: query.skip,
-    top: query.top,
-  });
+    return results;
+  };
 
-  return results;
-}
-
-async function getBestSeller(
-  query: QueryParams,
-): Promise<PaginatedDocs<IBookSchema> | null> {
+const getBestSeller: BookRepository['getBestSeller'] = async query => {
   const results = database.readPaginatedResult(Schemas.Book, {
     skip: query.skip,
     top: query.top,
   });
   return results;
-}
+};
 
-async function findByCategory(
-  query: QueryByCategory,
-): Promise<PaginatedDocs<IBookSchema> | null> {
-  console.log(query);
+const findByCategory: BookRepository['findByCategory'] = async query => {
   if (query.category === 'best-seller') {
-    const result = await getBestSeller({
+    const result = getBestSeller({
       top: query.top,
       skip: query.skip,
     });
@@ -63,7 +40,7 @@ async function findByCategory(
   }
 
   if (query.category === 'recommended-for-you') {
-    const result = await getRecommendedForYou({
+    const result = getRecommendedForYou({
       uid: query.uid,
       skip: query.skip,
       top: query.top,
@@ -85,43 +62,37 @@ async function findByCategory(
     },
   );
   return result;
-}
+};
 
-async function findBySearchText(
-  query: QuerySearchByText,
-): Promise<BookSectionApi> {
+const findBySearchText: BookRepository['findBySearchText'] = async query => {
   console.log(query);
 
-  return {
-    docs: [],
-    nextPage: 0,
-    page: 1,
-    prevPage: 1,
-    totalDocs: 1,
-    totalPages: 1,
-  };
-}
+  const result = database.readPaginatedResult(
+    Schemas.Book,
+    {
+      skip: query.skip,
+      top: query.top,
+    },
+    {
+      field: 'book_genres',
+      valueMatch: query.searchText,
+      filter: 'book_title CONTAINS[c] $0',
+    },
+  );
+  return result;
+};
 
-async function findById(id: string): Promise<BookApi> {
-  console.log(id);
+const findById: BookRepository['findById'] = async id => {
+  const result = database.findById(Schemas.Book, id);
 
-  return {
-    book_author: '',
-    book_desc: '',
-    book_genres: [''],
-    book_image: '',
-    book_read_link: '',
-    book_star_raiting: '',
-    book_title: '',
-    id: '',
-    playlist_chapters: [],
-  };
-}
+  if (result && result.length > 0) {
+    return result[0];
+  }
 
-function create<SchemaName extends Schemas>(
-  schema: SchemaName,
-  data: CrudSchemaData<SchemaName> | CrudSchemaData<SchemaName>[],
-) {
+  return null;
+};
+
+const create: BookRepository['create'] = async (schema, data) => {
   try {
     if (Array.isArray(data)) {
       data.forEach(value => {
@@ -133,7 +104,7 @@ function create<SchemaName extends Schemas>(
   } catch (error) {
     console.log('ERROR ON CREATE', schema, error);
   }
-}
+};
 export const bookLocalRepository: BookRepository = {
   getCategories,
   getRecommendedForYou,

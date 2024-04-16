@@ -28,11 +28,7 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
         position="relative"
         style={[{minHeight: bottom, paddingBottom: bottom}, $shadowProps]}
         backgroundColor="bgMain">
-        <Box
-          onLayout={event => {
-            console.log('event', event.nativeEvent.layout.height);
-          }}
-          {...$boxWrapper}>
+        <Box {...$boxWrapper}>
           {state.routes.map((route, index) => {
             const {options} = descriptors[route.key];
 

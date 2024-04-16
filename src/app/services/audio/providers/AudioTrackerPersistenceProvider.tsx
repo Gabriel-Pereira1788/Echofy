@@ -22,7 +22,6 @@ export function AudioTrackerPersistenceProvider() {
       trackData.tracks.length > 0 &&
       currentTracks.length === 0
     ) {
-      console.log('current-index', trackData.currentIndex);
       await initialize(trackData.tracks);
       await audioTracker.skipTo(trackData.currentIndex);
       await audioTracker.seekTo(persistedPosition);

@@ -43,7 +43,6 @@ export function MinimizePlayer({}: Props) {
     event: HandlerStateChangeEvent<Record<string, unknown>>,
   ) {
     const translationValue = event.nativeEvent.translationY as number;
-    console.log('translationValue', translationValue);
     if (translationValue < 20) {
       slideUp();
     }

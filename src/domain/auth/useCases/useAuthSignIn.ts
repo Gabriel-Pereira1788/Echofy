@@ -14,6 +14,7 @@ export function useAuthSignIn(
     serviceFn: authService.signIn,
     onSuccess: ac => {
       refreshCredentials(ac);
+
       if (config.onSuccess) {
         config.onSuccess(ac);
       }

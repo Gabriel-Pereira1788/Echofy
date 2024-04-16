@@ -53,8 +53,6 @@ export const bookHandler = [
   }),
   http.get(`${BASE_URL}book/find-by-category/:category`, ({params}) => {
     const category = params.category;
-
-    console.log('category', category);
     if (!category) {
       return new HttpResponse(
         {message: 'incorrectly category.'},

@@ -12,7 +12,6 @@ export function useAuthFinishRegister(
   const {mutate, isLoading, isSuccess} = useAuthMutation({
     serviceFn: authService.finishRegister,
     onSuccess: ac => {
-      console.log('finishRegister', ac);
       refreshCredentials(ac);
       if (config.onSuccess) {
         config.onSuccess(ac);

@@ -36,7 +36,6 @@ export function AuthProvider({children}: React.PropsWithChildren) {
   async function getLastCredentials(): Promise<AuthCredentials | null> {
     const ac = await storage.getItem<AuthCredentials>(StorageKeys.Credentials);
 
-    console.log('ac', ac);
     return ac ? ac : null;
   }
 

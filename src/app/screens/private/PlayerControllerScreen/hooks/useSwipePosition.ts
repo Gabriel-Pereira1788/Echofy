@@ -40,7 +40,6 @@ export function useSwipePosition({
       const translationX = event.nativeEvent.translationX as number;
       const isPositiveValue = translationX > 0;
 
-      console.log('remaining progress value', remainingProgressValue);
       if (isPositiveValue) {
         currentProgressValue.current =
           currentProgressValue.current + translationX;

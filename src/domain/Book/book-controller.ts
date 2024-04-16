@@ -11,7 +11,6 @@ import {
 
 async function getBestSeller(query: QueryParams) {
   const localResult = await bookLocalRepository.getBestSeller(query);
-  console.log('BEST-SELLER-LOCAL-RESULT', localResult);
   if (!localResult) {
     return localResult;
   } else {
@@ -43,10 +42,9 @@ const getCategories: BookRepository['getCategories'] = async () => {
 
 const getRecommendedForYou: BookRepository['getRecommendedForYou'] =
   async query => {
-    console.log('ENTROU AQUI');
     const localResult = await bookLocalRepository.getRecommendedForYou(query);
-    console.log('RECOMMENDED-FOR-YOU-RESULTS', localResult);
-    if (localResult) {
+
+    if (localResult && localResult.docs.length > 0) {
       return localResult;
     } else {
       const result = await bookApiRepository.getRecommendedForYou(query);
@@ -62,23 +60,53 @@ const getRecommendedForYou: BookRepository['getRecommendedForYou'] =
   };
 
 const findByCategory: BookRepository['findByCategory'] = async query => {
-  const result = await bookApiRepository.findByCategory(query);
-  return result;
+  const localResult = await bookLocalRepository.findByCategory(query);
+  if (localResult && localResult.docs.length >= 8) {
+    return localResult;
+  } else {
+    const result = await bookApiRepository.findByCategory(query);
+    if (result) {
+      bookLocalRepository.create(Schemas.Book, result.docs);
+      return result;
+    } else {
+      return null;
+    }
+  }
 };
 
 const findBySearchText: BookRepository['findBySearchText'] = async query => {
-  const result = await bookApiRepository.findBySearchText(query);
-  return result;
+  const localResult = await bookLocalRepository.findBySearchText(query);
+  console.log('BY-LOCAL-SEARCH', localResult);
+  if (localResult && localResult.docs.length > 0) {
+    return localResult;
+  } else {
+    const result = await bookApiRepository.findBySearchText(query);
+    if (result) {
+      bookLocalRepository.create(Schemas.Book, result.docs);
+      return result;
+    } else {
+      return null;
+    }
+  }
 };
 
 const findById: BookRepository['findById'] = async query => {
-  const result = await bookApiRepository.findById(query);
-  return result;
+  const localResult = await bookLocalRepository.findById(query);
+  if (localResult) {
+    return localResult;
+  } else {
+    const result = await bookApiRepository.findById(query);
+    if (result) {
+      bookLocalRepository.create(Schemas.Book, result);
+      return result;
+    } else {
+      return null;
+    }
+  }
 };
 
 export const bookController = {
   getBestSeller,
-
   getCategories,
   getRecommendedForYou,
   findByCategory,

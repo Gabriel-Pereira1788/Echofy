@@ -9,11 +9,15 @@ import {
 
 export interface DatabaseImpl {
   open: () => Promise<void>;
+  reset: () => Promise<void>;
   create<SchemaName extends Schemas>(
     schema: Schemas,
     data: CrudSchemaData<SchemaName>,
   ): void;
-  findById<TData>(schema: Schemas, id: number): Promise<TData>;
+  findById<SchemaName extends Schemas>(
+    schema: SchemaName,
+    id: string,
+  ): CrudSchemaData<SchemaName>[];
   findBy<TData>(schema: Schemas, filter: string): Promise<TData>;
   getAll<TData>(schema: Schemas): Promise<TData[]>;
   read<SchemaName extends Schemas>(

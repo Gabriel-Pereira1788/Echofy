@@ -42,9 +42,20 @@ async function create<SchemaName extends Schemas>(
   }
 }
 
-async function findById<TData>(schema: Schemas, id: number) {
-  const result = await realmDb?.objects(schema).filtered(`id === ${id}`);
-  return result as TData;
+function findById<SchemaName extends Schemas>(
+  schema: SchemaName,
+  id: string,
+  searchByRealmId?: boolean,
+) {
+  const filter = `${searchByRealmId ? '_id' : 'id'} == $0`;
+  let results: CrudSchemaData<SchemaName>[] = [];
+  realmDb
+    ?.objects(schema)
+    .filtered(filter, id)
+    .forEach(item => {
+      results.push(item as CrudSchemaData<SchemaName>);
+    });
+  return results;
 }
 
 async function findBy<TData>(schema: Schemas, filter: string) {
@@ -63,10 +74,11 @@ function close() {
 
 function readPaginatedResult<SchemaName extends Schemas>(
   schema: SchemaName,
-  query?: Partial<QueryParams>,
+  query: Partial<QueryParams>,
   filter?: Filter<SchemaName>,
 ): PaginatedDocs<CrudSchemaData<SchemaName>> | null {
   let results: CrudSchemaData<SchemaName>[] = [];
+
   if (filter) {
     realmDb
       ?.objects(schema)
@@ -80,14 +92,15 @@ function readPaginatedResult<SchemaName extends Schemas>(
     });
   }
 
-  if (query?.skip && query.top) {
+  const {skip = 0, top = 10} = query;
+  if (skip && top) {
     const data = toPaginatedResult<CrudSchemaData<SchemaName>>(results, query);
 
     return data;
-  } else if (query?.top) {
+  } else if (top) {
     const data = toPaginatedResult<CrudSchemaData<SchemaName>>(results, {
       skip: 0,
-      top: query.top,
+      top: top,
     });
     return data;
   }
@@ -119,6 +132,12 @@ async function read<SchemaName extends Schemas>(
 
   return results as CrudSchemaData<SchemaName>;
 }
+
+async function reset() {
+  realmDb?.write(() => {
+    realmDb?.deleteAll();
+  });
+}
 export const realmImpl: DatabaseImpl = {
   open,
   create,
@@ -127,5 +146,6 @@ export const realmImpl: DatabaseImpl = {
   getAll,
   close,
   read,
+  reset,
   readPaginatedResult,
 };

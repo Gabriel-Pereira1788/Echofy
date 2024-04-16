@@ -23,7 +23,6 @@ export function PlayerFooter({onOpenModal}: Props) {
     track && track.chapterNumber ? track.chapterNumber + 1 : 1
   }`;
 
-  console.log('[TRACK]', track);
   return (
     <Box
       flexDirection="row"
