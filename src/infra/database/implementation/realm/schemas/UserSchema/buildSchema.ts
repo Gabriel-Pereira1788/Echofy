@@ -4,11 +4,11 @@ import {DatabaseSchemaImpl, Schemas} from '../../../../types';
 
 import {create, deleteData, read, update} from './crud';
 
-export function buildBookSectionSchema(
+export function buildUserSchema(
   realm: Realm,
-): DatabaseSchemaImpl<Schemas.BookSection> {
+): DatabaseSchemaImpl<Schemas.User> {
   return {
-    schemaName: Schemas.BookSection,
+    schemaName: Schemas.User,
     create: create(realm),
     delete: deleteData(realm),
     read: read(realm),

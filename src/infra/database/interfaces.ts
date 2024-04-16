@@ -2,15 +2,6 @@ export interface IBookCategorySchema {
   text: string;
 }
 
-export interface IBookSectionSchema {
-  docs: IBookSchema[];
-  nextPage: number | null;
-  page: number;
-  prevPage: number | null;
-  totalDocs: number;
-  totalPages: number;
-}
-
 export interface IBookSchema {
   id: string;
   book_image: string;
@@ -26,4 +17,14 @@ export interface IBookSchema {
 export interface IBookPlaylistChapters {
   chapter: number;
   src: string;
+}
+
+export interface IUserSchema {
+  id: string;
+  isValid?: boolean;
+  birthDate: string;
+  email: string;
+  token: string;
+  firstLogin?: boolean;
+  userCategories?: string[];
 }

@@ -4,7 +4,7 @@ import {
   IBookCategorySchema,
   IBookPlaylistChapters,
   IBookSchema,
-  IBookSectionSchema,
+  IUserSchema,
 } from './interfaces';
 
 export interface DatabaseImpl {
@@ -34,6 +34,7 @@ export interface DatabaseImpl {
 }
 
 export enum Schemas {
+  User = '@User',
   BookCategory = '@BookCategorySchema',
   BookPlaylistChapters = '@BookPlaylistChapters',
   Book = '@BookSchema',
@@ -42,7 +43,7 @@ export enum Schemas {
 
 export interface DatabaseSchemaImpl<SchemaName extends Schemas> {
   schemaName: SchemaName;
-  create(value: CrudSchemaData<SchemaName>): CrudSchemaData<SchemaName>;
+  create(value: CrudSchemaData<SchemaName>): CrudSchemaData<SchemaName> | null;
   delete: (id: string) => void;
   read(): CrudSchemaData<SchemaName>[];
   update(id: string, newData: Partial<CrudSchemaData<SchemaName>>): void;
@@ -53,10 +54,10 @@ export type CrudSchemaData<SchemaName = Schemas> =
     ? IBookSchema
     : SchemaName extends Schemas.BookCategory
     ? IBookCategorySchema
-    : SchemaName extends Schemas.BookSection
-    ? IBookSectionSchema
     : SchemaName extends Schemas.BookPlaylistChapters
     ? IBookPlaylistChapters
+    : SchemaName extends Schemas.User
+    ? IUserSchema
     : unknown;
 
 export type SchemaObject<SchemaName extends Schemas> = Record<
