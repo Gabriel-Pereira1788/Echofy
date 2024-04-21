@@ -22,7 +22,9 @@ export function DetailsBookScreen({
   route,
 }: CommonStackProps<'DetailsBookScreen'>) {
   const bookId = route && route.params ? route.params.id : 'testID';
+
   const {bookData, isLoading} = useBookFindById(bookId);
+
   const navigation = useNavigation();
   const playerActions = usePlayerActions();
 
@@ -44,7 +46,13 @@ export function DetailsBookScreen({
   }
 
   function redirectToReadBookScreen() {
-    navigation.navigate('ReadBookScreen');
+    if (bookData) {
+      navigation.navigate('ReadBookScreen', {
+        bookId: bookData.id,
+        readLink: bookData.bookReadLink,
+        bookTitle: bookData.bookTitle,
+      });
+    }
   }
 
   const bookTitle = bookData

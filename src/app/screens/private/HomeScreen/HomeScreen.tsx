@@ -16,7 +16,6 @@ export function HomeScreen({}: CommonStackProps<'MainScreen'>) {
   const renderItem: ListRenderItem<BookSection> = useCallback(({item}) => {
     return (
       <HomeScreenBookSection
-        sectionBooks={item.books}
         sectionTitle={item.title}
         sectionIdentify={item.identify}
       />

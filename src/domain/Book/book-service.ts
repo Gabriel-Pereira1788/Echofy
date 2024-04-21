@@ -17,106 +17,46 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
     return [];
   }
 
-  const recommendedForYouData = await bookController.getRecommendedForYou({
-    uid,
-    top: 10,
-  });
-
-  const [
-    bestSellerData,
-    adventureBookData,
-    fictionBookData,
-    fantasyBookData,
-    fairyTalesBookData,
-    philosophyBookData,
-    mysteryBookData,
-  ] = await Promise.all([
-    bookController.findByCategory({
-      category: 'best-seller',
-      uid,
-    }),
-    bookController.findByCategory({
-      category: 'adventure',
-      uid,
-    }),
-    bookController.findByCategory({
-      category: 'fiction',
-      uid,
-    }),
-    bookController.findByCategory({
-      category: 'fantasy',
-      uid,
-    }),
-    bookController.findByCategory({
-      category: 'fairy tales',
-      uid,
-    }),
-    bookController.findByCategory({
-      category: 'philosophy',
-      uid,
-    }),
-    bookController.findByCategory({
-      category: 'mystery',
-      uid,
-    }),
-  ]);
-
   return [
     {
       identify: 'recommended-for-you',
       title: 'Recommended For You',
-      books: recommendedForYouData
-        ? recommendedForYouData.docs.map(doc => bookAdapter.toBookData(doc))
-        : [],
+      books: [],
     },
     {
       identify: 'best-seller',
       title: 'Best Seller',
-      books: bestSellerData
-        ? bestSellerData.docs.map(doc => bookAdapter.toBookData(doc))
-        : [],
+      books: [],
     },
     {
       identify: 'fiction',
       title: 'Fiction',
-      books: fictionBookData
-        ? fictionBookData.docs.map(doc => bookAdapter.toBookData(doc))
-        : [],
+      books: [],
     },
     {
       identify: 'fantasy',
       title: 'Fantasy',
-      books: fantasyBookData
-        ? fantasyBookData.docs.map(doc => bookAdapter.toBookData(doc))
-        : [],
+      books: [],
     },
     {
       identify: 'adventure',
       title: 'Adventure',
-      books: adventureBookData
-        ? adventureBookData.docs.map(doc => bookAdapter.toBookData(doc))
-        : [],
+      books: [],
     },
     {
       identify: 'fairy tales',
       title: 'Fairy Tales',
-      books: fairyTalesBookData
-        ? fairyTalesBookData.docs.map(doc => bookAdapter.toBookData(doc))
-        : [],
+      books: [],
     },
     {
       identify: 'philosophy',
       title: 'Philosophy',
-      books: philosophyBookData
-        ? philosophyBookData.docs.map(doc => bookAdapter.toBookData(doc))
-        : [],
+      books: [],
     },
     {
       identify: 'mystery',
       title: 'Mystery',
-      books: mysteryBookData
-        ? mysteryBookData.docs.map(doc => bookAdapter.toBookData(doc))
-        : [],
+      books: [],
     },
   ];
 }
@@ -182,10 +122,16 @@ async function getBookData(id: string) {
   return result ? bookAdapter.toBookData(result) : null;
 }
 
+async function getBookReading(id: string) {
+  const result = await bookController.getReadBookText(id);
+  return result.text;
+}
+
 export const bookService = {
   getBookData,
   getCategories,
   getBookSections,
   getBooksBySearchText,
   getBookListByCategory,
+  getBookReading,
 };

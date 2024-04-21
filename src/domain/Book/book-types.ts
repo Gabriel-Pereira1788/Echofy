@@ -28,7 +28,7 @@ export interface Book {
 
 export interface BookCategory {
   isSelected: boolean;
-  text: string;
+  text: CategoryIdentify;
 }
 
 export interface BookSectionApi {

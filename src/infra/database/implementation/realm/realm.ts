@@ -18,7 +18,7 @@ const open = async () => {
   const allSchemas = realmSchemas.map(item => item.schema);
   const config: Configuration = {
     schema: allSchemas,
-    schemaVersion: 10,
+    schemaVersion: 11,
     path: 'bundle.realm',
   };
   const realm = await Realm.open(config);

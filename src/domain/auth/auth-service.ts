@@ -1,3 +1,5 @@
+import {Schemas, database} from '@infra';
+
 import {authAdapter} from './auth-adapter';
 import {authApi} from './auth-api';
 import {
@@ -19,7 +21,7 @@ async function signUp(data: AuthSignUpDTO) {
   const result = await authApi.signUp(data);
 
   const ac = authAdapter.toAuthCredentials(result);
-
+  database.create(Schemas.User, ac);
   return ac;
 }
 

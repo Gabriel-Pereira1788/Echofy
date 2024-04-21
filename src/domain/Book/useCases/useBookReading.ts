@@ -1,16 +1,16 @@
 import {useQuery} from '@tanstack/react-query';
 
-import {Queries} from '../../types';
+import {Queries} from '../../types/queries';
 import {bookService} from '../book-service';
 
-export function useBookFindById(id: string) {
+export function useBookReading(id: string) {
   const {data, isPending, isError} = useQuery({
-    queryKey: [Queries.Book, id],
-    queryFn: () => bookService.getBookData(id),
+    queryKey: [Queries.BookReading, id],
+    queryFn: () => bookService.getBookReading(id),
   });
 
   return {
-    bookData: data,
+    readingText: data,
     isLoading: isPending,
     isError: isError,
   };

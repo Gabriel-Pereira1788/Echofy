@@ -52,7 +52,8 @@ function App(): React.JSX.Element {
           <GestureHandlerRootView style={{flex: 1}}>
             <AuthProvider>
               <StatusBar
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                backgroundColor={backgroundColor}
+                barStyle={isDarkMode ? 'default' : 'dark-content'}
               />
               <Router />
               <Toast />

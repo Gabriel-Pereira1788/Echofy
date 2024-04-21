@@ -1,7 +1,18 @@
 import React, {useCallback, useRef} from 'react';
-import {FlatList, ListRenderItem, StyleProp, ViewStyle} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItem,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
-import {Book, Book as BookData, BookSection} from '@domain';
+import {
+  Book,
+  Book as BookData,
+  BookSection,
+  useGetBookListByCategory,
+} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 import {dimensions, getDynamicSize} from '@utils';
 
@@ -11,18 +22,24 @@ import {HomeScreenBookSectionItem} from './HomeScreenBookSectionItem';
 
 export interface HomeScreenBookSectionProps {
   sectionIdentify: BookSection['identify'];
-  sectionBooks: BookData[];
   sectionTitle: string;
 }
 
 export function HomeScreenBookSection({
   sectionIdentify,
-  sectionBooks,
+
   sectionTitle,
 }: HomeScreenBookSectionProps) {
+  const navigation = useNavigation();
+
   const flatListRef = useRef<FlatList<Book>>(null);
 
-  const navigation = useNavigation();
+  const {list, getMore, loadingNextPage} =
+    useGetBookListByCategory(sectionIdentify);
+
+  function onEndReached() {
+    getMore();
+  }
   const renderItem: ListRenderItem<BookData> = useCallback(
     ({item}) => {
       return (
@@ -34,6 +51,18 @@ export function HomeScreenBookSection({
     },
     [sectionIdentify],
   );
+
+  const renderFooterComponent = () => {
+    return (
+      <Box
+        marginHorizontal="sp25"
+        height={'100%'}
+        alignItems="center"
+        justifyContent="center">
+        {loadingNextPage && <ActivityIndicator size={20} />}
+      </Box>
+    );
+  };
 
   function redirectToCategoryBookScreen() {
     navigation.navigate('CategoryBookScreen', {
@@ -74,25 +103,17 @@ export function HomeScreenBookSection({
         pagingEnabled
         snapToAlignment="center"
         decelerationRate={'fast'}
+        onEndReached={onEndReached}
+        ListFooterComponent={renderFooterComponent}
         initialNumToRender={3}
+        maxToRenderPerBatch={5}
+        onEndReachedThreshold={0.2}
         snapToInterval={snapToInterval(sectionIdentify)}
-        getItemLayout={(data, index) => {
-          const {dynamicHeight} = getDynamicSize({
-            heightPercentage:
-              sectionIdentify === 'recommended-for-you' ? 55 : 40,
-          });
-
-          return {
-            length: dynamicHeight,
-            offset: dynamicHeight * index,
-            index,
-          };
-        }}
         showsHorizontalScrollIndicator={false}
         style={{
           flex: 1,
         }}
-        data={sectionBooks}
+        data={list}
         renderItem={renderItem}
         contentContainerStyle={$contentContainerStyle}
       />

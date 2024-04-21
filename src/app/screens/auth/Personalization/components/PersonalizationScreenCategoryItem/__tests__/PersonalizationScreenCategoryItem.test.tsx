@@ -8,6 +8,10 @@ import {PersonalizationScreenCategoryItem} from '../PersonalizationScreenCategor
 const allCategoriesMock = bookAdapter.toBookCategory(bookCategoryMock);
 const currentCategory = allCategoriesMock[0];
 const changeSelectedCategoryMock = jest.fn();
+
+beforeAll(() => {
+  jest.useFakeTimers();
+});
 function customRenderComponent() {
   render(
     <PersonalizationScreenCategoryItem

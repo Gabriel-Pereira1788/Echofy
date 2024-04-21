@@ -18,7 +18,7 @@ export interface AuthCredentialsAPI {
   email: string;
   token: string;
   firstLogin?: boolean;
-  userCategories?: string[];
+  userCategories?: CategoryIdentify[];
 }
 
 export interface AuthCredentials {

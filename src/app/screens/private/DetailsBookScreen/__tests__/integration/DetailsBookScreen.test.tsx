@@ -81,8 +81,13 @@ describe('DetailsBookScreen', () => {
       fireEvent.press(readButtonElement);
     });
 
+    const bookData = sectionBooksMock[0].books[0];
+    const bookTitle =
+      bookData.bookTitle.length > 30
+        ? bookData.bookTitle.slice(0, 30) + '...'
+        : bookData.bookTitle;
     //2) check if render read book screen correctly
-    const headerTitleElement = screen.getByText('Read Book Screen');
+    const headerTitleElement = screen.getByText(bookTitle);
     expect(headerTitleElement).toBeTruthy();
   });
   it('Flow: render minimize player , redirect to Player controler screen and run play and pause functions', async () => {

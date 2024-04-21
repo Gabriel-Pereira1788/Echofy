@@ -105,11 +105,16 @@ const findById: BookRepository['findById'] = async query => {
   }
 };
 
+const getReadBookText: BookRepository['getReadBookText'] = async id => {
+  const result = await bookApiRepository.getReadBookText(id);
+  return result;
+};
 export const bookController = {
   getBestSeller,
   getCategories,
   getRecommendedForYou,
   findByCategory,
   findById,
+  getReadBookText,
   findBySearchText,
 };

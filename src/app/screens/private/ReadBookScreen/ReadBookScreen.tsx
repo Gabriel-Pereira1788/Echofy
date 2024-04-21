@@ -1,17 +1,31 @@
 import React from 'react';
+import {ActivityIndicator, ScrollView} from 'react-native';
 
+import {useBookReading} from '@domain';
 import {AppStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
 
-import {IconPress, Text} from '@components';
+import {Box, IconPress, Text} from '@components';
 
-export function ReadBookScreen({navigation}: AppStackProps<'ReadBookScreen'>) {
+export function ReadBookScreen({
+  navigation,
+  route,
+}: AppStackProps<'ReadBookScreen'>) {
+  const {bookId, bookTitle} = route.params;
+
+  const {readingText, isLoading} = useBookReading(bookId);
+  const transformedText = readingText ? readingText.slice(0, 10000) : '';
+
   function goBack() {
     navigation.goBack();
   }
+
+  const _bookTitle =
+    bookTitle.length > 30 ? bookTitle.slice(0, 30) + '...' : bookTitle;
+
   return (
     <SharedWrapperScreen
-      headerTitle={'Read Book Screen'}
+      headerTitle={_bookTitle}
       headerLeft={
         <IconPress
           testID="go-back-player-controller"
@@ -21,7 +35,15 @@ export function ReadBookScreen({navigation}: AppStackProps<'ReadBookScreen'>) {
           onPress={goBack}
         />
       }>
-      <Text text="Read Book SCREEN" />
+      {isLoading ? (
+        <Box flex={1} alignItems="center" justifyContent="center">
+          <ActivityIndicator size={20} />
+        </Box>
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text text={transformedText} preset="medium/10" color="text" />
+        </ScrollView>
+      )}
     </SharedWrapperScreen>
   );
 }

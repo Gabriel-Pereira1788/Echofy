@@ -4,12 +4,20 @@ import {useInfiniteQuery} from '@tanstack/react-query';
 
 import {PaginatedResult} from '../types';
 
-export function usePaginatedList<TData>(
-  queryKey: readonly string[],
-  fetchPage: (page: number) => Promise<PaginatedResult<TData>>,
-) {
+interface PaginatedListProps<TData> {
+  queryKey: readonly string[];
+  fetchPage: (page: number) => Promise<PaginatedResult<TData>>;
+  enabled?: boolean;
+}
+
+export function usePaginatedList<TData>({
+  queryKey,
+  enabled,
+  fetchPage,
+}: PaginatedListProps<TData>) {
   const [list, setList] = useState<TData[]>([]);
   const query = useInfiniteQuery({
+    enabled,
     queryKey,
     queryFn: ({pageParam = 1}) => {
       return fetchPage(pageParam as number);

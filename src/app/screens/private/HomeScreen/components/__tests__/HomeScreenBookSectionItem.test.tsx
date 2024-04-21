@@ -8,6 +8,10 @@ import {HomeScreenBookSectionItem} from '../HomeScreenBookSectionItem';
 type Props = {
   sectionIdentify?: HomeScreenBookSectionProps['sectionIdentify'];
 };
+
+beforeAll(() => {
+  jest.useFakeTimers();
+});
 export function customRender({sectionIdentify}: Props) {
   render(
     <HomeScreenBookSectionItem

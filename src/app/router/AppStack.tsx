@@ -11,7 +11,11 @@ export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabParamList>;
   ProfileScreen: undefined;
   PlayerControllerScreen: undefined;
-  ReadBookScreen: undefined;
+  ReadBookScreen: {
+    bookId: string;
+    readLink: string;
+    bookTitle: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();

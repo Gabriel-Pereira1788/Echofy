@@ -1,4 +1,4 @@
-import {BookCategory} from '../Book';
+import {BookCategory, CategoryIdentify} from '../Book';
 
 import {AuthCredentials, AuthCredentialsAPI} from './auth-types';
 
@@ -12,11 +12,11 @@ function toAuthCredentials(ac: AuthCredentialsAPI): AuthCredentials {
   };
 }
 
-function toCategoriesApi(bookCategories: BookCategory[]): string[] {
+function toCategoriesApi(bookCategories: BookCategory[]): CategoryIdentify[] {
   return bookCategories.reduce((acc, category) => {
     acc = [...acc, category.text];
     return acc;
-  }, [] as string[]);
+  }, [] as CategoryIdentify[]);
 }
 
 export const authAdapter = {

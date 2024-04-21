@@ -12,6 +12,7 @@ export type QueryRecommended = {uid: string} & QueryParams;
 export type QuerySearchByText = {searchText: string} & QueryParams;
 
 export interface BookRepository {
+  getReadBookText: (id: string) => Promise<{text: string}>;
   getCategories: () => Promise<string[]>;
   getRecommendedForYou: (
     query: QueryRecommended,

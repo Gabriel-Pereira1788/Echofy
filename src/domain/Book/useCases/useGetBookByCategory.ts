@@ -5,13 +5,19 @@ import {CategoryIdentify} from '..';
 import {Queries} from '../../types';
 import {bookService} from '../book-service';
 
-export function useGetBookListByCategory(category: CategoryIdentify) {
+export function useGetBookListByCategory(
+  category: CategoryIdentify,
+  initialDataLength: number = 0,
+) {
   const {uid} = useAuthContext();
-  return usePaginatedList([Queries.BookByCategory, category], page => {
-    return bookService.getBookListByCategory({
-      uid,
-      category,
-      skip: page === 1 ? 0 : page * 10,
-    });
+  return usePaginatedList({
+    queryKey: [Queries.BookByCategory, category],
+    fetchPage: page => {
+      return bookService.getBookListByCategory({
+        uid,
+        category,
+        skip: page === 1 ? initialDataLength : page * 10,
+      });
+    },
   });
 }

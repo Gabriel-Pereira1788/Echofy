@@ -82,11 +82,17 @@ async function findById(id: string) {
   return response.data;
 }
 
+async function getReadBookText(id: string) {
+  const response = await api.get<{text: string}>(`book/read-book/${id}`);
+  return response.data;
+}
+
 export const bookApiRepository: Omit<BookRepository, 'create'> = {
   getCategories,
   getBestSeller,
   findByCategory,
   findById,
   findBySearchText,
+  getReadBookText,
   getRecommendedForYou,
 };

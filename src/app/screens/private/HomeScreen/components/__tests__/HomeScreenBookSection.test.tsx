@@ -1,25 +1,42 @@
 import React from 'react';
 
-import {bookMock, fireEvent, mockedNavigate, render, screen} from '@test';
+import {
+  bookMock,
+  bookMockApi,
+  fireEvent,
+  mockedNavigate,
+  render,
+  screen,
+  server,
+} from '@test';
 
 import {
   HomeScreenBookSection,
   HomeScreenBookSectionProps,
 } from '../HomeScreenBookSection';
 
-const mockSectionBooks = [bookMock, bookMock, bookMock];
-
 type Props = {
   sectionIdentify?: HomeScreenBookSectionProps['sectionIdentify'];
   sectionTitle?: string;
 };
-function customRender({
+
+beforeAll(() => {
+  server.listen();
+  jest.useFakeTimers();
+});
+
+afterAll(() => {
+  server.close();
+  // database.close();
+  jest.useRealTimers();
+  jest.resetAllMocks();
+});
+async function customRender({
   sectionIdentify,
   sectionTitle = 'Recommended for you',
 }: Props) {
   render(
     <HomeScreenBookSection
-      sectionBooks={mockSectionBooks}
       sectionIdentify={
         sectionIdentify ? sectionIdentify : 'recommended-for-you'
       }
@@ -27,34 +44,36 @@ function customRender({
     />,
   );
 
+  const bookItens =
+    sectionIdentify && sectionIdentify === 'best-seller'
+      ? await screen.findAllByTestId('best-seller-card')
+      : await screen.findAllByTestId('book-item');
+
   return {
     seeMoreButton: screen.getByText('See more'),
     listSectionBooks: screen.getByTestId('section-books'),
     sectionTitleElement: screen.getByText(sectionTitle),
-    bookItens:
-      sectionIdentify !== 'best-seller'
-        ? screen.getAllByTestId('book-item')
-        : screen.getAllByTestId('best-seller-card'),
+    bookItens,
   };
 }
 
 describe('HomeScreenBookSection', () => {
-  it('should be render component correctly', () => {
+  it('should be render component correctly', async () => {
     const {listSectionBooks, sectionTitleElement, seeMoreButton, bookItens} =
-      customRender({});
+      await customRender({});
 
     const numRenderPerBetch = 3;
     expect(sectionTitleElement).toBeTruthy();
     expect(seeMoreButton).toBeTruthy();
     expect(bookItens.length).toEqual(numRenderPerBetch);
-    expect(listSectionBooks.props.data.length).toEqual(mockSectionBooks.length);
+    expect(listSectionBooks.props.data.length).toEqual(bookMockApi.docs.length);
   });
 
-  it('should be redirect to category book screen on press see more button', () => {
+  it('should be redirect to category book screen on press see more button', async () => {
     const sectionIdentify: HomeScreenBookSectionProps['sectionIdentify'] =
       'adventure';
     const sectionTitle = 'Adventure';
-    const {seeMoreButton} = customRender({sectionIdentify, sectionTitle});
+    const {seeMoreButton} = await customRender({sectionIdentify, sectionTitle});
 
     fireEvent.press(seeMoreButton);
 
@@ -64,11 +83,11 @@ describe('HomeScreenBookSection', () => {
     });
   });
 
-  it('should be redirect to book screen on press book item', () => {
+  it('should be redirect to book screen on press book item', async () => {
     const sectionIdentify: HomeScreenBookSectionProps['sectionIdentify'] =
       'adventure';
 
-    const {bookItens} = customRender({sectionIdentify});
+    const {bookItens} = await customRender({sectionIdentify});
 
     fireEvent.press(bookItens[0]);
 
@@ -77,11 +96,11 @@ describe('HomeScreenBookSection', () => {
     });
   });
 
-  it('should be render best seller card screen', () => {
+  it('should be render best seller card screen', async () => {
     const sectionIdentify: HomeScreenBookSectionProps['sectionIdentify'] =
       'best-seller';
 
-    const {bookItens} = customRender({sectionIdentify});
+    const {bookItens} = await customRender({sectionIdentify});
 
     fireEvent.press(bookItens[0]);
 

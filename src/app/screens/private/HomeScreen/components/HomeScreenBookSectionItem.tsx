@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {Animated} from 'react-native';
 
 import {Book as BookData, BookSection} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 import {dimensions, getDynamicSize} from '@utils';
 
-import {Book, Box, TouchableOpacityBox} from '@components';
+import {Book, TouchableOpacityBox} from '@components';
+
+import {useRenderItemAnimated} from '../hooks';
 
 import {HomeScreenBestSellerCard} from './HomeScreenBestSellerCard';
 
@@ -19,6 +22,13 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
     widthPercentage: 85,
     heightPercentage: 55,
   });
+
+  const {opacity, translationY, renderItem} =
+    useRenderItemAnimated(dynamicHeight);
+
+  useEffect(() => {
+    renderItem();
+  }, [renderItem]);
 
   function redirectToBookScreen() {
     navigation.navigate('DetailsBookScreen', {
@@ -40,7 +50,13 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
     );
   }
   return (
-    <Box flex={1} marginBottom="sp28">
+    <Animated.View
+      style={{
+        opacity: opacity,
+        transform: [{translateY: translationY}],
+        flex: 1,
+        marginTop: 25,
+      }}>
       <Book
         book={book}
         size={
@@ -51,6 +67,6 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
         onPress={redirectToBookScreen}
         renderTitle={sectionIdentify !== 'recommended-for-you'}
       />
-    </Box>
+    </Animated.View>
   );
 }
