@@ -18,3 +18,4 @@ export * from './Category/Category';
 export * from './Book';
 export * from './MinimizePlayer/MinimizePlayer';
 export * from './Modal/Modal';
+export * from './Skeleton/Skeleton';

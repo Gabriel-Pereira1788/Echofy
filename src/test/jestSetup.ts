@@ -1,4 +1,9 @@
-import {setAudioTrackerImpl, setDatabaseImpl} from '@infra';
+import {
+  fileSystemJest,
+  setAudioTrackerImpl,
+  setDatabaseImpl,
+  setFileSystemImpl,
+} from '@infra';
 import {darkTheme, theme} from '@styles';
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 
@@ -9,6 +14,8 @@ import {authCredentialsMock} from './serverHandlers';
 
 setAudioTrackerImpl(audioTrackerJest);
 setDatabaseImpl(databaseJest);
+setFileSystemImpl(fileSystemJest);
+
 jest.mock('react-native-safe-area-context', () => ({
   ...mockSafeAreaContext,
   useSafeAreaInsets: jest.fn(mockSafeAreaContext.useSafeAreaInsets),

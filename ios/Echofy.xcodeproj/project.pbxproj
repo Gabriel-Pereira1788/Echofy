@@ -12,8 +12,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3A3E00AF4F46FFBD87474EE1 /* libPods-Echofy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C153FB43C2F85DF4042D8A /* libPods-Echofy.a */; };
+		4FE36BEFC5B4E181644AECBB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7ADAB537E4C7F3C57BB06 /* ExpoModulesProvider.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9B05F9AF2B59F81600ADD657 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B05F9AE2B59F81600ADD657 /* dummy.swift */; };
+		D3FCA5E5770E7B576FFA68CD /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08E83A0270699FC5A997978 /* ExpoModulesProvider.swift */; };
 		EB6FBBB4EBA159F5A1BF0389 /* libPods-Echofy-EchofyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B13E0B0EEBD4DED2C87FBBA7 /* libPods-Echofy-EchofyTests.a */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +48,8 @@
 		9BBBDC3A2B61340C00F819E7 /* libReact-Fabric.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-Fabric.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BBBDC3C2B61352E00F819E7 /* libReact-RCTFabric.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTFabric.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BBBDC3E2B61354000F819E7 /* libReact-Fabric.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-Fabric.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EA7ADAB537E4C7F3C57BB06 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Echofy-EchofyTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		A08E83A0270699FC5A997978 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Echofy/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		A6CAF79C08783F10BD724E34 /* Pods-Echofy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Echofy.release.xcconfig"; path = "Target Support Files/Pods-Echofy/Pods-Echofy.release.xcconfig"; sourceTree = "<group>"; };
 		B13E0B0EEBD4DED2C87FBBA7 /* libPods-Echofy-EchofyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Echofy-EchofyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C153FB43C2F85DF4042D8A /* libPods-Echofy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Echofy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +123,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2F59749971AD84189CD54D3E /* Echofy */ = {
+			isa = PBXGroup;
+			children = (
+				A08E83A0270699FC5A997978 /* ExpoModulesProvider.swift */,
+			);
+			name = Echofy;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +147,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				E279B4030FCF8E405FB079EF /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -161,6 +174,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E279B4030FCF8E405FB079EF /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				2F59749971AD84189CD54D3E /* Echofy */,
+				F2A47F907E9473C1ADB83A49 /* EchofyTests */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
+		F2A47F907E9473C1ADB83A49 /* EchofyTests */ = {
+			isa = PBXGroup;
+			children = (
+				9EA7ADAB537E4C7F3C57BB06 /* ExpoModulesProvider.swift */,
+			);
+			name = EchofyTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -169,6 +199,7 @@
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "EchofyTests" */;
 			buildPhases = (
 				3448A78008967BAF609A0A9A /* [CP] Check Pods Manifest.lock */,
+				170EBD7D45EAD227A85C1CED /* [Expo] Configure project */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -190,6 +221,7 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Echofy" */;
 			buildPhases = (
 				06BFD5E5D5E52EA3CA2E7DBA /* [CP] Check Pods Manifest.lock */,
+				A07125E8D850BE7FE4EC5DAA /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -276,7 +308,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios relative | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli')\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n";
 		};
 		06BFD5E5D5E52EA3CA2E7DBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -299,6 +331,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		170EBD7D45EAD227A85C1CED /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Echofy-EchofyTests/expo-configure-project.sh\"\n";
 		};
 		3448A78008967BAF609A0A9A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -373,6 +424,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Echofy/Pods-Echofy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A07125E8D850BE7FE4EC5DAA /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Echofy/expo-configure-project.sh\"\n";
+		};
 		C019787F1B0D63DFB30E72C6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -398,6 +468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* EchofyTests.m in Sources */,
+				4FE36BEFC5B4E181644AECBB /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +479,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				9B05F9AF2B59F81600ADD657 /* dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				D3FCA5E5770E7B576FFA68CD /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +516,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Echofy.app/Echofy";
@@ -469,6 +542,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Echofy.app/Echofy";
@@ -494,6 +568,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Echofy;
 				SWIFT_OBJC_BRIDGING_HEADER = "Echofy-Bridging-Header.h";
@@ -521,6 +596,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Echofy;
 				SWIFT_OBJC_BRIDGING_HEADER = "Echofy-Bridging-Header.h";

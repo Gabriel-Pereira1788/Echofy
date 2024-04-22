@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {useAudioTrack} from '@services';
+import {useAudioTrack, useDownload} from '@services';
 
 import {Box, IconPress} from '@components';
 
@@ -17,6 +17,18 @@ export function PlayerFooter({onOpenModal}: Props) {
   const {volumeState, changeVolumeState} = useVolumeState();
 
   const track = useAudioTrack();
+
+  console.log('TRACK', track);
+  const {downloadFile} = useDownload({
+    url: track?.url,
+    onProgress: progress => {
+      console.log('Progress', progress);
+    },
+    onSuccess: uri => {
+      console.log('SUCCESS-URI', uri);
+    },
+    onError: () => {},
+  });
 
   const speedText = `Speed ${mappedSpeedState[speedState]}x`;
   const chapterText = `Chapter ${
@@ -60,7 +72,7 @@ export function PlayerFooter({onOpenModal}: Props) {
         iconName="download"
         color="playerButtonColor"
         label="Download"
-        onPress={() => {}}
+        onPress={downloadFile}
       />
     </Box>
   );

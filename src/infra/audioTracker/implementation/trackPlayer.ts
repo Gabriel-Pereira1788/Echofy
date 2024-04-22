@@ -18,6 +18,7 @@ const mappedEventsListener: Record<
     }),
   trackChanged: (listener: TrackListeners['trackChanged']) =>
     TrackPlayer.addEventListener(Event.PlaybackActiveTrackChanged, event => {
+      console.log('EVENT', event);
       if (event.track) {
         listener({
           artist: event.track.artist!,
@@ -36,15 +37,15 @@ function getTracks() {
 }
 
 async function getActiveTrack(): Promise<Track | null> {
-  const chapterNumber = await TrackPlayer.getActiveTrackIndex();
   const result = await TrackPlayer.getActiveTrack();
-  if (result && chapterNumber) {
+  console.log('RESULT', result);
+  if (result) {
     return {
       artist: result?.artist!,
       artwork: result.artwork!,
       title: result.title!,
       url: result.url!,
-      chapterNumber,
+      chapterNumber: result.chapterNumber!,
     };
   }
 

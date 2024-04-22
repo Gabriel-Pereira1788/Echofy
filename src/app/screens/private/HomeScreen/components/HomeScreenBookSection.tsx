@@ -19,6 +19,7 @@ import {dimensions, getDynamicSize} from '@utils';
 import {Box, Text, TouchableOpacityBox} from '@components';
 
 import {HomeScreenBookSectionItem} from './HomeScreenBookSectionItem';
+import {HomeScreenBookSectionSkeleton} from './HomeScreenBookSectionSkeleton';
 
 export interface HomeScreenBookSectionProps {
   sectionIdentify: BookSection['identify'];
@@ -95,7 +96,7 @@ export function HomeScreenBookSection({
           <Text text="See more" color="textActive" preset="medium/14" />
         </TouchableOpacityBox>
       </Box>
-
+      {/* {true && <HomeScreenBookSectionSkeleton />} */}
       <FlatList
         testID="section-books"
         ref={flatListRef}
@@ -109,6 +110,9 @@ export function HomeScreenBookSection({
         maxToRenderPerBatch={5}
         onEndReachedThreshold={0.2}
         snapToInterval={snapToInterval(sectionIdentify)}
+        ListEmptyComponent={
+          <HomeScreenBookSectionSkeleton sectionIdentify={sectionIdentify} />
+        }
         showsHorizontalScrollIndicator={false}
         style={{
           flex: 1,

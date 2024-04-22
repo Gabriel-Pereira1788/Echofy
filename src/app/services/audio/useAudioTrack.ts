@@ -16,6 +16,7 @@ export function useAudioTrack() {
 
   async function getTrackData() {
     const currentTrack = await audioTracker.getActiveTrack();
+    console.log('CURRENT-TRACK', currentTrack);
     if (currentTrack) {
       setTrack(currentTrack);
     }

@@ -10,10 +10,12 @@ import {StatusBar, useColorScheme} from 'react-native';
 
 import {
   database,
+  expoFs,
   queryClient,
   realmImpl,
   setAudioTrackerImpl,
   setDatabaseImpl,
+  setFileSystemImpl,
   trackPlayer,
 } from '@infra';
 import {ThemeProvider} from '@shopify/restyle';
@@ -31,6 +33,7 @@ global.Buffer = require('buffer').Buffer;
 
 setAudioTrackerImpl(trackPlayer);
 setDatabaseImpl(realmImpl);
+setFileSystemImpl(expoFs);
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';

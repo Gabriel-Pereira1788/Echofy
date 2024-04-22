@@ -2,8 +2,6 @@ import React, {useEffect} from 'react';
 
 import {StorageKeys, Track, audioTracker, storage} from '@infra';
 
-audioTracker.setupPlayer();
-
 export function AudioTrackerPersistenceProvider() {
   async function persistTrackData() {
     const currentTracks = audioTracker.getTracks();
@@ -35,6 +33,7 @@ export function AudioTrackerPersistenceProvider() {
     await audioTracker.play();
   }
   useEffect(() => {
+    audioTracker.setupPlayer();
     persistTrackData();
     audioTracker.setEventListener('trackChanged', _track => {
       if (_track) {
