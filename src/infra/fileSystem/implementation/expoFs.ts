@@ -3,9 +3,11 @@ import {
   createDownloadResumable,
 } from 'expo-file-system/src/FileSystem';
 
-import {FileSystemImpl} from '../types';
+import {DownloadConfig, FileSystemImpl, IDownloadResumable} from '../types';
 
-const download: FileSystemImpl['download'] = async config => {
+const download = async (
+  config: DownloadConfig,
+): Promise<IDownloadResumable> => {
   const dir = documentDirectory;
   console.log('DIR-', dir);
   const downloadResumable = await createDownloadResumable(

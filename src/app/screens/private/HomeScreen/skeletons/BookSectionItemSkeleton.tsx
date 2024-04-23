@@ -3,7 +3,7 @@ import React from 'react';
 import {BookSection} from '@domain';
 import {getDynamicSize} from '@utils';
 
-import {Skeleton} from '@components';
+import {BestSellerCardSkeleton, BookSkeleton} from '@components';
 
 type Props = {
   sectionIdentify: BookSection['identify'];
@@ -19,12 +19,15 @@ export function BookSectionItemSkeleton({sectionIdentify}: Props) {
     sectionIdentify === 'recommended-for-you'
       ? {height: dynamicHeight, width: dynamicWidth}
       : {width: dynamicWidth, height: dynamicWidth};
+
+  if (sectionIdentify === 'best-seller') {
+    return <BestSellerCardSkeleton />;
+  }
   return (
-    <Skeleton
-      width={size?.width}
-      height={size?.height}
-      autoplay
-      borderRadius="rd12"
+    <BookSkeleton
+      size={size}
+      renderAuthor={sectionIdentify !== 'recommended-for-you'}
+      renderTitle={sectionIdentify !== 'recommended-for-you'}
     />
   );
 }

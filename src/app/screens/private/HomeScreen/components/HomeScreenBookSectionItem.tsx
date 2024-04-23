@@ -5,11 +5,9 @@ import {Book as BookData, BookSection} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 import {dimensions, getDynamicSize} from '@utils';
 
-import {Book, TouchableOpacityBox} from '@components';
+import {BestSellerCard, Book, TouchableOpacityBox} from '@components';
 
 import {useRenderItemAnimated} from '../hooks';
-
-import {HomeScreenBestSellerCard} from './HomeScreenBestSellerCard';
 
 type Props = {
   book: BookData;
@@ -45,7 +43,7 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
         }}
         testID="best-seller-card"
         onPress={redirectToBookScreen}>
-        <HomeScreenBestSellerCard book={book} />
+        <BestSellerCard book={book} />
       </TouchableOpacityBox>
     );
   }

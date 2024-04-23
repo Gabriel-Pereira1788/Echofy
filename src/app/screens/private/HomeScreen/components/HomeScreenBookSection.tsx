@@ -18,8 +18,9 @@ import {dimensions, getDynamicSize} from '@utils';
 
 import {Box, Text, TouchableOpacityBox} from '@components';
 
+import {BookSectionSkeleton} from '../skeletons';
+
 import {HomeScreenBookSectionItem} from './HomeScreenBookSectionItem';
-import {HomeScreenBookSectionSkeleton} from './HomeScreenBookSectionSkeleton';
 
 export interface HomeScreenBookSectionProps {
   sectionIdentify: BookSection['identify'];
@@ -111,7 +112,7 @@ export function HomeScreenBookSection({
         onEndReachedThreshold={0.2}
         snapToInterval={snapToInterval(sectionIdentify)}
         ListEmptyComponent={
-          <HomeScreenBookSectionSkeleton sectionIdentify={sectionIdentify} />
+          <BookSectionSkeleton sectionIdentify={sectionIdentify} />
         }
         showsHorizontalScrollIndicator={false}
         style={{
