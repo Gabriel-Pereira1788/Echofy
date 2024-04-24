@@ -21,7 +21,11 @@ export function Skeleton({autoplay = true, ...boxProps}: SkeletonProps) {
     mappedSkeletons[theme.colorScheme ? theme.colorScheme : 'light'];
 
   return (
-    <Box overflow="hidden" {...boxProps} borderRadius="rd12">
+    <Box
+      overflow="hidden"
+      {...boxProps}
+      borderRadius="rd12"
+      style={{backgroundColor: '#ddd'}}>
       <LottieView
         source={skeleton}
         style={{width: '100%', height: '100%'}}

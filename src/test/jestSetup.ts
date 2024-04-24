@@ -113,3 +113,10 @@ jest.mock('@react-navigation/native', () => {
     }),
   };
 });
+
+jest.mock('expo-file-system/src/FileSystem', () => {
+  return {
+    documentDirectory: 'file://document',
+    createDownloadResumable: jest.fn(),
+  };
+});

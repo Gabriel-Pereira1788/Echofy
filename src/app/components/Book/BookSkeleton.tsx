@@ -22,7 +22,11 @@ export function BookSkeleton({
   const $width = size && size.width ? size.width : dynamicWidth;
   const $height = size && size.height ? size.height : dynamicWidth;
   return (
-    <Box flex={1} gap="sp10" justifyContent="flex-start" alignContent="center">
+    <Box
+      gap="sp10"
+      justifyContent="flex-start"
+      alignContent="center"
+      testID="book-skeleton-item">
       <Skeleton width={$width} height={$height} autoplay />
       <Box
         padding="sp3"

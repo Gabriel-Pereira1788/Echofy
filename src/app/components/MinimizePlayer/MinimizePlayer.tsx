@@ -61,7 +61,7 @@ export function MinimizePlayer({}: Props) {
 
   return (
     <Box position="absolute" bottom={bottom} zIndex={0}>
-      <PanGestureHandler onEnded={handleGestureEvent} hitSlop={20}>
+      <PanGestureHandler onEnded={handleGestureEvent} hitSlop={50}>
         <Animated.View
           style={{
             transform: [{translateY: translationY}],

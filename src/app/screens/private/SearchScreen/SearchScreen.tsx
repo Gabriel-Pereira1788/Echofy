@@ -1,22 +1,19 @@
 import React, {useCallback, useState} from 'react';
-import {ActivityIndicator, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 
 import {useBookFindByText} from '@domain';
 import {CommonStackProps} from '@router';
 import {SharedBrandHeader, SharedWrapperScreen} from '@shared';
 
-import {Box} from '@components';
 import {useScrollEndReached} from '@hooks';
 
 import {SearchScreenExploreInput} from './components/SearchScreenExploreInput';
-import SearchScreenLatestList from './components/SearchScreenLatestList';
-import {SearchScreenRecommendedCategories} from './components/SearchScreenRecommendedCategories';
-import {SearchScreenResultsList} from './components/SearchScreenResultsList';
+import {SearchScreenMainContent} from './components/SearchScreenMainContent';
 
 export function SearchScreen({}: CommonStackProps<'MainScreen'>) {
   const [searchText, setSearchText] = useState('');
 
-  const {list, hasNextPage, getMore, loadingNextPage} =
+  const {list, hasNextPage, getMore, loadingNextPage, isLoading} =
     useBookFindByText(searchText);
 
   const renderSearchHistory =
@@ -41,18 +38,12 @@ export function SearchScreen({}: CommonStackProps<'MainScreen'>) {
         onScroll={onScroll}>
         <SharedBrandHeader />
         <SearchScreenExploreInput onChangeText={handleOnChangeText} />
-        <Box flex={1} marginTop="sp10" width={'100%'}>
-          {renderSearchHistory ? (
-            <Box gap="sp20">
-              <SearchScreenRecommendedCategories />
-              <SearchScreenLatestList />
-            </Box>
-          ) : (
-            <SearchScreenResultsList books={list} />
-          )}
-
-          {loadingNextPage && <ActivityIndicator size={20} />}
-        </Box>
+        <SearchScreenMainContent
+          list={list}
+          isLoading={isLoading}
+          loadingNextPage={loadingNextPage}
+          renderSearchHistory={renderSearchHistory}
+        />
       </ScrollView>
     </SharedWrapperScreen>
   );

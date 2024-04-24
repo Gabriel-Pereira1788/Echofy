@@ -32,7 +32,7 @@ export function HomeScreen({}: CommonStackProps<'MainScreen'>) {
           showsVerticalScrollIndicator={false}
           style={{flex: 1}}
           maxToRenderPerBatch={3}
-          contentContainerStyle={{flexGrow: 1}}
+          contentContainerStyle={{flexGrow: 1, paddingBottom: 100}}
           keyExtractor={item => item.identify}
           renderItem={renderItem}
         />
