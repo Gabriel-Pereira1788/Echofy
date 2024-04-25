@@ -1,0 +1,70 @@
+import React, {useRef, useState} from 'react';
+import {FlatList, ListRenderItemInfo} from 'react-native';
+
+import {Box} from '../Box/Box';
+import {Text} from '../Text/Text';
+import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
+
+import {CarouselContent} from './CarouselContent';
+import {CarouselSelector} from './CarouselSelector';
+
+type CarouselProps<TContent> = {
+  text: string;
+  content: TContent[];
+  renderItem: ({item}: ListRenderItemInfo<TContent>) => JSX.Element;
+  RightComponent?: JSX.Element;
+};
+
+export function Carousel<TContent>({
+  text,
+  content,
+  renderItem,
+  RightComponent,
+}: CarouselProps<TContent>) {
+  const flatListRef = useRef<FlatList>(null);
+  const [currentPosition, setCurrentPosition] = useState(0);
+
+  function onSelect(position: number) {
+    return () => {
+      setCurrentPosition(position);
+      flatListRef.current?.scrollToIndex({
+        animated: true,
+        index: position,
+      });
+    };
+  }
+  return (
+    <Box width={'100%'} marginVertical="sp25">
+      <Text
+        text={text}
+        preset="semiBold/14"
+        setColorsTheme={{light: 'neutral80', dark: 'neutral5'}}
+      />
+      <CarouselContent
+        flatListRef={flatListRef}
+        content={content}
+        renderItem={renderItem}
+        onChangeContent={position => {
+          setCurrentPosition(position);
+        }}
+      />
+
+      <Box
+        width={'100%'}
+        flexDirection="row"
+        marginVertical="sp10"
+        alignItems="center"
+        justifyContent={RightComponent ? 'space-between' : 'center'}>
+        <Box gap="sp15" flexDirection="row">
+          {content.map((_, index) => (
+            <TouchableOpacityBox key={index} onPress={onSelect(index)}>
+              <CarouselSelector isSelected={index === currentPosition} />
+            </TouchableOpacityBox>
+          ))}
+        </Box>
+
+        {RightComponent && RightComponent}
+      </Box>
+    </Box>
+  );
+}

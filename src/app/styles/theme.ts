@@ -62,6 +62,9 @@ export const theme = createTheme({
     placeHolderTextColor: pallete.neutral40,
     text: pallete.black,
     border: pallete.primary50,
+
+    carouselBackground: pallete.neutral20,
+    carouselSelected: pallete.primary50,
   },
   spacing: {
     sp3: 3,
@@ -83,6 +86,7 @@ export const theme = createTheme({
     rd8: 8,
     rd12: 12,
     rd15: 15,
+    rd100: 100,
   },
 });
 
@@ -118,5 +122,8 @@ export const darkTheme = createTheme({
     placeHolderTextColor: pallete.neutral60,
     text: pallete.white,
     border: pallete.white,
+
+    carouselBackground: pallete.neutral80,
+    carouselSelected: pallete.accent50,
   },
 });

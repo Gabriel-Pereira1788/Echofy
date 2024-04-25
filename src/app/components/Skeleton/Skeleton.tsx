@@ -25,7 +25,7 @@ export function Skeleton({autoplay = true, ...boxProps}: SkeletonProps) {
       overflow="hidden"
       {...boxProps}
       borderRadius="rd12"
-      style={{backgroundColor: '#ddd'}}>
+      backgroundColor="contrast">
       <LottieView
         source={skeleton}
         style={{width: '100%', height: '100%'}}

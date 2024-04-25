@@ -8,7 +8,7 @@ import {CommonStackProps} from '@router';
 import {usePlayerActions} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
-import {BookAttribution, Box} from '@components';
+import {BookAttribution, Box, Carousel, Text} from '@components';
 
 import {
   DetailsBookCategories,
@@ -16,7 +16,11 @@ import {
   DetailsBookMediaOption,
   DetailsBookSummary,
 } from './components';
+import {DetailsBookReviewItem} from './components/DetailsBookReviewItem';
 import {toTrackData} from './functions/toTrackData';
+
+const REVIEW =
+  'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis enim velit mollit. ';
 
 export function DetailsBookScreen({
   route,
@@ -82,6 +86,26 @@ export function DetailsBookScreen({
             onReadBook={redirectToReadBookScreen}
           />
           <DetailsBookSummary summary={bookData.bookDesc} />
+
+          <Carousel
+            text="Review"
+            content={[1, 2, 3]}
+            RightComponent={
+              <Text text="View More" preset="medium/14" color="accent50" />
+            }
+            renderItem={({index}) => (
+              <DetailsBookReviewItem
+                key={index}
+                review={REVIEW}
+                starRating={3}
+                user={{
+                  coverUrl:
+                    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                  name: 'Elena Campbell',
+                }}
+              />
+            )}
+          />
         </Box>
       )}
     </SharedWrapperScreen>
