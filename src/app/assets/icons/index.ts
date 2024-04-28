@@ -19,3 +19,4 @@ export * from './volumeDownIcon/VolumeDownIcon';
 export * from './volumeOffIcon/VolumeOffIcon';
 export * from './pauseIcon/PauseIcon';
 export * from './arrowDown/ArrowDown';
+export * from './star/Star';

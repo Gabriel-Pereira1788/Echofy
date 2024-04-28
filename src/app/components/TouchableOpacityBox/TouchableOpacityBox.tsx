@@ -4,7 +4,7 @@ import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 import {Box, BoxProps} from '../Box/Box';
 
 export interface ITouchableOpacityBoxProps extends TouchableOpacityProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   boxProps?: BoxProps;
 }
 
@@ -16,7 +16,7 @@ export function TouchableOpacityBox({
 }: ITouchableOpacityBoxProps) {
   return (
     <TouchableOpacity {...rest}>
-      <Box {...boxProps}>{children}</Box>
+      <Box {...boxProps}>{children && children}</Box>
     </TouchableOpacity>
   );
 }

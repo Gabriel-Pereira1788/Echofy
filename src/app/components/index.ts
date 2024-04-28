@@ -23,3 +23,4 @@ export * from './Skeleton/Skeleton';
 export * from './BestSellerCard/BestSellerCard';
 export * from './BestSellerCard/BestSellerCardSkeleton';
 export * from './Carousel/Carousel';
+export * from './StarRating/StarRating';

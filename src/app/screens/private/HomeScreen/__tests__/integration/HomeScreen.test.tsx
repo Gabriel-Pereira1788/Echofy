@@ -30,7 +30,7 @@ beforeAll(() => {
 
 afterAll(() => {
   server.close();
-  // database.close();
+
   jest.useRealTimers();
   jest.resetAllMocks();
 });

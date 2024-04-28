@@ -3,7 +3,6 @@ import {FlatList, ListRenderItemInfo} from 'react-native';
 
 import {Box} from '../Box/Box';
 import {Text} from '../Text/Text';
-import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
 import {CarouselContent} from './CarouselContent';
 import {CarouselSelector} from './CarouselSelector';
@@ -26,7 +25,6 @@ export function Carousel<TContent>({
 
   function onSelect(position: number) {
     return () => {
-      setCurrentPosition(position);
       flatListRef.current?.scrollToIndex({
         animated: true,
         index: position,
@@ -57,9 +55,11 @@ export function Carousel<TContent>({
         justifyContent={RightComponent ? 'space-between' : 'center'}>
         <Box gap="sp15" flexDirection="row">
           {content.map((_, index) => (
-            <TouchableOpacityBox key={index} onPress={onSelect(index)}>
-              <CarouselSelector isSelected={index === currentPosition} />
-            </TouchableOpacityBox>
+            <CarouselSelector
+              key={index}
+              isSelected={index === currentPosition}
+              onPress={onSelect(index)}
+            />
           ))}
         </Box>
 

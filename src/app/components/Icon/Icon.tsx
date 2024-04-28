@@ -16,6 +16,7 @@ import {
   PlayIcon,
   SearchIcon,
   Settings,
+  Star,
   TickSquare,
   TimeSquareIcon,
   VolumeDownIcon,
@@ -65,4 +66,5 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   download: DownloadIcon,
   volumeDown: VolumeDownIcon,
   volumeOff: volumeOffIcon,
+  star: Star,
 };

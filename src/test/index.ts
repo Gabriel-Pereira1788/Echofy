@@ -13,6 +13,7 @@ export {
   allCategoriesMock,
   sectionBooksMock,
   bookMock,
+  reviewMock,
   bookMockApi,
   authCredentialsValidatedAPIMock,
 } from './serverHandlers';

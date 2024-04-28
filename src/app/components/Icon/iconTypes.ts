@@ -20,7 +20,8 @@ export type IconMappedKey =
   | 'timeSquare'
   | 'download'
   | 'volumeDown'
-  | 'volumeOff';
+  | 'volumeOff'
+  | 'star';
 export interface IconProps {
   iconName: IconMappedKey;
   color: keyof Theme['colors'];

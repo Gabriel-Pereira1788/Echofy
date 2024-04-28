@@ -14,7 +14,6 @@ type CarouselContentProps<TContent> = {
 };
 
 const viewConfig = {
-  waitForInteraction: true,
   viewAreaCoveragePercentThreshold: 20,
 };
 
@@ -51,6 +50,7 @@ export function CarouselContent<TContent>({
 
   return (
     <FlatList
+      testID="carousel-content"
       ref={flatListRef}
       showsHorizontalScrollIndicator={false}
       snapToInterval={dimensions.width}

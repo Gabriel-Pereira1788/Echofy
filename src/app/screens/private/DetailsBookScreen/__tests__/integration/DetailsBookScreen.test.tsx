@@ -6,6 +6,7 @@ import {
   act,
   fireEvent,
   renderScreen,
+  reviewMock,
   screen,
   sectionBooksMock,
   server,
@@ -21,11 +22,10 @@ beforeAll(() => {
 
 afterAll(() => {
   server.close();
-  jest.useRealTimers();
-});
+  // server.resetHandlers();
 
-afterEach(() => {
-  server.resetHandlers();
+  jest.useRealTimers();
+  jest.resetAllMocks();
 });
 
 async function customRenderScreen() {
@@ -74,7 +74,7 @@ describe('DetailsBookScreen', () => {
   });
 
   it('Flow: redirect to ReadBookScreen', async () => {
-    const {readButtonElement} = await customRenderScreen();
+    const {readButtonElement, bookAuthor} = await customRenderScreen();
 
     //1) press readButtonElement
     act(() => {
@@ -89,9 +89,98 @@ describe('DetailsBookScreen', () => {
     //2) check if render read book screen correctly
     const headerTitleElement = screen.getByText(bookTitle);
     expect(headerTitleElement).toBeTruthy();
+
+    //3) go back to details book screen
+    const goBackButton = screen.getByTestId('go-back-player-controller');
+    expect(goBackButton).toBeTruthy();
+
+    act(() => {
+      fireEvent.press(goBackButton);
+    });
+    expect(bookAuthor).toBeTruthy();
+  });
+
+  it('Flow: show review content and redirect to book review panels', async () => {
+    const {} = await customRenderScreen();
+
+    //1) Render content correctly
+    const carouselContent = screen.getByTestId('carousel-content');
+    expect(carouselContent).toBeTruthy();
+
+    const carouselSelectors = screen.getAllByTestId('carousel-selector');
+    expect(carouselSelectors.length).toEqual(reviewMock.docs.length);
+
+    const viewMoreButton = screen.getByText(/view more/i);
+    expect(viewMoreButton).toBeTruthy();
+
+    //2) scroll current content display
+    const eventData = {
+      contentSize: {
+        // Dimensions of the scrollable content
+        height: 500,
+        width: 2000,
+      },
+      layoutMeasurement: {
+        // Dimensions of the device
+        height: 100,
+        width: 2000,
+      },
+    };
+    //2.1 scroll to first item
+    await act(() => {
+      fireEvent.scroll(carouselContent, {
+        nativeEvent: {
+          ...eventData,
+          contentOffset: {
+            x: 300,
+          },
+        },
+      });
+    });
+
+    const carouselFirstItem = carouselSelectors[0].props.children[0];
+    expect(carouselFirstItem.props.backgroundColor).toEqual('carouselSelected');
+
+    //2.2 scroll to second item
+    await act(() => {
+      fireEvent.scroll(carouselContent, {
+        nativeEvent: {
+          ...eventData,
+          contentOffset: {
+            x: 1000,
+          },
+        },
+      });
+    });
+
+    const carouselSecondItem = carouselSelectors[1].props.children[0];
+    expect(carouselSecondItem.props.backgroundColor).toEqual(
+      'carouselSelected',
+    );
+
+    //2.3 scroll to third item
+    await act(() => {
+      fireEvent.scroll(carouselContent, {
+        nativeEvent: {
+          ...eventData,
+          contentOffset: {
+            x: 1500,
+          },
+        },
+      });
+    });
+
+    const carouselThirdItem = carouselSelectors[2].props.children[0];
+    expect(carouselThirdItem.props.backgroundColor).toEqual('carouselSelected');
+
+    //3 Redirect to book review panels screen
+    fireEvent.press(viewMoreButton);
+
+    const textBookReviewPanel = screen.getByText('BookReviewPanel');
+    expect(textBookReviewPanel).toBeTruthy();
   });
   it('Flow: render minimize player , redirect to Player controler screen and run play and pause functions', async () => {
-    const {playButtonElement} = await customRenderScreen();
+    const {playButtonElement, bookTitle} = await customRenderScreen();
 
     act(() => {
       fireEvent.press(playButtonElement);
@@ -136,5 +225,11 @@ describe('DetailsBookScreen', () => {
     await waitFor(() => expect(spyAudioPlay).toHaveBeenCalled());
     const pauseIcon = screen.getByTestId('pause-icon');
     expect(pauseIcon).toBeTruthy();
+
+    //6 go back to details book screen
+    act(() => {
+      fireEvent.press(goBackButton);
+    });
+    expect(bookTitle).toBeTruthy();
   });
 });

@@ -1,23 +1,15 @@
 import React from 'react';
 import {Image} from 'react-native';
 
-import {Box, Text} from '@components';
+import {Review} from '@domain';
 
-type StarRating = 1 | 2 | 3 | 4 | 5;
+import {Box, StarRating, Text} from '@components';
+
 type DetailsBookReviewItem = {
-  user: {
-    coverUrl: string;
-    name: string;
-  };
-  starRating: StarRating;
-  review: string;
+  review: Review;
 };
 
-export function DetailsBookReviewItem({
-  user,
-  starRating,
-  review,
-}: DetailsBookReviewItem) {
+export function DetailsBookReviewItem({review}: DetailsBookReviewItem) {
   return (
     <Box
       flex={1}
@@ -31,14 +23,14 @@ export function DetailsBookReviewItem({
             resizeMode="cover"
             style={{width: '100%', height: '100%'}}
             source={{
-              uri: user.coverUrl,
+              uri: review.author.profile_image,
             }}
           />
         </Box>
 
         <Box gap="sp3">
           <Text
-            text={user.name}
+            text={review.author.name}
             preset="medium/14"
             setColorsTheme={{
               dark: 'neutral5',
@@ -46,12 +38,12 @@ export function DetailsBookReviewItem({
             }}
           />
 
-          <Text text={String(starRating)} preset="medium/14" color="accent50" />
+          <StarRating rating={review.voteRating} />
         </Box>
       </Box>
 
       <Text
-        text={review}
+        text={review.content}
         align="justify"
         preset="light/14"
         setColorsTheme={{dark: 'neutral20', light: 'neutral60'}}

@@ -1,14 +1,20 @@
 import React from 'react';
 import {ActivityIndicator} from 'react-native';
 
-import {useBookFindById} from '@domain';
+import {useBookFindById, useReviewsList} from '@domain';
 import {audioTracker} from '@infra';
 import {useNavigation} from '@react-navigation/native';
 import {CommonStackProps} from '@router';
 import {usePlayerActions} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
-import {BookAttribution, Box, Carousel, Text} from '@components';
+import {
+  BookAttribution,
+  Box,
+  Carousel,
+  Text,
+  TouchableOpacityBox,
+} from '@components';
 
 import {
   DetailsBookCategories,
@@ -19,15 +25,13 @@ import {
 import {DetailsBookReviewItem} from './components/DetailsBookReviewItem';
 import {toTrackData} from './functions/toTrackData';
 
-const REVIEW =
-  'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis enim velit mollit. ';
-
 export function DetailsBookScreen({
   route,
 }: CommonStackProps<'DetailsBookScreen'>) {
   const bookId = route && route.params ? route.params.id : 'testID';
 
   const {bookData, isLoading} = useBookFindById(bookId);
+  const {reviews} = useReviewsList(bookId, 4);
 
   const navigation = useNavigation();
   const playerActions = usePlayerActions();
@@ -59,6 +63,12 @@ export function DetailsBookScreen({
     }
   }
 
+  function redirectToBookReviewPanel() {
+    if (bookData) {
+      navigation.navigate('BookReviewPanel', {bookId: bookData.id});
+    }
+  }
+
   const bookTitle = bookData
     ? bookData.bookTitle.length > 30
       ? bookData.bookTitle.slice(0, 30) + '...'
@@ -69,45 +79,37 @@ export function DetailsBookScreen({
     <SharedWrapperScreen goBack headerTitle={bookTitle} scrollEnabled>
       {isLoading && !bookData && <ActivityIndicator size={20} />}
 
-      {bookData && (
-        <Box
-          flex={1}
-          width={'100%'}
-          alignItems="center"
-          justifyContent="center">
-          <DetailsBookCover coverURI={bookData.bookImage} />
-          <BookAttribution
-            author={bookData?.bookAuthor ?? ''}
-            title={bookData?.bookTitle ?? ''}
-          />
-          <DetailsBookCategories categories={bookData.bookGenres ?? []} />
-          <DetailsBookMediaOption
-            onPlayAudio={onPlayAudio}
-            onReadBook={redirectToReadBookScreen}
-          />
-          <DetailsBookSummary summary={bookData.bookDesc} />
-
+      <Box flex={1} width={'100%'} alignItems="center" justifyContent="center">
+        {bookData && (
+          <>
+            <DetailsBookCover coverURI={bookData.bookImage} />
+            <BookAttribution
+              author={bookData?.bookAuthor ?? ''}
+              title={bookData?.bookTitle ?? ''}
+            />
+            <DetailsBookCategories categories={bookData.bookGenres ?? []} />
+            <DetailsBookMediaOption
+              onPlayAudio={onPlayAudio}
+              onReadBook={redirectToReadBookScreen}
+            />
+            <DetailsBookSummary summary={bookData.bookDesc} />
+          </>
+        )}
+        {reviews && reviews.length > 0 && (
           <Carousel
             text="Review"
-            content={[1, 2, 3]}
+            content={reviews}
             RightComponent={
-              <Text text="View More" preset="medium/14" color="accent50" />
+              <TouchableOpacityBox onPress={redirectToBookReviewPanel}>
+                <Text text="View More" preset="medium/14" color="accent50" />
+              </TouchableOpacityBox>
             }
-            renderItem={({index}) => (
-              <DetailsBookReviewItem
-                key={index}
-                review={REVIEW}
-                starRating={3}
-                user={{
-                  coverUrl:
-                    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                  name: 'Elena Campbell',
-                }}
-              />
+            renderItem={({item}) => (
+              <DetailsBookReviewItem key={item.id} review={item} />
             )}
           />
-        </Box>
-      )}
+        )}
+      </Box>
     </SharedWrapperScreen>
   );
 }

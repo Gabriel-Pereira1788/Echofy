@@ -9,6 +9,7 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {
+  BookReviewPanel,
   CategoryBookScreen,
   DetailsBookScreen,
   HomeScreen,
@@ -30,6 +31,7 @@ const Tab = createBottomTabNavigator<AppTabParamList>();
 export type CommonStackParamList = {
   MainScreen: undefined;
   DetailsBookScreen: {id: string};
+  BookReviewPanel: {bookId: string};
   CategoryBookScreen: {
     categoryIdentify: CategoryIdentify;
     categoryTitle: string;
@@ -49,6 +51,7 @@ export function createCommonStackNavigator(
       <Stack.Screen name={'MainScreen'} component={MainRouteComponent} />
       <Stack.Screen name="CategoryBookScreen" component={CategoryBookScreen} />
       <Stack.Screen name="DetailsBookScreen" component={DetailsBookScreen} />
+      <Stack.Screen name="BookReviewPanel" component={BookReviewPanel} />
     </Stack.Navigator>
   );
 }
