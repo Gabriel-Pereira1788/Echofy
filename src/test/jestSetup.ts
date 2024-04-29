@@ -120,3 +120,5 @@ jest.mock('expo-file-system/src/FileSystem', () => {
     createDownloadResumable: jest.fn(),
   };
 });
+
+jest.mock('react-native-linear-gradient', () => 'LinearGradient');

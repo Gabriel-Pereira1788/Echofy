@@ -1,2 +1,2 @@
 export * from './useCases';
-export type {Review} from './review-types';
+export type {Review, Author} from './review-types';

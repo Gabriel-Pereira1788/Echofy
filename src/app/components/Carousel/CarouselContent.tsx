@@ -28,6 +28,7 @@ export function CarouselContent<TContent>({
       return (
         <Box
           width={dimensions.width - 28}
+          marginVertical="sp15"
           justifyContent="flex-start"
           alignItems="flex-start">
           {renderItem(itemInfo)}

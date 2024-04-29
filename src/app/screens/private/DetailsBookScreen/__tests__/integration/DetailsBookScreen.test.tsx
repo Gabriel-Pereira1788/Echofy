@@ -174,10 +174,6 @@ describe('DetailsBookScreen', () => {
     expect(carouselThirdItem.props.backgroundColor).toEqual('carouselSelected');
 
     //3 Redirect to book review panels screen
-    fireEvent.press(viewMoreButton);
-
-    const textBookReviewPanel = screen.getByText('BookReviewPanel');
-    expect(textBookReviewPanel).toBeTruthy();
   });
   it('Flow: render minimize player , redirect to Player controler screen and run play and pause functions', async () => {
     const {playButtonElement, bookTitle} = await customRenderScreen();

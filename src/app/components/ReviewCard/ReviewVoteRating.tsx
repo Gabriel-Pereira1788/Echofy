@@ -13,7 +13,7 @@ type Props = {
 
 const ratingCount = Array.from({length: 5});
 
-export function StarRating({rating, size}: Props) {
+export function ReviewVoteRating({rating, size}: Props) {
   return (
     <Box flexDirection="row" gap="sp10">
       {ratingCount.map((_, index) => (

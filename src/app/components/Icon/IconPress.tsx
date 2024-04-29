@@ -12,6 +12,7 @@ interface IconPressProps extends IconBaseProps {
   testID?: string;
   iconTestId?: string;
   label?: string;
+  hitSlop?: number;
 }
 
 export function IconPress({
@@ -19,12 +20,14 @@ export function IconPress({
   label,
   iconTestId,
   testID,
+  hitSlop,
   ...iconProps
 }: IconPressProps) {
   return (
     <TouchableOpacityBox
       testID={testID}
       onPress={onPress}
+      hitSlop={hitSlop}
       activeOpacity={0.8}
       boxProps={{
         gap: 'sp10',

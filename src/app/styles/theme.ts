@@ -86,6 +86,7 @@ export const theme = createTheme({
     rd8: 8,
     rd12: 12,
     rd15: 15,
+    rd40: 40,
     rd100: 100,
   },
 });

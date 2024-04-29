@@ -21,7 +21,8 @@ export type IconMappedKey =
   | 'download'
   | 'volumeDown'
   | 'volumeOff'
-  | 'star';
+  | 'star'
+  | 'penSquare';
 export interface IconProps {
   iconName: IconMappedKey;
   color: keyof Theme['colors'];

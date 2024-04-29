@@ -21,6 +21,7 @@ type Preset =
   | 'regular/16'
   | 'semiBold/14'
   | 'semiBold/24'
+  | 'bold/40'
   | undefined;
 
 interface CommonTextProps<T> {

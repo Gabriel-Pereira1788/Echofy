@@ -13,6 +13,7 @@ import {
   HomeIcon,
   PaperIcon,
   PauseIcon,
+  PenSquare,
   PlayIcon,
   SearchIcon,
   Settings,
@@ -67,4 +68,5 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   volumeDown: VolumeDownIcon,
   volumeOff: volumeOffIcon,
   star: Star,
+  penSquare: PenSquare,
 };

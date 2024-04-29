@@ -12,6 +12,7 @@ import {
   BookAttribution,
   Box,
   Carousel,
+  ReviewCard,
   Text,
   TouchableOpacityBox,
 } from '@components';
@@ -22,7 +23,6 @@ import {
   DetailsBookMediaOption,
   DetailsBookSummary,
 } from './components';
-import {DetailsBookReviewItem} from './components/DetailsBookReviewItem';
 import {toTrackData} from './functions/toTrackData';
 
 export function DetailsBookScreen({
@@ -65,7 +65,11 @@ export function DetailsBookScreen({
 
   function redirectToBookReviewPanel() {
     if (bookData) {
-      navigation.navigate('BookReviewPanel', {bookId: bookData.id});
+      navigation.navigate('BookReviewPanel', {
+        bookId: bookData.id,
+        bookImage: bookData.bookImage,
+        bookTitle: bookData.bookTitle,
+      });
     }
   }
 
@@ -104,9 +108,7 @@ export function DetailsBookScreen({
                 <Text text="View More" preset="medium/14" color="accent50" />
               </TouchableOpacityBox>
             }
-            renderItem={({item}) => (
-              <DetailsBookReviewItem key={item.id} review={item} />
-            )}
+            renderItem={({item}) => <ReviewCard review={item} />}
           />
         )}
       </Box>

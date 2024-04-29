@@ -31,7 +31,7 @@ const Tab = createBottomTabNavigator<AppTabParamList>();
 export type CommonStackParamList = {
   MainScreen: undefined;
   DetailsBookScreen: {id: string};
-  BookReviewPanel: {bookId: string};
+  BookReviewPanel: {bookId: string; bookImage: string; bookTitle: string};
   CategoryBookScreen: {
     categoryIdentify: CategoryIdentify;
     categoryTitle: string;
