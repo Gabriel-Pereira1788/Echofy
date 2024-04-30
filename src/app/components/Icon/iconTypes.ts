@@ -22,6 +22,7 @@ export type IconMappedKey =
   | 'volumeDown'
   | 'volumeOff'
   | 'star'
+  | 'plus'
   | 'penSquare';
 export interface IconProps {
   iconName: IconMappedKey;

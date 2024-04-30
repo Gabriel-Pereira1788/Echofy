@@ -7,3 +7,4 @@ export * from './CategoryBooks/CategoryBookScreen';
 export * from './PlayerControllerScreen/PlayerControllerScreen';
 export * from './ReadBookScreen/ReadBookScreen';
 export * from './BookReviewPanel/BookReviewPanel';
+export * from './NewReviewScreen/NewReviewScreen';

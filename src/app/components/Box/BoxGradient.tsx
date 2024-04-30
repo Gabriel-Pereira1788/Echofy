@@ -26,12 +26,7 @@ export function BoxGradient({
 }: BoxGradientProps) {
   const $colors = colors.map(colorKey => theme.colors[colorKey]);
   return (
-    <Box
-      width={'100%'}
-      height={100}
-      {...boxProps}
-      overflow="hidden"
-      style={style}>
+    <Box width={'100%'} {...boxProps} overflow="hidden" style={style}>
       <LinearGradient
         start={startAxis}
         end={endAxis}

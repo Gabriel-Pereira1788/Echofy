@@ -11,6 +11,7 @@ export {
   authCredentialsAPIMock,
   bookCategoryMock,
   allCategoriesMock,
+  reviewsListMock,
   sectionBooksMock,
   bookMock,
   reviewMock,

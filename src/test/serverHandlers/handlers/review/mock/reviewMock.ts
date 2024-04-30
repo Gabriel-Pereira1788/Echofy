@@ -1,5 +1,5 @@
 import {PaginatedDocs} from '@infra';
-import {ReviewApi} from 'src/domain/Review/review-types';
+import {Review, ReviewApi} from 'src/domain/Review/review-types';
 
 const docs: ReviewApi[] = [
   {
@@ -54,3 +54,12 @@ export const reviewMock: PaginatedDocs<ReviewApi> = {
   totalDocs: 4,
   totalPages: 1,
 };
+
+export const reviewsListMock: Review[] = reviewMock.docs.map(review => {
+  return {
+    author: review.author,
+    content: review.content,
+    id: review.id,
+    voteRating: review.vote_rating,
+  };
+});

@@ -1,4 +1,4 @@
-import {dimensions} from './dimensions';
+import {dimensions} from '../constants';
 
 type Props = {
   widthPercentage?: number;

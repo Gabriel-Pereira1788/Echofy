@@ -6,5 +6,5 @@ export function makeVoteAverage(reviews?: Review[]) {
 
   const voteAverage = reviews ? totalVoteRating! / reviews.length : 0;
 
-  return voteAverage.toFixed(1);
+  return voteAverage > 5 ? '5.0' : voteAverage.toFixed(1);
 }

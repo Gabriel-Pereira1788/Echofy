@@ -126,7 +126,7 @@ describe('DetailsBookScreen', () => {
         width: 2000,
       },
     };
-    //2.1 scroll to first item
+    //2.1) scroll to first item
     await act(() => {
       fireEvent.scroll(carouselContent, {
         nativeEvent: {
@@ -141,7 +141,7 @@ describe('DetailsBookScreen', () => {
     const carouselFirstItem = carouselSelectors[0].props.children[0];
     expect(carouselFirstItem.props.backgroundColor).toEqual('carouselSelected');
 
-    //2.2 scroll to second item
+    //2.2) scroll to second item
     await act(() => {
       fireEvent.scroll(carouselContent, {
         nativeEvent: {
@@ -158,7 +158,7 @@ describe('DetailsBookScreen', () => {
       'carouselSelected',
     );
 
-    //2.3 scroll to third item
+    //2.3) scroll to third item
     await act(() => {
       fireEvent.scroll(carouselContent, {
         nativeEvent: {
@@ -173,7 +173,11 @@ describe('DetailsBookScreen', () => {
     const carouselThirdItem = carouselSelectors[2].props.children[0];
     expect(carouselThirdItem.props.backgroundColor).toEqual('carouselSelected');
 
-    //3 Redirect to book review panels screen
+    //3) Redirect to book review panels screen
+    fireEvent.press(viewMoreButton);
+    const reviewsList = await screen.findByTestId('reviews-list');
+
+    expect(reviewsList).toBeTruthy();
   });
   it('Flow: render minimize player , redirect to Player controler screen and run play and pause functions', async () => {
     const {playButtonElement, bookTitle} = await customRenderScreen();

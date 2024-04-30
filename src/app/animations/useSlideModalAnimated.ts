@@ -1,7 +1,7 @@
 import {useCallback, useRef} from 'react';
 import {Animated, Easing} from 'react-native';
 
-import {dimensions} from '../helpers/utils/dimensions';
+import {dimensions} from '@utils';
 
 export function useSlideModalAnimated() {
   const heightValue = useRef(new Animated.Value(0)).current;

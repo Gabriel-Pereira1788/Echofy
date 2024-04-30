@@ -14,6 +14,7 @@ import {
   DetailsBookScreen,
   HomeScreen,
   LibraryScreen,
+  NewReviewScreen,
   SearchScreen,
 } from '@screens';
 
@@ -32,6 +33,7 @@ export type CommonStackParamList = {
   MainScreen: undefined;
   DetailsBookScreen: {id: string};
   BookReviewPanel: {bookId: string; bookImage: string; bookTitle: string};
+  NewReviewScreen: {bookId: string};
   CategoryBookScreen: {
     categoryIdentify: CategoryIdentify;
     categoryTitle: string;
@@ -52,6 +54,7 @@ export function createCommonStackNavigator(
       <Stack.Screen name="CategoryBookScreen" component={CategoryBookScreen} />
       <Stack.Screen name="DetailsBookScreen" component={DetailsBookScreen} />
       <Stack.Screen name="BookReviewPanel" component={BookReviewPanel} />
+      <Stack.Screen name="NewReviewScreen" component={NewReviewScreen} />
     </Stack.Navigator>
   );
 }

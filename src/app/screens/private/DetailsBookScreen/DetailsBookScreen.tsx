@@ -11,6 +11,7 @@ import {SharedWrapperScreen} from '@shared';
 import {
   BookAttribution,
   Box,
+  Button,
   Carousel,
   ReviewCard,
   Text,
@@ -73,6 +74,14 @@ export function DetailsBookScreen({
     }
   }
 
+  function redirectToNewReviewScreen() {
+    if (bookData) {
+      navigation.navigate('NewReviewScreen', {
+        bookId: bookData.id,
+      });
+    }
+  }
+
   const bookTitle = bookData
     ? bookData.bookTitle.length > 30
       ? bookData.bookTitle.slice(0, 30) + '...'
@@ -99,7 +108,7 @@ export function DetailsBookScreen({
             <DetailsBookSummary summary={bookData.bookDesc} />
           </>
         )}
-        {reviews && reviews.length > 0 && (
+        {reviews && (
           <Carousel
             text="Review"
             content={reviews}
@@ -107,6 +116,13 @@ export function DetailsBookScreen({
               <TouchableOpacityBox onPress={redirectToBookReviewPanel}>
                 <Text text="View More" preset="medium/14" color="accent50" />
               </TouchableOpacityBox>
+            }
+            EmptyComponent={
+              <Button
+                text="Add Review"
+                iconName="plus"
+                onPress={redirectToNewReviewScreen}
+              />
             }
             renderItem={({item}) => <ReviewCard review={item} />}
           />

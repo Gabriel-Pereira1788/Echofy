@@ -12,6 +12,7 @@ type CarouselProps<TContent> = {
   content: TContent[];
   renderItem: ({item}: ListRenderItemInfo<TContent>) => JSX.Element;
   RightComponent?: JSX.Element;
+  EmptyComponent?: JSX.Element;
 };
 
 export function Carousel<TContent>({
@@ -19,6 +20,7 @@ export function Carousel<TContent>({
   content,
   renderItem,
   RightComponent,
+  EmptyComponent,
 }: CarouselProps<TContent>) {
   const flatListRef = useRef<FlatList>(null);
   const [currentPosition, setCurrentPosition] = useState(0);
@@ -30,6 +32,13 @@ export function Carousel<TContent>({
         index: position,
       });
     };
+  }
+  if (content.length === 0) {
+    return (
+      <Box width={'100%'} marginVertical="sp25">
+        {EmptyComponent && EmptyComponent}
+      </Box>
+    );
   }
   return (
     <Box width={'100%'} marginVertical="sp25">
