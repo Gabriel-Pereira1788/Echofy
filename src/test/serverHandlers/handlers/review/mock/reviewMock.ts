@@ -1,4 +1,4 @@
-import {PaginatedDocs} from '@infra';
+import {PaginatedDocs} from '@database';
 import {Review, ReviewApi} from 'src/domain/Review/review-types';
 
 const docs: ReviewApi[] = [

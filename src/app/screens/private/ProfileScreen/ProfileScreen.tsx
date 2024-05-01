@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {database} from '@infra';
+import {database} from '@database';
 import {useAuthContext} from '@providers';
 import {SharedWrapperScreen} from '@shared';
 

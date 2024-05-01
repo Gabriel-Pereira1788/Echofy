@@ -27,3 +27,4 @@ export * from './BestSellerCard/BestSellerCardSkeleton';
 export * from './Carousel/Carousel';
 export * from './ReviewCard/ReviewCard';
 export * from './ReviewCard/ReviewVoteRating';
+export * from './ProgressBar/ProgressBar';

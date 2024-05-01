@@ -1,5 +1,4 @@
-import {IBookSchema, Schemas} from '@infra';
-import {CrudSchemaData, PaginatedDocs} from 'src/infra/database/types';
+import {CrudSchemaData, IBookSchema, PaginatedDocs, Schemas} from '@database';
 
 import {QueryParams} from '../../types';
 import {CategoryIdentify} from '../book-types';

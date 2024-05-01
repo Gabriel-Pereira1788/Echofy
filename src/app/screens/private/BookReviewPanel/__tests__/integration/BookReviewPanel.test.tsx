@@ -38,10 +38,9 @@ async function customRenderScreen() {
 
   fireEvent.press(viewMoreButton);
 
-  const reviewListElement = await screen.findByTestId('reviews-list');
+  const bookTitleElement = await screen.findByText(bookData.bookTitle);
   return {
-    reviewListElement,
-    bookTitleElement: screen.findByText(bookData.bookTitle),
+    bookTitleElement: bookTitleElement,
     goBackElement: screen.getByTestId('go-back-element'),
     newReviewScreenButton: screen.getByTestId('new-review-screen-button'),
     voteRatingElements: screen.getAllByTestId('vote-rating-item'),
@@ -51,7 +50,6 @@ describe('BookReviewPanel', () => {
   it('should be render component correctly', async () => {
     const {
       bookTitleElement,
-      reviewListElement,
       goBackElement,
       newReviewScreenButton,
       voteRatingElements,
@@ -61,6 +59,27 @@ describe('BookReviewPanel', () => {
     expect(newReviewScreenButton).toBeTruthy();
     expect(voteRatingElements.length > 0).toBeTruthy();
     expect(bookTitleElement).toBeTruthy();
+  });
+
+  it('should be render review itens correctly', async () => {
+    await customRenderScreen();
+
+    const reviewListElement = await screen.findByTestId('reviews-list');
     expect(reviewListElement.props.data.length).toEqual(reviewsListMock.length);
+  });
+
+  it('Flow: redirect to new review screen', async () => {
+    const {newReviewScreenButton} = await customRenderScreen();
+
+    //1) press new review button
+    fireEvent.press(newReviewScreenButton);
+
+    //2) check if redirect correctly
+    const text = screen.getByText('NewReviewScreen');
+    expect(text).toBeTruthy();
+
+    //3 go back to book review panel screen
+    const goBackButton = screen.getByTestId('go-back');
+    fireEvent.press(goBackButton);
   });
 });

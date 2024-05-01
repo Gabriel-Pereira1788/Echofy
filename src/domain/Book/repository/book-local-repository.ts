@@ -1,4 +1,4 @@
-import {IBookCategorySchema, Schemas, database} from '@infra';
+import {IBookCategorySchema, Schemas, database} from '@database';
 
 import {BookRepository} from './types';
 

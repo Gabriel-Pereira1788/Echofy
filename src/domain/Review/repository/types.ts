@@ -1,4 +1,4 @@
-import {PaginatedDocs} from '@infra';
+import {PaginatedDocs} from '@database';
 
 import {QueryParams} from '../../types';
 import {ReviewApi} from '../review-types';

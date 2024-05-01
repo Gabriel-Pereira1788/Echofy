@@ -15,3 +15,5 @@ export function usePlayerActions() {
     changeStatus,
   };
 }
+
+export type PlayerActions = ReturnType<typeof usePlayerActions>;

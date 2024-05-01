@@ -1,5 +1,5 @@
 import {Book} from '@domain';
-import {Track} from '@services';
+import {Track} from '@infra';
 
 export function toTrackData(bookData: Book | undefined): Track[] {
   if (!bookData) {

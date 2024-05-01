@@ -1,5 +1,5 @@
 import {api} from '@api';
-import {PaginatedDocs} from '@infra';
+import {PaginatedDocs} from '@database';
 
 import {ReviewApi} from '../review-types';
 

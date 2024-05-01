@@ -43,7 +43,6 @@ describe('HomeScreen', () => {
     const allCategories = await screen.findAllByTestId('category');
 
     expect(allCategories.length).toEqual(allCategoriesMock.slice(0, 10).length);
-    console.log('listsections', listSections.props);
     expect(listSections.props.data.length).toEqual(8);
     expect(profileButton).toBeTruthy();
     expect(textCategories).toBeTruthy();

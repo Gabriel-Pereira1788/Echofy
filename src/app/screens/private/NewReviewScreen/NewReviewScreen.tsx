@@ -7,7 +7,7 @@ import {Text} from '@components';
 
 export function NewReviewScreen({}: CommonStackProps<'NewReviewScreen'>) {
   return (
-    <SharedWrapperScreen>
+    <SharedWrapperScreen goBack>
       <Text text="NewReviewScreen" />
     </SharedWrapperScreen>
   );

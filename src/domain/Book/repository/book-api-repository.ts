@@ -12,7 +12,7 @@ import {
 
 async function getCategories() {
   const response = await api.get<string[]>('book/categories');
-  return response.data;
+  return response && response.data;
 }
 
 async function getRecommendedForYou({

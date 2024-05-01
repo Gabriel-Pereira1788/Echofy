@@ -19,6 +19,13 @@ export function SharedScreenHeader({
   if (!headerLeft && !headerRight && !headerTitle) {
     return null;
   }
+
+  const _headerTitle = headerTitle
+    ? headerTitle.length > 30
+      ? headerTitle.slice(0, 30) + '...'
+      : headerTitle
+    : '';
+
   return (
     <Box {...$boxWrapper} style={{marginTop: top}}>
       <Box flex={0.5}>{headerLeft && headerLeft}</Box>
@@ -26,7 +33,7 @@ export function SharedScreenHeader({
         <Box flex={2} flexDirection="row" justifyContent="center">
           <Text
             testID="header-title"
-            text={headerTitle}
+            text={_headerTitle}
             preset="medium/16"
             setColorsTheme={{dark: 'white', light: 'neutral80'}}
           />

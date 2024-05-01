@@ -1,11 +1,17 @@
-import {IBookCategorySchema, IBookSchema, PaginatedResult} from '@infra';
+import {IBookCategorySchema, IBookSchema} from '@database';
+import {PaginatedResult} from '@infra';
 
-import {Book, BookCategory, BookSectionApi} from './book-types';
+import {
+  Book,
+  BookCategory,
+  BookSectionApi,
+  CategoryIdentify,
+} from './book-types';
 
 function toBookCategory(categories: string[]): BookCategory[] {
   return categories.map(category => ({
     isSelected: false,
-    text: category,
+    text: category as CategoryIdentify,
   }));
 }
 

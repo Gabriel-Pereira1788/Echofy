@@ -8,15 +8,13 @@
 import React, {useEffect} from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
 
+import {database, realmImpl, setDatabaseImpl} from '@database';
 import {
-  database,
-  expoFs,
+  expoFsImpl,
   queryClient,
-  realmImpl,
   setAudioTrackerImpl,
-  setDatabaseImpl,
   setFileSystemImpl,
-  trackPlayer,
+  trackPlayerImpl,
 } from '@infra';
 import {ThemeProvider} from '@shopify/restyle';
 import {QueryClientProvider} from '@tanstack/react-query';
@@ -31,9 +29,9 @@ import {darkTheme, theme} from './src/app/styles/theme';
 
 global.Buffer = require('buffer').Buffer;
 
-setAudioTrackerImpl(trackPlayer);
+setAudioTrackerImpl(trackPlayerImpl());
+setFileSystemImpl(expoFsImpl());
 setDatabaseImpl(realmImpl);
-setFileSystemImpl(expoFs);
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';

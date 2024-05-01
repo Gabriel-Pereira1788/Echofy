@@ -1,4 +1,4 @@
-import {Schemas} from '@infra';
+import {Schemas} from '@database';
 
 import {QueryParams} from '../types';
 

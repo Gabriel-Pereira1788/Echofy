@@ -24,12 +24,6 @@ export function PlayerControllerScreen({
 
   const {Modal, onOpenModal} = useModalController(PlayerSelectChapters);
 
-  const _title = player
-    ? player.title.length > 30
-      ? player.title.slice(0, 30) + '...'
-      : player.title
-    : '';
-
   async function onPlay() {
     await audioTracker.play();
     playerActions.changeStatus('play');
@@ -57,7 +51,7 @@ export function PlayerControllerScreen({
   return (
     <SharedWrapperScreen
       scrollEnabled
-      headerTitle={_title}
+      headerTitle={player?.title}
       headerRight={
         <IconPress
           testID="close-button"

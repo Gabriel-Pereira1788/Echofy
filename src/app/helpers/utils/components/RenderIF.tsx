@@ -10,5 +10,5 @@ export function RenderIF({condition, children}: Props) {
     return null;
   }
 
-  return <>{children}</>;
+  return <>{condition && children}</>;
 }

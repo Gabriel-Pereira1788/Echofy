@@ -16,6 +16,7 @@ module.exports = {
           '@shared': './src/app/shared',
           '@domain': './src/domain',
           '@infra': './src/infra',
+          '@database': './src/database',
           '@types': './src/@types',
           '@providers': './src/app/providers',
           '@utils': './src/app/helpers/utils',

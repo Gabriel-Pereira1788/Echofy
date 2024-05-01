@@ -1,4 +1,4 @@
-import {Schemas, database} from '@infra';
+import {Schemas, database} from '@database';
 
 import {authAdapter} from './auth-adapter';
 import {authApi} from './auth-api';

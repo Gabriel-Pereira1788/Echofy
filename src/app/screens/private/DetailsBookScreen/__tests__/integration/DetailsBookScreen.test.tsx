@@ -179,6 +179,7 @@ describe('DetailsBookScreen', () => {
 
     expect(reviewsList).toBeTruthy();
   });
+
   it('Flow: render minimize player , redirect to Player controler screen and run play and pause functions', async () => {
     const {playButtonElement, bookTitle} = await customRenderScreen();
 

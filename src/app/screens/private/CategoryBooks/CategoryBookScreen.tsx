@@ -29,17 +29,14 @@ export function CategoryBookScreen({
   const categoryTitle =
     route && route.params ? route.params.categoryTitle : 'Recommended For You';
 
-  const {list, getMore, loadingNextPage, isLoading, error} =
+  const {list, getMore, loadingNextPage, isLoading} =
     useGetBookListByCategory(categoryIdentify);
 
-  console.log('Error', error);
   const renderItem = useCallback(({item}: ListRenderItemInfo<BookType>) => {
     return <CategoryBookItem book={item} />;
   }, []);
 
   function handleOnEndReached() {
-    console.log('trigger end reached');
-
     getMore();
   }
 
