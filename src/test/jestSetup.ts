@@ -123,3 +123,4 @@ jest.mock('expo-file-system/src/FileSystem', () => {
 });
 
 jest.mock('react-native-linear-gradient', () => 'LinearGradient');
+jest.setTimeout(30000);

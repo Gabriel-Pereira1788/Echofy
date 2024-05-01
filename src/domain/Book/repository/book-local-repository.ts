@@ -105,7 +105,7 @@ const create: BookRepository['create'] = async (schema, data) => {
     console.log('ERROR ON CREATE', schema, error);
   }
 };
-export const bookLocalRepository: BookRepository = {
+export const bookLocalRepository: Omit<BookRepository, 'getReadBookText'> = {
   getCategories,
   getRecommendedForYou,
   getBestSeller,

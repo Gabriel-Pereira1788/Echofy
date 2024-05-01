@@ -1,4 +1,4 @@
-export * from './DetailsBookScreen/DetailsBookScreen';
+export * from './BookDetailsScreen/BookDetailsScreen';
 export * from './HomeScreen/HomeScreen';
 export * from './LibraryScreen/LibraryScreen';
 export * from './SearchScreen/SearchScreen';

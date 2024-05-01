@@ -29,7 +29,7 @@ export function HomeScreenBookSectionItem({book, sectionIdentify}: Props) {
   }, [renderItem]);
 
   function redirectToBookScreen() {
-    navigation.navigate('DetailsBookScreen', {
+    navigation.navigate('BookDetailsScreen', {
       id: book.id,
     });
   }

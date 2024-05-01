@@ -2,10 +2,10 @@ import React from 'react';
 
 import {act, bookMock, fireEvent, render, screen} from '@test';
 
-import {DetailsBookSummary} from '..';
+import {BookDetailsSummary} from '..';
 
 function customRender() {
-  render(<DetailsBookSummary summary={bookMock.bookDesc} />);
+  render(<BookDetailsSummary summary={bookMock.bookDesc} />);
 
   return {
     readMoreButtonElement: screen.getByTestId('button-toggle-read-mode'),
@@ -14,7 +14,7 @@ function customRender() {
   };
 }
 
-describe('DetailsBookSummary', () => {
+describe('BookDetailsSummary', () => {
   it('should be render component correctly', () => {
     const {readMoreButtonElement, readMoreButtonText, summaryTextElement} =
       customRender();

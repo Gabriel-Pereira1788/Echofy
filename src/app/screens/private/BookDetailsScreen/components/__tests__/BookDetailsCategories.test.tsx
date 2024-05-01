@@ -2,12 +2,12 @@ import React from 'react';
 
 import {render, screen} from '@test';
 
-import {DetailsBookCategories} from '..';
+import {BookDetailsCategories} from '..';
 
-describe('DetailsBookCategories', () => {
+describe('BookDetailsCategories', () => {
   it('should be render number of categories correctly', () => {
     render(
-      <DetailsBookCategories
+      <BookDetailsCategories
         categories={['Adventure', 'Fantasy', 'Fairy tales', 'Phylosophy']}
       />,
     );

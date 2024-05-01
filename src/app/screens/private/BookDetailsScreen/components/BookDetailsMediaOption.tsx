@@ -7,7 +7,7 @@ type Props = {
   onReadBook: () => void;
 };
 
-export function DetailsBookMediaOption({onPlayAudio, onReadBook}: Props) {
+export function BookDetailsMediaOption({onPlayAudio, onReadBook}: Props) {
   return (
     <Box
       marginVertical="sp25"

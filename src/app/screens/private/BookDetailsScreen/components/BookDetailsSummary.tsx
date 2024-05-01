@@ -6,7 +6,7 @@ type Props = {
   summary: string;
 };
 
-export function DetailsBookSummary({summary}: Props) {
+export function BookDetailsSummary({summary}: Props) {
   const [readMore, setReadMore] = useState(false);
   const summaryText = readMore ? summary : summary.slice(0, 500) + '...';
 

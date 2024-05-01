@@ -49,7 +49,7 @@ async function customRenderScreen() {
   };
 }
 
-describe('DetailsBookScreen', () => {
+describe('BookDetailsScreen', () => {
   it('should be render screen correctly', async () => {
     const {
       bookAuthor,

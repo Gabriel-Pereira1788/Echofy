@@ -7,7 +7,7 @@ type Props = {
   categories: string[];
 };
 
-export function DetailsBookCategories({categories}: Props) {
+export function BookDetailsCategories({categories}: Props) {
   const categoriesToRender =
     categories.length > 3 ? categories.slice(0, 3) : categories;
 

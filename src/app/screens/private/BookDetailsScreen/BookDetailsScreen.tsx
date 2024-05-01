@@ -8,27 +8,20 @@ import {CommonStackProps} from '@router';
 import {usePlayerActions} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
-import {
-  BookAttribution,
-  Box,
-  Button,
-  Carousel,
-  ReviewCard,
-  Text,
-  TouchableOpacityBox,
-} from '@components';
+import {BookAttribution, Box} from '@components';
 
 import {
-  DetailsBookCategories,
-  DetailsBookCover,
-  DetailsBookMediaOption,
-  DetailsBookSummary,
+  BookDetailsCategories,
+  BookDetailsCover,
+  BookDetailsMediaOption,
+  BookDetailsReviews,
+  BookDetailsSummary,
 } from './components';
 import {toTrackData} from './functions/toTrackData';
 
-export function DetailsBookScreen({
+export function BookDetailsScreen({
   route,
-}: CommonStackProps<'DetailsBookScreen'>) {
+}: CommonStackProps<'BookDetailsScreen'>) {
   const bookId = route && route.params ? route.params.id : 'testID';
 
   const {bookData, isLoading} = useBookFindById(bookId);
@@ -64,68 +57,28 @@ export function DetailsBookScreen({
     }
   }
 
-  function redirectToBookReviewPanel() {
-    if (bookData) {
-      navigation.navigate('BookReviewPanel', {
-        bookId: bookData.id,
-        bookImage: bookData.bookImage,
-        bookTitle: bookData.bookTitle,
-      });
-    }
-  }
-
-  function redirectToNewReviewScreen() {
-    if (bookData) {
-      navigation.navigate('NewReviewScreen', {
-        bookId: bookData.id,
-      });
-    }
-  }
-
-  const bookTitle = bookData
-    ? bookData.bookTitle.length > 30
-      ? bookData.bookTitle.slice(0, 30) + '...'
-      : bookData.bookTitle
-    : '';
-
   return (
-    <SharedWrapperScreen goBack headerTitle={bookTitle} scrollEnabled>
+    <SharedWrapperScreen goBack headerTitle={bookData?.bookTitle} scrollEnabled>
       {isLoading && !bookData && <ActivityIndicator size={20} />}
 
       <Box flex={1} width={'100%'} alignItems="center" justifyContent="center">
         {bookData && (
           <>
-            <DetailsBookCover coverURI={bookData.bookImage} />
+            <BookDetailsCover coverURI={bookData.bookImage} />
             <BookAttribution
               author={bookData?.bookAuthor ?? ''}
               title={bookData?.bookTitle ?? ''}
             />
-            <DetailsBookCategories categories={bookData.bookGenres ?? []} />
-            <DetailsBookMediaOption
+            <BookDetailsCategories categories={bookData.bookGenres ?? []} />
+            <BookDetailsMediaOption
               onPlayAudio={onPlayAudio}
               onReadBook={redirectToReadBookScreen}
             />
-            <DetailsBookSummary summary={bookData.bookDesc} />
+            <BookDetailsSummary summary={bookData.bookDesc} />
           </>
         )}
-        {reviews && (
-          <Carousel
-            text="Review"
-            content={reviews}
-            RightComponent={
-              <TouchableOpacityBox onPress={redirectToBookReviewPanel}>
-                <Text text="View More" preset="medium/14" color="accent50" />
-              </TouchableOpacityBox>
-            }
-            EmptyComponent={
-              <Button
-                text="Add Review"
-                iconName="plus"
-                onPress={redirectToNewReviewScreen}
-              />
-            }
-            renderItem={({item}) => <ReviewCard review={item} />}
-          />
+        {reviews && bookData && (
+          <BookDetailsReviews bookData={bookData} reviews={reviews} />
         )}
       </Box>
     </SharedWrapperScreen>

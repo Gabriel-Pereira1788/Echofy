@@ -2,14 +2,14 @@ import React from 'react';
 
 import {fireEvent, render, screen} from '@test';
 
-import {DetailsBookMediaOption} from '..';
+import {BookDetailsMediaOption} from '..';
 
 const mockPlayAudio = jest.fn();
 const mockReadBook = jest.fn();
 
 function customRender() {
   render(
-    <DetailsBookMediaOption
+    <BookDetailsMediaOption
       onPlayAudio={mockPlayAudio}
       onReadBook={mockReadBook}
     />,
@@ -20,7 +20,7 @@ function customRender() {
     readButtonElement: screen.getByText(/read book/i),
   };
 }
-describe('DetailsBookMediaOption', () => {
+describe('BookDetailsMediaOption', () => {
   it('should be render component correctly', () => {
     const {playButtonElement, readButtonElement} = customRender();
 

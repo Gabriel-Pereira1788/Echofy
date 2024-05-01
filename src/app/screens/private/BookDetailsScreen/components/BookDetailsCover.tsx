@@ -6,7 +6,7 @@ type Props = {
   coverURI: string;
 };
 
-export function DetailsBookCover({coverURI}: Props) {
+export function BookDetailsCover({coverURI}: Props) {
   return (
     <Box
       width={'90%'}

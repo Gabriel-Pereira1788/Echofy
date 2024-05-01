@@ -90,7 +90,7 @@ describe('HomeScreenBookSection', () => {
 
     fireEvent.press(bookItens[0]);
 
-    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('BookDetailsScreen', {
       id: bookMock.id,
     });
   });
@@ -104,7 +104,7 @@ describe('HomeScreenBookSection', () => {
     fireEvent.press(bookItens[0]);
 
     expect(bookItens).toBeTruthy();
-    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('BookDetailsScreen', {
       id: bookMock.id,
     });
   });

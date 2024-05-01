@@ -14,7 +14,7 @@ import {
 import {ReadyToGoScreen} from '../ReadyToGoScreen';
 
 const selectedCategories: BookCategory[] = [
-  {isSelected: true, text: 'Fiction'},
+  {isSelected: true, text: 'fiction'},
 ];
 const route: any = {
   params: {

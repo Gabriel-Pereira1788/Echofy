@@ -24,7 +24,7 @@ describe('SearchScreenBookItem', () => {
     const {bookElement} = customRender({});
 
     fireEvent.press(bookElement);
-    expect(mockedNavigate).toHaveBeenCalledWith('DetailsBookScreen', {
+    expect(mockedNavigate).toHaveBeenCalledWith('BookDetailsScreen', {
       id: bookMock.id,
     });
   });
