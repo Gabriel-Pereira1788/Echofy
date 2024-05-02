@@ -20,6 +20,7 @@ module.exports = {
           '@types': './src/@types',
           '@providers': './src/app/providers',
           '@utils': './src/app/helpers/utils',
+          '@super-components': './src/app/helpers/super-components',
           '@services': './src/app/services',
           '@hooks': './src/app/helpers/hooks',
           '@test': './src/test',

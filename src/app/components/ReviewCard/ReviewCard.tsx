@@ -13,7 +13,12 @@ type ReviewCardProps = {
 
 export function ReviewCard({review}: ReviewCardProps) {
   return (
-    <Box flex={1} gap="sp10" paddingVertical="sp10" paddingHorizontal="sp20">
+    <Box
+      flex={1}
+      gap="sp10"
+      paddingVertical="sp10"
+      paddingHorizontal="sp20"
+      testID="review-card">
       <ReviewAuthorInfo author={review.author} voteRating={review.voteRating} />
 
       <Text

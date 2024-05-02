@@ -11,6 +11,7 @@ export function useReviewsList(bookId: string, customCount?: number) {
       return reviewService.getReviewsByBook({
         bookId,
         skip,
+        page,
         top: customCount,
       });
     },

@@ -7,3 +7,4 @@ export type {
   BookApi,
 } from './book-types';
 export {bookAdapter} from './book-adapter';
+export * from './book-service';

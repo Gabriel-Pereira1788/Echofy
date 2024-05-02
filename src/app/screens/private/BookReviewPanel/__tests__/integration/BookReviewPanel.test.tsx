@@ -64,8 +64,9 @@ describe('BookReviewPanel', () => {
   it('should be render review itens correctly', async () => {
     await customRenderScreen();
 
-    const reviewListElement = await screen.findByTestId('reviews-list');
-    expect(reviewListElement.props.data.length).toEqual(reviewsListMock.length);
+    const reviewItens = await screen.findAllByTestId('review-card');
+
+    expect(reviewItens.length).toEqual(reviewsListMock.length);
   });
 
   it('Flow: redirect to new review screen', async () => {

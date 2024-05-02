@@ -16,6 +16,7 @@ export function useGetBookListByCategory(
       return bookService.getBookListByCategory({
         uid,
         category,
+        page,
         skip: page === 1 ? initialDataLength : page * 10,
       });
     },

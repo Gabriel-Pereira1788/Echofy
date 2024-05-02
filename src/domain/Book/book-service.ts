@@ -63,7 +63,7 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
 
 async function getBookListByCategory({
   category,
-  skip,
+  page,
   top,
   uid,
 }: {
@@ -82,6 +82,8 @@ async function getBookListByCategory({
       },
     };
   }
+
+  const skip = page === 1 ? page : page! * 10;
   const result = await bookController.findByCategory({
     uid,
     top,

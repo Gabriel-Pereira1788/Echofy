@@ -1,27 +1,27 @@
 import React, {useCallback} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  ListRenderItemInfo,
-  ViewStyle,
-} from 'react-native';
+import {ListRenderItemInfo, ViewStyle} from 'react-native';
 
 import {
   Book as BookType,
   CategoryIdentify,
-  useGetBookListByCategory,
+  Queries,
+  bookService,
 } from '@domain';
+import {useAuthContext} from '@providers';
 import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
+import {InfinityScrollList, SkeletonsList} from '@super-components';
 
-import {Box} from '@components';
+import {BookSkeleton, Box} from '@components';
 
-import {CategoryBookItem} from './components/CategoryBookItem';
+import {CategoryBookItem} from './components';
 
 export function CategoryBookScreen({
   route,
 }: CommonStackProps<'CategoryBookScreen'>) {
-  const categoryIdentify: CategoryIdentify =
+  const {uid} = useAuthContext();
+
+  const category: CategoryIdentify =
     route && route.params
       ? route.params.categoryIdentify
       : 'recommended-for-you';
@@ -29,45 +29,40 @@ export function CategoryBookScreen({
   const categoryTitle =
     route && route.params ? route.params.categoryTitle : 'Recommended For You';
 
-  const {list, getMore, loadingNextPage, isLoading} =
-    useGetBookListByCategory(categoryIdentify);
-
   const renderItem = useCallback(({item}: ListRenderItemInfo<BookType>) => {
     return <CategoryBookItem book={item} />;
   }, []);
 
-  function handleOnEndReached() {
-    getMore();
-  }
-
   return (
     <SharedWrapperScreen headerTitle={categoryTitle} goBack>
       <Box flex={1} width={'100%'}>
-        {isLoading ? (
-          <Box flex={1} alignItems="center" justifyContent="center">
-            <ActivityIndicator size={20} />
-          </Box>
-        ) : (
-          <FlatList
-            testID="flatlist-book-itens"
-            data={list}
-            style={$flatListStyle}
-            numColumns={2}
-            renderItem={renderItem}
-            showsVerticalScrollIndicator={false}
-            columnWrapperStyle={$columnWrapperStyle}
-            contentContainerStyle={$contentContainerStyle}
-            onEndReached={handleOnEndReached}
-            onEndReachedThreshold={0.3}
-            ListFooterComponent={
-              loadingNextPage ? (
-                <Box>
-                  <ActivityIndicator size={20} />
-                </Box>
-              ) : undefined
-            }
-          />
-        )}
+        <InfinityScrollList
+          LoadingComponent={
+            <SkeletonsList
+              itensToRender={8}
+              renderItem={index => (
+                <BookSkeleton key={index} renderAuthor renderTitle />
+              )}
+            />
+          }
+          renderItem={renderItem}
+          queryKey={Queries.BookByCategory}
+          fetchPage={page =>
+            bookService.getBookListByCategory({
+              uid,
+              page,
+              category,
+            })
+          }
+          flatListProps={{
+            testID: 'flatlist-book-itens',
+            style: $flatListStyle,
+            numColumns: 2,
+            showsVerticalScrollIndicator: false,
+            columnWrapperStyle: $columnWrapperStyle,
+            contentContainerStyle: $contentContainerStyle,
+          }}
+        />
       </Box>
     </SharedWrapperScreen>
   );
@@ -75,7 +70,6 @@ export function CategoryBookScreen({
 
 const $flatListStyle: ViewStyle = {
   width: '100%',
-  flex: 1,
 };
 
 const $contentContainerStyle: ViewStyle = {

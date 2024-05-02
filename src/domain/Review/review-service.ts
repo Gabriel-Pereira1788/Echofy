@@ -6,8 +6,9 @@ import {reviewController} from './review-controller';
 async function getReviewsByBook({
   bookId,
   top,
-  skip,
-}: QueryParams & {bookId: string}) {
+  page,
+}: QueryParams & {bookId: string; page: number}) {
+  const skip = page === 1 ? 0 : page * 10;
   const reviews = await reviewController.getReviews({
     bookId,
     top,

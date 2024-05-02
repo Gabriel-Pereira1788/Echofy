@@ -4,7 +4,7 @@ import {useInfiniteQuery} from '@tanstack/react-query';
 
 import {PaginatedResult} from '../types';
 
-interface PaginatedListProps<TData> {
+export interface PaginatedListProps<TData> {
   queryKey: readonly string[];
   fetchPage: (page: number) => Promise<PaginatedResult<TData>>;
   enabled?: boolean;
@@ -37,6 +37,7 @@ export function usePaginatedList<TData>({
       setList(newList);
     }
   }, [query.data]);
+
   return {
     list,
     getMore: query.fetchNextPage,
@@ -45,5 +46,6 @@ export function usePaginatedList<TData>({
     error: query.error,
     refresh: query.refetch,
     hasNextPage: query.hasNextPage,
+    refreshing: query.isRefetching,
   };
 }

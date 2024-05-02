@@ -97,7 +97,7 @@ export function HomeScreenBookSection({
           <Text text="See more" color="textActive" preset="medium/14" />
         </TouchableOpacityBox>
       </Box>
-      {/* {true && <HomeScreenBookSectionSkeleton />} */}
+
       <FlatList
         testID="section-books"
         ref={flatListRef}

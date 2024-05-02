@@ -1,10 +1,10 @@
 import React, {useCallback} from 'react';
-import {FlatList, ListRenderItemInfo} from 'react-native';
+import {ListRenderItemInfo} from 'react-native';
 
-import {Review, useReviewsList} from '@domain';
+import {Queries, Review, reviewService} from '@domain';
 import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
-import {RenderIF} from '@utils';
+import {InfinityScrollList} from '@super-components';
 
 import {Box, ReviewCard} from '@components';
 
@@ -15,8 +15,6 @@ export function BookReviewPanel({
   navigation,
 }: CommonStackProps<'BookReviewPanel'>) {
   const {bookId, bookTitle} = route.params;
-
-  const {reviews} = useReviewsList(bookId);
 
   function redirectToNewReviewScreen() {
     navigation.navigate('NewReviewScreen', {
@@ -33,27 +31,30 @@ export function BookReviewPanel({
 
   return (
     <SharedWrapperScreen customPadding>
-      <RenderIF condition={reviews && reviews.length > 0}>
-        <FlatList
-          testID="reviews-list"
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={
-            <HeaderPanel
-              bookTitle={bookTitle}
-              reviews={reviews}
-              goBack={navigation.goBack}
-              redirectToNewReviewScreen={redirectToNewReviewScreen}
-            />
-          }
-          bounces={false}
-          style={{width: '100%'}}
-          stickyHeaderHiddenOnScroll={true}
-          contentContainerStyle={{flexGrow: 1}}
-          ItemSeparatorComponent={() => <Box height={30} />}
-          data={reviews}
-          renderItem={renderItem}
-        />
-      </RenderIF>
+      <InfinityScrollList
+        queryKey={Queries.ReviewsList}
+        renderItem={renderItem}
+        fetchPage={page =>
+          reviewService.getReviewsByBook({
+            bookId: bookId,
+            page,
+          })
+        }
+        renderHeaderComponent={list => (
+          <HeaderPanel
+            bookTitle={bookTitle}
+            reviews={list}
+            goBack={navigation.goBack}
+            redirectToNewReviewScreen={redirectToNewReviewScreen}
+          />
+        )}
+        flatListProps={{
+          testID: 'reviews-list',
+          showsVerticalScrollIndicator: false,
+          stickyHeaderHiddenOnScroll: true,
+          ItemSeparatorComponent: () => <Box height={30} />,
+        }}
+      />
     </SharedWrapperScreen>
   );
 }
