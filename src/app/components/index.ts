@@ -25,6 +25,5 @@ export * from './Skeleton/Skeleton';
 export * from './BestSellerCard/BestSellerCard';
 export * from './BestSellerCard/BestSellerCardSkeleton';
 export * from './Carousel/Carousel';
-export * from './ReviewCard/ReviewCard';
-export * from './ReviewCard/ReviewVoteRating';
+export * from './ReviewCard';
 export * from './ProgressBar/ProgressBar';

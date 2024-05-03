@@ -17,6 +17,16 @@ const getReviews: ReviewRepository['getReviews'] = async ({
   return result.data;
 };
 
+const create: ReviewRepository['create'] = async (body, bookId) => {
+  const result = await api.post<ReviewApi>(
+    `review/send-review/${bookId}`,
+    body,
+  );
+
+  return result.data;
+};
+
 export const reviewApiRepository: ReviewRepository = {
   getReviews,
+  create,
 };

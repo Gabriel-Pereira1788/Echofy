@@ -78,6 +78,7 @@ export const theme = createTheme({
     sp25: 25,
     sp28: 28,
     sp40: 40,
+    sp48: 48,
     sp50: 50,
     sp60: 60,
   },

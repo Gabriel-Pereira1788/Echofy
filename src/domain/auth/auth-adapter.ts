@@ -5,6 +5,7 @@ import {AuthCredentials, AuthCredentialsAPI} from './auth-types';
 function toAuthCredentials(ac: AuthCredentialsAPI): AuthCredentials {
   return {
     id: ac.id,
+    name: ac.name,
     email: ac.email,
     birthDate: ac.birthDate,
     firstLogin: ac.firstLogin,

@@ -8,6 +8,7 @@ import {InfinityScrollList} from '@super-components';
 
 import {Box, ReviewCard} from '@components';
 
+import {BookReviewPanelSkeleton} from './components/BookReviewPanelSkeleton';
 import {HeaderPanel} from './components/HeaderPanel';
 
 export function BookReviewPanel({
@@ -32,6 +33,7 @@ export function BookReviewPanel({
   return (
     <SharedWrapperScreen customPadding>
       <InfinityScrollList
+        LoadingComponent={<BookReviewPanelSkeleton />}
         queryKey={Queries.ReviewsList}
         renderItem={renderItem}
         fetchPage={page =>

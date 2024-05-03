@@ -31,6 +31,7 @@ export function Input({errorMessage, disabled, style, ...rest}: IInputProps) {
           {...rest}
           style={[style, {color: theme.colors.text}]}
           placeholderTextColor={theme.colors.placeHolderTextColor}
+          autoCapitalize="none"
         />
       </Box>
       {errorMessage && (

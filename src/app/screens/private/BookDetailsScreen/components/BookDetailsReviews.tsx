@@ -22,7 +22,6 @@ export function BookDetailsReviews({reviews, bookData}: Props) {
     if (bookData) {
       navigation.navigate('BookReviewPanel', {
         bookId: bookData.id,
-        bookImage: bookData.bookImage,
         bookTitle: bookData.bookTitle,
       });
     }

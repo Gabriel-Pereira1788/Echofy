@@ -1,6 +1,6 @@
 export interface Author {
   name: string;
-  profile_image: string;
+  profile_image?: string;
 }
 
 export interface ReviewApi {
@@ -18,4 +18,10 @@ export interface Review {
   author: Author;
   content: string;
   voteRating: number;
+}
+
+export interface ReviewDTO {
+  author: Author;
+  content: string;
+  vote_rating: number;
 }

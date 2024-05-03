@@ -19,7 +19,6 @@ beforeAll(() => {
 
 afterAll(() => {
   server.close();
-  // server.resetHandlers();
 
   jest.useRealTimers();
   jest.resetAllMocks();
@@ -76,7 +75,7 @@ describe('BookReviewPanel', () => {
     fireEvent.press(newReviewScreenButton);
 
     //2) check if redirect correctly
-    const text = screen.getByText('NewReviewScreen');
+    const text = screen.getByText('New Review');
     expect(text).toBeTruthy();
 
     //3 go back to book review panel screen

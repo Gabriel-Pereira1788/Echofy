@@ -1,11 +1,22 @@
 import React from 'react';
 
-import {EllipseRound, EllipseStroke, Huray, Logo} from '@assets';
+import {
+  EllipseRound,
+  EllipseStroke,
+  Huray,
+  Logo,
+  ReviewsIllustration,
+} from '@assets';
 import {ColorSchemeName} from 'react-native/types';
 
 import {useTheme} from '@hooks';
 
-type KeyMappedImage = 'ellipseRound' | 'ellipseStroke' | 'huray' | 'logo';
+type KeyMappedImage =
+  | 'ellipseRound'
+  | 'ellipseStroke'
+  | 'huray'
+  | 'logo'
+  | 'reviewsIllustration';
 
 interface ImageProps {
   imageName: KeyMappedImage;
@@ -36,4 +47,5 @@ const mappedImage: Record<
   ellipseStroke: EllipseStroke,
   huray: Huray,
   logo: Logo,
+  reviewsIllustration: ReviewsIllustration,
 };

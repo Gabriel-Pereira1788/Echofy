@@ -6,6 +6,7 @@ import {
   ArrowLeft,
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
+  Avatar,
   BookMarkIcon,
   CloseSquare,
   DocumentIcon,
@@ -71,4 +72,5 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   star: Star,
   penSquare: PenSquare,
   plus: Plus,
+  avatar: Avatar,
 };

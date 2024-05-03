@@ -9,6 +9,7 @@ export interface AuthSignUpDTO {
   email: string;
   password: string;
   birthDate: string;
+  name: string;
 }
 
 export interface AuthCredentialsAPI {
@@ -16,6 +17,7 @@ export interface AuthCredentialsAPI {
   isValid?: boolean;
   birthDate: string;
   email: string;
+  name: string;
   token: string;
   firstLogin?: boolean;
   userCategories?: CategoryIdentify[];
@@ -24,6 +26,7 @@ export interface AuthCredentialsAPI {
 export interface AuthCredentials {
   email: string;
   birthDate: string;
+  name: string;
   id: string;
   firstLogin?: boolean;
   userCategories?: CategoryIdentify[];

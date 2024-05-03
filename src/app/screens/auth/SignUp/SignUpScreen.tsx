@@ -40,13 +40,14 @@ export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
       email: '',
       password: '',
       birthDate: '',
+      name: '',
     },
     mode: 'onChange',
     resolver: zodResolver(signUpSchema),
   });
 
   async function onSubmit(data: SignUpSchema) {
-    await signUp(data);
+    signUp(data);
   }
 
   function onCancel() {
@@ -57,6 +58,7 @@ export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
     <SharedAuthLayout title="Register">
       <Box gap="sp15" width={'100%'}>
         <FormInput placeholder="Email" name="email" control={control} />
+        <FormInput placeholder="Name" name="name" control={control} />
         <FormInputPassword
           placeholder="Password"
           name="password"

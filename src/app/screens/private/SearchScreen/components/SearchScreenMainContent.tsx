@@ -2,10 +2,9 @@ import React from 'react';
 import {ActivityIndicator} from 'react-native';
 
 import {Book} from '@domain';
+import {SkeletonsList} from '@super-components';
 
-import {Box} from '@components';
-
-import SearchingSkeleton from '../skeletons/SearchingSkeleton';
+import {BookSkeleton, Box} from '@components';
 
 import SearchScreenLatestList from './SearchScreenLatestList';
 import {SearchScreenRecommendedCategories} from './SearchScreenRecommendedCategories';
@@ -26,7 +25,15 @@ export function SearchScreenMainContent({
 }: SearchScreenMainContentProps) {
   return (
     <Box flex={1} marginTop="sp10" width={'100%'}>
-      {isLoading && !renderSearchHistory && <SearchingSkeleton />}
+      {isLoading && !renderSearchHistory && (
+        <SkeletonsList
+          containerType="column"
+          itensToRender={8}
+          renderItem={index => (
+            <BookSkeleton key={index} renderAuthor renderTitle />
+          )}
+        />
+      )}
       {renderSearchHistory ? (
         <Box gap="sp20">
           <SearchScreenRecommendedCategories />

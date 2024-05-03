@@ -39,6 +39,7 @@ export function CategoryBookScreen({
         <InfinityScrollList
           LoadingComponent={
             <SkeletonsList
+              containerType="column"
               itensToRender={8}
               renderItem={index => (
                 <BookSkeleton key={index} renderAuthor renderTitle />

@@ -2,6 +2,7 @@ import {QueryParams} from '../types';
 
 import {reviewAdapter} from './review-adapter';
 import {reviewController} from './review-controller';
+import {ReviewDTO} from './review-types';
 
 async function getReviewsByBook({
   bookId,
@@ -18,6 +19,12 @@ async function getReviewsByBook({
   return reviewAdapter.toListReview(reviews);
 }
 
+async function sendReview(body: ReviewDTO, bookId: string) {
+  const review = await reviewController.createReview(body, bookId);
+
+  return reviewAdapter.toReview(review);
+}
 export const reviewService = {
   getReviewsByBook,
+  sendReview,
 };

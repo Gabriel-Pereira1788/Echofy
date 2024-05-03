@@ -36,7 +36,6 @@ describe('BookDetailsReviews', () => {
 
     expect(mockedNavigate).toHaveBeenCalledWith('BookReviewPanel', {
       bookId: bookMock.id,
-      bookImage: bookMock.bookImage,
       bookTitle: bookMock.bookTitle,
     });
   });
