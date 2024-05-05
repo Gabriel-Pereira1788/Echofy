@@ -2,7 +2,7 @@ import {create} from 'zustand';
 export interface ToastState {
   message: string;
   title: string;
-  type: 'error' | 'success';
+  type: 'error' | 'success' | 'alert';
 }
 
 interface ToastStore {

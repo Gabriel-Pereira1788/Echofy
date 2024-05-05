@@ -1,3 +1,5 @@
+import {ImageAsset} from '@infra';
+
 import {BookCategory, CategoryIdentify} from '../Book';
 
 export interface AuthSignInDTO {
@@ -20,6 +22,7 @@ export interface AuthCredentialsAPI {
   name: string;
   token: string;
   firstLogin?: boolean;
+  profileImage?: string;
   userCategories?: CategoryIdentify[];
 }
 
@@ -29,10 +32,16 @@ export interface AuthCredentials {
   name: string;
   id: string;
   firstLogin?: boolean;
+  profileImage?: string;
   userCategories?: CategoryIdentify[];
 }
 
 export interface FinishRegisterVariables {
   uid: string;
   userSelectedCategories: BookCategory[];
+}
+
+export interface UpdateProfileImageVariables {
+  uid: string;
+  image: ImageAsset;
 }

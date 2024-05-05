@@ -1,19 +1,32 @@
 import React, {useState} from 'react';
-import {Alert} from 'react-native';
 
 import {useSendReview} from '@domain';
 import {useAuthContext} from '@providers';
 import {CommonStackProps} from '@router';
+import {useToastActions} from '@services';
 import {SharedWrapperScreen} from '@shared';
 import {dimensions} from '@utils';
 
 import {Box, Button, Image, Input, ReviewVoteRating, Text} from '@components';
 
-export function NewReviewScreen({route}: CommonStackProps<'NewReviewScreen'>) {
+export function NewReviewScreen({
+  route,
+  navigation,
+}: CommonStackProps<'NewReviewScreen'>) {
   const {bookId} = route.params;
+
+  const toast = useToastActions();
   const {send} = useSendReview(bookId, {
     onSuccess: () => {
-      Alert.alert('Review criado', 'review enviado');
+      toast.show({
+        title: 'Success.',
+        message: 'review created!',
+        type: 'success',
+      });
+      navigation.goBack();
+    },
+    onError: () => {
+      console.log('Error');
     },
   });
   const {credentials} = useAuthContext();
@@ -30,6 +43,7 @@ export function NewReviewScreen({route}: CommonStackProps<'NewReviewScreen'>) {
         vote_rating: rating,
         author: {
           name: credentials.name,
+          profile_image: credentials.profileImage,
         },
       });
     }

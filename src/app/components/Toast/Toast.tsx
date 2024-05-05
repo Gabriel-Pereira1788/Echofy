@@ -1,39 +1,41 @@
 import React, {useEffect, useRef} from 'react';
 import {Animated} from 'react-native';
 
-import {useSlideAnimated} from '@animations';
+import {useOpacityAnimated} from '@animations';
 import {useToastActions, useToastStore} from '@services';
+
+import {useAppSafeArea} from '@hooks';
 
 import {Box, BoxProps} from '../Box/Box';
 import {Icon} from '../Icon/Icon';
 import {Text} from '../Text/Text';
 import {TouchableOpacityBox} from '../TouchableOpacityBox/TouchableOpacityBox';
 
-type Props = {};
+import {SECONDS_FOR_HIDE_TOAST, mappedColorTypeToast} from './toastConstants';
 
-const SECONDS_FOR_HIDE_TOAST = 3000;
+type Props = {};
 
 export function Toast({}: Props) {
   const toast = useToastStore();
+
   const toastActions = useToastActions();
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const {translationY, slideDown, slideUp} = useSlideAnimated({
-    initialValue: -40,
-    slideUpValue: 40,
-    slideDownValue: -40,
-  });
 
+  const {top} = useAppSafeArea();
+  const {opacity, show, hide} = useOpacityAnimated(0, {duration: 350});
+
+  const $color = toast ? mappedColorTypeToast[toast.type] : 'alertColor';
   function onClose() {
-    slideUp(toastActions.hide);
+    hide(toastActions.hide);
     clearTimeout(timeoutRef.current);
   }
 
   useEffect(() => {
     if (toast) {
-      slideDown();
+      show();
       timeoutRef.current = setTimeout(() => {
-        slideUp(toastActions.hide);
+        hide(toastActions.hide);
       }, SECONDS_FOR_HIDE_TOAST);
     }
 
@@ -51,22 +53,23 @@ export function Toast({}: Props) {
         alignSelf: 'center',
         position: 'absolute',
         width: '70%',
-        transform: [{translateY: translationY}],
+        marginTop: top,
+        opacity: opacity,
       }}>
       <Box {...$outerWrapperStyle}>
-        <Box {...$backgroundStyle} />
+        <Box {...$backgroundStyle} backgroundColor={$color} />
         <Box {...$innerWrapperStyle}>
           <Box flex={1} alignItems="flex-start">
             <Icon
               iconName={toast.type === 'error' ? 'closeSquare' : 'tickSquare'}
-              color="alertColor"
+              color={$color}
               size="sp23"
               type="light"
             />
           </Box>
           <Box flex={3} gap="sp7">
             <Text preset="semiBold/16" text={toast.title} />
-            {toast.message && <Text preset="regular/14" text={toast.message} />}
+            {toast.message && <Text preset="medium/14" text={toast.message} />}
           </Box>
           <TouchableOpacityBox
             onPress={onClose}
@@ -74,7 +77,7 @@ export function Toast({}: Props) {
               flex: 1,
               alignItems: 'center',
             }}>
-            <Text text="X" />
+            <Text text="X" preset="medium/10" />
           </TouchableOpacityBox>
         </Box>
       </Box>
@@ -86,7 +89,7 @@ const $backgroundStyle: BoxProps = {
   width: '90%',
   height: '100%',
   borderRadius: 'rd12',
-  backgroundColor: 'alertColor',
+
   position: 'absolute',
   left: -4,
 };
@@ -105,7 +108,7 @@ const $outerWrapperStyle: BoxProps = {
   width: '100%',
   position: 'relative',
   alignSelf: 'center',
-  marginTop: 'sp50',
+
   borderRadius: 'rd12',
   backgroundColor: 'contrast',
   shadowColor: 'black',

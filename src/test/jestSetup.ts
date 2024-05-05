@@ -123,4 +123,18 @@ jest.mock('expo-file-system/src/FileSystem', () => {
 });
 
 jest.mock('react-native-linear-gradient', () => 'LinearGradient');
+jest.mock('react-native-image-picker', () => ({
+  launchImageLibrary: jest.fn(),
+}));
+
+jest.mock('react-native-permissions', () =>
+  require('react-native-permissions/mock'),
+);
+
+jest.mock('../app/services/permission/permissionService', () => ({
+  permissionService: {
+    request: jest.fn(),
+    check: jest.fn(),
+  },
+}));
 jest.setTimeout(30000);

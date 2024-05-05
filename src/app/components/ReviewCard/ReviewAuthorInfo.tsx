@@ -15,25 +15,30 @@ type Props = {
 };
 
 export function ReviewAuthorInfo({author, voteRating}: Props) {
-  const source = {uri: author.profile_image};
-
   return (
     <Box width={'100%'} flexDirection="row" gap="sp15">
-      <Box overflow="hidden" width={48} height={48} borderRadius="rd8">
-        {false ? (
+      <Box
+        overflow="hidden"
+        width={48}
+        height={48}
+        borderRadius="rd8"
+        alignItems="center"
+        justifyContent="center"
+        backgroundColor="contrast">
+        {author && !!author?.profile_image ? (
           <Image
             resizeMode="cover"
             style={{width: '100%', height: '100%'}}
-            source={source}
+            source={{uri: author.profile_image}}
           />
         ) : (
-          <Icon color="accent60" iconName="avatar" size="sp48" />
+          <Icon color="baseIconColor" iconName="avatar" size="sp28" />
         )}
       </Box>
 
       <Box gap="sp3">
         <Text
-          text={author.name}
+          text={author ? author.name : ''}
           preset="medium/14"
           setColorsTheme={{
             dark: 'neutral5',

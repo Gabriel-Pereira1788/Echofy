@@ -27,4 +27,6 @@ export const pallete = {
   grayLight: '#F9F9FA',
   black: '#000000',
   white: '#ffffff',
+  redError: '#EA3838',
+  greenSuccess: '#4ABC86',
 };

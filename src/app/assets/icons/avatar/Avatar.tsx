@@ -1,17 +1,23 @@
 import React from 'react';
 
-import {Path, Svg} from 'react-native-svg';
+import {Circle, G, Path, Svg} from 'react-native-svg';
 
 import {IconBase} from '@components';
 
 export function Avatar({size, color}: IconBase) {
   return (
-    <Svg width={size} height={size}>
-      <Path
-        fill={color}
-        d="m169,.5a169,169 0 1,0 2,0zm0,86a76,76 0 1
-  1-2,0zM57,287q27-35 67-35h92q40,0 67,35a164,164 0 0,1-226,0"
-      />
+    <Svg height={size} width={size} id="Capa_1" viewBox="0 0 273.052 273.052">
+      <G>
+        <Circle fill={color} cx="138.173" cy="73.52" r="73.52" />
+        <Path
+          fill={color}
+          d="M126.381,171.369c6.728,3.236,17.65,3.236,24.378,0l67.047-32.243
+        c6.734-3.236,13.989-0.082,16.208,7.054l20.032,64.35c2.219,7.136,0.234,17.65-4.433,23.48l-1.137,1.425
+        c-3.807,4.759-11.058,8.784-17.661,24.797c-2.85,6.913-10.378,12.82-17.846,12.82H63.043c-7.473,0-14.99-5.901-17.873-12.793
+        c-6.679-15.947-14.163-19.776-18.259-24.291l-3.263-3.612c-5.015-5.537-6.995-15.719-4.427-22.735L42.5,145.974
+        c2.567-7.016,10.106-10.079,16.839-6.842L126.381,171.369z"
+        />
+      </G>
     </Svg>
   );
 }

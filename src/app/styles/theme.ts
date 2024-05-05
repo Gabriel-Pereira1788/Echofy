@@ -36,6 +36,8 @@ export const theme = createTheme({
     neutral50: pallete.neutral50,
     neutral60: pallete.neutral60,
     neutral80: pallete.neutral80,
+    error: pallete.redError,
+    success: pallete.greenSuccess,
     black: pallete.black,
     white: pallete.white,
     transparent: 'rgba(0,0,0,0.5)',
@@ -65,6 +67,8 @@ export const theme = createTheme({
 
     carouselBackground: pallete.neutral20,
     carouselSelected: pallete.primary50,
+
+    borderCommonColor: pallete.primary5,
   },
   spacing: {
     sp3: 3,
@@ -127,5 +131,7 @@ export const darkTheme = createTheme({
 
     carouselBackground: pallete.neutral80,
     carouselSelected: pallete.accent50,
+
+    borderCommonColor: pallete.neutral80,
   },
 });

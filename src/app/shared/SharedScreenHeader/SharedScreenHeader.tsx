@@ -52,6 +52,7 @@ const $boxWrapper: BoxProps = {
   height: 50,
   flexDirection: 'row',
   paddingHorizontal: 'sp25',
+
   justifyContent: 'space-between',
   alignItems: 'center',
 };

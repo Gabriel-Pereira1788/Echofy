@@ -7,6 +7,7 @@ function toAuthCredentials(ac: AuthCredentialsAPI): AuthCredentials {
     id: ac.id,
     name: ac.name,
     email: ac.email,
+    profileImage: ac.profileImage,
     birthDate: ac.birthDate,
     firstLogin: ac.firstLogin,
     userCategories: ac.userCategories,

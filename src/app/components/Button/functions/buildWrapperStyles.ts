@@ -1,9 +1,12 @@
+import {Theme} from '@styles';
+
 import {BoxProps} from '../../Box/Box';
 import {ButtonProps} from '../Button';
 
 export const buildWrapperStyle = (
   type: ButtonProps['type'],
   disabled?: boolean,
+  customColor?: keyof Theme['colors'],
 ): BoxProps => {
   const commonStyle: BoxProps = {
     padding: 'sp16',
@@ -19,7 +22,7 @@ export const buildWrapperStyle = (
       ...commonStyle,
       width: 'auto',
       padding: 'sp10',
-      backgroundColor: 'primary50',
+      backgroundColor: customColor ? customColor : 'primary50',
       borderRadius: 'rd15',
     };
   }
@@ -29,7 +32,7 @@ export const buildWrapperStyle = (
       borderWidth: 1,
       width: 'auto',
       padding: 'sp10',
-      borderColor: 'border',
+      borderColor: customColor ? customColor : 'border',
       borderRadius: 'rd15',
     };
   }
@@ -37,12 +40,21 @@ export const buildWrapperStyle = (
     return {
       ...commonStyle,
       borderWidth: 1,
-      borderColor: 'border',
+      borderColor: customColor ? customColor : 'border',
+    };
+  }
+
+  if (type === 'flat') {
+    return {
+      ...commonStyle,
+      padding: 'sp3',
+      backgroundColor: undefined,
     };
   }
 
   return {
     ...commonStyle,
-    backgroundColor: 'primary50',
+    backgroundColor: customColor ? customColor : 'primary50',
+    padding: 'sp10',
   };
 };
