@@ -45,7 +45,6 @@ async function customRenderScreen() {
     bookCategories: screen.getAllByTestId('category-book-item'),
     summaryTextElement: screen.getByTestId('summary-text'),
     playButtonElement: screen.getByText(/play audio/i),
-    readButtonElement: screen.getByText(/read book/i),
   };
 }
 
@@ -55,7 +54,6 @@ describe('BookDetailsScreen', () => {
       bookAuthor,
       bookData,
       playButtonElement,
-      readButtonElement,
       bookCategories,
       bookTitle,
       imageCover,
@@ -67,37 +65,10 @@ describe('BookDetailsScreen', () => {
     expect(bookTitle).toBeTruthy();
     expect(imageCover).toBeTruthy();
     expect(playButtonElement).toBeTruthy();
-    expect(readButtonElement).toBeTruthy();
+
     const text = summaryTextElement.props.children[0] as string;
     const expectTextResume = bookData.bookDesc.slice(0, 500) + '...';
     expect(text.length).toEqual(expectTextResume.length);
-  });
-
-  it('Flow: redirect to ReadBookScreen', async () => {
-    const {readButtonElement, bookAuthor} = await customRenderScreen();
-
-    //1) press readButtonElement
-    act(() => {
-      fireEvent.press(readButtonElement);
-    });
-
-    const bookData = sectionBooksMock[0].books[0];
-    const bookTitle =
-      bookData.bookTitle.length > 30
-        ? bookData.bookTitle.slice(0, 30) + '...'
-        : bookData.bookTitle;
-    //2) check if render read book screen correctly
-    const headerTitleElement = screen.getByText(bookTitle);
-    expect(headerTitleElement).toBeTruthy();
-
-    //3) go back to details book screen
-    const goBackButton = screen.getByTestId('go-back-player-controller');
-    expect(goBackButton).toBeTruthy();
-
-    act(() => {
-      fireEvent.press(goBackButton);
-    });
-    expect(bookAuthor).toBeTruthy();
   });
 
   it('Flow: show review content and redirect to book review panels', async () => {

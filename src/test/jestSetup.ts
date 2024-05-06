@@ -1,17 +1,23 @@
 import {setDatabaseImpl} from '@database';
-import {setAudioTrackerImpl, setFileSystemImpl} from '@infra';
+import {
+  setAudioTrackerImpl,
+  setFileSystemImpl,
+  setImagePickerImpl,
+} from '@infra';
 import {darkTheme, theme} from '@styles';
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 
 import {databaseJest} from '../database/implementation/jest/databaseJest';
 import {audioTrackerJest} from '../infra/adapters/audioTracker/implementation/audio-tracker-jest-impl';
 import {jestFsImpl} from '../infra/adapters/fileSystem/implementation/jest-fs-impl';
+import {imagePickerJest} from '../infra/adapters/imagePicker/implementation/image-picker.jest';
 
 import {authCredentialsMock} from './serverHandlers';
 
 setAudioTrackerImpl(audioTrackerJest);
 setDatabaseImpl(databaseJest);
 setFileSystemImpl(jestFsImpl());
+setImagePickerImpl(imagePickerJest);
 
 jest.mock('react-native-safe-area-context', () => ({
   ...mockSafeAreaContext,
@@ -90,6 +96,7 @@ jest.mock('@hooks', () => {
 });
 
 const mockUid = authCredentialsMock.id;
+const mockCredentials = authCredentialsMock;
 export const mockRefreshCredentials = jest.fn();
 jest.mock('@providers', () => {
   const originalModule = jest.requireActual('@providers');
@@ -97,7 +104,9 @@ jest.mock('@providers', () => {
     ...originalModule,
     useAuthContext: () => ({
       uid: mockUid,
+      credentials: mockCredentials,
       refreshCredentials: mockRefreshCredentials,
+      removeCredentials: jest.fn(),
     }),
   };
 });
@@ -134,7 +143,7 @@ jest.mock('react-native-permissions', () =>
 jest.mock('../app/services/permission/permissionService', () => ({
   permissionService: {
     request: jest.fn(),
-    check: jest.fn(),
+    check: jest.fn(() => 'granted'),
   },
 }));
 jest.setTimeout(30000);

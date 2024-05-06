@@ -20,6 +20,7 @@ export function ProfileImage({profileImageUri, pickImage}: Props) {
       backgroundColor="contrast">
       <Box position="absolute" right={5} top={5} zIndex={1}>
         <IconPress
+          testID="edit-profile-image"
           iconName="penSquare"
           color="baseIconColor"
           size="sp28"
@@ -29,6 +30,7 @@ export function ProfileImage({profileImageUri, pickImage}: Props) {
       </Box>
       {profileImageUri ? (
         <Image
+          testID="profile-image"
           source={{
             uri: profileImageUri,
           }}
@@ -36,7 +38,9 @@ export function ProfileImage({profileImageUri, pickImage}: Props) {
           resizeMode="cover"
         />
       ) : (
-        <Icon color="baseIconColor" iconName="avatar" size="sp60" />
+        <Box testID="icon-avatar">
+          <Icon color="baseIconColor" iconName="avatar" size="sp60" />
+        </Box>
       )}
     </Box>
   );

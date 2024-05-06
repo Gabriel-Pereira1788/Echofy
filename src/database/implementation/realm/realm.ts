@@ -14,12 +14,12 @@ import {buildSchemas, realmSchemas, schemas} from './schemas';
 
 let realmDb: Realm | null = null;
 
-const open = async () => {
+const open = async (customPath?: string) => {
   const allSchemas = realmSchemas.map(item => item.schema);
   const config: Configuration = {
     schema: allSchemas,
     schemaVersion: 11,
-    path: 'bundle.realm',
+    path: customPath ? customPath : 'bundle.realm',
   };
   const realm = await Realm.open(config);
 

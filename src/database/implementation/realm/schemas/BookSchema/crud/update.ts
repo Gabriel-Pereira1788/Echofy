@@ -11,13 +11,12 @@ export function update(realm: Realm) {
 
     if (booksToUpdate && booksToUpdate.length > 0) {
       const book = booksToUpdate[0];
-      realm.write(() => {
-        book.book_author = newData.book_author
-          ? newData.book_author
-          : book.book_author;
 
-        book.book_desc = newData.book_desc ? newData.book_desc : book.book_desc;
-      });
+      book.book_author = newData.book_author
+        ? newData.book_author
+        : book.book_author;
+
+      book.book_desc = newData.book_desc ? newData.book_desc : book.book_desc;
     }
   };
 }

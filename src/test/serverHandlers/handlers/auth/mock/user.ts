@@ -7,6 +7,8 @@ import {
 export const authCredentialsAPIMock: AuthCredentialsAPI = {
   id: '3e919f78-11e6-4a46-93ad-be96e57118e3',
   email: 'johnDoe@gmail.com',
+  name: 'John doe',
+  profileImage: 'https://johndoe.com/image.jpg',
   isValid: true,
   firstLogin: true,
   userCategories: [],
@@ -23,6 +25,8 @@ export const authCredentialsValidatedAPIMock: AuthCredentialsAPI = {
 export const authCredentialsMock: AuthCredentials = {
   id: '3e919f78-11e6-4a46-93ad-be96e57118e3',
   email: 'johnDoe@gmail.com',
+  name: 'John doe',
+  profileImage: 'https://johndoe.com/image.jpg',
   birthDate: '21/12/2000',
   firstLogin: true,
   userCategories: [],
@@ -31,4 +35,10 @@ export const authCredentialsMock: AuthCredentials = {
 export const authSignInValidation: AuthSignInDTO = {
   email: 'johnDoe@gmail.com',
   password: 'johnDoe555',
+};
+
+export const imageLinkMock = {
+  data: {
+    link: 'https://www.image.com/img1234.jpg',
+  },
 };

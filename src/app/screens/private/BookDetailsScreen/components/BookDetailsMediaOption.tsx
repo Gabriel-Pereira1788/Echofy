@@ -7,7 +7,7 @@ type Props = {
   onReadBook: () => void;
 };
 
-export function BookDetailsMediaOption({onPlayAudio, onReadBook}: Props) {
+export function BookDetailsMediaOption({onPlayAudio}: Props) {
   return (
     <Box
       marginVertical="sp25"
@@ -18,14 +18,6 @@ export function BookDetailsMediaOption({onPlayAudio, onReadBook}: Props) {
       justifyContent="center">
       <Box flex={1}>
         <Button text="Play Audio" onPress={onPlayAudio} iconName="play" />
-      </Box>
-      <Box flex={1}>
-        <Button
-          text="Read Book"
-          type="outline"
-          iconName="document"
-          onPress={onReadBook}
-        />
       </Box>
     </Box>
   );

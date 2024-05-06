@@ -7,9 +7,8 @@ export function deleteData(realm: Realm) {
     const books = realm.objects(Schemas.Book).filtered('id == $0', id);
     if (books && books.length) {
       const bookToDelete = books[0];
-      realm.write(() => {
-        realm.delete(bookToDelete);
-      });
+
+      realm.delete(bookToDelete);
     }
   };
 }

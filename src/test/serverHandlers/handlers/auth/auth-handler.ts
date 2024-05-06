@@ -7,8 +7,12 @@ import {
   authCredentialsAPIMock,
   authCredentialsMock,
   authSignInValidation,
+  imageLinkMock,
 } from './mock/user';
 export const authHandler = [
+  http.post('https://api.imgur.com/3/upload', () => {
+    return HttpResponse.json(imageLinkMock);
+  }),
   http.patch(`${BASE_URL}auth/update/${authCredentialsMock.id}`, async () => {
     return HttpResponse.json(authCredentialsAPIMock, {status: 200});
   }),

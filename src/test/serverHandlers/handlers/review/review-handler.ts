@@ -7,4 +7,8 @@ export const reviewHandler = [
   http.get(`${BASE_URL}review/find-by-book-id/:bookId`, () => {
     return HttpResponse.json(reviewMock, {status: 200});
   }),
+
+  http.post(`${BASE_URL}review/send-review/:bookId`, () => {
+    return HttpResponse.json(reviewMock, {status: 200});
+  }),
 ];

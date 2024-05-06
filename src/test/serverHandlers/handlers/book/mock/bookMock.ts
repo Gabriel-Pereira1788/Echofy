@@ -199,9 +199,11 @@ export const bookMockApi: {docs: BookApi[]} = {
       ],
     },
     {
-      _id: '65aa9fb68f0378eb01060039',
       id: 'ca4b79cd-500f-4d41-8190-b170e568f908',
       book_image: 'https://www.loyalbooks.com/image/detail/49.jpg',
+      book_author: 'John doe',
+      book_read_link: 'www.read.com',
+      book_star_raiting: '5',
       book_genres: [
         'Adventure',
         'Kids',
@@ -283,13 +285,12 @@ export const bookMockApi: {docs: BookApi[]} = {
           src: 'http://www.archive.org/download/tom_sawyer_librivox/TSawyer_33-34-35_twain_64kb.mp3',
         },
       ],
-      createdAt: '2024-01-19T16:13:43.132Z',
-      updatedAt: '2024-01-19T16:13:43.132Z',
-      __v: 0,
     },
     {
-      _id: '65aa9fb68f0378eb0106003a',
       id: '17581ffa-2bca-4921-8f94-29f972a0d24a',
+      book_author: 'John doe',
+      book_read_link: 'www.read.com',
+      book_star_raiting: '5',
       book_image:
         'https://www.loyalbooks.com/image/detail/Swiss-Family-Robinson-.jpg',
       book_genres: [
@@ -513,9 +514,6 @@ export const bookMockApi: {docs: BookApi[]} = {
           src: 'http://www.archive.org/download/swiss_family_robinson_librivox/swiss_family_robinson_58conclusion_wyss_64kb.mp3',
         },
       ],
-      createdAt: '2024-01-19T16:13:43.132Z',
-      updatedAt: '2024-01-19T16:13:43.132Z',
-      __v: 0,
     },
   ],
   nextPage: 2,

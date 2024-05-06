@@ -1,4 +1,5 @@
 export interface IBookCategorySchema {
+  _id?: string;
   text: string;
 }
 
@@ -15,6 +16,7 @@ export interface IBookSchema {
 }
 
 export interface IBookPlaylistChapters {
+  _id?: string;
   chapter: number;
   src: string;
 }

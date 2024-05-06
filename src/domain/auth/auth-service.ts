@@ -1,4 +1,3 @@
-import {Schemas, database} from '@database';
 import {multimediaService} from '@services';
 
 import {authAdapter} from './auth-adapter';
@@ -23,7 +22,7 @@ async function signUp(data: AuthSignUpDTO) {
   const result = await authApi.signUp(data);
 
   const ac = authAdapter.toAuthCredentials(result);
-  database.create(Schemas.User, ac);
+
   return ac;
 }
 

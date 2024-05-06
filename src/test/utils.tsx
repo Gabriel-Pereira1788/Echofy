@@ -44,7 +44,8 @@ function wrapAllProviders() {
     </QueryClientProvider>
   );
 }
-function wrapperProvidersScreen() {
+
+function wrapperProvidersScreen(renderNavigationContainer: boolean = true) {
   const queryClient = new QueryClient(queryClientConfig);
 
   return ({children}: React.PropsWithChildren) => (
@@ -52,7 +53,11 @@ function wrapperProvidersScreen() {
       <GestureHandlerRootView style={{flex: 1}}>
         <ThemeProvider theme={theme}>
           <AuthProvider>
-            <NavigationContainer>{children}</NavigationContainer>
+            {renderNavigationContainer ? (
+              <NavigationContainer>{children}</NavigationContainer>
+            ) : (
+              children
+            )}
             <Toast />
           </AuthProvider>
         </ThemeProvider>
@@ -63,9 +68,14 @@ function wrapperProvidersScreen() {
 
 export function renderScreen<T>(
   component: React.ReactElement<T>,
-  options?: Omit<RenderOptions, 'wrapper'>,
+  options?: Omit<RenderOptions, 'wrapper'> & {
+    renderNavigationContainer?: boolean;
+  },
 ) {
-  return render(component, {wrapper: wrapperProvidersScreen(), ...options});
+  return render(component, {
+    wrapper: wrapperProvidersScreen(options?.renderNavigationContainer),
+    ...options,
+  });
 }
 
 export function customRender<T>(

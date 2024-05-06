@@ -11,7 +11,8 @@ export function usePermission(permissionName: PermissionName) {
     setLoading(true);
     try {
       await tryCheckPermission();
-    } catch {
+    } catch (err) {
+      console.log('ERR', err);
       setStatus('unavailable');
     } finally {
       setLoading(false);

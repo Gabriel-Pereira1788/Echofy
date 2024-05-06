@@ -13,6 +13,7 @@ import {
   sectionBooksMock,
   reviewMock,
   bookMockApi,
+  imageLinkMock,
 } from './handlers';
 import {reviewHandler} from './handlers/review/review-handler';
 
@@ -27,6 +28,7 @@ export {
   sectionBooksMock,
   bookMock,
   bookMockApi,
+  imageLinkMock,
 };
 export const server = setupServer(
   ...authHandler,

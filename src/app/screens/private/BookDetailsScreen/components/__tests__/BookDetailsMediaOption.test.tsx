@@ -17,24 +17,19 @@ function customRender() {
 
   return {
     playButtonElement: screen.getByText(/play audio/i),
-    readButtonElement: screen.getByText(/read book/i),
   };
 }
 describe('BookDetailsMediaOption', () => {
   it('should be render component correctly', () => {
-    const {playButtonElement, readButtonElement} = customRender();
+    const {playButtonElement} = customRender();
 
     expect(playButtonElement).toBeTruthy();
-    expect(readButtonElement).toBeTruthy();
   });
 
   it('should be press buttons correctly', () => {
-    const {playButtonElement, readButtonElement} = customRender();
+    const {playButtonElement} = customRender();
 
     fireEvent.press(playButtonElement);
     expect(mockPlayAudio).toHaveBeenCalled();
-
-    fireEvent.press(readButtonElement);
-    expect(mockReadBook).toHaveBeenCalled();
   });
 });

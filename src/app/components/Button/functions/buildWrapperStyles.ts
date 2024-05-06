@@ -55,6 +55,6 @@ export const buildWrapperStyle = (
   return {
     ...commonStyle,
     backgroundColor: customColor ? customColor : 'primary50',
-    padding: 'sp10',
+    padding: 'sp16',
   };
 };

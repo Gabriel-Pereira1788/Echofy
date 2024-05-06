@@ -4,11 +4,10 @@ import {
   IBookCategorySchema,
   IBookPlaylistChapters,
   IBookSchema,
-  IUserSchema,
 } from './interfaces';
 
 export interface DatabaseImpl {
-  open: () => Promise<void>;
+  open: (customPath?: string) => Promise<void>;
   reset: () => Promise<void>;
   create<SchemaName extends Schemas>(
     schema: Schemas,
@@ -34,7 +33,6 @@ export interface DatabaseImpl {
 }
 
 export enum Schemas {
-  User = '@User',
   BookCategory = '@BookCategorySchema',
   BookPlaylistChapters = '@BookPlaylistChapters',
   Book = '@BookSchema',
@@ -56,8 +54,6 @@ export type CrudSchemaData<SchemaName = Schemas> =
     ? IBookCategorySchema
     : SchemaName extends Schemas.BookPlaylistChapters
     ? IBookPlaylistChapters
-    : SchemaName extends Schemas.User
-    ? IUserSchema
     : unknown;
 
 export type SchemaObject<SchemaName extends Schemas> = Record<

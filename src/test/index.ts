@@ -12,6 +12,7 @@ export {
   bookCategoryMock,
   allCategoriesMock,
   reviewsListMock,
+  imageLinkMock,
   sectionBooksMock,
   bookMock,
   reviewMock,

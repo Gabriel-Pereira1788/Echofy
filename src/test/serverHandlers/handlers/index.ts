@@ -3,6 +3,7 @@ export {
   authCredentialsMock,
   authCredentialsAPIMock,
   authCredentialsValidatedAPIMock,
+  imageLinkMock,
 } from './auth/mock/user';
 export * from './book/book-handler';
 export {bookCategoryMock, allCategoriesMock} from './book/mock/categoryMock';

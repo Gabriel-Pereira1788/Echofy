@@ -5,10 +5,8 @@ import {SchemaObject, Schemas} from '../../../types';
 import {bookCategorySchema} from './BookCategorySchema';
 import {bookPlaylistChapters} from './BookPlaylistChapters';
 import {bookSchema} from './BookSchema';
-import {userSchema} from './UserSchema';
 
 export const realmSchemas = [
-  userSchema,
   bookSchema,
   bookCategorySchema,
   bookPlaylistChapters,

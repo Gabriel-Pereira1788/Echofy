@@ -63,6 +63,7 @@ export function NewReviewScreen({
         <Box width={'100%'} gap="sp20">
           <Text text="Tell us more" preset="medium/20" />
           <Input
+            value={content}
             multiline
             placeholder="Why this rating?"
             onChangeText={setContent}
