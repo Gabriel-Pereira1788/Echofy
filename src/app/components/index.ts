@@ -16,6 +16,7 @@ export * from './FormInput/FormInputPassword';
 export * from './Toast/Toast';
 export * from './Image/Image';
 export * from './Image/BlurImage';
+export * from './Image/ProgressiveImage';
 export * from './Category/Category';
 export * from './Book';
 export * from './Book/BookSkeleton';

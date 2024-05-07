@@ -1,7 +1,6 @@
 import React from 'react';
-import {Image} from 'react-native';
 
-import {Box, Icon, IconPress} from '@components';
+import {Box, Icon, IconPress, ProgressiveImage} from '@components';
 
 type Props = {
   profileImageUri?: string;
@@ -29,13 +28,11 @@ export function ProfileImage({profileImageUri, pickImage}: Props) {
         />
       </Box>
       {profileImageUri ? (
-        <Image
+        <ProgressiveImage
           testID="profile-image"
-          source={{
-            uri: profileImageUri,
-          }}
-          style={{width: '100%', height: '100%'}}
-          resizeMode="cover"
+          source={{uri: profileImageUri}}
+          width={'100%'}
+          height={'100%'}
         />
       ) : (
         <Box testID="icon-avatar">

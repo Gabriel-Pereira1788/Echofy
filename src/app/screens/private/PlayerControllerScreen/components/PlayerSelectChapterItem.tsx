@@ -26,7 +26,9 @@ export function PlayerSelectChapterItem({track}: Props) {
         <Box width={50}>
           <BookCover uri={track.artwork} height={50} disabledShadowBox />
         </Box>
-        <Text text={track.title} />
+        <Box width={'85%'}>
+          <Text text={track.title} />
+        </Box>
       </Box>
     </Box>
   );

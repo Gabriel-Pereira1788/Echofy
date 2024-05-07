@@ -10,7 +10,6 @@ export interface ITouchableOpacityBoxProps extends TouchableOpacityProps {
 
 export function TouchableOpacityBox({
   children,
-
   boxProps,
   ...rest
 }: ITouchableOpacityBoxProps) {

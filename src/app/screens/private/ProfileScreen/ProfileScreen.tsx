@@ -25,7 +25,13 @@ export function ProfileScreen() {
         type: 'success',
       });
     },
-    onError: () => {},
+    onError: error => {
+      toast.show({
+        title: 'Error!',
+        message: error.message,
+        type: 'error',
+      });
+    },
   });
 
   async function signOut() {
