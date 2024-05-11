@@ -1,9 +1,23 @@
 export interface Author {
   name: string;
+  author_name?: string;
   profile_image?: string;
 }
 
-export interface ReviewApi {
+export interface ReviewDTO {
+  author: Author;
+  content: string;
+  vote_rating: number;
+}
+
+export interface Review {
+  id: string;
+  author: Omit<Author, 'author_name'>;
+  content: string;
+  voteRating: number;
+}
+
+export interface IReviewExternalData {
   id: string;
   book_id: string;
   author: Author;
@@ -11,17 +25,4 @@ export interface ReviewApi {
   content: string;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface Review {
-  id: string;
-  author: Author;
-  content: string;
-  voteRating: number;
-}
-
-export interface ReviewDTO {
-  author: Author;
-  content: string;
-  vote_rating: number;
 }

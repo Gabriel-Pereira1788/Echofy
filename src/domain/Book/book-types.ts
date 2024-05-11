@@ -1,4 +1,4 @@
-export interface BookApi {
+export interface IBookExternalData {
   id: string;
   book_image: string;
   book_title: string;
@@ -32,7 +32,7 @@ export interface BookCategory {
 }
 
 export interface BookSectionApi {
-  docs: BookApi[];
+  docs: IBookExternalData[];
   nextPage: number | null;
   page: number;
   prevPage: number | null;

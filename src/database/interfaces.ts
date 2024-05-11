@@ -30,3 +30,13 @@ export interface IUserSchema {
   firstLogin?: boolean;
   userCategories?: string[];
 }
+
+export interface IReviewSchema {
+  id: string;
+  book_id: string;
+  author: {name: string; profile_image?: string};
+  vote_rating: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}

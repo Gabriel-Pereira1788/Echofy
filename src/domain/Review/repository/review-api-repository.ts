@@ -1,7 +1,7 @@
 import {api} from '@api';
-import {PaginatedDocs} from '@database';
+import {PaginatedDocs} from '@infra';
 
-import {ReviewApi} from '../review-types';
+import {IReviewExternalData} from '../review-types';
 
 import {ReviewRepository} from './types';
 
@@ -10,23 +10,18 @@ const getReviews: ReviewRepository['getReviews'] = async ({
   skip = 0,
   bookId,
 }) => {
-  const result = await api.get<PaginatedDocs<ReviewApi>>(
+  const result = await api.get<PaginatedDocs<IReviewExternalData>>(
     `review/find-by-book-id/${bookId}?top=${top}&skip=${skip}`,
   );
 
   return result.data;
 };
 
-const create: ReviewRepository['create'] = async (body, bookId) => {
-  const result = await api.post<ReviewApi>(
-    `review/send-review/${bookId}`,
-    body,
-  );
-
-  return result.data;
+const postReview: ReviewRepository['postReview'] = async (body, bookId) => {
+  await api.post<IReviewExternalData>(`review/send-review/${bookId}`, body);
 };
 
-export const reviewApiRepository: ReviewRepository = {
+export const reviewApiRepository: Omit<ReviewRepository, 'create'> = {
   getReviews,
-  create,
+  postReview,
 };

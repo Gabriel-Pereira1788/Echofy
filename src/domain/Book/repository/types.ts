@@ -1,7 +1,8 @@
-import {CrudSchemaData, IBookSchema, PaginatedDocs, Schemas} from '@database';
+import {CrudSchemaData, Schemas} from '@database';
+import {PaginatedDocs} from '@infra';
 
 import {QueryParams} from '../../types';
-import {CategoryIdentify} from '../book-types';
+import {CategoryIdentify, IBookExternalData} from '../book-types';
 
 export type QueryByCategory = {
   category: CategoryIdentify;
@@ -15,17 +16,17 @@ export interface BookRepository {
   getCategories: () => Promise<string[]>;
   getRecommendedForYou: (
     query: QueryRecommended,
-  ) => Promise<PaginatedDocs<IBookSchema> | null>;
+  ) => Promise<PaginatedDocs<IBookExternalData> | null>;
   getBestSeller: (
     query: QueryParams,
-  ) => Promise<PaginatedDocs<IBookSchema> | null>;
+  ) => Promise<PaginatedDocs<IBookExternalData> | null>;
   findByCategory: (
     query: QueryByCategory,
-  ) => Promise<PaginatedDocs<IBookSchema> | null>;
+  ) => Promise<PaginatedDocs<IBookExternalData> | null>;
   findBySearchText: (
     query: QuerySearchByText,
-  ) => Promise<PaginatedDocs<IBookSchema> | null>;
-  findById: (id: string) => Promise<IBookSchema | null>;
+  ) => Promise<PaginatedDocs<IBookExternalData> | null>;
+  findById: (id: string) => Promise<IBookExternalData | null>;
   create<SchemaName extends Schemas>(
     schema: SchemaName,
     data: CrudSchemaData<SchemaName> | CrudSchemaData<SchemaName>[],

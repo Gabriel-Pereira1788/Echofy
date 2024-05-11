@@ -3,21 +3,21 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 
 import {reviewService} from '../review-service';
-import {Review, ReviewDTO} from '../review-types';
+import {ReviewDTO} from '../review-types';
 
 export function useSendReview(
   bookId: string,
-  config: MutationConfig<Review, CommonError>,
+  config: MutationConfig<null, CommonError>,
 ) {
   const queryClient = useQueryClient();
-  const {mutate, isSuccess} = useMutation<Review, Error, ReviewDTO>({
+  const {mutate, isSuccess} = useMutation<void, Error, ReviewDTO>({
     mutationFn: variables => reviewService.sendReview(variables, bookId),
-    onSuccess: data => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [Queries.ReviewsList],
       });
       if (config.onSuccess) {
-        config.onSuccess(data);
+        config.onSuccess(null);
       }
     },
     onError: error => {

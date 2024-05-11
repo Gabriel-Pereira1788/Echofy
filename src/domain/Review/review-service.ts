@@ -20,9 +20,7 @@ async function getReviewsByBook({
 }
 
 async function sendReview(body: ReviewDTO, bookId: string) {
-  const review = await reviewController.createReview(body, bookId);
-
-  return reviewAdapter.toReview(review);
+  await reviewController.createReview(body, bookId);
 }
 export const reviewService = {
   getReviewsByBook,

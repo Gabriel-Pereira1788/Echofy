@@ -1,12 +1,16 @@
-import {PaginatedDocs} from '@database';
+import {CrudSchemaData, Schemas} from '@database';
+import {PaginatedDocs} from '@infra';
 
 import {QueryParams} from '../../types';
-import {ReviewApi, ReviewDTO} from '../review-types';
+import {IReviewExternalData, ReviewDTO} from '../review-types';
 
 export interface ReviewRepository {
   getReviews: (
     query: QueryParams & {bookId: string},
-  ) => Promise<PaginatedDocs<ReviewApi>>;
+  ) => Promise<PaginatedDocs<IReviewExternalData> | null>;
 
-  create: (body: ReviewDTO, bookId: string) => Promise<ReviewApi>;
+  postReview: (body: ReviewDTO, bookId: string) => Promise<void>;
+  create: (
+    data: CrudSchemaData<Schemas.Review> | CrudSchemaData<Schemas.Review>[],
+  ) => void;
 }

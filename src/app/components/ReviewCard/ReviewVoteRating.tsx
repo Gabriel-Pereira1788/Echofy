@@ -25,6 +25,7 @@ export function ReviewVoteRating({rating, size, onSelect}: Props) {
     <Box flexDirection="row" gap="sp10">
       {ratingCount.map((_, index) => (
         <IconPress
+          key={index}
           testID="vote-rating-item"
           disabled={!onSelect}
           iconName="star"

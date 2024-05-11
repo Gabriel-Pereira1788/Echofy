@@ -1,22 +1,28 @@
-import {PaginatedDocs} from '@database';
-import {PaginatedResult} from '@infra';
+import {PaginatedDocs, PaginatedResult} from '@infra';
 
-import {Review, ReviewApi} from './review-types';
+import {Author, IReviewExternalData, Review} from './review-types';
 
-function toReview(reviewApi: ReviewApi): Review {
+function toReview(reviewExternalData: IReviewExternalData): Review {
+  const author: Author =
+    'author_name' in reviewExternalData.author
+      ? {
+          profile_image: reviewExternalData.author.profile_image,
+          name: reviewExternalData.author.author_name!,
+        }
+      : reviewExternalData.author;
   return {
-    author: reviewApi.author,
-    content: reviewApi.content,
-    id: reviewApi.id,
-    voteRating: reviewApi.vote_rating,
+    author,
+    content: reviewExternalData.content,
+    id: reviewExternalData.id,
+    voteRating: reviewExternalData.vote_rating,
   };
 }
 
 function toListReview(
-  review: PaginatedDocs<ReviewApi>,
+  review: PaginatedDocs<IReviewExternalData> | null,
 ): PaginatedResult<Review> {
   return {
-    docs: review.docs.map(_review => toReview(_review)),
+    docs: review ? review.docs.map(_review => toReview(_review)) : [],
     meta: {
       nextPage: review?.nextPage || null,
       page: review?.page || 0,

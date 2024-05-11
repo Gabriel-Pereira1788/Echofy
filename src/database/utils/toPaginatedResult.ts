@@ -1,6 +1,5 @@
+import {PaginatedDocs} from '@infra';
 import {QueryParams} from 'src/domain/types';
-
-import {PaginatedDocs} from '../types';
 
 export function toPaginatedResult<TData>(
   docs: TData[],

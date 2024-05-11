@@ -1,13 +1,8 @@
+import {PaginatedDocs} from '@infra';
 import Realm, {Configuration} from 'realm';
 import {QueryParams} from 'src/domain/types';
 
-import {
-  CrudSchemaData,
-  DatabaseImpl,
-  Filter,
-  PaginatedDocs,
-  Schemas,
-} from '../../types';
+import {CrudSchemaData, DatabaseImpl, Filter, Schemas} from '../../types';
 import {toPaginatedResult} from '../../utils/toPaginatedResult';
 
 import {buildSchemas, realmSchemas, schemas} from './schemas';
@@ -15,17 +10,22 @@ import {buildSchemas, realmSchemas, schemas} from './schemas';
 let realmDb: Realm | null = null;
 
 const open = async (customPath?: string) => {
-  const allSchemas = realmSchemas.map(item => item.schema);
-  const config: Configuration = {
-    schema: allSchemas,
-    schemaVersion: 11,
-    path: customPath ? customPath : 'bundle.realm',
-  };
-  const realm = await Realm.open(config);
+  try {
+    const allSchemas = realmSchemas.map(item => item.schema);
 
-  buildSchemas(realm);
+    const config: Configuration = {
+      schema: allSchemas,
+      schemaVersion: 20,
+      path: customPath ? customPath : 'bundle.realm',
+    };
+    const realm = await Realm.open(config);
 
-  realmDb = realm;
+    buildSchemas(realm);
+
+    realmDb = realm;
+  } catch (error) {
+    console.log('ERROR ON OPEN DATABASE', error);
+  }
 };
 
 async function create<SchemaName extends Schemas>(
@@ -34,6 +34,7 @@ async function create<SchemaName extends Schemas>(
 ) {
   try {
     const schema = schemas.getSchema(schemaName);
+
     realmDb?.write(() => {
       schema.create(data);
     });

@@ -11,6 +11,14 @@ export interface PaginatedResult<TData> {
   meta: MetaData | null;
 }
 
+export interface PaginatedDocs<TData> {
+  docs: TData[];
+  nextPage: number | null;
+  page: number;
+  prevPage: number | null;
+  totalDocs: number;
+  totalPages: number;
+}
 export enum StorageKeys {
   AccessData = '@accessData',
   Credentials = '@credentials',

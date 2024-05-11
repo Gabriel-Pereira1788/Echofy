@@ -1,9 +1,11 @@
+import {PaginatedDocs} from '@infra';
 import {QueryParams} from 'src/domain/types';
 
 import {
   IBookCategorySchema,
   IBookPlaylistChapters,
   IBookSchema,
+  IReviewSchema,
 } from './interfaces';
 
 export interface DatabaseImpl {
@@ -37,6 +39,8 @@ export enum Schemas {
   BookPlaylistChapters = '@BookPlaylistChapters',
   Book = '@BookSchema',
   BookSection = '@BookSectionSchema',
+  Review = '@ReviewSchema',
+  Author = '@AuthorSchema',
 }
 
 export interface DatabaseSchemaImpl<SchemaName extends Schemas> {
@@ -54,6 +58,8 @@ export type CrudSchemaData<SchemaName = Schemas> =
     ? IBookCategorySchema
     : SchemaName extends Schemas.BookPlaylistChapters
     ? IBookPlaylistChapters
+    : SchemaName extends Schemas.Review
+    ? IReviewSchema
     : unknown;
 
 export type SchemaObject<SchemaName extends Schemas> = Record<
@@ -65,13 +71,4 @@ export interface Filter<SchemaName = Schemas> {
   field: keyof CrudSchemaData<SchemaName>;
   valueMatch: string;
   filter: string;
-}
-
-export interface PaginatedDocs<TData> {
-  docs: TData[];
-  nextPage: number | null;
-  page: number;
-  prevPage: number | null;
-  totalDocs: number;
-  totalPages: number;
 }
