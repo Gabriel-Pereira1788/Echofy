@@ -1,6 +1,5 @@
-import Realm from 'realm';
+import Realm, {BSON} from 'realm';
 
-import {schemas} from '../..';
 import {IBookPlaylistChapters, IBookSchema} from '../../../../../interfaces';
 import {CrudSchemaData, Schemas} from '../../../../../types';
 
@@ -15,13 +14,15 @@ export function create(realm: Realm) {
       ...value,
       playlist_chapters: [] as IBookPlaylistChapters[],
     });
-    const bookPlaylistChaptersSchema = schemas.getSchema(
-      Schemas.BookPlaylistChapters,
-    );
 
     for (let i = 0; i < value.playlist_chapters.length - 1; i++) {
       const chapter = value.playlist_chapters[i];
-      const chapterData = bookPlaylistChaptersSchema.create(chapter);
+      const chapterData = realm.create(Schemas.BookPlaylistChapters, {
+        _id: new BSON.ObjectID(),
+        name: Schemas.BookPlaylistChapters,
+        ...chapter,
+      });
+
       if (chapterData) {
         book.playlist_chapters.push(chapterData);
       }

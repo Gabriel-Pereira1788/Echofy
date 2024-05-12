@@ -124,16 +124,10 @@ async function getBookData(id: string) {
   return result ? bookAdapter.toBookData(result) : null;
 }
 
-async function getBookReading(id: string) {
-  const result = await bookController.getReadBookText(id);
-  return result.text;
-}
-
 export const bookService = {
   getBookData,
   getCategories,
   getBookSections,
   getBooksBySearchText,
   getBookListByCategory,
-  getBookReading,
 };

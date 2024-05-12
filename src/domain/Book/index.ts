@@ -4,7 +4,6 @@ export type {
   CategoryIdentify,
   BookSection,
   Book,
-  BookApi,
 } from './book-types';
 export {bookAdapter} from './book-adapter';
 export * from './book-service';

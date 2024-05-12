@@ -17,10 +17,12 @@
       "@database": ["src/database"],
       "@types": ["src/@types"],
       "@providers": ["src/app/providers"],
+      "@repositories": ["src/repositories"],
       "@utils": ["src/app/helpers/utils"],
       "@hooks": ["src/app/helpers/hooks"],
       "@super-components": ["src/app/helpers/super-components"],
       "@test": ["src/test"],
+      "@models": ["src/models"],
       "@mocks": ["src/mocks"],
       "@services": ["src/app/services"]
     }

@@ -12,10 +12,12 @@ export function create(realm: Realm) {
     if (results && results.length > 0) {
       return null;
     }
-    const review = realm.create(Schemas.Review, {
-      name: Schemas.Review,
-      ...value,
-    });
+
+    if (!value.id) {
+      const id = new BSON.ObjectID().toString();
+
+      value.id = id;
+    }
 
     const _author = realm.create(Schemas.Author, {
       _id: new BSON.ObjectID(),
@@ -23,7 +25,13 @@ export function create(realm: Realm) {
       author_name: value.author.name,
       profile_image: value.author.profile_image,
     });
-    review.author = _author;
+
+    const review = realm.create(Schemas.Review, {
+      name: Schemas.Review,
+      ...value,
+      author: _author,
+    });
+
     return review as IReviewSchema;
   };
 }

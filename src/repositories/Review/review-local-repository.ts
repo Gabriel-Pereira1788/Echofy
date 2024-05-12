@@ -1,12 +1,8 @@
 import {Schemas, database} from '@database';
 
-import {ReviewRepository} from './types';
+import {ReviewRepo} from './types';
 
-const getReviews: ReviewRepository['getReviews'] = async ({
-  top = 10,
-  skip = 0,
-  bookId,
-}) => {
+const get: ReviewRepo['get'] = async ({top = 10, skip = 0, bookId}) => {
   const results = database.readPaginatedResult(
     Schemas.Review,
     {
@@ -15,21 +11,18 @@ const getReviews: ReviewRepository['getReviews'] = async ({
     },
     {
       field: 'book_id',
-      valueMatch: bookId,
+      valueMatch: bookId!,
       filter: 'book_id == $0',
     },
   );
   return results;
 };
 
-const postReview: ReviewRepository['postReview'] = async (body, bookId) => {
-  await database.create(Schemas.Review, {
-    book_id: bookId,
-    ...body,
-  });
+const post: ReviewRepo['post'] = async body => {
+  await database.create(Schemas.Review, body);
 };
 
-const create: ReviewRepository['create'] = data => {
+const create: ReviewRepo['create'] = data => {
   try {
     if (Array.isArray(data)) {
       data.forEach(value => {
@@ -43,8 +36,8 @@ const create: ReviewRepository['create'] = data => {
   }
 };
 
-export const reviewLocalRepository: ReviewRepository = {
-  getReviews,
-  postReview,
+export const reviewLocalRepository: ReviewRepo = {
+  get,
+  post,
   create,
 };

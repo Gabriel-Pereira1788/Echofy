@@ -3,8 +3,7 @@ import Realm from 'realm';
 import {SchemaObject, Schemas} from '../../../types';
 
 import {bookCategorySchema} from './BookCategorySchema';
-import {bookPlaylistChapters} from './BookPlaylistChapters';
-import {bookSchema} from './BookSchema';
+import {bookPlaylistChaptersSchema, bookSchema} from './BookSchema';
 import {authorSchema, reviewSchema} from './ReviewSchema';
 
 export const realmSchemas = [
@@ -12,7 +11,7 @@ export const realmSchemas = [
   reviewSchema,
   bookSchema,
   bookCategorySchema,
-  bookPlaylistChapters,
+  bookPlaylistChaptersSchema,
 ];
 
 export let mapSchemas: SchemaObject<Schemas>;

@@ -25,3 +25,18 @@ export class BookSchema extends Realm.Object<BookSchema> {
     primaryKey: 'id',
   };
 }
+
+export class BookPlaylistChaptersSchema extends Realm.Object<BookPlaylistChaptersSchema> {
+  _id!: BSON.ObjectId;
+  name!: string;
+  static schema: ObjectSchema = {
+    name: Schemas.BookPlaylistChapters,
+    properties: {
+      _id: 'objectId',
+      chapter: {type: 'int'},
+      src: {type: 'string'},
+      name: {type: 'string', indexed: 'full-text'},
+    },
+    primaryKey: '_id',
+  };
+}

@@ -1,12 +1,7 @@
-import {IBookCategorySchema, IBookSchema} from '@database';
-import {PaginatedResult} from '@infra';
+import {PaginatedDocs, PaginatedResult} from '@infra';
+import {IBookExternalData} from '@models';
 
-import {
-  Book,
-  BookCategory,
-  BookSectionApi,
-  CategoryIdentify,
-} from './book-types';
+import {Book, BookCategory, CategoryIdentify} from './book-types';
 
 function toBookCategory(categories: string[]): BookCategory[] {
   return categories.map(category => ({
@@ -15,7 +10,7 @@ function toBookCategory(categories: string[]): BookCategory[] {
   }));
 }
 
-function toBookData(book: IBookSchema): Book {
+function toBookData(book: IBookExternalData): Book {
   return {
     id: book.id,
     bookDesc: book.book_desc,
@@ -28,12 +23,8 @@ function toBookData(book: IBookSchema): Book {
   };
 }
 
-function toCategorySchemaData(categories: string[]): IBookCategorySchema[] {
-  return categories.map(category => ({text: category}));
-}
-
 function toListSection(
-  bookSection: BookSectionApi | null,
+  bookSection: PaginatedDocs<IBookExternalData> | null,
 ): PaginatedResult<Book> {
   return {
     docs: bookSection
@@ -51,6 +42,5 @@ function toListSection(
 export const bookAdapter = {
   toBookData,
   toBookCategory,
-  toCategorySchemaData,
   toListSection,
 };

@@ -14,8 +14,8 @@ export class ReviewSchema extends Realm.Object<ReviewSchema> {
       author: {type: 'object', objectType: Schemas.Author, optional: true},
       vote_rating: {type: 'int'},
       content: {type: 'string'},
-      createdAt: {type: 'string'},
-      updatedAt: {type: 'string'},
+      createdAt: {type: 'string', optional: true},
+      updatedAt: {type: 'string', optional: true},
     },
     primaryKey: 'id',
   };

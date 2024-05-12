@@ -40,6 +40,9 @@ node_modules/
 npm-debug.log
 yarn-error.log
 default.realm.management
+default.realm
+deafult.realm.lock
+default.realm.note
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
