@@ -12,9 +12,18 @@ export interface DatabaseImpl {
   open: (customPath?: string) => Promise<void>;
   reset: () => Promise<void>;
   create<SchemaName extends Schemas>(
-    schema: Schemas,
+    schema: SchemaName,
     data: CrudSchemaData<SchemaName>,
-  ): void;
+  ): Promise<CrudSchemaData<SchemaName> | undefined>;
+  update<SchemaName extends Schemas>(
+    schemaName: SchemaName,
+    id: string,
+    data: Partial<CrudSchemaData<SchemaName>>,
+  ): Promise<void>;
+  deleteData<SchemaName extends Schemas>(
+    schema: SchemaName,
+    id: string,
+  ): Promise<void>;
   findById<SchemaName extends Schemas>(
     schema: SchemaName,
     id: string,

@@ -1,3 +1,5 @@
+import {IReviewExternalData} from '@models';
+
 export interface IBookCategorySchema {
   _id?: string;
   text: string;
@@ -31,12 +33,13 @@ export interface IUserSchema {
   userCategories?: string[];
 }
 
-export interface IReviewSchema {
-  id: string;
+export interface IReviewSchema extends IReviewExternalData {
+  id?: string;
+  local_id?: string;
   book_id: string;
-  author: {name: string; profile_image?: string};
+  author: {name: string; profile_image?: string; author_name?: string};
   vote_rating: number;
   content: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

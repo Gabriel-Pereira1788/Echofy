@@ -1,6 +1,6 @@
-import {BookApi} from '@domain';
+import {IBookExternalData} from '@models';
 
-export const bookMock: BookApi = {
+export const bookMock: IBookExternalData = {
   id: 'c342d355-24ba-472d-a1bb-ee40d9108945',
   book_image: 'https://www.loyalbooks.com/image/detail/47.jpg',
   book_genres: ['Adventure', 'Kids', 'Fantasy', 'Fiction', 'Literature'],

@@ -1,11 +1,11 @@
-import {BookGetQuery, BookRepository} from './Book/types';
-import {CategoryRepository} from './Category/types';
-import {ReviewGetQuery, ReviewRepo} from './Review/types';
+import {BookGetQuery, BookRepository} from './entities/Book/types';
+import {CategoryRepository} from './entities/Category/types';
+import {ReviewGetQuery, ReviewRepository} from './entities/Review/types';
 
 export type EntityName = 'review' | 'book' | 'category';
 
 export type EntityRepository<Name = EntityName> = Name extends 'review'
-  ? ReviewRepo
+  ? ReviewRepository
   : Name extends 'book'
   ? BookRepository
   : Name extends 'category'
@@ -17,6 +17,13 @@ export interface Entity {
   local: RepoImpl;
 }
 
+export type Action = 'CREATE' | 'DELETE' | 'UPDATE';
+export type EntitySync<TData = any> = {
+  entity: 'review';
+  action: Action;
+  localId: string;
+  data: TData;
+};
 export type EntityQuery<Name = EntityName> = Name extends 'review'
   ? ReviewGetQuery
   : Name extends 'book'
@@ -31,12 +38,22 @@ export type FindByIdMethod<TReturn = unknown> = (
   id: string,
 ) => Promise<TReturn | null>;
 
-export type PostMethod<TBody = any> = (body: TBody) => Promise<void>;
-type CreateMethod = (data: unknown) => void;
+export type PostMethod<TBody = any, TReturn = any> = (
+  body: TBody,
+) => Promise<TReturn | undefined>;
 
+type UpdateMethod<TData = any> = (
+  id: string,
+  data: Partial<TData>,
+) => Promise<void>;
+type CreateMethod<TData = any> = (data: TData) => void;
+
+type Delete = (id: string) => Promise<void>;
 export interface RepoImpl {
   get: GetMethod;
   findById?: FindByIdMethod;
   post?: PostMethod;
+  update?: UpdateMethod;
+  deleteData?: Delete;
   create: CreateMethod;
 }

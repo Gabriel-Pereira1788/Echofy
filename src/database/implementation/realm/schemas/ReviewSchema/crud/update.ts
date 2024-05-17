@@ -11,8 +11,22 @@ export function update(realm: Realm) {
 
     if (reviewsToUpdate && reviewsToUpdate.length > 0) {
       const review = reviewsToUpdate[0];
-      (review.author = newData.author ? newData.author : review.author),
-        (review.content = newData.content ? newData.content : review.content);
+
+      review.book_id = newData.book_id ? newData.book_id : review.book_id;
+      review.vote_rating = newData.vote_rating
+        ? newData.vote_rating
+        : review.vote_rating;
+
+      review.author.author_name = newData.author?.author_name
+        ? newData.author.author_name
+        : review.author.author_name;
+      review.author.name = newData.author?.name
+        ? newData.author.name
+        : review.author.name;
+      review.author.profile_image = newData.author?.profile_image
+        ? newData.author.profile_image
+        : review.author.profile_image;
+      review.content = newData.content ? newData.content : review.content;
     }
   };
 }

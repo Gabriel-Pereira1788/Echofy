@@ -21,7 +21,7 @@ export function create(realm: Realm) {
         _id: new BSON.ObjectID(),
         name: Schemas.BookPlaylistChapters,
         ...chapter,
-      });
+      }) as IBookPlaylistChapters;
 
       if (chapterData) {
         book.playlist_chapters.push(chapterData);

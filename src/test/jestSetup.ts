@@ -147,3 +147,21 @@ jest.mock('../app/services/permission/permissionService', () => ({
   },
 }));
 jest.setTimeout(30000);
+
+jest.mock('@react-native-community/netinfo', () => ({
+  useNetInfo: jest.fn(),
+  fetch: jest.fn(),
+  addEventListener: jest.fn(),
+}));
+
+jest.mock('react-native-bootsplash', () => {
+  return {
+    hide: jest.fn().mockResolvedValue(true),
+    isVisible: jest.fn().mockResolvedValue(false),
+    useHideAnimation: jest.fn().mockReturnValue({
+      container: {},
+      logo: {source: 0},
+      brand: {source: 0},
+    }),
+  };
+});

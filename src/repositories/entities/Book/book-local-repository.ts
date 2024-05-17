@@ -21,13 +21,13 @@ async function getBestSeller(top?: number, skip?: number) {
 }
 async function findByCategory(query: QueryByCategory) {
   if (query.category === 'best-seller') {
-    const result = getBestSeller(query.top, query.skip);
+    const result = await getBestSeller(query.top, query.skip);
 
     return result;
   }
 
   if (query.category === 'recommended-for-you') {
-    const result = getRecommendedForYou(query.top, query.skip);
+    const result = await getRecommendedForYou(query.top, query.skip);
 
     return result;
   }
@@ -96,6 +96,10 @@ const create: BookRepository['create'] = async data => {
   try {
     if (Array.isArray(data)) {
       data.forEach(value => {
+        database.create(Schemas.Book, value);
+      });
+    } else if (data && 'docs' in data) {
+      data.docs.forEach(value => {
         database.create(Schemas.Book, value);
       });
     } else {

@@ -4,6 +4,9 @@ import {IBookExternalData} from '@models';
 import {Book, BookCategory, CategoryIdentify} from './book-types';
 
 function toBookCategory(categories: string[]): BookCategory[] {
+  if (categories.length === 0) {
+    return [];
+  }
   return categories.map(category => ({
     isSelected: false,
     text: category as CategoryIdentify,

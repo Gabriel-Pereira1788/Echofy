@@ -24,7 +24,6 @@ export function BookDetailsScreen({
 }: CommonStackProps<'BookDetailsScreen'>) {
   const bookId = route && route.params ? route.params.id : 'testID';
 
-  console.log('BOOK-ID', bookId);
   const {bookData, isLoading} = useBookFindById(bookId);
   const {reviews} = useReviewsList(bookId, 4);
 

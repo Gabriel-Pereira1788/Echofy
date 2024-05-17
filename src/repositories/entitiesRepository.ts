@@ -1,8 +1,21 @@
-import {bookApiRepository, bookLocalRepository} from './Book';
-import {categoryApiRepository} from './Category/category-api-repository';
-import {categoryLocalRepository} from './Category/category-local-repository';
-import {reviewApiRepository, reviewLocalRepository} from './Review';
-import {Entity, EntityName, EntityQuery, EntityRepository} from './types';
+import {netStatus} from '@infra';
+
+import {
+  bookApiRepository,
+  bookLocalRepository,
+  categoryApiRepository,
+  categoryLocalRepository,
+  reviewApiRepository,
+  reviewLocalRepository,
+} from './entities';
+import {QueueManager} from './queueManager';
+import {
+  Entity,
+  EntityName,
+  EntityQuery,
+  EntityRepository,
+  EntitySync,
+} from './types';
 
 const mappedEntities: Record<EntityName, Entity> = {
   review: {
@@ -24,20 +37,26 @@ async function read<Name extends EntityName>(
 ) {
   const entity = mappedEntities[entityName];
   const localResult = await entity.local.get(query!);
-  if (
-    Array.isArray(localResult) ||
-    (localResult && localResult.docs.length > 0) ||
-    localResult
-  ) {
-    return localResult as ReturnType<EntityRepository<Name>['get']>;
+
+  if (localResult && Array.isArray(localResult) && localResult.length > 0) {
+    return localResult;
+  }
+
+  if (localResult && 'docs' in localResult && localResult.docs.length > 0) {
+    return localResult;
+  }
+
+  if (localResult && !('docs' in localResult) && !Array.isArray(localResult)) {
+    return localResult;
+  }
+
+  const apiResult = await entity.api.get(query!);
+
+  if (apiResult) {
+    entity.local.create && (await entity.local.create(apiResult));
+    return apiResult as ReturnType<EntityRepository<Name>['get']>;
   } else {
-    const apiResult = await entity.api.get(query!);
-    if (apiResult) {
-      entity.local.create && (await entity.local.create(apiResult));
-      return apiResult as ReturnType<EntityRepository<Name>['get']>;
-    } else {
-      return null;
-    }
+    return null;
   }
 }
 
@@ -58,17 +77,45 @@ async function findById<Name extends 'book'>(entityName: Name, id: string) {
   }
 }
 
-async function create<Name extends 'review'>(
+async function post<Name extends 'review'>(
   entityName: Name,
   body: Parameters<EntityRepository<Name>['post']>[0],
 ) {
   const entity = mappedEntities[entityName];
-  await entity.api.post?.(body);
-  await entity.local.post?.(body);
+  if (netStatus.connectionStatus && netStatus.connectionStatus.connected) {
+    const result = await entity.api.post?.(body);
+    await entity.local.post?.(result);
+  } else {
+    const data = await entity.local.post?.(body);
+    if (data && data.local_id) {
+      QueueManager.addToQueueRequest({
+        entity: entityName,
+        localId: data.local_id,
+        action: 'CREATE',
+        data,
+      });
+    }
+  }
+}
+
+async function sync(entitySync: EntitySync) {
+  const entity = mappedEntities[entitySync.entity];
+  switch (entitySync.action) {
+    case 'CREATE':
+      const result = await entity.api.post?.(entitySync.data);
+      await entity.local.deleteData?.(entitySync.localId);
+      await entity.local.post?.(result);
+      break;
+    case 'DELETE':
+      break;
+    case 'UPDATE':
+      break;
+  }
 }
 
 export const EntitiesRepository = {
   read,
-  create,
+  post,
   findById,
+  sync,
 };

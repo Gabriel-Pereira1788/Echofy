@@ -3,7 +3,8 @@ import {EntitiesRepository} from '@repositories';
 import {QueryByCategory, QuerySearchByText} from './book-types';
 
 async function getCategories() {
-  return (await EntitiesRepository.read('category')) ?? [];
+  const categoriesData = await EntitiesRepository.read('category');
+  return categoriesData ? categoriesData : [];
 }
 
 async function findByCategory(query: QueryByCategory) {

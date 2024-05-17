@@ -1,4 +1,4 @@
-import {RepoImpl} from '../types';
+import {RepoImpl} from '../../types';
 
 export type CategoryIdentify =
   | 'recommended-for-you'

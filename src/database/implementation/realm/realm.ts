@@ -15,7 +15,7 @@ const open = async (customPath?: string) => {
 
     const config: Configuration = {
       schema: allSchemas,
-      schemaVersion: 23,
+      schemaVersion: 25,
       path: customPath ? customPath : 'bundle.realm',
     };
     const realm = await Realm.open(config);
@@ -35,9 +35,11 @@ async function create<SchemaName extends Schemas>(
   try {
     const schema = schemas.getSchema(schemaName);
 
-    realmDb?.write(() => {
-      schema.create(data);
+    const returnObject = realmDb?.write(() => {
+      return schema.create(data);
     });
+
+    return returnObject as CrudSchemaData<SchemaName>;
   } catch (error) {
     console.log('ERROR ON CREATE', schemaName, error);
   }
@@ -134,6 +136,32 @@ async function read<SchemaName extends Schemas>(
   return results as CrudSchemaData<SchemaName>;
 }
 
+async function update<SchemaName extends Schemas>(
+  schemaName: SchemaName,
+  id: string,
+  data: Partial<CrudSchemaData<SchemaName>>,
+) {
+  try {
+    const schema = schemas.getSchema(schemaName);
+
+    realmDb?.write(() => {
+      schema.update(id, data);
+    });
+  } catch (error) {
+    console.log('ERROR ON UPDATE SCHEMA', schemaName, error);
+  }
+}
+
+async function deleteData<SchemaName extends Schemas>(
+  schemaName: SchemaName,
+  id: string,
+) {
+  const schema = schemas.getSchema(schemaName);
+  realmDb?.write(() => {
+    schema.delete(id);
+  });
+}
+
 async function reset() {
   realmDb?.write(() => {
     realmDb?.deleteAll();
@@ -149,4 +177,6 @@ export const realmImpl: DatabaseImpl = {
   read,
   reset,
   readPaginatedResult,
+  update,
+  deleteData,
 };

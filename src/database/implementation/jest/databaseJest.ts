@@ -14,4 +14,6 @@ export const databaseJest: DatabaseImpl = {
   close: jest.fn(),
   open: jest.fn(),
   read: jest.fn(),
+  deleteData: jest.fn(),
+  update: jest.fn(),
 };

@@ -18,7 +18,6 @@ const mappedEventsListener: Record<
     }),
   trackChanged: (listener: TrackListeners['trackChanged']) =>
     TrackPlayer.addEventListener(Event.PlaybackActiveTrackChanged, event => {
-      console.log('EVENT', event);
       if (event.track) {
         listener({
           artist: event.track.artist!,
@@ -38,7 +37,6 @@ function getTracks() {
 
 async function getActiveTrack(): Promise<Track | null> {
   const result = await TrackPlayer.getActiveTrack();
-  console.log('RESULT', result);
   if (result) {
     return {
       artist: result?.artist!,

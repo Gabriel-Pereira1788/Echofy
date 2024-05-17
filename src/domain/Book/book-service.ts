@@ -117,10 +117,7 @@ async function getBooksBySearchText({
 }
 
 async function getBookData(id: string) {
-  console.log('ENTROU AQUI GET BOOK DATA');
-
   const result = await bookController.findById(id);
-  console.log('RESULT', result);
   return result ? bookAdapter.toBookData(result) : null;
 }
 

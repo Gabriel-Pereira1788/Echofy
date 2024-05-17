@@ -1,9 +1,9 @@
 import {QueryParams} from '@domain';
 import {PaginatedDocs} from '@infra';
 
-import {IBookExternalData} from '../../models';
+import {IBookExternalData} from '../../../models';
+import {RepoImpl} from '../../types';
 import {CategoryIdentify} from '../Category/types';
-import {RepoImpl} from '../types';
 
 export type BookGetQuery = QueryParams & {
   id?: string;
@@ -20,4 +20,7 @@ export type QueryByCategory = {
 export interface BookRepository extends Omit<RepoImpl, 'post'> {
   get(query: BookGetQuery): Promise<PaginatedDocs<IBookExternalData> | null>;
   findById(id: string): Promise<IBookExternalData | null>;
+  create(
+    data: IBookExternalData[] | {docs: IBookExternalData[]} | IBookExternalData,
+  ): Promise<void>;
 }

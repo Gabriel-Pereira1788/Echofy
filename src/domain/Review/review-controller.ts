@@ -9,7 +9,7 @@ async function getReviews(query: QueryParams & {bookId: string}) {
 }
 
 async function createReview(reviewDTO: ReviewDTO, bookId: string) {
-  await EntitiesRepository.create('review', {bookId: bookId, ...reviewDTO});
+  await EntitiesRepository.post('review', {bookId: bookId, ...reviewDTO});
 }
 export const reviewController = {
   getReviews,

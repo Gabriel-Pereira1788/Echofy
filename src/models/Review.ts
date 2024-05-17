@@ -1,11 +1,12 @@
 export interface IReviewExternalData {
-  id: string;
+  id?: string;
+  local_id?: string;
   book_id: string;
   author: {name: string; author_name?: string; profile_image?: string};
   vote_rating: number;
   content: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ReviewDTO {

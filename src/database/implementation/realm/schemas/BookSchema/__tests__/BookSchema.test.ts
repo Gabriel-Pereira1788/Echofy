@@ -1,13 +1,12 @@
 import Realm from 'realm';
 
 import {buildSchemas} from '../..';
-import {BookPlaylistChapters} from '../../BookPlaylistChapters/schema';
 import {buildBookSchema} from '../buildSchema';
 import {bookMock} from '../mock/bookMock';
-import {BookSchema} from '../schema';
+import {BookSchema, BookPlaylistChaptersSchema} from '../schema';
 
 const config = {
-  schema: [BookSchema, BookPlaylistChapters],
+  schema: [BookSchema, BookPlaylistChaptersSchema],
   path: 'testing.realm',
 };
 let realm: Realm;

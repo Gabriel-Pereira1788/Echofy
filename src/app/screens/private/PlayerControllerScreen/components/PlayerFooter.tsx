@@ -18,7 +18,6 @@ export function PlayerFooter({onOpenModal}: Props) {
 
   const track = useAudioTrack();
 
-  console.log('TRACK', track);
   const {downloadFile} = useDownload({
     url: track?.url,
     onProgress: progress => {

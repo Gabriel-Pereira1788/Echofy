@@ -11,6 +11,7 @@ export class ReviewSchema extends Realm.Object<ReviewSchema> {
     properties: {
       id: {type: 'string'},
       book_id: {type: 'string'},
+      local_id: {type: 'string', optional: true},
       author: {type: 'object', objectType: Schemas.Author, optional: true},
       vote_rating: {type: 'int'},
       content: {type: 'string'},
@@ -30,7 +31,7 @@ export class AuthorSchema extends Realm.Object<AuthorSchema> {
     properties: {
       _id: 'objectId',
       author_name: {type: 'string'},
-      profile_image: {type: 'string'},
+      profile_image: {type: 'string', optional: true},
     },
     primaryKey: '_id',
   };

@@ -5,6 +5,7 @@ import {
   EllipseStroke,
   Huray,
   Logo,
+  LogoBlank,
   ReviewsIllustration,
 } from '@assets';
 import {ColorSchemeName} from 'react-native/types';
@@ -16,11 +17,12 @@ type KeyMappedImage =
   | 'ellipseStroke'
   | 'huray'
   | 'logo'
+  | 'logoBlank'
   | 'reviewsIllustration';
 
 interface ImageProps {
   imageName: KeyMappedImage;
-  width?: number;
+  width?: number | string;
   height?: number;
 }
 
@@ -47,5 +49,6 @@ const mappedImage: Record<
   ellipseStroke: EllipseStroke,
   huray: Huray,
   logo: Logo,
+  logoBlank: LogoBlank,
   reviewsIllustration: ReviewsIllustration,
 };

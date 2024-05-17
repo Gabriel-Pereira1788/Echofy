@@ -16,13 +16,3 @@ export interface Review {
   content: string;
   voteRating: number;
 }
-
-export interface IReviewExternalData {
-  id: string;
-  book_id: string;
-  author: Author;
-  vote_rating: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}

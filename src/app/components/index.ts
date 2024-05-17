@@ -28,3 +28,4 @@ export * from './BestSellerCard/BestSellerCardSkeleton';
 export * from './Carousel/Carousel';
 export * from './ReviewCard';
 export * from './ProgressBar/ProgressBar';
+export * from './AnimatedSplashScreen/AnimatedSplashScreen';

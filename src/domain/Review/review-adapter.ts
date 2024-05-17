@@ -1,6 +1,7 @@
 import {PaginatedDocs, PaginatedResult} from '@infra';
+import {IReviewExternalData} from '@models';
 
-import {Author, IReviewExternalData, Review} from './review-types';
+import {Author, Review} from './review-types';
 
 function toReview(reviewExternalData: IReviewExternalData): Review {
   const author: Author =
@@ -13,7 +14,7 @@ function toReview(reviewExternalData: IReviewExternalData): Review {
   return {
     author,
     content: reviewExternalData.content,
-    id: reviewExternalData.id,
+    id: reviewExternalData.id!,
     voteRating: reviewExternalData.vote_rating,
   };
 }

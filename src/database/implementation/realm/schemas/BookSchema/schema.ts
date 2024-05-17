@@ -10,6 +10,7 @@ export class BookSchema extends Realm.Object<BookSchema> {
     properties: {
       id: {type: 'string'},
       book_image: {type: 'string'},
+      local_id: {type: 'string', optional: true},
       book_title: {type: 'string'},
       book_genres: {type: 'list', objectType: 'string'},
       book_desc: {type: 'string'},

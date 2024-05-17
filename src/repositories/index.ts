@@ -1,2 +1,2 @@
 export {EntitiesRepository} from './entitiesRepository';
-export * from './Category';
+export * from './entities/Category';
