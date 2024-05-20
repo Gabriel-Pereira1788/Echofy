@@ -3,17 +3,19 @@ import React from 'react';
 import {Box, BoxProps, Text} from '@components';
 import {useAppSafeArea} from '@hooks';
 
-type Props = {
+export type SharedScreenHeaderProps = {
   headerLeft?: React.JSX.Element;
   headerTitle?: string;
   headerRight?: React.JSX.Element;
+  disabledMarginTop?: boolean;
 };
 
 export function SharedScreenHeader({
   headerLeft,
   headerTitle,
   headerRight,
-}: Props) {
+  disabledMarginTop,
+}: SharedScreenHeaderProps) {
   const {top} = useAppSafeArea();
 
   if (!headerLeft && !headerRight && !headerTitle) {
@@ -27,7 +29,7 @@ export function SharedScreenHeader({
     : '';
 
   return (
-    <Box {...$boxWrapper} style={{marginTop: top}}>
+    <Box {...$boxWrapper} style={{marginTop: disabledMarginTop ? 0 : top}}>
       <Box flex={0.5}>{headerLeft && headerLeft}</Box>
       {headerTitle && (
         <Box flex={2} flexDirection="row" justifyContent="center">

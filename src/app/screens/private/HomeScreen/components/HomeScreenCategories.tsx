@@ -1,63 +1,71 @@
-import React, {useCallback} from 'react';
-import {ListRenderItem, FlatList, StyleProp, ViewStyle} from 'react-native';
+import React, {useCallback, useRef} from 'react';
+import {
+  ListRenderItem,
+  FlatList,
+  StyleProp,
+  ViewStyle,
+  Animated,
+} from 'react-native';
 
-import {BookCategory, CategoryIdentify, useBookCategories} from '@domain';
-import {useNavigation} from '@react-navigation/native';
+import {BookSection} from '@domain';
 
-import {Box, Category, Text} from '@components';
+import {Box, Category} from '@components';
 
-type Props = {};
+type Props = {
+  bookSections: BookSection[];
+  currentSection: BookSection | null;
+  onSelect: (item: BookSection) => void;
+};
 
-export function HomeScreenCategories({}: Props) {
-  const {categories} = useBookCategories();
+export function HomeScreenCategories({
+  bookSections,
+  onSelect,
+  currentSection,
+}: Props) {
+  const flatListRef = useRef<FlatList>(null);
 
-  const navigation = useNavigation();
-
-  const renderItem: ListRenderItem<BookCategory> = useCallback(
-    ({item}) => {
-      function redirectToCategoryBooksScreen() {
-        navigation.navigate('CategoryBookScreen', {
-          categoryIdentify: item.text.toLowerCase() as CategoryIdentify,
-          categoryTitle: item.text,
+  const renderItem: ListRenderItem<BookSection> = useCallback(
+    ({item, index}) => {
+      function handlePress() {
+        onSelect(item);
+        flatListRef.current?.scrollToIndex({
+          index,
+          animated: true,
+          viewPosition: 0.5,
         });
       }
+
       return (
-        <Box>
+        <Animated.View style={{marginRight: 5}}>
           <Category
             testID="category"
-            text={item.text}
-            onPress={redirectToCategoryBooksScreen}
+            text={item.title}
+            onPress={handlePress}
+            isSelected={currentSection?.identify === item.identify}
           />
-        </Box>
+        </Animated.View>
       );
     },
-    [navigation],
+    [onSelect, currentSection],
   );
 
   return (
-    <Box
-      width={'100%'}
-      alignItems="flex-start"
-      marginBottom="sp25"
-      justifyContent="flex-start"
-      gap="sp10">
-      <Box
-        width={'100%'}
-        flexDirection="row"
-        marginBottom="sp10"
-        paddingLeft="sp25">
-        <Text text="Categories" preset="medium/16" color="base" />
-      </Box>
-      {categories && (
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          scrollEnabled
-          contentContainerStyle={$contentContainerStyle}
-          data={categories.slice(0, 10)}
-          renderItem={renderItem}
-        />
-      )}
+    <Box width={'100%'} alignItems="flex-start" justifyContent="flex-start">
+      <FlatList
+        ref={flatListRef}
+        testID="category-list"
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        decelerationRate={'fast'}
+        scrollEventThrottle={16}
+        snapToAlignment={'start'}
+        snapToInterval={100}
+        scrollEnabled
+        contentContainerStyle={$contentContainerStyle}
+        data={bookSections}
+        renderItem={renderItem}
+        onScrollToIndexFailed={() => {}}
+      />
     </Box>
   );
 }
@@ -65,7 +73,8 @@ export function HomeScreenCategories({}: Props) {
 const $contentContainerStyle: StyleProp<ViewStyle> = {
   flexGrow: 1,
   gap: 10,
-  paddingHorizontal: 16,
+  paddingHorizontal: 25,
+  // marginVertical: 25,
   justifyContent: 'flex-start',
-  alignItems: 'flex-start',
+  alignItems: 'flex-end',
 };

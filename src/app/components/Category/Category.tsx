@@ -11,11 +11,19 @@ type Props = {
   onPress?: () => void;
   outline?: boolean;
   iconName?: IconProps['iconName'];
+  isSelected?: boolean;
 };
 
-export function Category({testID, text, iconName, outline, onPress}: Props) {
+export function Category({
+  testID,
+  text,
+  iconName,
+  outline,
+  isSelected,
+  onPress,
+}: Props) {
   const boxColors: BoxProps = !outline
-    ? {backgroundColor: 'contrast'}
+    ? {backgroundColor: isSelected ? 'activeColor' : 'contrast'}
     : {
         borderColor: 'outlineCategoryColor',
         borderWidth: 1,
@@ -33,7 +41,12 @@ export function Category({testID, text, iconName, outline, onPress}: Props) {
       {iconName && (
         <Icon iconName={iconName} size="sp20" color="baseIconColor" />
       )}
-      <Text text={text} color={outline ? 'outlineCategoryColor' : 'text'} />
+      <Text
+        text={text}
+        color={
+          outline ? 'outlineCategoryColor' : isSelected ? 'contrast' : 'text'
+        }
+      />
     </TouchableOpacityBox>
   );
 }

@@ -5,11 +5,14 @@ import {dimensions} from '@utils';
 
 import {Box, Icon, Image, TouchableOpacityBox} from '@components';
 
-import {SharedScreenHeader} from '../SharedScreenHeader/SharedScreenHeader';
+import {
+  SharedScreenHeader,
+  SharedScreenHeaderProps,
+} from '../SharedScreenHeader/SharedScreenHeader';
 
-type Props = {};
+interface Props extends Pick<SharedScreenHeaderProps, 'disabledMarginTop'> {}
 
-export function SharedBrandHeader({}: Props) {
+export function SharedBrandHeader({disabledMarginTop}: Props) {
   const dynamicLogoSize = (dimensions.width / 100) * 35;
 
   const navigation = useNavigation();
@@ -20,6 +23,7 @@ export function SharedBrandHeader({}: Props) {
 
   return (
     <SharedScreenHeader
+      disabledMarginTop={disabledMarginTop}
       headerRight={
         <TouchableOpacityBox
           onPress={redirectToProfileScreen}

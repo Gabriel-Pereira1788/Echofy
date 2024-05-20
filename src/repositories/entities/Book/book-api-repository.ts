@@ -19,14 +19,6 @@ async function getRecommendedForYou(uid: string, top = 10, skip = 0) {
   return response.data;
 }
 
-async function getBestSeller(top = 10, skip = 0) {
-  const response = await api.get<PaginatedDocs<IBookExternalData>>(
-    `book/best-seller?top=${top}&skip=${skip}`,
-  );
-
-  return response.data;
-}
-
 async function findByCategory({
   category,
   top = 10,
@@ -39,11 +31,6 @@ async function findByCategory({
     return response;
   }
 
-  if (category === 'best-seller') {
-    const response = await getBestSeller(top, skip);
-
-    return response;
-  }
   const response = await api.get<PaginatedDocs<IBookExternalData>>(
     `book/find-by-category/${category}?top=${top}&skip=${skip}`,
   );

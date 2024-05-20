@@ -12,20 +12,7 @@ async function getRecommendedForYou(top?: number, skip?: number) {
   return results;
 }
 
-async function getBestSeller(top?: number, skip?: number) {
-  const results = database.readPaginatedResult(Schemas.Book, {
-    skip: skip,
-    top: top,
-  });
-  return results;
-}
 async function findByCategory(query: QueryByCategory) {
-  if (query.category === 'best-seller') {
-    const result = await getBestSeller(query.top, query.skip);
-
-    return result;
-  }
-
   if (query.category === 'recommended-for-you') {
     const result = await getRecommendedForYou(query.top, query.skip);
 

@@ -27,7 +27,6 @@ export interface BookCategory {
 export interface BookSection {
   identify: CategoryIdentify;
   title: string;
-  books: Book[];
 }
 
 export type QueryByCategory = {

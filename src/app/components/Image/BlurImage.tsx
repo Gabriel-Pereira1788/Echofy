@@ -16,7 +16,11 @@ export function BlurImage({source, blurAmount, ...boxProps}: Props) {
   const {colorScheme} = useTheme();
   return (
     <Box overflow="hidden" {...boxProps}>
-      <Image style={{width: '100%', height: '100%'}} source={source} />
+      <Image
+        style={{width: '100%', height: '100%'}}
+        resizeMode="cover"
+        source={source}
+      />
       <BlurView
         style={$blurViewStyle}
         blurType={colorScheme ?? 'dark'}

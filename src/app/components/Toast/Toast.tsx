@@ -23,7 +23,7 @@ export function Toast({}: Props) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const {top} = useAppSafeArea();
-  const {opacity, show, hide} = useOpacityAnimated(0, {duration: 350});
+  const {opacity, show, hide} = useOpacityAnimated({duration: 350});
 
   const $color = toast ? mappedColorTypeToast[toast.type] : 'alertColor';
   function onClose() {

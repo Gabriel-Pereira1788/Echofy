@@ -1,7 +1,9 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, ScrollViewProps} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
+import {usePlayerStore} from '@services';
+import {Theme} from '@styles';
 
 import {Box, Icon, TouchableOpacityBox} from '@components';
 import {useAppSafeArea} from '@hooks';
@@ -16,6 +18,8 @@ interface Props extends React.PropsWithChildren {
   footerElement?: React.JSX.Element;
   customPadding?: boolean;
   scrollEnabled?: boolean;
+  playerSpacingEnabled?: boolean;
+  scrollProps?: ScrollViewProps;
 }
 
 export function SharedWrapperScreen({
@@ -27,12 +31,19 @@ export function SharedWrapperScreen({
   footerElement,
   customPadding,
   headerTitle,
+  scrollProps,
+  playerSpacingEnabled = true,
 }: Props) {
   const navigation = useNavigation();
+  const player = usePlayerStore();
+
   const {bottom} = useAppSafeArea();
   function handleGoBack() {
     navigation.goBack();
   }
+
+  const $marginBottom: keyof Theme['spacing'] | undefined =
+    player && playerSpacingEnabled ? 'sp80' : undefined;
 
   const _headerLeft =
     headerLeft && !goBack ? (
@@ -49,7 +60,7 @@ export function SharedWrapperScreen({
       height={'100%'}
       justifyContent="center"
       backgroundColor="bgMain">
-      <WrapperScreen scrollEnabled={!!scrollEnabled}>
+      <WrapperScreen scrollEnabled={!!scrollEnabled} scrollProps={scrollProps}>
         <SharedScreenHeader
           headerTitle={headerTitle}
           headerLeft={headerLeft || goBack ? _headerLeft : undefined}
@@ -61,6 +72,7 @@ export function SharedWrapperScreen({
           alignItems="center"
           justifyContent="center"
           width="100%"
+          marginBottom={$marginBottom}
           padding={customPadding ? undefined : 'sp25'}>
           {children}
         </Box>
@@ -77,17 +89,24 @@ export function SharedWrapperScreen({
 function WrapperScreen({
   children,
   scrollEnabled,
-}: React.PropsWithChildren & {scrollEnabled: boolean}) {
+  scrollProps,
+}: React.PropsWithChildren & {
+  scrollEnabled: boolean;
+  scrollProps?: ScrollViewProps;
+}) {
   if (scrollEnabled) {
     return (
       <ScrollView
         nestedScrollEnabled
+        bounces={false}
+        scrollEventThrottle={16}
         style={{flex: 1}}
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: 'flex-start',
         }}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        {...scrollProps}>
         {children}
       </ScrollView>
     );

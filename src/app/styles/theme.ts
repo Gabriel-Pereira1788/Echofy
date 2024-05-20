@@ -40,7 +40,7 @@ export const theme = createTheme({
     success: pallete.greenSuccess,
     black: pallete.black,
     white: pallete.white,
-    transparent: 'rgba(0,0,0,0.5)',
+    transparent: 'rgba(0,0,0,0.1)',
     bgInput: pallete.neutral5,
     bgMain: pallete.white,
     contrast: pallete.neutral5,
@@ -85,6 +85,7 @@ export const theme = createTheme({
     sp48: 48,
     sp50: 50,
     sp60: 60,
+    sp80: 80,
   },
   borderRadii: {
     rd4: 4,

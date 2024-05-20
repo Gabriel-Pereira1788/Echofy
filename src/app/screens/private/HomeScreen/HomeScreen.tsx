@@ -1,51 +1,50 @@
-import React, {useCallback} from 'react';
-import {ActivityIndicator, FlatList, ListRenderItem} from 'react-native';
+import React, {useMemo, useState} from 'react';
 
-import {BookSection, useBookSections} from '@domain';
+import {BookSection} from '@domain';
 import {CommonStackProps} from '@router';
-import {SharedWrapperScreen} from '@shared';
+import {SharedBrandHeader, SharedWrapperScreen} from '@shared';
 
-import {Box} from '@components';
+import {Box, Text, TouchableOpacityBox} from '@components';
 
-import {HomeScreenBookSection} from './components/HomeScreenBookSection';
-import {HomeScreenHeader} from './components/HomeScreenHeader';
+import {HomeScreenCarousel} from './components/HomeScreenCarousel';
+import {HomeScreenCategories} from './components/HomeScreenCategories';
+import {buildBookSections} from './functions/buildBookSections';
 
-export function HomeScreen({}: CommonStackProps<'MainScreen'>) {
-  const {isLoading, bookSections} = useBookSections();
+export function HomeScreen({navigation}: CommonStackProps<'MainScreen'>) {
+  const bookSections = useMemo(() => buildBookSections(), []);
+  const [currentSection, setCurrentSection] = useState<BookSection>(
+    bookSections[0],
+  );
 
-  const renderItem: ListRenderItem<BookSection> = useCallback(({item}) => {
-    return (
-      <HomeScreenBookSection
-        sectionTitle={item.title}
-        sectionIdentify={item.identify}
-      />
-    );
-  }, []);
-
+  function redirectToCategoryBookScreen() {
+    navigation.navigate('CategoryBookScreen', {
+      categoryIdentify: currentSection.identify,
+      categoryTitle: currentSection.title,
+    });
+  }
   return (
-    <SharedWrapperScreen customPadding>
-      <Box flex={1}>
-        <FlatList
-          ListHeaderComponent={<HomeScreenHeader />}
-          testID="list-movies"
-          data={bookSections}
-          showsVerticalScrollIndicator={false}
-          style={{flex: 1}}
-          maxToRenderPerBatch={3}
-          contentContainerStyle={{flexGrow: 1, paddingBottom: 100}}
-          keyExtractor={item => item.identify}
-          renderItem={renderItem}
+    <SharedWrapperScreen customPadding scrollEnabled>
+      <HomeScreenCarousel identify={currentSection.identify} />
+      <SharedBrandHeader disabledMarginTop />
+      <Box marginVertical="sp20">
+        <HomeScreenCategories
+          currentSection={currentSection}
+          bookSections={bookSections}
+          onSelect={setCurrentSection}
         />
-        {isLoading && (
-          <Box
-            width={'100%'}
-            height={'100%'}
-            alignSelf="center"
-            alignItems="center"
-            justifyContent="center">
-            <ActivityIndicator size={20} />
-          </Box>
-        )}
+      </Box>
+      <Box
+        width={'100%'}
+        alignItems="center"
+        flexDirection="row"
+        justifyContent="space-between"
+        paddingHorizontal="sp25"
+        marginBottom="sp25">
+        <Text text={currentSection.title} preset="medium/20" />
+
+        <TouchableOpacityBox onPress={redirectToCategoryBookScreen}>
+          <Text text="See more" color="textActive" preset="medium/14" />
+        </TouchableOpacityBox>
       </Box>
     </SharedWrapperScreen>
   );

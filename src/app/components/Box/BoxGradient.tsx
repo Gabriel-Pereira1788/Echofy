@@ -1,8 +1,10 @@
 import React from 'react';
 import {ViewStyle} from 'react-native';
 
-import {Theme, theme} from '@styles';
+import {Theme} from '@styles';
 import LinearGradient from 'react-native-linear-gradient';
+
+import {useTheme} from '@hooks';
 
 import {Box, BoxProps} from './Box';
 
@@ -24,7 +26,10 @@ export function BoxGradient({
   colors,
   ...boxProps
 }: BoxGradientProps) {
-  const $colors = colors.map(colorKey => theme.colors[colorKey]);
+  const theme = useTheme();
+  const $colors = colors.map(colorKey =>
+    colorKey === 'transparent' ? 'transparent' : theme.colors[colorKey],
+  );
   return (
     <Box width={'100%'} {...boxProps} overflow="hidden" style={style}>
       <LinearGradient

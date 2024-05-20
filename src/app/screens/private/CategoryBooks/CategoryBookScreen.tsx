@@ -12,7 +12,7 @@ import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
 import {InfinityScrollList, SkeletonsList} from '@super-components';
 
-import {BookSkeleton, Box} from '@components';
+import {BookSkeleton} from '@components';
 
 import {CategoryBookItem} from './components';
 
@@ -34,37 +34,38 @@ export function CategoryBookScreen({
   }, []);
 
   return (
-    <SharedWrapperScreen headerTitle={categoryTitle} goBack>
-      <Box flex={1} width={'100%'}>
-        <InfinityScrollList
-          LoadingComponent={
-            <SkeletonsList
-              containerType="column"
-              itensToRender={8}
-              renderItem={index => (
-                <BookSkeleton key={index} renderAuthor renderTitle />
-              )}
-            />
-          }
-          renderItem={renderItem}
-          queryKey={Queries.BookByCategory}
-          fetchPage={page =>
-            bookService.getBookListByCategory({
-              uid,
-              page,
-              category,
-            })
-          }
-          flatListProps={{
-            testID: 'flatlist-book-itens',
-            style: $flatListStyle,
-            numColumns: 2,
-            showsVerticalScrollIndicator: false,
-            columnWrapperStyle: $columnWrapperStyle,
-            contentContainerStyle: $contentContainerStyle,
-          }}
-        />
-      </Box>
+    <SharedWrapperScreen
+      headerTitle={categoryTitle}
+      goBack
+      playerSpacingEnabled={false}>
+      <InfinityScrollList
+        LoadingComponent={
+          <SkeletonsList
+            containerType="column"
+            itensToRender={8}
+            renderItem={index => (
+              <BookSkeleton key={index} renderAuthor renderTitle />
+            )}
+          />
+        }
+        renderItem={renderItem}
+        queryKey={Queries.BookByCategory}
+        fetchPage={page =>
+          bookService.getBookListByCategory({
+            uid,
+            page,
+            category,
+          })
+        }
+        flatListProps={{
+          testID: 'flatlist-book-itens',
+          style: $flatListStyle,
+          numColumns: 2,
+          showsVerticalScrollIndicator: false,
+          columnWrapperStyle: $columnWrapperStyle,
+          contentContainerStyle: $contentContainerStyle,
+        }}
+      />
     </SharedWrapperScreen>
   );
 }

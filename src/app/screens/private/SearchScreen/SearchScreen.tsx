@@ -1,5 +1,4 @@
 import React, {useCallback, useState} from 'react';
-import {ScrollView} from 'react-native';
 
 import {useBookFindByText} from '@domain';
 import {CommonStackProps} from '@router';
@@ -30,21 +29,15 @@ export function SearchScreen({}: CommonStackProps<'MainScreen'>) {
   }
 
   return (
-    <SharedWrapperScreen>
-      <ScrollView
-        scrollEventThrottle={16}
-        showsVerticalScrollIndicator={false}
-        style={{flex: 1}}
-        onScroll={onScroll}>
-        <SharedBrandHeader />
-        <SearchScreenExploreInput onChangeText={handleOnChangeText} />
-        <SearchScreenMainContent
-          list={list}
-          isLoading={isLoading}
-          loadingNextPage={loadingNextPage}
-          renderSearchHistory={renderSearchHistory}
-        />
-      </ScrollView>
+    <SharedWrapperScreen scrollEnabled scrollProps={{onScroll}}>
+      <SharedBrandHeader />
+      <SearchScreenExploreInput onChangeText={handleOnChangeText} />
+      <SearchScreenMainContent
+        list={list}
+        isLoading={isLoading}
+        loadingNextPage={loadingNextPage}
+        renderSearchHistory={renderSearchHistory}
+      />
     </SharedWrapperScreen>
   );
 }
