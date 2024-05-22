@@ -63,7 +63,7 @@ const findById: BookRepository['findById'] = async id => {
   return await findBookById(id);
 };
 
-export const bookApiRepository: Omit<BookRepository, 'create'> = {
+export const bookApiRepository: Omit<BookRepository, 'create' | 'update'> = {
   get,
   findById,
 };

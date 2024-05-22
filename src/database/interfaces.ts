@@ -1,26 +1,17 @@
-import {IReviewExternalData} from '@models';
+import {IBookExternalData, IReviewExternalData} from '@models';
 
 export interface IBookCategorySchema {
   _id?: string;
   text: string;
 }
 
-export interface IBookSchema {
-  id: string;
-  book_image: string;
-  book_title: string;
-  book_genres: string[];
-  book_desc: string;
-  book_star_raiting: string;
-  book_read_link: string;
-  book_author: string;
-  playlist_chapters: any[]; //TODO remover any type
-}
+export interface IBookSchema extends IBookExternalData {}
 
 export interface IBookPlaylistChapters {
   _id?: string;
   chapter: number;
   src: string;
+  local_src?: string;
 }
 
 export interface IUserSchema {

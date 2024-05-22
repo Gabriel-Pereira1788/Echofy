@@ -15,7 +15,7 @@ const open = async (customPath?: string) => {
 
     const config: Configuration = {
       schema: allSchemas,
-      schemaVersion: 25,
+      schemaVersion: 26,
       path: customPath ? customPath : 'bundle.realm',
     };
     const realm = await Realm.open(config);

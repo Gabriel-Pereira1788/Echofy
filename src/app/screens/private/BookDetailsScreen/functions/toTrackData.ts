@@ -6,10 +6,11 @@ export function toTrackData(bookData: Book | undefined): Track[] {
     return [];
   }
   return bookData.playlistChapters.map((data, index) => ({
+    bookId: bookData.id,
     chapterNumber: index,
     artist: bookData.bookAuthor,
     artwork: bookData.bookImage,
     title: `${bookData.bookTitle} - ${data.chapter + 1}`,
-    url: data.src.replace('http', 'https'),
+    url: data.localSrc ? data.localSrc : data.src.replace('http', 'https'),
   }));
 }

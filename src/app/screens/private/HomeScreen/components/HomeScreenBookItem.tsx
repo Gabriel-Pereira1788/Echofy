@@ -31,7 +31,7 @@ export function HomeScreenBookItem({scrollX, index, item}: Props) {
   });
 
   function redirectToBookScreen() {
-    navigation.navigate('BookDetailsScreen', item);
+    navigation.navigate('BookDetailsScreen', {id: item.id});
   }
   return (
     <TouchableOpacityBox

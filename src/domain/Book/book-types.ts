@@ -6,6 +6,7 @@ import {QueryParams} from '../types';
 export interface PlaylistChapter {
   chapter: number;
   src: string;
+  localSrc?: string;
 }
 
 export interface Book {

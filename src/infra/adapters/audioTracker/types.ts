@@ -1,6 +1,7 @@
 export type TrackState = 'ready' | 'none' | 'playing';
 
 export interface Track {
+  bookId: string;
   url: string;
   title: string;
   artist: string;

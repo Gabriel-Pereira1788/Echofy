@@ -25,6 +25,7 @@ const mappedEventsListener: Record<
           chapterNumber: event.index!,
           title: event.track?.title!,
           url: event.track?.url,
+          bookId: event.track.bookId,
         });
       }
     }),
@@ -44,6 +45,7 @@ async function getActiveTrack(): Promise<Track | null> {
       title: result.title!,
       url: result.url!,
       chapterNumber: result.chapterNumber!,
+      bookId: result.bookId,
     };
   }
 

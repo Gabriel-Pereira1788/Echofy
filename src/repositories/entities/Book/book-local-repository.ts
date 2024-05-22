@@ -96,7 +96,16 @@ const create: BookRepository['create'] = async data => {
     console.log('ERROR ON CREATE', Schemas.Book, error);
   }
 };
+const update: BookRepository['update'] = async (id, body) => {
+  try {
+    database.update(Schemas.Book, id, body);
+  } catch (error) {
+    console.log('ERROR ON UPDATE', error);
+  }
+};
+
 export const bookLocalRepository: BookRepository = {
+  update,
   get,
   findById,
   create,

@@ -10,6 +10,7 @@ import {
 } from './entities';
 import {QueueManager} from './queueManager';
 import {
+  ActionMode,
   Entity,
   EntityName,
   EntityQuery,
@@ -98,6 +99,26 @@ async function post<Name extends 'review'>(
   }
 }
 
+type UpdateProps<Name extends 'book'> = {
+  entityName: Name;
+  id: string;
+  body: Parameters<EntityRepository<Name>['update']>[1];
+  mode: ActionMode;
+};
+async function update<Name extends 'book'>({
+  entityName,
+  id,
+  body,
+  mode = 'auto',
+}: UpdateProps<Name>) {
+  console.log('BODY', body);
+  const entity = mappedEntities[entityName];
+  if (mode === 'local') {
+    entity.local.update?.(id, body);
+    return;
+  }
+}
+
 async function sync(entitySync: EntitySync) {
   const entity = mappedEntities[entitySync.entity];
   switch (entitySync.action) {
@@ -118,4 +139,5 @@ export const EntitiesRepository = {
   post,
   findById,
   sync,
+  update,
 };

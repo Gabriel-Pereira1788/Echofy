@@ -24,6 +24,8 @@ describe('HomeScreenBookItem', () => {
 
     const bookItem = screen.getByTestId('book-item');
     fireEvent.press(bookItem);
-    expect(mockedNavigate).toHaveBeenCalledWith('BookDetailsScreen', bookMock);
+    expect(mockedNavigate).toHaveBeenCalledWith('BookDetailsScreen', {
+      id: bookMock.id,
+    });
   });
 });

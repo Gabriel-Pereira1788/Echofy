@@ -26,4 +26,5 @@ export * from './Skeleton/Skeleton';
 export * from './Carousel/Carousel';
 export * from './ReviewCard';
 export * from './ProgressBar/ProgressBar';
+export * from './ProgressCircle/ProgressCircle';
 export * from './AnimatedSplashScreen/AnimatedSplashScreen';

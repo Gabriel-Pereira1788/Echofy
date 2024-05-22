@@ -5,10 +5,17 @@ import {IDownloadResumable, fileSystem} from '@infra';
 interface Props {
   url?: string;
   onProgress: (progress: number) => void;
-  onSuccess?: (uri?: string) => void;
+  onStart?: () => void;
+  onSuccess?: (uri: string) => void;
   onError?: (message: string) => void;
 }
-export function useDownload({url, onProgress, onSuccess, onError}: Props) {
+export function useDownload({
+  url,
+  onProgress,
+  onSuccess,
+  onError,
+  onStart,
+}: Props) {
   const downloadResumable = useRef<IDownloadResumable>();
 
   async function downloadFile() {
@@ -23,8 +30,10 @@ export function useDownload({url, onProgress, onSuccess, onError}: Props) {
 
       downloadResumable.current = _downloadResumable;
 
-      if (onSuccess) {
-        onSuccess(_downloadResumable.uri);
+      onStart?.();
+      const uri = await _downloadResumable.init();
+      if (onSuccess && uri) {
+        onSuccess(uri);
       }
     } catch (error) {
       console.log('Error on download file', error);
@@ -40,7 +49,10 @@ export function useDownload({url, onProgress, onSuccess, onError}: Props) {
   }
 
   async function resume() {
-    await downloadResumable.current?.resume();
+    const uri = await downloadResumable.current?.resume();
+    if (onSuccess && uri) {
+      onSuccess(uri);
+    }
   }
   return {
     downloadFile,

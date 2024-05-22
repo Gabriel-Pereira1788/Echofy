@@ -1,4 +1,5 @@
-import {EntitiesRepository} from '@repositories';
+import {IBookExternalData} from '@models';
+import {ActionMode, EntitiesRepository} from '@repositories';
 
 import {QueryByCategory, QuerySearchByText} from './book-types';
 
@@ -19,9 +20,23 @@ async function findById(id: string) {
   return await EntitiesRepository.findById('book', id);
 }
 
+async function update(
+  id: string,
+  body: Partial<IBookExternalData>,
+  mode: ActionMode,
+) {
+  return await EntitiesRepository.update({
+    id,
+    body,
+    entityName: 'book',
+    mode,
+  });
+}
+
 export const bookController = {
   getCategories,
   findByCategory,
   findById,
   findBySearchText,
+  update,
 };

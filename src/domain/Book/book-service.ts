@@ -21,42 +21,34 @@ async function getBookSections(uid?: string): Promise<BookSection[]> {
     {
       identify: 'recommended-for-you',
       title: 'Recommended For You',
-      books: [],
     },
     {
       identify: 'best-seller',
       title: 'Best Seller',
-      books: [],
     },
     {
       identify: 'fiction',
       title: 'Fiction',
-      books: [],
     },
     {
       identify: 'fantasy',
       title: 'Fantasy',
-      books: [],
     },
     {
       identify: 'adventure',
       title: 'Adventure',
-      books: [],
     },
     {
       identify: 'fairy tales',
       title: 'Fairy Tales',
-      books: [],
     },
     {
       identify: 'philosophy',
       title: 'Philosophy',
-      books: [],
     },
     {
       identify: 'mystery',
       title: 'Mystery',
-      books: [],
     },
   ];
 }
@@ -121,10 +113,30 @@ async function getBookData(id: string) {
   return result ? bookAdapter.toBookData(result) : null;
 }
 
+async function updateLocalBookChapter(bookId: string, body: Partial<Book>) {
+  const bookUpdateData = bookAdapter.toBookUpdateData(body);
+  await bookController.update(bookId, bookUpdateData, 'local');
+}
+
+async function getBookChapter(bookId?: string, chapterNumber?: number) {
+  if (!bookId || chapterNumber === undefined) {
+    return null;
+  }
+  const result = await bookController.findById(bookId);
+  const bookData = result ? bookAdapter.toBookData(result) : null;
+  return bookData
+    ? bookData.playlistChapters.find(
+        playlistChapter => playlistChapter.chapter === chapterNumber,
+      )
+    : null;
+}
+
 export const bookService = {
   getBookData,
   getCategories,
   getBookSections,
   getBooksBySearchText,
   getBookListByCategory,
+  getBookChapter,
+  updateLocalBookChapter,
 };

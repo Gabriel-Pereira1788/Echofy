@@ -40,6 +40,7 @@ export function PlayerControllerScreen({
     await audioTracker.setVolume(1);
     playerActions.hide();
   }
+
   async function goBack() {
     navigation.goBack();
   }

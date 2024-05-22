@@ -36,6 +36,7 @@ export class BookPlaylistChaptersSchema extends Realm.Object<BookPlaylistChapter
       _id: 'objectId',
       chapter: {type: 'int'},
       src: {type: 'string'},
+      local_src: {type: 'string', optional: true},
       name: {type: 'string', indexed: 'full-text'},
     },
     primaryKey: '_id',

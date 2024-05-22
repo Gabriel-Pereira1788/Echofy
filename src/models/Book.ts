@@ -7,10 +7,11 @@ export interface IBookExternalData {
   book_star_raiting: string;
   book_read_link: string;
   book_author: string;
-  playlist_chapters: PlaylistChapter[];
+  playlist_chapters: PlaylistChapterExternalData[];
 }
 
-export interface PlaylistChapter {
+export interface PlaylistChapterExternalData {
   chapter: number;
   src: string;
+  local_src?: string;
 }

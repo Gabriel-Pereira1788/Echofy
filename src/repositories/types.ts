@@ -57,3 +57,5 @@ export interface RepoImpl {
   deleteData?: Delete;
   create: CreateMethod;
 }
+
+export type ActionMode = 'local' | 'auto';

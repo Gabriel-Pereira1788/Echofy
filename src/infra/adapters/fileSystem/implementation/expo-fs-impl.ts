@@ -20,15 +20,17 @@ const download = async (
     },
   );
 
-  const result = await downloadResumable.downloadAsync();
-
   return {
-    uri: result?.uri,
+    init: async () => {
+      const result = await downloadResumable.downloadAsync();
+      return result?.uri;
+    },
     pause: async () => {
       await downloadResumable.pauseAsync();
     },
     resume: async () => {
-      await downloadResumable.resumeAsync();
+      const result = await downloadResumable.resumeAsync();
+      return result?.uri;
     },
   };
 };

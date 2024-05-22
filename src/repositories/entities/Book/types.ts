@@ -20,6 +20,7 @@ export type QueryByCategory = {
 export interface BookRepository extends Omit<RepoImpl, 'post'> {
   get(query: BookGetQuery): Promise<PaginatedDocs<IBookExternalData> | null>;
   findById(id: string): Promise<IBookExternalData | null>;
+  update(id: string, body: Partial<IBookExternalData>): Promise<void>;
   create(
     data: IBookExternalData[] | {docs: IBookExternalData[]} | IBookExternalData,
   ): Promise<void>;

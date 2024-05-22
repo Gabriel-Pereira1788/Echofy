@@ -7,7 +7,8 @@ export interface FileSystemImpl {
 }
 
 export interface IDownloadResumable {
-  uri?: string;
+  // uri?: string;
+  init: () => Promise<string | undefined>;
   pause: () => Promise<void>;
-  resume: () => Promise<void>;
+  resume: () => Promise<string | undefined>;
 }
