@@ -127,7 +127,13 @@ jest.mock('@react-navigation/native', () => {
 jest.mock('expo-file-system/src/FileSystem', () => {
   return {
     documentDirectory: 'file://document',
-    createDownloadResumable: jest.fn(),
+    createDownloadResumable: jest.fn(() => {
+      return {
+        downloadAsync: () => ({uri: 'file://link/file'}),
+        pauseAsync: jest.fn(),
+        resumeAsync: () => ({uri: 'file://link/file'}),
+      };
+    }),
   };
 });
 

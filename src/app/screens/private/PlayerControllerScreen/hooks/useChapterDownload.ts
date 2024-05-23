@@ -7,24 +7,29 @@ type Props = {
   onFinish: () => void;
   onStart: () => void;
   onProgress: (progress: number) => void;
+  onError?: () => void;
 };
 export function useChapterDownload({
   track,
   onFinish,
   onStart,
   onProgress,
+  onError,
 }: Props) {
   const {data} = useBookGetChapter(track?.bookId, track?.chapterNumber);
-  const {updateLocalChapter} = useBookUpdateLocalChapter();
+  const {updateLocalChapter} = useBookUpdateLocalChapter({
+    onError,
+  });
 
   const {downloadFile, pause, resume} = useDownload({
     url: track?.url,
     onStart: onStart,
     onProgress: onProgress,
     onSuccess: uri => {
-      if (!track?.bookId) {
+      if (!track?.bookId || !data) {
         return;
       }
+      console.log('D', data);
       updateLocalChapter(track?.bookId, {
         playlistChapters: [
           {
@@ -37,10 +42,11 @@ export function useChapterDownload({
 
       onFinish();
     },
-    onError: () => {},
+    onError: onError,
   });
 
   return {
+    hasDownloaded: !!data?.localSrc,
     download: downloadFile,
     pause,
     resume,

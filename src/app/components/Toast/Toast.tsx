@@ -52,6 +52,7 @@ export function Toast({}: Props) {
       style={{
         alignSelf: 'center',
         position: 'absolute',
+        zIndex: 10,
         width: '70%',
         marginTop: top,
         opacity: opacity,

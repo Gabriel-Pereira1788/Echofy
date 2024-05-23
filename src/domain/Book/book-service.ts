@@ -119,10 +119,12 @@ async function updateLocalBookChapter(bookId: string, body: Partial<Book>) {
 }
 
 async function getBookChapter(bookId?: string, chapterNumber?: number) {
+  console.log('CHAPTER-NUMBER', chapterNumber);
   if (!bookId || chapterNumber === undefined) {
     return null;
   }
   const result = await bookController.findById(bookId);
+
   const bookData = result ? bookAdapter.toBookData(result) : null;
   return bookData
     ? bookData.playlistChapters.find(

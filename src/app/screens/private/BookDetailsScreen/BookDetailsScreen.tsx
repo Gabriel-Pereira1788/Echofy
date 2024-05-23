@@ -8,7 +8,7 @@ import {CommonStackProps} from '@router';
 import {usePlayerActions} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
-import {BookAttribution, Box} from '@components';
+import {BookAttribution, Box, IconPress} from '@components';
 
 import {
   BookDetailsCategories,
@@ -58,7 +58,18 @@ export function BookDetailsScreen({
   }
 
   return (
-    <SharedWrapperScreen goBack headerTitle={bookData?.bookTitle} scrollEnabled>
+    <SharedWrapperScreen
+      goBack
+      headerTitle={bookData?.bookTitle}
+      scrollEnabled
+      headerRight={
+        <IconPress
+          iconName="bookmark"
+          color="unactiveColor"
+          onPress={() => {}}
+          size="sp20"
+        />
+      }>
       {isLoading && !bookData && <ActivityIndicator size={20} />}
 
       <Box flex={1} width={'100%'} alignItems="center" justifyContent="center">

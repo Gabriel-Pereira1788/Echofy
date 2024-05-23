@@ -50,7 +50,7 @@ export function HomeScreenCarousel({identify}: Props) {
       marginBottom="sp10"
       alignItems="center"
       justifyContent="center">
-      <StatusBar translucent />
+      <StatusBar translucent backgroundColor={'transparent'} />
       <Box width={'100%'} marginBottom="sp10" height={700}>
         <HomeScreenBackdrop list={list} scrollX={scrollX} />
 

@@ -40,6 +40,7 @@ export const ProgressCircle = React.forwardRef<ProgressCircleRef, Props>(
     useImperativeHandle(ref, () => ({setCurrentProgress, finish}));
     return (
       <AnimatedLottie
+        testID={'progress-circle-element'}
         source={require('./animations/circle.json')}
         style={{width: 50, height: 50}}
         progress={progressValue.current}

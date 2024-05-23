@@ -38,9 +38,13 @@ async function findByCategory({
 }
 
 async function findBookById(id: string) {
-  const response = await api.get<IBookExternalData>(`book/find-book/${id}`);
+  try {
+    const response = await api.get<IBookExternalData>(`book/find-book/${id}`);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.log('ERROR', error);
+  }
 }
 const get: BookRepository['get'] = async query => {
   if (query.searchText && query.searchText.trim() !== '') {

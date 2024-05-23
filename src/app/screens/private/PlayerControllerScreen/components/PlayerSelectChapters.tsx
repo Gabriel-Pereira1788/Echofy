@@ -28,6 +28,9 @@ export function PlayerSelectChapters({
   function handleSkipTo(chapter: number) {
     return () => {
       onSkipTo(chapter);
+      slideModalAnimated.slideDown(() => {
+        refModalActions.current?.close();
+      });
     };
   }
 

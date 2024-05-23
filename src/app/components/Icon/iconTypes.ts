@@ -24,7 +24,8 @@ export type IconMappedKey =
   | 'star'
   | 'plus'
   | 'avatar'
-  | 'penSquare';
+  | 'penSquare'
+  | 'folder';
 export interface IconProps {
   iconName: IconMappedKey;
   color: keyof Theme['colors'];

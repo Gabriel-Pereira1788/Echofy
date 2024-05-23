@@ -11,6 +11,7 @@ import {
   CloseSquare,
   DocumentIcon,
   DownloadIcon,
+  FolderIcon,
   HomeIcon,
   PaperIcon,
   PauseIcon,
@@ -65,6 +66,7 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   arrowRightCircle: ArrowRightCircleIcon,
   bookmark: BookMarkIcon,
   paper: PaperIcon,
+
   timeSquare: TimeSquareIcon,
   download: DownloadIcon,
   volumeDown: VolumeDownIcon,
@@ -73,4 +75,5 @@ const iconMapped: Record<IconMappedKey, React.ComponentType<IconBase>> = {
   penSquare: PenSquare,
   plus: Plus,
   avatar: Avatar,
+  folder: FolderIcon,
 };
