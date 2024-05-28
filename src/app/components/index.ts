@@ -28,3 +28,4 @@ export * from './ReviewCard';
 export * from './ProgressBar/ProgressBar';
 export * from './ProgressCircle/ProgressCircle';
 export * from './AnimatedSplashScreen/AnimatedSplashScreen';
+export * from './SearchBar/SearchBar';

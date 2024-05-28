@@ -4,6 +4,7 @@ import {
   act,
   allCategoriesMock,
   fireEvent,
+  mockedReset,
   renderScreen,
   screen,
   server,
@@ -82,7 +83,7 @@ describe('PersonalizationScreen', () => {
 
     fireEvent.press(buttonSubmit);
 
-    expect(mockReset).not.toHaveBeenCalled();
+    expect(mockedReset).not.toHaveBeenCalled();
   });
 
   it('should be navigate to ready to go screen', async () => {
@@ -101,7 +102,7 @@ describe('PersonalizationScreen', () => {
 
     fireEvent.press(buttonSubmit);
 
-    expect(mockReset).toHaveBeenCalled();
+    expect(mockedReset).toHaveBeenCalled();
   });
 
   it('should be dispatch search function correctly', async () => {

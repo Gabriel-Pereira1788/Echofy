@@ -11,7 +11,7 @@ export default function EmptyState({title, message}: Props) {
   return (
     <Box flex={1} alignItems="center" justifyContent="center" gap="sp10">
       <Text text={title} preset="semiBold/24" />
-      <Text text={message} preset="medium/10" />
+      <Text text={message} preset="medium/14" color="neutral40" />
     </Box>
   );
 }

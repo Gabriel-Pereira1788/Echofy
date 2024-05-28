@@ -7,6 +7,7 @@ import {
 import {darkTheme, theme} from '@styles';
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 
+import 'react-native-gesture-handler/jestSetup';
 import {databaseJest} from '../database/implementation/jest/databaseJest';
 import {audioTrackerJest} from '../infra/adapters/audioTracker/implementation/audio-tracker-jest-impl';
 import {jestFsImpl} from '../infra/adapters/fileSystem/implementation/jest-fs-impl';
@@ -16,7 +17,7 @@ import {authCredentialsMock} from './serverHandlers';
 
 setAudioTrackerImpl(audioTrackerJest);
 setDatabaseImpl(databaseJest);
-setFileSystemImpl(jestFsImpl());
+setFileSystemImpl(jestFsImpl);
 setImagePickerImpl(imagePickerJest);
 
 jest.mock('react-native-safe-area-context', () => ({
@@ -113,6 +114,7 @@ jest.mock('@providers', () => {
 
 export const mockedNavigate = jest.fn();
 export const mockedGoBack = jest.fn();
+export const mockedReset = jest.fn();
 jest.mock('@react-navigation/native', () => {
   const originalModule = jest.requireActual('@react-navigation/native');
   return {
@@ -120,6 +122,7 @@ jest.mock('@react-navigation/native', () => {
     useNavigation: () => ({
       navigate: mockedNavigate,
       goBack: mockedGoBack,
+      reset: mockedReset,
     }),
   };
 });

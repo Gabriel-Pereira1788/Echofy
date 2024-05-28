@@ -24,6 +24,7 @@ export const mappedEventsListener: Record<
           chapterNumber: index!,
           title: track?.title!,
           url: track?.url,
+          bookId: '123',
         });
       }
     };

@@ -48,7 +48,7 @@ async function customRenderScreen() {
   fireEvent.press(minimizePlayerElement);
 
   return {
-    closeButton: screen.getByTestId('close-button'),
+    closeButton: await screen.getByTestId('close-button'),
     goBackButton: screen.getByTestId('go-back-player-controller'),
     changeVolumeButton: screen.getByText('Volume'),
     changeSpeedControlButton: screen.getByText(/speed 1/i),

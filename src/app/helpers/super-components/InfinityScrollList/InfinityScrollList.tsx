@@ -36,11 +36,12 @@ export function InfinityScrollList<TItem>({
   renderHeaderComponent,
   LoadingComponent,
 }: InfinityScrollListProps<TItem>) {
-  const {list, refresh, getMore, isLoading, refreshing, loadingNextPage} =
-    usePaginatedList({
+  const {list, refresh, getMore, isLoading, loadingNextPage} = usePaginatedList(
+    {
       queryKey: [queryKey],
       fetchPage,
-    });
+    },
+  );
 
   if (isLoading && LoadingComponent) {
     return LoadingComponent;
@@ -48,11 +49,13 @@ export function InfinityScrollList<TItem>({
   return (
     <FlatList
       bounces={false}
+      refreshing={isLoading}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+        <RefreshControl refreshing={isLoading} onRefresh={refresh} />
       }
       style={{width: '100%'}}
       contentContainerStyle={{flexGrow: 1}}
+      showsVerticalScrollIndicator={false}
       data={list}
       renderItem={renderItem}
       ListFooterComponent={

@@ -4,6 +4,7 @@ export {
   mockedNavigate,
   mockedGoBack,
   mockRefreshCredentials,
+  mockedReset,
 } from './jestSetup';
 export {
   server,

@@ -17,7 +17,6 @@ export const ProgressCircle = React.forwardRef<ProgressCircleRef, Props>(
 
     function setCurrentProgress(value: number) {
       if (value >= 1) {
-        console.log('ENTROU AQUI1');
         return;
       }
       Animated.timing(progressValue.current, {

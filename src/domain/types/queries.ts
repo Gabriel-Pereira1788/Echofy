@@ -7,4 +7,6 @@ export enum Queries {
   BookReading = '@bookReading',
   ReviewsList = '@reviewsList',
   BookChapter = '@bookChapter',
+  FavoriteBook = '@FavoriteBook',
+  Favorites = '@Favorites',
 }

@@ -4,10 +4,12 @@ import {SchemaObject, Schemas} from '../../../types';
 
 import {bookCategorySchema} from './BookCategorySchema';
 import {bookPlaylistChaptersSchema, bookSchema} from './BookSchema';
+import {favoriteSchema} from './FavoritesSchema';
 import {authorSchema, reviewSchema} from './ReviewSchema';
 
 export const realmSchemas = [
   authorSchema,
+  favoriteSchema,
   reviewSchema,
   bookSchema,
   bookCategorySchema,

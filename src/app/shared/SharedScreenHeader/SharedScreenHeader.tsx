@@ -6,7 +6,7 @@ import {useAppSafeArea} from '@hooks';
 export type SharedScreenHeaderProps = {
   headerLeft?: React.JSX.Element;
   headerTitle?: string;
-  headerRight?: React.JSX.Element;
+  headerRight?: React.JSX.Element | null;
   disabledMarginTop?: boolean;
 };
 

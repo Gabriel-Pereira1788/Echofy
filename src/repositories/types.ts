@@ -1,8 +1,9 @@
 import {BookGetQuery, BookRepository} from './entities/Book/types';
 import {CategoryRepository} from './entities/Category/types';
+import {FavoriteGetQuery, FavoriteRepository} from './entities/Favorites/types';
 import {ReviewGetQuery, ReviewRepository} from './entities/Review/types';
 
-export type EntityName = 'review' | 'book' | 'category';
+export type EntityName = 'review' | 'book' | 'category' | 'favorites';
 
 export type EntityRepository<Name = EntityName> = Name extends 'review'
   ? ReviewRepository
@@ -10,6 +11,8 @@ export type EntityRepository<Name = EntityName> = Name extends 'review'
   ? BookRepository
   : Name extends 'category'
   ? CategoryRepository
+  : Name extends 'favorites'
+  ? FavoriteRepository
   : unknown;
 
 export interface Entity {
@@ -19,15 +22,17 @@ export interface Entity {
 
 export type Action = 'CREATE' | 'DELETE' | 'UPDATE';
 export type EntitySync<TData = any> = {
-  entity: 'review';
+  entity: 'review' | 'favorites';
   action: Action;
   localId: string;
-  data: TData;
+  data?: TData;
 };
 export type EntityQuery<Name = EntityName> = Name extends 'review'
   ? ReviewGetQuery
   : Name extends 'book'
   ? BookGetQuery
+  : Name extends 'favorites'
+  ? FavoriteGetQuery
   : unknown;
 
 type GetMethod<TQuery = any, TReturn = any> = (

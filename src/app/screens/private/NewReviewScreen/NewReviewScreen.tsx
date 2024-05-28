@@ -25,9 +25,6 @@ export function NewReviewScreen({
       });
       navigation.goBack();
     },
-    onError: () => {
-      console.log('Error');
-    },
   });
   const {credentials} = useAuthContext();
 

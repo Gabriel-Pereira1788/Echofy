@@ -11,7 +11,7 @@ const get: ReviewRepository['get'] = async ({top = 10, skip = 0, bookId}) => {
     },
     {
       field: 'book_id',
-      valueMatch: bookId!,
+      valueMatch: [bookId!],
       filter: 'book_id == $0',
     },
   );

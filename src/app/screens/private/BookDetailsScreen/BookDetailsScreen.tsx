@@ -8,7 +8,7 @@ import {CommonStackProps} from '@router';
 import {usePlayerActions} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
-import {BookAttribution, Box, IconPress} from '@components';
+import {BookAttribution, Box} from '@components';
 
 import {
   BookDetailsCategories,
@@ -17,6 +17,7 @@ import {
   BookDetailsReviews,
   BookDetailsSummary,
 } from './components';
+import {BookDetailsSaveToFavorites} from './components/BookDetailsSaveToFavorites';
 import {toTrackData} from './functions/toTrackData';
 
 export function BookDetailsScreen({
@@ -25,6 +26,7 @@ export function BookDetailsScreen({
   const bookId = route && route.params ? route.params.id : 'testID';
 
   const {bookData, isLoading} = useBookFindById(bookId);
+
   const {reviews} = useReviewsList(bookId, 4);
 
   const navigation = useNavigation();
@@ -63,12 +65,7 @@ export function BookDetailsScreen({
       headerTitle={bookData?.bookTitle}
       scrollEnabled
       headerRight={
-        <IconPress
-          iconName="bookmark"
-          color="unactiveColor"
-          onPress={() => {}}
-          size="sp20"
-        />
+        bookData && <BookDetailsSaveToFavorites bookId={bookData.id} />
       }>
       {isLoading && !bookData && <ActivityIndicator size={20} />}
 

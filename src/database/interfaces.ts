@@ -34,3 +34,10 @@ export interface IReviewSchema extends IReviewExternalData {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface IFavoriteSchema {
+  id?: string;
+  uid: string;
+  book_id: string;
+  book?: IBookSchema;
+}

@@ -75,7 +75,7 @@ async function getBookListByCategory({
     };
   }
 
-  const skip = page === 1 ? page : page! * 10;
+  const skip = page === 1 ? 0 : page! * 10;
   const result = await bookController.findByCategory({
     uid,
     top,
@@ -119,7 +119,6 @@ async function updateLocalBookChapter(bookId: string, body: Partial<Book>) {
 }
 
 async function getBookChapter(bookId?: string, chapterNumber?: number) {
-  console.log('CHAPTER-NUMBER', chapterNumber);
   if (!bookId || chapterNumber === undefined) {
     return null;
   }

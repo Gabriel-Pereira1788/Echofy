@@ -34,6 +34,6 @@ const download = async (
     },
   };
 };
-export const expoFsImpl = (): FileSystemImpl => ({
+export const expoFsImpl: FileSystemImpl = {
   download,
-});
+};

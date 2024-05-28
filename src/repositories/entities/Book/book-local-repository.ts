@@ -27,7 +27,7 @@ async function findByCategory(query: QueryByCategory) {
     },
     {
       field: 'book_genres',
-      valueMatch: query.category,
+      valueMatch: [query.category],
       filter: 'book_genres CONTAINS[c] $0',
     },
   );
@@ -42,7 +42,7 @@ async function findBySearchText(query: QueryParams & {searchText: string}) {
     },
     {
       field: 'book_genres',
-      valueMatch: query.searchText,
+      valueMatch: [query.searchText],
       filter: 'book_title CONTAINS[c] $0',
     },
   );

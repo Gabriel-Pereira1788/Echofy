@@ -35,10 +35,14 @@ export function PlayerControllerScreen({
   }
 
   async function closeTracker() {
-    goBack();
-    await audioTracker.reset();
-    await audioTracker.setVolume(1);
-    playerActions.hide();
+    try {
+      goBack();
+      await audioTracker.reset();
+      await audioTracker.setVolume(1);
+      playerActions.hide();
+    } catch (error) {
+      console.log('ERROR', error);
+    }
   }
 
   async function goBack() {

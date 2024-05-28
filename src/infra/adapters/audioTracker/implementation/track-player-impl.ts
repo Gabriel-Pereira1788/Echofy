@@ -114,7 +114,7 @@ async function getProgress() {
   return await TrackPlayer.getProgress();
 }
 
-export const trackPlayerImpl = (): AudioTrackerImpl => ({
+export const trackPlayerImpl: AudioTrackerImpl = {
   reset,
   getProgress,
   getTracks,
@@ -132,4 +132,4 @@ export const trackPlayerImpl = (): AudioTrackerImpl => ({
   setEventListener,
   setRate,
   retry,
-});
+};

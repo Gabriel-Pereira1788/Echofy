@@ -1,6 +1,6 @@
-import {storage} from '@infra';
+import {netStatus, storage} from '@infra';
 
-import {EntitiesRepository} from './entitiesRepository';
+import {syncHandler} from './handlers';
 import {EntitySync} from './types';
 
 const queueRequests: EntitySync[] = [];
@@ -12,12 +12,16 @@ function addToQueueRequest<TData>(data: EntitySync<TData>) {
 }
 
 async function syncEntities() {
+  const connectionStatus = netStatus.getConnectionStatus();
+  if (!connectionStatus || (connectionStatus && !connectionStatus.connected)) {
+    return;
+  }
   const _queueRequests = await storage.getItem<EntitySync[]>('@QueueRequest');
 
   if (_queueRequests && _queueRequests.length > 0) {
     await Promise.all(
       _queueRequests.map(async entitySync => {
-        await EntitiesRepository.sync(entitySync);
+        await syncHandler(entitySync);
       }),
     );
     storage.removeItem('@QueueRequest');

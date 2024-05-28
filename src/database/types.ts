@@ -5,6 +5,7 @@ import {
   IBookCategorySchema,
   IBookPlaylistChapters,
   IBookSchema,
+  IFavoriteSchema,
   IReviewSchema,
 } from './interfaces';
 
@@ -50,6 +51,7 @@ export enum Schemas {
   BookSection = '@BookSectionSchema',
   Review = '@ReviewSchema',
   Author = '@AuthorSchema',
+  Favorite = '@FavoriteSchema',
 }
 
 export interface DatabaseSchemaImpl<SchemaName extends Schemas> {
@@ -69,6 +71,8 @@ export type CrudSchemaData<SchemaName = Schemas> =
     ? IBookPlaylistChapters
     : SchemaName extends Schemas.Review
     ? IReviewSchema
+    : SchemaName extends Schemas.Favorite
+    ? IFavoriteSchema
     : unknown;
 
 export type SchemaObject<SchemaName extends Schemas> = Record<
@@ -76,8 +80,12 @@ export type SchemaObject<SchemaName extends Schemas> = Record<
   DatabaseSchemaImpl<SchemaName>
 >;
 
-export interface Filter<SchemaName = Schemas> {
-  field: keyof CrudSchemaData<SchemaName>;
-  valueMatch: string;
+export interface Filter<
+  SchemaName = Schemas,
+  Key = keyof CrudSchemaData<SchemaName>,
+  ValueMatch = unknown,
+> {
+  field?: Key;
+  valueMatch: ValueMatch[];
   filter: string;
 }

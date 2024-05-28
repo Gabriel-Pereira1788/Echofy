@@ -29,7 +29,6 @@ export function useChapterDownload({
       if (!track?.bookId || !data) {
         return;
       }
-      console.log('D', data);
       updateLocalChapter(track?.bookId, {
         playlistChapters: [
           {

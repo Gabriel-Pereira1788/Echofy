@@ -8,17 +8,24 @@ export interface PaginatedListProps<TData> {
   queryKey: readonly string[];
   fetchPage: (page: number) => Promise<PaginatedResult<TData>>;
   enabled?: boolean;
+  options?: PaginatedOptions;
+}
+
+interface PaginatedOptions {
+  slateTime: number;
 }
 
 export function usePaginatedList<TData>({
   queryKey,
   enabled,
   fetchPage,
+  options,
 }: PaginatedListProps<TData>) {
   const [list, setList] = useState<TData[]>([]);
   const query = useInfiniteQuery({
     enabled,
     queryKey,
+    staleTime: options?.slateTime,
     queryFn: ({pageParam = 1}) => {
       return fetchPage(pageParam as number);
     },

@@ -17,6 +17,6 @@ const download = jest.fn(async (config: DownloadConfig) => {
     resume: jest.fn(),
   };
 });
-export const jestFsImpl = (): FileSystemImpl => ({
+export const jestFsImpl: FileSystemImpl = {
   download,
-});
+};

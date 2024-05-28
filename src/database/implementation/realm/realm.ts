@@ -15,7 +15,7 @@ const open = async (customPath?: string) => {
 
     const config: Configuration = {
       schema: allSchemas,
-      schemaVersion: 26,
+      schemaVersion: 27,
       path: customPath ? customPath : 'bundle.realm',
     };
     const realm = await Realm.open(config);
@@ -85,7 +85,7 @@ function readPaginatedResult<SchemaName extends Schemas>(
   if (filter) {
     realmDb
       ?.objects(schema)
-      .filtered(filter.filter, filter.valueMatch)
+      .filtered(filter.filter, ...filter.valueMatch)
       .forEach(item => {
         results.push(item as CrudSchemaData<SchemaName>);
       });

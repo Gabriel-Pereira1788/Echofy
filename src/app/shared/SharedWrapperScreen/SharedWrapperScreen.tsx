@@ -14,10 +14,11 @@ interface Props extends React.PropsWithChildren {
   goBack?: boolean;
   headerLeft?: React.JSX.Element;
   headerTitle?: string;
-  headerRight?: React.JSX.Element;
+  headerRight?: React.JSX.Element | null;
   footerElement?: React.JSX.Element;
   customPadding?: boolean;
   scrollEnabled?: boolean;
+  customMargin?: boolean;
   playerSpacingEnabled?: boolean;
   scrollProps?: ScrollViewProps;
 }
@@ -30,6 +31,7 @@ export function SharedWrapperScreen({
   headerRight,
   footerElement,
   customPadding,
+  customMargin,
   headerTitle,
   scrollProps,
   playerSpacingEnabled = true,
@@ -72,7 +74,7 @@ export function SharedWrapperScreen({
           alignItems="center"
           justifyContent="center"
           width="100%"
-          marginBottom={$marginBottom}
+          marginBottom={customMargin ? undefined : $marginBottom}
           padding={customPadding ? undefined : 'sp25'}>
           {children}
         </Box>
@@ -113,7 +115,7 @@ function WrapperScreen({
   }
 
   return (
-    <Box flex={1} width={'100%'} height={'100%'} justifyContent="center">
+    <Box flex={1} justifyContent="flex-start">
       {children}
     </Box>
   );
