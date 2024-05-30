@@ -1,10 +1,25 @@
 import React from 'react';
 import {Animated} from 'react-native';
 
-import {bookMock, fireEvent, mockedNavigate, render, screen} from '@test';
+import {bookMock, fireEvent, render, screen} from '@test';
 
 import {HomeScreenBookItem} from '../HomeScreenBookItem';
 
+const mockedNavigate = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
+
+afterAll(() => {
+  jest.resetAllMocks();
+});
 const scrollX = new Animated.Value(0);
 describe('HomeScreenBookItem', () => {
   it('render component correctly', () => {

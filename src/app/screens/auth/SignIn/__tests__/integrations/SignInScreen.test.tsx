@@ -1,23 +1,10 @@
 import React from 'react';
 
-import {
-  act,
-  authCredentialsAPIMock,
-  fireEvent,
-  renderScreen,
-  screen,
-  server,
-  waitFor,
-} from '@test';
-
-import {SignInScreen} from '../../SignInScreen';
-
-const navigation: any = {
-  navigate: jest.fn(),
-};
+import {AuthStack} from '@router';
+import {act, fireEvent, renderScreen, screen, server, waitFor} from '@test';
 
 function customRenderScreen() {
-  renderScreen(<SignInScreen navigation={navigation} route={{} as any} />);
+  renderScreen(<AuthStack initialRouteName="SignInScreen" />);
 
   return {
     inputEmail: screen.getByPlaceholderText('Email'),
@@ -91,7 +78,7 @@ describe('SignInScreen', () => {
 
     fireEvent.press(buttonRedirectSignUp);
 
-    expect(navigation.navigate).toHaveBeenCalledWith('SignUpScreen');
+    expect(screen.getByText('Register')).toBeTruthy();
   });
   test('remind access data.', async () => {
     const {checkBoxElement} = customRenderScreen();
@@ -110,7 +97,7 @@ describe('SignInScreen', () => {
   it('should be send login data successfully', async () => {
     const {inputEmail, inputPassword, buttonLogin} = customRenderScreen();
 
-    const SUCCESS_MESSAGE = 'Welcome!';
+    const SUCCESS_MESSAGE = 'Success!';
     fireEvent.changeText(inputEmail, 'johnDoe@gmail.com');
     fireEvent.changeText(inputPassword, 'johnDoe555');
 
@@ -122,9 +109,8 @@ describe('SignInScreen', () => {
     act(() => jest.runAllTimers());
 
     expect(screen.queryByTestId('toast')).toBeNull();
-    expect(navigation.navigate).toHaveBeenCalledWith('WelcomeScreen', {
-      uid: authCredentialsAPIMock.id,
-    });
+
+    expect(screen.getByText('Find what you are looking for')).toBeTruthy();
   });
 
   it('should be send login data wrong credentials', async () => {
@@ -142,5 +128,22 @@ describe('SignInScreen', () => {
     act(() => jest.runAllTimers());
 
     expect(screen.queryByTestId('toast')).toBeNull();
+  });
+
+  it('should be navigate to Error screen', async () => {
+    server.close();
+
+    const {inputEmail, buttonLogin, inputPassword} = customRenderScreen();
+
+    fireEvent.changeText(inputEmail, 'johnDoe@gmail.com');
+    fireEvent.changeText(inputPassword, 'johnDoe555');
+
+    await act(async () => {
+      await fireEvent.press(buttonLogin);
+    });
+
+    await waitFor(() =>
+      expect(screen.getByText('Ops, Something Went Wrong')).toBeTruthy(),
+    );
   });
 });

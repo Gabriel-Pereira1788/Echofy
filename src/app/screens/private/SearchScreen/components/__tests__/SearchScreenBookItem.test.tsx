@@ -1,9 +1,24 @@
 import React from 'react';
 
-import {bookMock, fireEvent, mockedNavigate, render, screen} from '@test';
+import {bookMock, fireEvent, render, screen} from '@test';
 
 import {SearchScreenBookItem} from '../SearchScreenBookItem';
 
+const mockedNavigate = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
+
+afterAll(() => {
+  jest.resetAllMocks();
+});
 function customRender({onPress}: {onPress?: () => void}) {
   render(<SearchScreenBookItem item={bookMock} onPress={onPress} />);
 

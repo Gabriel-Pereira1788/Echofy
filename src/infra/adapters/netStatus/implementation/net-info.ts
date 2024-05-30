@@ -8,14 +8,15 @@ let connectionStatus: ConnectionStatus | null = null;
 
 function getConnectionStatus(): ConnectionStatus | null {
   NetInfo.fetch().then(state => {
-    console.log('STATE', state);
     connectionStatus = toConnectionStatus(state);
   });
 
   return connectionStatus;
 }
 
-function setConnectionStatus() {}
+NetInfo.addEventListener(state => {
+  connectionStatus = toConnectionStatus(state);
+});
 
 function addListener(callback?: (status: ConnectionStatus) => void) {
   NetInfo.addEventListener(state => {

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import {database} from '@database';
 import {netStatus} from '@infra';
+import {useAuthContext} from '@providers';
 import {QueueManager} from '@repositories';
 import BootSplash from 'react-native-bootsplash';
 
@@ -9,14 +10,13 @@ import {AnimatedSplashScreen} from '@components';
 
 export function InitializeHandler({children}: React.PropsWithChildren) {
   const [visible, setVisible] = useState(true);
+  const {credentials} = useAuthContext();
 
   async function initializeApp() {
     try {
       netStatus.getConnectionStatus();
-      netStatus.addListener(status => {
-        console.log('STATUS', status);
-      });
-      await database.open();
+
+      await database.open(credentials?.id);
       await QueueManager.syncEntities();
       BootSplash.hide();
     } catch (error) {

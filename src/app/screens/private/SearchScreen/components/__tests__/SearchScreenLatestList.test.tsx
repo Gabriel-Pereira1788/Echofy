@@ -1,8 +1,24 @@
 import React from 'react';
 
-import {bookMock, fireEvent, mockedNavigate, render, screen} from '@test';
+import {bookMock, fireEvent, render, screen} from '@test';
 
 import SearchScreenLatestList from '../SearchScreenLatestList';
+
+const mockedNavigate = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
+
+afterAll(() => {
+  jest.resetAllMocks();
+});
 
 const mockedBooks = [bookMock, bookMock, bookMock];
 jest.mock('@services', () => {

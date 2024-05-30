@@ -14,19 +14,6 @@ import {
 } from '@test';
 import {PanGesture, State} from 'react-native-gesture-handler';
 
-jest.unmock('@react-navigation/native');
-
-beforeAll(() => {
-  server.listen();
-  jest.useFakeTimers();
-});
-
-afterAll(() => {
-  server.close();
-  jest.useRealTimers();
-  jest.resetAllMocks();
-});
-
 async function customRenderScreen() {
   renderScreen(<AppStack initialRouteName="AppTabNavigator" />);
 
@@ -48,7 +35,7 @@ async function customRenderScreen() {
   fireEvent.press(minimizePlayerElement);
 
   return {
-    closeButton: await screen.getByTestId('close-button'),
+    closeButton: screen.getByTestId('close-button'),
     goBackButton: screen.getByTestId('go-back-player-controller'),
     changeVolumeButton: screen.getByText('Volume'),
     changeSpeedControlButton: screen.getByText(/speed 1/i),
@@ -64,7 +51,17 @@ async function customRenderScreen() {
     skipToNextButton: screen.getByTestId('skip-to-next'),
   };
 }
+jest.unmock('@react-navigation/native');
+beforeAll(() => {
+  server.listen();
+  jest.useFakeTimers();
+});
 
+afterAll(() => {
+  server.close();
+  jest.useRealTimers();
+  jest.resetAllMocks();
+});
 describe('PlayerControllerScreen', () => {
   it('render screen correctly', async () => {
     const {

@@ -66,7 +66,7 @@ export function HomeScreenBookItem({scrollX, index, item}: Props) {
         <Box alignItems="flex-start" gap="sp10">
           <Text text={item.bookTitle} preset="medium/16" />
           <Text text={item.bookAuthor} preset="regular/14" />
-          <ReviewVoteRating rating={5} size="sp10" />
+          <ReviewVoteRating rating={item.voteRating} size="sp10" />
           <Text
             align="left"
             preset="regular/14"

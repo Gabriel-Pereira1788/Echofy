@@ -1,11 +1,27 @@
 import React from 'react';
 
-import {fireEvent, mockedNavigate, render, screen} from '@test';
+import {fireEvent, render, screen} from '@test';
 
 import {
   SearchScreenRecommendedCategories,
   categories,
 } from '../SearchScreenRecommendedCategories';
+
+const mockedNavigate = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
+
+afterAll(() => {
+  jest.resetAllMocks();
+});
 
 function customRender() {
   render(<SearchScreenRecommendedCategories />);

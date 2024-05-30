@@ -1,9 +1,6 @@
 module.exports = {
   preset: 'react-native',
-  setupFiles: [
-    '<rootDir>/src/test/jestSetup.ts',
-    './node_modules/react-native-gesture-handler/jestSetup.js',
-  ],
+  setupFiles: ['<rootDir>/src/test/jestSetup.ts'],
   moduleDirectories: ['node_modules', './src/test'],
   modulePathIgnorePatterns: ['.*/mockedData/.*'],
 

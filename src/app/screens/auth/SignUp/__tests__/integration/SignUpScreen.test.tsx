@@ -1,24 +1,14 @@
 import React from 'react';
 
-import {
-  act,
-  authCredentialsAPIMock,
-  fireEvent,
-  renderScreen,
-  screen,
-  server,
-  waitFor,
-} from '@test';
+import {AuthStack} from '@router';
+import {act, fireEvent, renderScreen, screen, server, waitFor} from '@test';
 
-import {SignUpScreen} from '../../SignUpScreen';
-
-const navigation: any = {
-  pop: jest.fn(),
-  navigate: jest.fn(),
-};
 function customRenderScreen() {
-  renderScreen(<SignUpScreen navigation={navigation} route={{} as any} />);
+  renderScreen(<AuthStack initialRouteName="SignInScreen" />);
 
+  //1) redirect to SignUpScreen
+  const buttonRedirectSignUp = screen.getByText('Register');
+  fireEvent.press(buttonRedirectSignUp);
   return {
     inputEmail: screen.getByPlaceholderText('Email'),
     inputPassword: screen.getByPlaceholderText('Password'),
@@ -69,9 +59,11 @@ describe('SignUp', () => {
   it('should be go back to SignIn Screen.', () => {
     const {buttonCancel} = customRenderScreen();
 
-    fireEvent.press(buttonCancel);
+    act(() => {
+      fireEvent.press(buttonCancel);
+    });
 
-    expect(navigation.pop).toHaveBeenCalled();
+    expect(screen.getByText('Login to Your Account')).toBeTruthy();
   });
 
   it('should render errors message for wrong field values.', async () => {
@@ -122,8 +114,25 @@ describe('SignUp', () => {
     act(() => jest.runAllTimers());
 
     expect(screen.queryByTestId('toast')).toBeNull();
-    expect(navigation.navigate).toHaveBeenCalledWith('WelcomeScreen', {
-      uid: authCredentialsAPIMock.id,
+
+    expect(screen.getByText('Welcome!')).toBeTruthy();
+  });
+
+  it('should be redirect to Error Screen.', async () => {
+    server.close();
+    const {inputEmail, inputPassword, inputDateBirth, buttonSignUp} =
+      customRenderScreen();
+
+    fireEvent.changeText(inputEmail, validEmail);
+    fireEvent.changeText(inputPassword, validPassword);
+    fireEvent.changeText(inputDateBirth, validBirthDate);
+
+    act(() => {
+      fireEvent.press(buttonSignUp);
     });
+
+    await waitFor(() =>
+      expect(screen.getByText('Ops, Something Went Wrong')).toBeTruthy(),
+    );
   });
 });

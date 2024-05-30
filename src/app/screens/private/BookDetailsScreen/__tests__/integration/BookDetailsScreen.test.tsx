@@ -166,6 +166,7 @@ describe('BookDetailsScreen', () => {
 
     act(() => {
       fireEvent.press(minimizePlayerElement);
+      jest.runAllTimers();
     });
 
     //3) check if render correctly

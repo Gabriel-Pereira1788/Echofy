@@ -18,7 +18,7 @@ export function BookDetailsSaveToFavorites({bookId}: Props) {
   const toast = useToastActions();
 
   const {favoriteBook, isLoading} = useGetFavoriteBook(bookId);
-  console.log('FAVORITE-BOOK', favoriteBook?.book.bookTitle);
+
   const {sendToFavorite} = useSendToFavorite({
     onSuccess: () => {
       toast.show({
@@ -28,10 +28,17 @@ export function BookDetailsSaveToFavorites({bookId}: Props) {
       });
     },
   });
-  const {removeToFavorite} = useRemoveToFavorite();
+  const {removeToFavorite} = useRemoveToFavorite({
+    onSuccess: () => {
+      toast.show({
+        title: 'Success!',
+        message: 'Remove to favorites!',
+        type: 'success',
+      });
+    },
+  });
 
   function changeFavoriteState() {
-    console.log('FAVORITE-BOOK', favoriteBook);
     if (favoriteBook) {
       removeToFavorite(favoriteBook.id);
     } else {
@@ -44,6 +51,7 @@ export function BookDetailsSaveToFavorites({bookId}: Props) {
   }
   return (
     <IconPress
+      testID="icon-mark-element"
       iconName="bookmark"
       color="unactiveColor"
       onPress={changeFavoriteState}

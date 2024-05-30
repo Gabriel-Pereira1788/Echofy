@@ -1,4 +1,5 @@
-import {Book, BookApi, bookAdapter} from '@domain';
+import {Book, bookAdapter} from '@domain';
+import {IBookExternalData} from '@models';
 
 export const bookMock: Book = {
   id: 'c342d355-24ba-472d-a1bb-ee40d9108945',
@@ -66,7 +67,7 @@ export const bookMock: Book = {
   ],
 };
 
-export const bookMockDataApi: BookApi = {
+export const bookMockDataApi: IBookExternalData = {
   id: 'c342d355-24ba-472d-a1bb-ee40d9108945',
   book_image: 'https://www.loyalbooks.com/image/detail/47.jpg',
   book_genres: ['Adventure', 'Kids', 'Fantasy', 'Fiction', 'Literature'],
@@ -131,7 +132,7 @@ export const bookMockDataApi: BookApi = {
     },
   ],
 };
-export const bookMockApi: {docs: BookApi[]} = {
+export const bookMockApi: {docs: IBookExternalData[]} = {
   docs: [
     {
       id: 'c342d355-24ba-472d-a1bb-ee40d9108945',

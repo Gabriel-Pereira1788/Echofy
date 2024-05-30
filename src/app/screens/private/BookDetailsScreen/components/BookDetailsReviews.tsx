@@ -36,7 +36,13 @@ export function BookDetailsReviews({reviews, bookData}: Props) {
   }
   return (
     <Carousel
-      text="Review"
+      HeaderElement={
+        <Text
+          text={'Review'}
+          preset="semiBold/14"
+          setColorsTheme={{light: 'neutral80', dark: 'neutral5'}}
+        />
+      }
       content={reviews}
       RightComponent={
         <TouchableOpacityBox onPress={redirectToBookReviewPanel}>

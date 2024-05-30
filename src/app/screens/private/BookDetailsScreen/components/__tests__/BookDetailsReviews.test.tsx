@@ -1,15 +1,20 @@
 import React from 'react';
 
-import {
-  bookMock,
-  fireEvent,
-  mockedNavigate,
-  render,
-  reviewsListMock,
-  screen,
-} from '@test';
+import {bookMock, fireEvent, render, reviewsListMock, screen} from '@test';
 
 import {BookDetailsReviews} from '../BookDetailsReviews';
+
+const mockedNavigate = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 
 function customRender() {
   render(<BookDetailsReviews bookData={bookMock} reviews={reviewsListMock} />);
@@ -20,6 +25,10 @@ function customRender() {
     carouselSelectors: screen.getAllByTestId('carousel-selector'),
   };
 }
+
+afterAll(() => {
+  jest.resetAllMocks();
+});
 describe('BookDetailsReviews', () => {
   it('should be render component correctly', () => {
     const {carouselText, viewMoreButton, carouselSelectors} = customRender();

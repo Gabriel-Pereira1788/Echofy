@@ -4,7 +4,6 @@ import {
   act,
   allCategoriesMock,
   fireEvent,
-  mockedReset,
   renderScreen,
   screen,
   server,
@@ -13,14 +12,18 @@ import {
 import {PersonalizationScreen} from '../../PersonalizationScreen';
 
 const mockReset = jest.fn();
-jest.mock('@hooks', () => {
-  const originalModule = jest.requireActual('@hooks');
 
-  return {
-    ...originalModule,
-    useResetAuthStack: () => ({reset: mockReset}),
-  };
-});
+// const mockedReset = jest.fn();
+
+// jest.mock('@react-navigation/native', () => {
+//   const originalModule = jest.requireActual('@react-navigation/native');
+//   return {
+//     ...originalModule,
+//     useNavigation: () => ({
+//       reset: mockedReset,
+//     }),
+//   };
+// });
 
 const navigation: any = {
   navigate: jest.fn(),
@@ -41,17 +44,25 @@ function customRender() {
   };
 }
 
+jest.mock('../../../../../helpers/hooks', () => {
+  const originalModule = jest.requireActual('@hooks');
+
+  return {
+    ...originalModule,
+    useResetAuthStack: () => ({reset: mockReset}),
+  };
+});
+
 beforeAll(() => {
   jest.useFakeTimers();
   server.listen();
 });
 
-afterEach(() => {
-  server.resetHandlers();
-});
-
 afterAll(() => {
+  server.resetHandlers();
   server.close();
+  jest.useRealTimers();
+  jest.resetAllMocks();
 });
 
 describe('PersonalizationScreen', () => {
@@ -83,7 +94,7 @@ describe('PersonalizationScreen', () => {
 
     fireEvent.press(buttonSubmit);
 
-    expect(mockedReset).not.toHaveBeenCalled();
+    expect(mockReset).not.toHaveBeenCalled();
   });
 
   it('should be navigate to ready to go screen', async () => {
@@ -102,7 +113,7 @@ describe('PersonalizationScreen', () => {
 
     fireEvent.press(buttonSubmit);
 
-    expect(mockedReset).toHaveBeenCalled();
+    expect(mockReset).toHaveBeenCalled();
   });
 
   it('should be dispatch search function correctly', async () => {

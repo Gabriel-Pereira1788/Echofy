@@ -24,6 +24,7 @@ export function LibraryBookItem({book}: Props) {
   return (
     <TouchableOpacityBox
       activeOpacity={0.8}
+      testID="library-book-item"
       onPress={redirectToBookScreen}
       boxProps={{
         width: '100%',

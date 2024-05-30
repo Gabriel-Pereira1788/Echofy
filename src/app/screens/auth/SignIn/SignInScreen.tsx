@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {useAuthSignIn} from '@domain';
+import {CommonError, useAuthSignIn} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {AuthStackProps} from '@router';
 import {useToastActions} from '@services';
@@ -42,15 +42,9 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
         navigation.navigate('WelcomeScreen', {uid: ac.id});
       }
     },
-    onError: err => {
-      console.log('err', err.status);
-      toastActions.show({
-        title: 'Erro!',
-        message: err.message,
-        type: 'error',
-      });
-    },
+    onError: handleOnError,
   });
+
   const {isRemembered, onChangeIsRemembered} = useRemindAccessData({
     getValues,
     setValue,
@@ -62,6 +56,18 @@ export function SignInScreen({navigation}: AuthStackProps<'SignInScreen'>) {
 
   async function onSubmit(data: SignInSchema) {
     await signIn(data);
+  }
+
+  function handleOnError(err: CommonError) {
+    if (err.status === 500) {
+      navigation.navigate('ErrorScreen');
+    } else {
+      toastActions.show({
+        title: 'Erro!',
+        message: err.message,
+        type: 'error',
+      });
+    }
   }
 
   return (

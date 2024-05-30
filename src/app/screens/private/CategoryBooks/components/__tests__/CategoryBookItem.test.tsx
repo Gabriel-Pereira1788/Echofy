@@ -1,9 +1,23 @@
 import React from 'react';
 
-import {bookMock, fireEvent, mockedNavigate, render} from '@test';
+import {bookMock, fireEvent, render} from '@test';
 
 import {CategoryBookItem} from '../CategoryBookItem';
+const mockedNavigate = jest.fn();
 
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
+
+afterAll(() => {
+  jest.resetAllMocks();
+});
 describe('CategoryBookItem', () => {
   it('should render component correctly', () => {
     const {getByTestId} = render(<CategoryBookItem book={bookMock} />);

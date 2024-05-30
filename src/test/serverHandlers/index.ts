@@ -14,6 +14,7 @@ import {
   reviewMock,
   bookMockApi,
   imageLinkMock,
+  favoritesHandler,
 } from './handlers';
 import {reviewHandler} from './handlers/review/review-handler';
 
@@ -34,4 +35,5 @@ export const server = setupServer(
   ...authHandler,
   ...bookHandler,
   ...reviewHandler,
+  ...favoritesHandler,
 );

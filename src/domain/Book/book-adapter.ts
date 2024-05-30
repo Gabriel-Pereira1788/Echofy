@@ -27,6 +27,7 @@ function toBookData(book: IBookExternalData): Book {
     bookTitle: book.book_title,
     bookAuthor: book.book_author,
     bookReadLink: book.book_read_link,
+    voteRating: Number(book.book_star_raiting),
     playlistChapters: toPlaylistData(book.playlist_chapters),
   };
 }

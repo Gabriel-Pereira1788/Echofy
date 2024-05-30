@@ -27,4 +27,5 @@ export enum StorageKeys {
   MinimizePlayer = '@minimizePlayer',
   TrackPersistence = '@trackPersistence',
   TrackProgressPersistence = '@trackProgressPersistence',
+  SettingsPersistence = '@settingsPersistence',
 }

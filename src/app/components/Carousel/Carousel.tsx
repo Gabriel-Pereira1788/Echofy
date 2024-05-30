@@ -1,38 +1,53 @@
-import React, {useRef, useState} from 'react';
+import React, {forwardRef, useImperativeHandle, useRef, useState} from 'react';
 import {FlatList, ListRenderItemInfo} from 'react-native';
 
 import {Box} from '../Box/Box';
-import {Text} from '../Text/Text';
 
 import {CarouselContent} from './CarouselContent';
 import {CarouselSelector} from './CarouselSelector';
 
 type CarouselProps<TContent> = {
-  text: string;
+  HeaderElement?: JSX.Element;
   content: TContent[];
   renderItem: ({item}: ListRenderItemInfo<TContent>) => JSX.Element;
   RightComponent?: JSX.Element;
   EmptyComponent?: JSX.Element;
+  onChangeCurrentPosition?: (position: number) => void;
 };
 
-export function Carousel<TContent>({
-  text,
-  content,
-  renderItem,
-  RightComponent,
-  EmptyComponent,
-}: CarouselProps<TContent>) {
+export type CarouselRef = {
+  onSelect: (position: number) => void;
+  currentPosition: number;
+};
+
+function CarouselComponent<TContent>(
+  {
+    content,
+    renderItem,
+    HeaderElement,
+    RightComponent,
+    onChangeCurrentPosition,
+    EmptyComponent,
+  }: CarouselProps<TContent>,
+  ref?: React.ForwardedRef<CarouselRef>,
+) {
   const flatListRef = useRef<FlatList>(null);
   const [currentPosition, setCurrentPosition] = useState(0);
 
   function onSelect(position: number) {
-    return () => {
-      flatListRef.current?.scrollToIndex({
-        animated: true,
-        index: position,
-      });
-    };
+    flatListRef.current?.scrollToIndex({
+      animated: true,
+      index: position,
+    });
   }
+
+  function onChangeContent(position: number) {
+    setCurrentPosition(position);
+    onChangeCurrentPosition?.(position);
+  }
+
+  useImperativeHandle(ref, () => ({onSelect, currentPosition}));
+
   if (content.length === 0) {
     return (
       <Box width={'100%'} marginVertical="sp25">
@@ -42,18 +57,12 @@ export function Carousel<TContent>({
   }
   return (
     <Box width={'100%'} marginVertical="sp25">
-      <Text
-        text={text}
-        preset="semiBold/14"
-        setColorsTheme={{light: 'neutral80', dark: 'neutral5'}}
-      />
+      {HeaderElement && HeaderElement}
       <CarouselContent
         flatListRef={flatListRef}
         content={content}
         renderItem={renderItem}
-        onChangeContent={position => {
-          setCurrentPosition(position);
-        }}
+        onChangeContent={onChangeContent}
       />
 
       <Box
@@ -67,7 +76,7 @@ export function Carousel<TContent>({
             <CarouselSelector
               key={index}
               isSelected={index === currentPosition}
-              onPress={onSelect(index)}
+              onPress={() => onSelect(index)}
             />
           ))}
         </Box>
@@ -77,3 +86,7 @@ export function Carousel<TContent>({
     </Box>
   );
 }
+
+export const Carousel = forwardRef(CarouselComponent) as <TContent>(
+  props: CarouselProps<TContent> & {ref?: React.ForwardedRef<CarouselRef>},
+) => JSX.Element;

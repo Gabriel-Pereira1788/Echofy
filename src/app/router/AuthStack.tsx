@@ -11,8 +11,10 @@ import {
 } from '@screens';
 
 import {WelcomeScreen} from '../screens/auth/Welcome/WelcomeScreen';
+import ErrorScreen from '../screens/public/ErrorScreen/ErrorScreen';
 
 export type AuthStackParamList = {
+  ErrorScreen: undefined;
   SignInScreen: undefined;
   SignUpScreen: undefined;
   WelcomeScreen: {uid: string};
@@ -22,14 +24,26 @@ export type AuthStackParamList = {
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
-export function AuthStack() {
+export function AuthStack({
+  initialRouteName = 'SignInScreen',
+}: {
+  initialRouteName?: keyof AuthStackParamList;
+}) {
   return (
     <Stack.Navigator
-      initialRouteName="SignInScreen"
+      initialRouteName={initialRouteName}
       screenOptions={{
         headerShown: false,
         fullScreenGestureEnabled: true,
       }}>
+      <Stack.Screen
+        name="ErrorScreen"
+        component={ErrorScreen}
+        options={{
+          headerTransparent: true,
+          headerTitle: '',
+        }}
+      />
       <Stack.Screen
         name="SignInScreen"
         component={SignInScreen}

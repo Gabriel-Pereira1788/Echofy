@@ -15,6 +15,7 @@ export interface Book {
   bookTitle: string;
   bookGenres: string[];
   bookDesc: string;
+  voteRating: number;
   bookAuthor: string;
   bookReadLink: string;
   playlistChapters: PlaylistChapter[];

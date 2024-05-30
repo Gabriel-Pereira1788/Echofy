@@ -1,16 +1,14 @@
-import {setDatabaseImpl} from '@database';
-import {
-  setAudioTrackerImpl,
-  setFileSystemImpl,
-  setImagePickerImpl,
-} from '@infra';
-import {darkTheme, theme} from '@styles';
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 
 import 'react-native-gesture-handler/jestSetup';
+
+import {setDatabaseImpl} from '../database';
 import {databaseJest} from '../database/implementation/jest/databaseJest';
+import {setAudioTrackerImpl} from '../infra/adapters/audioTracker';
 import {audioTrackerJest} from '../infra/adapters/audioTracker/implementation/audio-tracker-jest-impl';
+import {setFileSystemImpl} from '../infra/adapters/fileSystem';
 import {jestFsImpl} from '../infra/adapters/fileSystem/implementation/jest-fs-impl';
+import {setImagePickerImpl} from '../infra/adapters/imagePicker';
 import {imagePickerJest} from '../infra/adapters/imagePicker/implementation/image-picker.jest';
 
 import {authCredentialsMock} from './serverHandlers';
@@ -24,18 +22,6 @@ jest.mock('react-native-safe-area-context', () => ({
   ...mockSafeAreaContext,
   useSafeAreaInsets: jest.fn(mockSafeAreaContext.useSafeAreaInsets),
 }));
-let mockColorScheme = 'light';
-let mockTheme = theme;
-
-export const setColorSchemeMock = (mode: 'dark' | 'light') => {
-  mockColorScheme = mode;
-
-  if (mode === 'dark') {
-    mockTheme = darkTheme;
-  } else {
-    mockTheme = theme;
-  }
-};
 
 jest.mock('react-native-track-player', () => {
   return {
@@ -85,16 +71,6 @@ jest.mock('react-native-track-player', () => {
 });
 
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
-jest.mock('@hooks', () => {
-  const originalImports = jest.requireActual('@hooks');
-  return {
-    ...originalImports,
-    useTheme: () => ({
-      ...mockTheme,
-      colorScheme: mockColorScheme,
-    }),
-  };
-});
 
 const mockUid = authCredentialsMock.id;
 const mockCredentials = authCredentialsMock;
@@ -108,21 +84,6 @@ jest.mock('@providers', () => {
       credentials: mockCredentials,
       refreshCredentials: mockRefreshCredentials,
       removeCredentials: jest.fn(),
-    }),
-  };
-});
-
-export const mockedNavigate = jest.fn();
-export const mockedGoBack = jest.fn();
-export const mockedReset = jest.fn();
-jest.mock('@react-navigation/native', () => {
-  const originalModule = jest.requireActual('@react-navigation/native');
-  return {
-    ...originalModule,
-    useNavigation: () => ({
-      navigate: mockedNavigate,
-      goBack: mockedGoBack,
-      reset: mockedReset,
     }),
   };
 });
@@ -167,10 +128,28 @@ jest.mock('react-native-bootsplash', () => {
   return {
     hide: jest.fn().mockResolvedValue(true),
     isVisible: jest.fn().mockResolvedValue(false),
-    useHideAnimation: jest.fn().mockReturnValue({
-      container: {},
-      logo: {source: 0},
+    useHideAnimation: jest.fn(() => ({
+      container: {
+        onLayout: jest.fn(),
+        style: {
+          alignItems: 'center',
+          backgroundColor: '#F5F5FA',
+          bottom: 0,
+          justifyContent: 'center',
+          left: 0,
+          position: 'absolute',
+          right: 0,
+          top: 0,
+        },
+      },
+      logo: {
+        fadeDuration: 0,
+        onLoadEnd: jest.fn(),
+        resizeMode: 'contain',
+        source: 3,
+        style: {height: 118, width: 250},
+      },
       brand: {source: 0},
-    }),
+    })),
   };
 });

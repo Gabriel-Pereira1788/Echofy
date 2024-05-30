@@ -16,6 +16,7 @@ import {
   renderHook,
 } from '@testing-library/react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {Toast} from '@components';
 
@@ -50,18 +51,20 @@ function wrapperProvidersScreen(renderNavigationContainer: boolean = true) {
 
   return ({children}: React.PropsWithChildren) => (
     <QueryClientProvider client={queryClient}>
-      <GestureHandlerRootView style={{flex: 1}}>
-        <ThemeProvider theme={theme}>
-          <AuthProvider>
-            {renderNavigationContainer ? (
-              <NavigationContainer>{children}</NavigationContainer>
-            ) : (
-              children
-            )}
-            <Toast />
-          </AuthProvider>
-        </ThemeProvider>
-      </GestureHandlerRootView>
+      <SafeAreaProvider style={{flex: 1}}>
+        <GestureHandlerRootView style={{flex: 1}}>
+          <ThemeProvider theme={theme}>
+            <AuthProvider>
+              {renderNavigationContainer ? (
+                <NavigationContainer>{children}</NavigationContainer>
+              ) : (
+                children
+              )}
+              <Toast />
+            </AuthProvider>
+          </ThemeProvider>
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
     </QueryClientProvider>
   );
 }

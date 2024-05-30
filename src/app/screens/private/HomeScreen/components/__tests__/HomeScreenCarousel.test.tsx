@@ -19,6 +19,18 @@ beforeAll(() => {
 afterAll(() => {
   server.close();
 });
+
+const mockedNavigate = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 describe('HomeScreenCarousel', () => {
   it('should be render component correctly', async () => {
     const {bookItens, carouselElement} = await customRender();

@@ -9,14 +9,14 @@ import {buildSchemas, realmSchemas, schemas} from './schemas';
 
 let realmDb: Realm | null = null;
 
-const open = async (customPath?: string) => {
+const open = async (uid?: string) => {
   try {
     const allSchemas = realmSchemas.map(item => item.schema);
 
     const config: Configuration = {
       schema: allSchemas,
       schemaVersion: 27,
-      path: customPath ? customPath : 'bundle.realm',
+      path: uid ? `Realm${uid}.realm` : 'bundle.realm',
     };
     const realm = await Realm.open(config);
 

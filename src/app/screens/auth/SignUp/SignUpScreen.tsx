@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {useAuthSignUp} from '@domain';
+import {CommonError, useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {AuthStackProps} from '@router';
 import {useToastActions} from '@services';
@@ -26,13 +26,7 @@ export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
         navigation.navigate('WelcomeScreen', {uid: ac.id});
       }
     },
-    onError: error => {
-      toastActions.show({
-        title: 'Error!',
-        message: error.message,
-        type: 'error',
-      });
-    },
+    onError: handleOnError,
   });
 
   const {control, handleSubmit} = useForm<SignUpSchema>({
@@ -52,6 +46,18 @@ export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
 
   function onCancel() {
     navigation.pop();
+  }
+
+  function handleOnError(err: CommonError) {
+    if (err.status === 500) {
+      navigation.navigate('ErrorScreen');
+    } else {
+      toastActions.show({
+        title: 'Error!',
+        message: err.message,
+        type: 'error',
+      });
+    }
   }
 
   return (

@@ -43,12 +43,12 @@ function App(): React.JSX.Element {
     : theme.colors.bgMain;
 
   return (
-    <InitializeHandler>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
-          <SafeAreaProvider style={{flex: 1, backgroundColor}}>
-            <GestureHandlerRootView style={{flex: 1}}>
-              <AuthProvider>
+    <AuthProvider>
+      <InitializeHandler>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
+            <SafeAreaProvider style={{flex: 1, backgroundColor}}>
+              <GestureHandlerRootView style={{flex: 1}}>
                 <StatusBar
                   backgroundColor={backgroundColor}
                   barStyle={isDarkMode ? 'default' : 'dark-content'}
@@ -56,12 +56,12 @@ function App(): React.JSX.Element {
                 <Router />
                 <Toast />
                 <AudioTrackerPersistenceProvider />
-              </AuthProvider>
-            </GestureHandlerRootView>
-          </SafeAreaProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </InitializeHandler>
+              </GestureHandlerRootView>
+            </SafeAreaProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </InitializeHandler>
+    </AuthProvider>
   );
 }
 

@@ -24,6 +24,16 @@ jest.mock('@services', () => {
     }),
   };
 });
+
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: jest.fn(),
+    }),
+  };
+});
 describe('SearchScreenResultsList', () => {
   it('should be render component correctly', () => {
     const {labelElement, bookItens} = customRender();

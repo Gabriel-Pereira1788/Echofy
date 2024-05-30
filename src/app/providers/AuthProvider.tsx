@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 
+import {database} from '@database';
 import {AuthCredentials} from '@domain';
 import {StorageKeys, storage} from '@infra';
 
@@ -25,6 +26,7 @@ export function AuthProvider({children}: React.PropsWithChildren) {
   function refreshCredentials(ac: AuthCredentials) {
     setCredentials(ac);
 
+    database.open(ac.id);
     storage.setItem(StorageKeys.Credentials, ac);
   }
 
