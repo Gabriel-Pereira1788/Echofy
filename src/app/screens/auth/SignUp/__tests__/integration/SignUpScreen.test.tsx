@@ -37,6 +37,8 @@ beforeAll(() => {
 
 afterAll(() => {
   server.close();
+  server.resetHandlers();
+  jest.resetAllMocks();
 });
 
 describe('SignUp', () => {

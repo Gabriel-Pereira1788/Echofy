@@ -11,6 +11,7 @@ export function update(realm: Realm) {
 
     if (favoriteDataToUpdate && favoriteDataToUpdate.length > 0) {
       const data = favoriteDataToUpdate[0];
+      data.uid = newData.uid ? newData.uid : data.uid;
       data.book = newData.book ? newData.book : data.book;
     }
   };

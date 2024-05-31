@@ -5,6 +5,7 @@ import {useSettingsService} from '@services';
 import {SharedWrapperScreen} from '@shared';
 
 import {Box, Button, Carousel, CarouselRef, Text} from '@components';
+import {useTheme} from '@hooks';
 
 import {OnboardingPage, onboardingPages} from './onBoardingPage';
 
@@ -12,6 +13,7 @@ type Props = {};
 
 export function OnboardingScreen({}: Props) {
   const carouselRef = useRef<CarouselRef>(null);
+  const {colorScheme} = useTheme();
   const {finishOnboarding} = useSettingsService();
 
   const [isLastPage, setIsLastPage] = useState(false);
@@ -33,8 +35,11 @@ export function OnboardingScreen({}: Props) {
 
   function renderItem({item}: ListRenderItemInfo<OnboardingPage>) {
     return (
-      <Box alignItems="center" width={'100%'}>
-        <Image source={item.image.dark} resizeMode="cover" />
+      <Box alignItems="center" width={'100%'} testID="onboarding-page-item">
+        <Image
+          source={colorScheme === 'dark' ? item.image.dark : item.image.light}
+          resizeMode="cover"
+        />
         <Box gap="sp10" marginVertical="sp25" alignItems="center">
           <Text text={item.title} preset="semiBold/16" />
           <Text text={item.message} preset="regular/14" />
@@ -64,7 +69,12 @@ export function OnboardingScreen({}: Props) {
         ) : (
           <>
             <Box flex={1}>
-              <Button text="Skip" type="flat" onPress={onPressSkip} />
+              <Button
+                text="Skip"
+                type="flat"
+                onPress={onPressSkip}
+                customColor="buttonText"
+              />
             </Box>
             <Box flex={1}>
               <Button text="Next" onPress={onPressNextPage} />

@@ -16,7 +16,7 @@ export const useSettingsStore = create<SettingsStore>()(
       },
     }),
     {
-      name: StorageKeys.SettingsPersistence,
+      name: StorageKeys.SettingsPersistence + '1234',
       storage: storage,
     },
   ),

@@ -8,6 +8,7 @@ export function create(realm: Realm) {
     const results = realm
       .objects(Schemas.Favorite)
       .filtered('id == $0', value.id);
+
     if (results && results.length > 0) {
       return null;
     }
@@ -16,18 +17,14 @@ export function create(realm: Realm) {
       .objects<IBookSchema>(Schemas.Book)
       .filtered('id == $0', value.book_id);
 
-    if (bookData && bookData.length > 0) {
-      const favoriteData = realm.create(Schemas.Favorite, {
-        name: Schemas.Favorite,
-        id: new BSON.ObjectID().toString(),
-        uid: value.uid,
-        book_id: value.book_id,
-        book: bookData[0],
-      });
+    const favoriteData = realm.create(Schemas.Favorite, {
+      name: Schemas.Favorite,
+      id: new BSON.ObjectID().toString(),
+      uid: value.uid,
+      book_id: value.book_id,
+      book: bookData && bookData.length > 0 ? bookData[0] : value.book,
+    });
 
-      return favoriteData as IFavoriteSchema;
-    }
-
-    return null;
+    return favoriteData as IFavoriteSchema;
   };
 }

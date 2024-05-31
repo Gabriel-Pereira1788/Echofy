@@ -20,7 +20,9 @@ export function create(realm: Realm) {
       const chapterData = realm.create(Schemas.BookPlaylistChapters, {
         _id: new BSON.ObjectID(),
         name: Schemas.BookPlaylistChapters,
-        ...chapter,
+        chapter: chapter.chapter,
+        local_src: chapter.local_src,
+        src: chapter.src,
       }) as IBookPlaylistChapters;
 
       if (chapterData) {
