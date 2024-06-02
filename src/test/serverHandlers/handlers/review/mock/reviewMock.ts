@@ -1,7 +1,8 @@
+import {Review} from '@domain';
 import {PaginatedDocs} from '@infra';
-import {Review, ReviewApi} from 'src/domain/Review/review-types';
+import {IReviewExternalData} from '@models';
 
-const docs: ReviewApi[] = [
+const docs: IReviewExternalData[] = [
   {
     id: 'f8fadfd6-9aa5-44f3-a17d-fe2b403aa2a1',
     author: {
@@ -46,7 +47,7 @@ const docs: ReviewApi[] = [
   },
 ];
 
-export const reviewMock: PaginatedDocs<ReviewApi> = {
+export const reviewMock: PaginatedDocs<IReviewExternalData> = {
   docs: docs,
   nextPage: 2,
   page: 1,
@@ -59,7 +60,7 @@ export const reviewsListMock: Review[] = reviewMock.docs.map(review => {
   return {
     author: review.author,
     content: review.content,
-    id: review.id,
+    id: review.id!,
     voteRating: review.vote_rating,
   };
 });

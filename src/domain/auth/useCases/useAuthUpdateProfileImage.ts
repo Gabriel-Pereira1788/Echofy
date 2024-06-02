@@ -31,6 +31,6 @@ export function useAuthUpdateProfileImage(
   return {
     isLoading,
     isSuccess,
-    updateProfileImage: (image: ImageAsset) => mutate({uid, image}),
+    updateProfileImage: (image: ImageAsset) => mutate({uid: uid!, image}),
   };
 }

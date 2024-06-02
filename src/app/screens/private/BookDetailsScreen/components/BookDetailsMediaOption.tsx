@@ -4,7 +4,6 @@ import {Box, Button} from '@components';
 
 type Props = {
   onPlayAudio: () => void;
-  onReadBook: () => void;
 };
 
 export function BookDetailsMediaOption({onPlayAudio}: Props) {

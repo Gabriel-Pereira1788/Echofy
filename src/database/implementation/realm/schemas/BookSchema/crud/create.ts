@@ -18,7 +18,7 @@ export function create(realm: Realm) {
     for (let i = 0; i < value.playlist_chapters.length - 1; i++) {
       const chapter = value.playlist_chapters[i];
       const chapterData = realm.create(Schemas.BookPlaylistChapters, {
-        _id: new BSON.ObjectID(),
+        _id: new BSON.ObjectID().toString(),
         name: Schemas.BookPlaylistChapters,
         chapter: chapter.chapter,
         local_src: chapter.local_src,

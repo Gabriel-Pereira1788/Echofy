@@ -19,6 +19,7 @@ export function BookDetailsSaveToFavorites({bookId}: Props) {
 
   const {favoriteBook, isLoading} = useGetFavoriteBook(bookId);
 
+  console.log('FAVORITE-BOOK', favoriteBook);
   const {sendToFavorite} = useSendToFavorite({
     onSuccess: () => {
       toast.show({

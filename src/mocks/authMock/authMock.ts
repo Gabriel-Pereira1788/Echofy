@@ -10,12 +10,14 @@ export const signInWrongDTO: AuthSignInDTO = {
 };
 
 export const signUpDTO: AuthSignUpDTO = {
+  name: 'John doe',
   email: 'johnDoe@gmail.com',
   birthDate: '21/12/2001',
   password: 'johnDoe555',
 };
 
 export const signUpWrongDTO: AuthSignUpDTO = {
+  name: 'John doe',
   email: '',
   birthDate: '21/12/2001',
   password: 'johnDoe555',

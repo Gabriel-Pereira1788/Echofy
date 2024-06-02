@@ -8,7 +8,7 @@ export class BookCategorySchema extends Realm.Object<BookCategorySchema> {
   static schema: ObjectSchema = {
     name: Schemas.BookCategory,
     properties: {
-      _id: 'objectId',
+      _id: 'string',
       text: {type: 'string'},
       name: {type: 'string', indexed: 'full-text'},
     },

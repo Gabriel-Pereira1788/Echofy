@@ -1,5 +1,5 @@
 export * from './utils';
-export {setColorSchemeMock, mockRefreshCredentials} from './jestSetup';
+export {mockRefreshCredentials} from './jestSetup';
 export {
   server,
   authCredentialsMock,

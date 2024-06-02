@@ -5,6 +5,7 @@ import {CrudSchemaData, Schemas} from '../../../../../types';
 
 export function create(realm: Realm) {
   return (value: CrudSchemaData<Schemas.Favorite>): IFavoriteSchema | null => {
+    console.log('VALUE', value);
     const results = realm
       .objects(Schemas.Favorite)
       .filtered('id == $0', value.id);

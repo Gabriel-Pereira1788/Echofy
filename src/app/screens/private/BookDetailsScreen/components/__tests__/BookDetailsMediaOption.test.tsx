@@ -5,15 +5,9 @@ import {fireEvent, render, screen} from '@test';
 import {BookDetailsMediaOption} from '..';
 
 const mockPlayAudio = jest.fn();
-const mockReadBook = jest.fn();
 
 function customRender() {
-  render(
-    <BookDetailsMediaOption
-      onPlayAudio={mockPlayAudio}
-      onReadBook={mockReadBook}
-    />,
-  );
+  render(<BookDetailsMediaOption onPlayAudio={mockPlayAudio} />);
 
   return {
     playButtonElement: screen.getByText(/play audio/i),

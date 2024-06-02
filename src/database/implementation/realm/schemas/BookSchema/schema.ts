@@ -33,7 +33,7 @@ export class BookPlaylistChaptersSchema extends Realm.Object<BookPlaylistChapter
   static schema: ObjectSchema = {
     name: Schemas.BookPlaylistChapters,
     properties: {
-      _id: 'objectId',
+      _id: 'string',
       chapter: {type: 'int'},
       src: {type: 'string'},
       local_src: {type: 'string', optional: true},

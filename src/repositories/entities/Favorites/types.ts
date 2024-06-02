@@ -12,7 +12,7 @@ export interface FavoriteRepository extends RepoImpl {
   get(
     query: FavoriteGetQuery,
   ): Promise<PaginatedDocs<IFavoriteExternalData> | null>;
-  create(data: IFavoriteExternalData): Promise<void>;
+  create(data: PaginatedDocs<IFavoriteExternalData>): Promise<void>;
   deleteData(id: string): Promise<void>;
   post: (body: {
     book_id: string;

@@ -3,6 +3,6 @@ import {DatabaseImpl} from './types';
 
 export let database: DatabaseImpl = realmImpl;
 
-export async function setDatabaseImpl(databaseImpl: DatabaseImpl) {
+export function setDatabaseImpl(databaseImpl: DatabaseImpl) {
   database = databaseImpl;
 }

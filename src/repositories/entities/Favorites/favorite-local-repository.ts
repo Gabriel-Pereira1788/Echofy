@@ -3,7 +3,10 @@ import {Schemas, database} from '@database';
 import {FavoriteGetQuery, FavoriteRepository} from './types';
 
 const create: FavoriteRepository['create'] = async data => {
-  await database.create(Schemas.Favorite, data);
+  if (data.docs && data.docs.length > 0) {
+    const favoriteData = data.docs[0];
+    await database.create(Schemas.Favorite, favoriteData);
+  }
 };
 
 const getFavoriteData = async ({skip, top, uid, bookId}: FavoriteGetQuery) => {
