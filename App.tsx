@@ -5,8 +5,8 @@
  * @format
  */
 
-import React from 'react';
-import {StatusBar, useColorScheme} from 'react-native';
+import React, {useEffect} from 'react';
+import {StatusBar} from 'react-native';
 
 import {realmImpl, setDatabaseImpl} from '@database';
 import {
@@ -16,11 +16,13 @@ import {
   setFileSystemImpl,
   trackPlayerImpl,
 } from '@infra';
-import {InitializeHandler} from '@services';
+import {InitializeHandler, settingsService, useAppColor} from '@services';
 import {ThemeProvider} from '@shopify/restyle';
 import {QueryClientProvider} from '@tanstack/react-query';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+
+import {useAppColorScheme} from '@hooks';
 
 import {Toast} from './src/app/components/Toast/Toast';
 import {
@@ -37,10 +39,17 @@ setFileSystemImpl(expoFsImpl);
 setDatabaseImpl(realmImpl);
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const appColor = useAppColor();
+  useAppColorScheme();
+
+  const isDarkMode = appColor === 'dark';
   const backgroundColor = isDarkMode
     ? darkTheme.colors.bgMain
     : theme.colors.bgMain;
+
+  useEffect(() => {
+    settingsService.handleStatusBar(appColor);
+  }, [appColor]);
 
   return (
     <AuthProvider>

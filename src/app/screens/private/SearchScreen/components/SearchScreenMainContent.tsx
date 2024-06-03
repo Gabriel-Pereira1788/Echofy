@@ -1,10 +1,9 @@
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
 
 import {Book} from '@domain';
 import {SkeletonsList} from '@super-components';
 
-import {BookSkeleton, Box} from '@components';
+import {ActivityIndicator, BookSkeleton, Box} from '@components';
 
 import SearchScreenLatestList from './SearchScreenLatestList';
 import {SearchScreenRecommendedCategories} from './SearchScreenRecommendedCategories';
@@ -43,9 +42,7 @@ export function SearchScreenMainContent({
         <SearchScreenResultsList books={list} />
       )}
 
-      {loadingNextPage && (
-        <ActivityIndicator testID="loading-next-page" size={20} />
-      )}
+      {loadingNextPage && <ActivityIndicator testID="loading-next-page" />}
     </Box>
   );
 }

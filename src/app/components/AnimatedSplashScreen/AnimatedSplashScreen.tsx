@@ -29,7 +29,6 @@ export function AnimatedSplashScreen({onFinish, onInitializeApp}: Props) {
     navigationBarTranslucent: false,
 
     animate: () => {
-      console.log('CONTAINER', container, logo);
       Animated.timing(width, {
         useNativeDriver: false,
         toValue: dynamicWidth,

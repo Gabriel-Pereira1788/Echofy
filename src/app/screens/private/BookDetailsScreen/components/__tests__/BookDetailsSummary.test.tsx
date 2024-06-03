@@ -19,7 +19,6 @@ describe('BookDetailsSummary', () => {
     const {readMoreButtonElement, readMoreButtonText, summaryTextElement} =
       customRender();
 
-    console.log('summaryText', summaryTextElement.props.children[0]);
     expect(summaryTextElement).toBeTruthy();
     expect(readMoreButtonElement).toBeTruthy();
     expect(readMoreButtonText).toBeTruthy();

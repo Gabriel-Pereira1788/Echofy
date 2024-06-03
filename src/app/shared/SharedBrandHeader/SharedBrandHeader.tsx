@@ -17,8 +17,8 @@ export function SharedBrandHeader({disabledMarginTop}: Props) {
 
   const navigation = useNavigation();
 
-  function redirectToProfileScreen() {
-    navigation.navigate('ProfileScreen');
+  function redirectToSettingsScreen() {
+    navigation.navigate('SettingsScreen');
   }
 
   return (
@@ -26,7 +26,7 @@ export function SharedBrandHeader({disabledMarginTop}: Props) {
       disabledMarginTop={disabledMarginTop}
       headerRight={
         <TouchableOpacityBox
-          onPress={redirectToProfileScreen}
+          onPress={redirectToSettingsScreen}
           testID="profile-button">
           <Icon iconName="settings" size="sp23" color="baseIconColor" />
         </TouchableOpacityBox>

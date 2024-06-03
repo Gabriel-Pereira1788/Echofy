@@ -8,8 +8,13 @@ export function useShowOnboarding() {
 
 export function useSettingsService() {
   const finishOnboarding = useSettingsStore(store => store.finishOnboarding);
-
+  const onSystemChange = useSettingsStore(store => store.onSystemChange);
+  const setThemePreference = useSettingsStore(
+    store => store.setThemePreference,
+  );
   return {
+    setThemePreference,
+    onSystemChange,
     finishOnboarding,
   };
 }

@@ -72,8 +72,8 @@ export const theme = createTheme({
   },
   spacing: {
     sp3: 3,
+    sp5: 5,
     sp7: 7,
-
     sp10: 10,
     sp16: 16,
     sp15: 15,

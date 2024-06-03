@@ -61,7 +61,7 @@ describe('BookSchema', () => {
     realm.write(() => {
       //1) create
       const bookData = bookSchema.create(bookMock);
-      console.log('bookData', bookData);
+
       expect(bookData).toBeTruthy();
 
       //2) verify creating correctly

@@ -1,8 +1,9 @@
 import React from 'react';
-import {ActivityIndicator, TouchableOpacityProps} from 'react-native';
+import {TouchableOpacityProps} from 'react-native';
 
 import {Theme} from '@styles';
 
+import {ActivityIndicator} from '../ActivityIndicator/ActivityIndicator.tsx';
 import {Icon} from '../Icon/Icon';
 import {IconMappedKey} from '../Icon/iconTypes';
 import {Text} from '../Text/Text';
@@ -32,7 +33,7 @@ export function Button({
     <TouchableOpacityBox boxProps={$wrapperStyle} {...rest}>
       {iconName && <Icon size="sp20" iconName={iconName} color={$color} />}
       {loading ? (
-        <ActivityIndicator size={20} />
+        <ActivityIndicator />
       ) : (
         <Text text={text} preset="medium/16" color={$color} />
       )}

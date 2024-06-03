@@ -1,5 +1,4 @@
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
 
 import {
   useGetFavoriteBook,
@@ -8,7 +7,7 @@ import {
 } from '@domain';
 import {useToastActions} from '@services';
 
-import {IconPress} from '@components';
+import {ActivityIndicator, IconPress} from '@components';
 
 type Props = {
   bookId: string;
@@ -19,7 +18,6 @@ export function BookDetailsSaveToFavorites({bookId}: Props) {
 
   const {favoriteBook, isLoading} = useGetFavoriteBook(bookId);
 
-  console.log('FAVORITE-BOOK', favoriteBook);
   const {sendToFavorite} = useSendToFavorite({
     onSuccess: () => {
       toast.show({
@@ -48,7 +46,7 @@ export function BookDetailsSaveToFavorites({bookId}: Props) {
   }
 
   if (isLoading) {
-    return <ActivityIndicator size={20} />;
+    return <ActivityIndicator />;
   }
   return (
     <IconPress

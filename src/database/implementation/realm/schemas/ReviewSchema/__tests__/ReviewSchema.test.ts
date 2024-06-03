@@ -34,7 +34,7 @@ describe('BookSchema', () => {
     expect(true).toBeTruthy();
     realm.write(() => {
       const reviewData = reviewSchema.create(reviewMock);
-      console.log('reviewData', reviewData);
+
       expect(reviewData).toBeTruthy();
     });
   });
@@ -43,7 +43,6 @@ describe('BookSchema', () => {
     expect(true).toBeTruthy();
     realm.write(() => {
       const reviewData = reviewSchema.create(reviewMock);
-      console.log('reviewData', reviewData);
       expect(reviewData).toBeTruthy();
 
       //2) verify creating correctly

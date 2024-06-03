@@ -1,7 +1,15 @@
-const {default: TrackPlayer} = require('react-native-track-player');
+const {
+  default: TrackPlayer,
+  AppKilledPlaybackBehavior,
+} = require('react-native-track-player');
 
 module.exports = async function () {
   try {
+    TrackPlayer.updateOptions({
+      android: {
+        appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback,
+      },
+    });
     TrackPlayer.addEventListener('remote-play', () => {
       TrackPlayer.play();
     });

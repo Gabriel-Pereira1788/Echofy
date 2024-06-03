@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   FlatListProps,
   ListRenderItemInfo,
@@ -9,6 +8,8 @@ import {
 
 import {Queries} from '@domain';
 import {usePaginatedList} from '@infra';
+
+import {ActivityIndicator} from '@components';
 
 import EmptyState from './EmptyState';
 
@@ -58,9 +59,7 @@ export function InfinityScrollList<TItem>({
       showsVerticalScrollIndicator={false}
       data={list}
       renderItem={renderItem}
-      ListFooterComponent={
-        loadingNextPage ? <ActivityIndicator size={20} /> : undefined
-      }
+      ListFooterComponent={loadingNextPage ? <ActivityIndicator /> : undefined}
       ListHeaderComponent={
         renderHeaderComponent ? renderHeaderComponent(list) : undefined
       }

@@ -1,10 +1,11 @@
 import React, {Suspense} from 'react';
-import {ActivityIndicator, Image} from 'react-native';
+import {Image} from 'react-native';
 
 import {Theme} from '@styles';
 
 import {useTheme} from '@hooks';
 
+import {ActivityIndicator} from '../ActivityIndicator/ActivityIndicator.tsx';
 import {Box, BoxProps} from '../Box/Box';
 
 type Props = {
@@ -31,7 +32,7 @@ export function BookCover({
       backgroundColor="neutral50"
       borderRadius="rd15"
       {..._shadowBox}>
-      <Suspense fallback={<ActivityIndicator size={10} />}>
+      <Suspense fallback={<ActivityIndicator size={'sp10'} />}>
         <Image
           testID="book-image"
           style={{width: '100%', height: '100%', borderRadius: _radius}}

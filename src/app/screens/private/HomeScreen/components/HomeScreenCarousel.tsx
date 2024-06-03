@@ -8,7 +8,7 @@ import {
 } from '@domain';
 import {dimensions} from '@utils';
 
-import {Box} from '@components';
+import {ActivityIndicator, Box} from '@components';
 
 import {HomeScreenBackdrop} from './HomeScreenBackdrop';
 import {HomeScreenBookItem, ITEM_SIZE} from './HomeScreenBookItem';
@@ -20,7 +20,7 @@ type Props = {
 const EMPTY_ITEM_SIZE = (dimensions.width - ITEM_SIZE) / 2;
 
 export function HomeScreenCarousel({identify}: Props) {
-  const {list} = useGetBookListByCategory(identify);
+  const {list, isLoading} = useGetBookListByCategory(identify);
 
   const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -40,6 +40,14 @@ export function HomeScreenCarousel({identify}: Props) {
 
     [scrollX, list],
   );
+
+  if (isLoading) {
+    return (
+      <Box flex={1} alignItems={'center'} justifyContent={'center'}>
+        <ActivityIndicator />
+      </Box>
+    );
+  }
 
   return (
     <Box

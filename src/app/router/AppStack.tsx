@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {PlayerControllerScreen, ProfileScreen} from '@screens';
+import {PlayerControllerScreen, ProfileScreen, SettingsScreen} from '@screens';
 
 import {AppTabNavigator, AppTabParamList} from './AppTabNavigator';
 
@@ -11,6 +11,7 @@ export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabParamList>;
   ProfileScreen: undefined;
   PlayerControllerScreen: undefined;
+  SettingsScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -36,6 +37,7 @@ export function AppStack({initialRouteName = 'AppTabNavigator'}: Props) {
         component={PlayerControllerScreen}
       />
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
     </Stack.Navigator>
   );
 }

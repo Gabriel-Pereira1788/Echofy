@@ -71,7 +71,7 @@ export function SignUpScreen({navigation}: AuthStackProps<'SignUpScreen'>) {
           control={control}
         />
         <FormInput
-          placeholder="Date of Birth"
+          placeholder="DD/MM/YYYY"
           name="birthDate"
           control={control}
         />

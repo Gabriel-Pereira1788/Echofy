@@ -25,8 +25,6 @@ async function syncEntities() {
       }),
     );
     storage.removeItem('@QueueRequest');
-  } else {
-    console.log('nothing for sync');
   }
 }
 

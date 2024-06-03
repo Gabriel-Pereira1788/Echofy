@@ -8,7 +8,6 @@ export async function readHandler<TEntityName extends EntityName>(
   const entity = getEntity(entityName);
   const localResult = await entity.local.get(query!);
 
-  console.log('LOCAL-R', localResult);
   if (localResult && Array.isArray(localResult) && localResult.length > 0) {
     return localResult as ReturnType<EntityRepository<TEntityName>['get']>;
   }
@@ -23,9 +22,8 @@ export async function readHandler<TEntityName extends EntityName>(
 
   const apiResult = await entity.api.get(query!);
 
-  console.log('API-RESULT', apiResult);
   if (apiResult) {
-    entity.local.create && (await entity.local.create(apiResult));
+    entity.local.create && entity.local.create(apiResult);
     return apiResult as ReturnType<EntityRepository<TEntityName>['get']>;
   } else {
     return null;

@@ -1,12 +1,10 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {ActivityIndicator} from 'react-native';
 
 import {BookCategory, useBookCategories} from '@domain';
 import {AuthStackProps} from '@router';
 import {SharedPublicLayout} from '@shared';
-import {theme} from '@styles';
 
-import {Box, Button} from '@components';
+import {ActivityIndicator, Box, Button} from '@components';
 import {useResetAuthStack} from '@hooks';
 
 import {
@@ -68,7 +66,7 @@ export function PersonalizationScreen({}: AuthStackProps<'PersonalizationScreen'
         />
         <Box flexDirection="row" alignSelf="center">
           {isLoading && !categories ? (
-            <ActivityIndicator size={20} color={theme.colors.primary80} />
+            <ActivityIndicator />
           ) : (
             <PersonalizationScreenRenderCategories
               allCategories={allCategories.current}
