@@ -8,17 +8,16 @@ export type Option = {
 
 export const themeOptions: Option[] = [
   {
-    label: 'Ativado',
+    label: 'Enabled',
     themePreference: 'dark',
   },
   {
-    label: 'Desativado',
+    label: 'Disabled',
     themePreference: 'light',
   },
   {
-    label: 'Padrão do sistema',
+    label: 'System',
     themePreference: 'system',
-    description:
-      'A aparência será a mesma que você configurou no seu dispositivo',
+    description: 'It will be the same as what you configured on your device',
   },
 ];

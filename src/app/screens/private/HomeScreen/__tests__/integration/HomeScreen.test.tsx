@@ -19,7 +19,7 @@ async function customRenderScreen() {
 
   return {
     bookItens: await screen.findAllByTestId('book-item'),
-    profileButton: screen.getByTestId('profile-button'),
+    settingsButton: screen.getByTestId('profile-button'),
     carouselList: screen.getByTestId('carousel'),
     seeMoreButton: screen.getByText('See more'),
   };
@@ -40,14 +40,14 @@ afterAll(() => {
 const categoriesMock = buildBookSections();
 describe('HomeScreen', () => {
   it('render homeScreen correctly', async () => {
-    const {profileButton, bookItens, seeMoreButton} =
+    const {settingsButton, bookItens, seeMoreButton} =
       await customRenderScreen();
 
     const allCategories = await screen.findAllByTestId('category');
 
     expect(allCategories.length).toEqual(categoriesMock.length);
     expect(bookItens.length).toEqual(bookMockApi.docs.length);
-    expect(profileButton).toBeTruthy();
+    expect(settingsButton).toBeTruthy();
     expect(seeMoreButton).toBeTruthy();
   });
 
@@ -119,13 +119,16 @@ describe('HomeScreen', () => {
   });
 
   it('Flow: Redirect to profile screen', async () => {
-    const {profileButton} = await customRenderScreen();
-    expect(profileButton).toBeTruthy();
-    //1) press profile button
+    const {settingsButton} = await customRenderScreen();
+    expect(settingsButton).toBeTruthy();
+    //1) press settings button
     act(() => {
-      fireEvent.press(profileButton);
+      fireEvent.press(settingsButton);
     });
 
+    //2) navigate to profile
+    const viewProfileButton = screen.getByText('View Profile');
+    fireEvent.press(viewProfileButton);
     //2) check if render screen correctly
     expect(screen.getByText(authCredentialsMock.email)).toBeTruthy();
     expect(screen.getAllByText(authCredentialsMock.name)[0]).toBeTruthy();
@@ -136,7 +139,7 @@ describe('HomeScreen', () => {
     fireEvent.press(goBackButton);
 
     //4) check if is return correctly
-    const reRenderBookItens = await screen.findAllByTestId('book-item');
-    expect(reRenderBookItens[0]).toBeTruthy();
+    const settingsTitle = await screen.getByText('Settings');
+    expect(settingsTitle).toBeTruthy();
   });
 });

@@ -12,7 +12,7 @@ function customRenderScreen() {
   return {
     inputEmail: screen.getByPlaceholderText('Email'),
     inputPassword: screen.getByPlaceholderText('Password'),
-    inputDateBirth: screen.getByPlaceholderText('Date of Birth'),
+    inputDateBirth: screen.getByPlaceholderText('DD/MM/YYYY'),
     buttonSignUp: screen.getByText('Sign Up'),
     buttonCancel: screen.getByText('Cancel'),
   };

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {database} from '@database';
 import {AppStack} from '@router';
 import {
   act,
@@ -29,12 +28,15 @@ async function customRenderScreen() {
   renderScreen(<AppStack initialRouteName="AppTabNavigator" />);
 
   //1) render screen
-  const profileButton = await screen.findByTestId('profile-button');
+  const settingsButton = await screen.findByTestId('profile-button');
 
-  //2) navigate to profile screen
+  //2) navigate to settings screen
   await act(() => {
-    fireEvent.press(profileButton);
+    fireEvent.press(settingsButton);
   });
+  //3) navigate to profile screen
+  const viewProfileButton = screen.getByText('View Profile');
+  fireEvent.press(viewProfileButton);
 
   return {
     saveButton: screen.getByText('Save'),
@@ -43,7 +45,7 @@ async function customRenderScreen() {
     nameElement: screen.getByText(authCredentialsMock.name),
     emailElement: screen.getByText(authCredentialsMock.email),
     dateBirthElement: screen.getByText(authCredentialsMock.birthDate),
-    signOutButton: screen.getByText('Log out'),
+
     profileImageElement: screen.getByTestId('profile-image'),
   };
 }
@@ -58,7 +60,6 @@ describe('ProfileScreen', () => {
       emailElement,
       nameElement,
       profileImageElement,
-      signOutButton,
     } = await customRenderScreen();
 
     expect(editProfileButton).toBeTruthy();
@@ -67,7 +68,7 @@ describe('ProfileScreen', () => {
     expect(nameElement).toBeTruthy();
     expect(emailElement).toBeTruthy();
     expect(dateBirthElement).toBeTruthy();
-    expect(signOutButton).toBeTruthy();
+
     expect(profileImageElement).toBeTruthy();
   });
 
@@ -105,16 +106,5 @@ describe('ProfileScreen', () => {
     });
 
     expect(screen.queryByTestId('toast')).toBeNull();
-  });
-
-  it('Flow: sign out account and remove credentials', async () => {
-    const databaseReset = jest.spyOn(database, 'reset');
-    const {signOutButton} = await customRenderScreen();
-
-    act(() => {
-      fireEvent.press(signOutButton);
-    });
-
-    expect(databaseReset).toHaveBeenCalled();
   });
 });

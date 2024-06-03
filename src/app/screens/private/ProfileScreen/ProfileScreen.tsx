@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {database} from '@database';
 import {useAuthUpdateProfileImage} from '@domain';
 import {useAuthContext} from '@providers';
 import {useGetImageLibrary, useToastActions} from '@services';
@@ -11,7 +10,7 @@ import {Box, Button} from '@components';
 import {ProfileImage, ProfileInfoItem} from './components';
 
 export function ProfileScreen() {
-  const {removeCredentials, credentials} = useAuthContext();
+  const {credentials} = useAuthContext();
 
   const {image, pickImage} = useGetImageLibrary();
 
@@ -33,11 +32,6 @@ export function ProfileScreen() {
       });
     },
   });
-
-  async function signOut() {
-    removeCredentials();
-    await database.reset();
-  }
 
   async function saveChanges() {
     if (image) {
@@ -85,15 +79,6 @@ export function ProfileScreen() {
           label="Date Birth"
           value={credentials ? credentials.birthDate : ''}
         />
-
-        <Box width={'100%'} padding="sp20" mt="sp20">
-          <Button
-            text="Log out"
-            type="outline"
-            customColor="accent50"
-            onPress={signOut}
-          />
-        </Box>
       </Box>
     </SharedWrapperScreen>
   );

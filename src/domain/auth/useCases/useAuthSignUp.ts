@@ -20,6 +20,7 @@ export function useAuthSignUp(
       }
     },
     onError: err => {
+      console.log('signUpError', err);
       if (config.onError) {
         const ERROR_MESSAGE = 'Something is wrong, try again later.';
         config.onError({
@@ -27,7 +28,6 @@ export function useAuthSignUp(
           status: err && err.response ? err.response?.status : 500,
         });
       }
-      console.log('signUpError', err.response);
     },
   });
 

@@ -11,6 +11,7 @@ export type RadioButtonProps = {
 export function RadioButton({isSelected, onPress}: RadioButtonProps) {
   return (
     <TouchableOpacityBox
+      testID="radio-button-item"
       boxProps={{
         height: 20,
         width: 20,
