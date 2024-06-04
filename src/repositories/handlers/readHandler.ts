@@ -3,16 +3,24 @@ import {EntityName, EntityQuery, EntityRepository} from '../types';
 
 export async function readHandler<TEntityName extends EntityName>(
   entityName: TEntityName,
-  query?: EntityQuery<TEntityName>,
+  query?: EntityQuery<TEntityName> & {limitOffset?: number},
 ): Promise<ReturnType<EntityRepository<TEntityName>['get']> | null> {
   const entity = getEntity(entityName);
   const localResult = await entity.local.get(query!);
 
-  if (localResult && Array.isArray(localResult) && localResult.length > 0) {
+  if (
+    localResult &&
+    Array.isArray(localResult) &&
+    localResult.length > (query?.limitOffset || 0)
+  ) {
     return localResult as ReturnType<EntityRepository<TEntityName>['get']>;
   }
 
-  if (localResult && 'docs' in localResult && localResult.docs.length > 0) {
+  if (
+    localResult &&
+    'docs' in localResult &&
+    localResult.docs.length > (query?.limitOffset || 0)
+  ) {
     return localResult;
   }
 

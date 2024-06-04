@@ -9,11 +9,17 @@ async function getCategories() {
 }
 
 async function findByCategory(query: QueryByCategory) {
-  return await EntitiesRepository.read('book', query);
+  return await EntitiesRepository.read('book', {
+    ...query,
+    limitOffset: 8,
+  });
 }
 
 async function findBySearchText(query: QuerySearchByText) {
-  return await EntitiesRepository.read('book', query);
+  return await EntitiesRepository.read('book', {
+    ...query,
+    limitOffset: 8,
+  });
 }
 
 async function findById(id: string) {

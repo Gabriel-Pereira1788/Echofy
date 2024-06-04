@@ -9,7 +9,7 @@ export function useStackRouter(): Stacks {
     return 'Onboarding';
   }
 
-  if (credentials) {
+  if (credentials && !credentials.firstLogin) {
     return 'App';
   }
 

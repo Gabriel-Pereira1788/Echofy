@@ -121,11 +121,10 @@ describe('SignUp', () => {
   });
 
   it('should be redirect to Error Screen.', async () => {
-    server.close();
     const {inputEmail, inputPassword, inputDateBirth, buttonSignUp} =
       customRenderScreen();
 
-    fireEvent.changeText(inputEmail, validEmail);
+    fireEvent.changeText(inputEmail, 'error@gmail.com');
     fireEvent.changeText(inputPassword, validPassword);
     fireEvent.changeText(inputDateBirth, validBirthDate);
 

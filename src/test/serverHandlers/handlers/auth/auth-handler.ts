@@ -18,6 +18,7 @@ export const authHandler = [
   }),
   http.post(`${BASE_URL}auth/signUp`, async ({request}) => {
     const authSignUp = (await request.json()) as AuthSignUpDTO;
+
     if (
       !authSignUp.email.trim() ||
       !authSignUp.password.trim() ||
@@ -30,6 +31,10 @@ export const authHandler = [
         },
       );
     }
+
+    if (authSignUp.email.includes('error')) {
+      return HttpResponse.error();
+    }
     return HttpResponse.json(authCredentialsAPIMock, {status: 200});
   }),
   http.post(`${BASE_URL}auth/signIn`, async ({request}) => {
@@ -40,6 +45,10 @@ export const authHandler = [
       authSignInValidation.password === authSignIn.password
     ) {
       return HttpResponse.json(authCredentialsAPIMock, {status: 200});
+    }
+
+    if (authSignIn.email.includes('error')) {
+      return HttpResponse.error();
     }
     return new HttpResponse(
       {message: 'Invalid credentials.'},

@@ -131,11 +131,9 @@ describe('SignInScreen', () => {
   });
 
   it('should be navigate to Error screen', async () => {
-    server.close();
-
     const {inputEmail, buttonLogin, inputPassword} = customRenderScreen();
 
-    fireEvent.changeText(inputEmail, 'johnDoe@gmail.com');
+    fireEvent.changeText(inputEmail, 'error@gmail.com');
     fireEvent.changeText(inputPassword, 'johnDoe555');
 
     await act(async () => {
