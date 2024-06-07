@@ -17,5 +17,6 @@ export interface FavoriteRepository extends RepoImpl {
   post: (body: {
     book_id: string;
     uid: string;
+    id?: string;
   }) => Promise<IFavoriteExternalData | undefined>;
 }

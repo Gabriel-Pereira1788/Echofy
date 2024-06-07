@@ -1,14 +1,14 @@
 import {QueryParams} from '../types';
 
-import {favoritesAdapter} from './favorites-adapter';
-import {favoritesController} from './favorites-controller';
+import {favoritesAdapter} from './favoritesAdapter';
+import {favoritesGateway} from './favoritesGateway';
 
 async function sendToFavorites(bookId: string, uid: string) {
-  await favoritesController.createFavoriteData(bookId, uid);
+  await favoritesGateway.createFavoriteData(bookId, uid);
 }
 
 async function removeToFavorite(id: string) {
-  await favoritesController.deleteFavoriteData(id);
+  await favoritesGateway.deleteFavoriteData(id);
 }
 
 async function getFavorites({
@@ -18,7 +18,7 @@ async function getFavorites({
   searchText,
 }: QueryParams & {uid: string; searchText?: string}) {
   const skip = page === 1 ? 0 : page! * 10;
-  const result = await favoritesController.getAll({
+  const result = await favoritesGateway.getAll({
     skip,
     top,
     uid,
@@ -30,7 +30,7 @@ async function getFavorites({
 
 async function getFavoriteBook(bookId: string, uid?: string) {
   try {
-    const result = await favoritesController.getByUid(bookId, uid);
+    const result = await favoritesGateway.getByUid(bookId, uid);
 
     if (result && result.docs.length > 0) {
       const data = result.docs[0];

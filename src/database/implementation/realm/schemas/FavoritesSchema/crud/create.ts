@@ -19,7 +19,7 @@ export function create(realm: Realm) {
 
     const favoriteData = realm.create(Schemas.Favorite, {
       name: Schemas.Favorite,
-      id: new BSON.ObjectID().toString(),
+      id: value.id ? value.id : new BSON.ObjectID().toString(),
       uid: value.uid,
       book_id: value.book_id,
       book: bookData && bookData.length > 0 ? bookData[0] : value.book,

@@ -2,7 +2,7 @@ import {useAuthContext} from '@providers';
 import {useQuery} from '@tanstack/react-query';
 
 import {Queries} from '../../types';
-import {favoritesService} from '../favorites-service';
+import {favoritesService} from '../favoritesService';
 
 export function useGetFavoriteBook(bookId: string) {
   const {uid} = useAuthContext();

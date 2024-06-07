@@ -11,7 +11,7 @@ export interface PaginatedResult<TData> {
   meta: MetaData | null;
 }
 
-export interface PaginatedDocs<TData> {
+export interface PaginatedDocs<TData = unknown> {
   docs: TData[];
   nextPage: number | null;
   page: number;

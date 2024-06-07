@@ -1,5 +1,5 @@
 import {CommonError, MutationConfig} from '../../types';
-import {favoritesService} from '../favorites-service';
+import {favoritesService} from '../favoritesService';
 import {useToggleSendToFavorite} from '../hooks/useToggleSendToFavorite';
 
 export function useRemoveToFavorite(

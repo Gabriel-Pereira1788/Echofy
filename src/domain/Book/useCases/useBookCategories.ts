@@ -1,7 +1,7 @@
 import {useQuery} from '@tanstack/react-query';
 
 import {Queries} from '../../types';
-import {bookService} from '../book-service';
+import {bookService} from '../bookService';
 
 export function useBookCategories() {
   const {data, isLoading, isError, error} = useQuery({

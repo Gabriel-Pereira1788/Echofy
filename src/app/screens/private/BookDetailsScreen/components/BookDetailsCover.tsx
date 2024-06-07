@@ -9,12 +9,12 @@ type Props = {
 export function BookDetailsCover({coverURI}: Props) {
   return (
     <Box
-      width={'90%'}
+      width={'100%'}
       alignItems="center"
       justifyContent="center"
       marginVertical="sp25"
       {...$shadowBox}>
-      <BookCover height={300} uri={coverURI} disabledShadowBox />
+      <BookCover height={350} uri={coverURI} disabledShadowBox />
     </Box>
   );
 }

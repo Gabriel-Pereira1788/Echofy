@@ -9,19 +9,19 @@ type Props = {
 export function PlayerCover({coverURI}: Props) {
   return (
     <Box
-      width={'90%'}
+      width={'100%'}
       borderRadius="rd12"
       marginVertical="sp25"
       backgroundColor="black"
       position="relative">
       <Box
         width={'85%'}
-        height={319}
+        height={350}
         position="absolute"
         {...$shadowBox}
         alignSelf="center"
       />
-      <BookCover height={319} uri={coverURI} disabledShadowBox radius="rd12" />
+      <BookCover height={350} uri={coverURI} disabledShadowBox radius="rd12" />
     </Box>
   );
 }

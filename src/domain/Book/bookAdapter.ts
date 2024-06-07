@@ -6,7 +6,7 @@ import {
   BookCategory,
   CategoryIdentify,
   PlaylistChapter,
-} from './book-types';
+} from './bookTypes';
 
 function toBookCategory(categories: string[]): BookCategory[] {
   if (categories.length === 0) {

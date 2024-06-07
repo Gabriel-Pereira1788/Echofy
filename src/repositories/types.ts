@@ -24,7 +24,7 @@ export type Action = 'CREATE' | 'DELETE' | 'UPDATE';
 export type EntitySync<TData = any> = {
   entity: 'review' | 'favorites';
   action: Action;
-  localId: string;
+  localId?: string;
   data?: TData;
 };
 export type EntityQuery<Name = EntityName> = Name extends 'review'

@@ -3,7 +3,7 @@ import {useAuthContext} from '@providers';
 
 import {CategoryIdentify} from '..';
 import {Queries} from '../../types';
-import {bookService} from '../book-service';
+import {bookService} from '../bookService';
 
 export function useGetBookListByCategory(
   category: CategoryIdentify,

@@ -1,7 +1,7 @@
 import {usePaginatedList} from '@infra';
 
 import {Queries} from '../../types';
-import {bookService} from '../book-service';
+import {bookService} from '../bookService';
 
 export function useBookFindByText(text: string) {
   return usePaginatedList({

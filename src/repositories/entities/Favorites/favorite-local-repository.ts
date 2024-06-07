@@ -65,8 +65,9 @@ const get: FavoriteRepository['get'] = async ({
   return result;
 };
 
-const post: FavoriteRepository['post'] = async ({uid, book_id}) => {
+const post: FavoriteRepository['post'] = async ({uid, book_id, id}) => {
   const data = await database.create(Schemas.Favorite, {
+    id,
     uid,
     book_id: book_id,
   });

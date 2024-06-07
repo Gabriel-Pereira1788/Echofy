@@ -6,10 +6,7 @@ export function buildBookSections(): BookSection[] {
       identify: 'recommended-for-you',
       title: 'Recommended For You',
     },
-    {
-      identify: 'best-seller',
-      title: 'Best Seller',
-    },
+
     {
       identify: 'fiction',
       title: 'Fiction',

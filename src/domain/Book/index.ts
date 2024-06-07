@@ -4,6 +4,6 @@ export type {
   CategoryIdentify,
   BookSection,
   Book,
-} from './book-types';
-export {bookAdapter} from './book-adapter';
-export * from './book-service';
+} from './bookTypes';
+export {bookAdapter} from './bookAdapter';
+export * from './bookService';

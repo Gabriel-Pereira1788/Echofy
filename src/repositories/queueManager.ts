@@ -1,4 +1,5 @@
 import {netStatus, storage} from '@infra';
+import reactotron from 'reactotron-react-native';
 
 import {syncHandler} from './handlers';
 import {EntitySync} from './types';
@@ -18,6 +19,7 @@ async function syncEntities() {
   }
   const _queueRequests = await storage.getItem<EntitySync[]>('@QueueRequest');
 
+  reactotron.log('QUEUE-REQUESTS', _queueRequests);
   if (_queueRequests && _queueRequests.length > 0) {
     await Promise.all(
       _queueRequests.map(async entitySync => {

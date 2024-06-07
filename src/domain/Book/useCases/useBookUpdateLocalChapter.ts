@@ -1,8 +1,8 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 import {CommonError, MutationConfig, Queries} from '../../types';
-import {bookService} from '../book-service';
-import {Book} from '../book-types';
+import {bookService} from '../bookService';
+import {Book} from '../bookTypes';
 
 type Variables = {
   bookId: string;

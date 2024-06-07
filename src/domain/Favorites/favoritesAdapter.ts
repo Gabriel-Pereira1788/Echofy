@@ -3,7 +3,7 @@ import {IFavoriteExternalData} from '@models';
 
 import {bookAdapter} from '../Book';
 
-import {FavoriteBook} from './favorites-types';
+import {FavoriteBook} from './favoritesTypes';
 
 function toFavoriteBookData(
   favoriteExternalData: IFavoriteExternalData,

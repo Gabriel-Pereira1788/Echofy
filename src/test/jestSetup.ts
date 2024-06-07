@@ -153,3 +153,10 @@ jest.mock('react-native-bootsplash', () => {
     })),
   };
 });
+
+jest.mock('reactotron-react-native', () => ({
+  configure: jest.fn(() => ({
+    useReactNative: jest.fn(),
+    connect: jest.fn(),
+  })),
+}));

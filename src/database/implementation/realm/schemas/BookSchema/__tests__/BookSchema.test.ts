@@ -13,6 +13,7 @@ let realm: Realm;
 let bookSchema: ReturnType<typeof buildBookSchema>;
 
 beforeEach(async () => {
+  // Realm.clearTestState();
   realm = await Realm.open(config);
   bookSchema = buildBookSchema(realm);
   buildSchemas(realm);

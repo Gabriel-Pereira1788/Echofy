@@ -1,3 +1,3 @@
-export * from './favorites-service';
+export * from './favoritesService';
 export * from './useCases';
-export type {FavoriteBook} from './favorites-types';
+export type {FavoriteBook} from './favoritesTypes';
