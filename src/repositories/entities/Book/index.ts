@@ -1,3 +1,3 @@
-export * from './book-api-repository';
-export * from './book-local-repository';
+export * from './bookApiRepository';
+export * from './bookLocalRepository';
 export type {BookGetQuery, QueryByCategory} from './types';

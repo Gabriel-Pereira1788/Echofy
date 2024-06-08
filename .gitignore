@@ -71,5 +71,7 @@ default.realm.note
 
 # Expo
 .expo
+.vscode
+.zed
 dist/
 web-build/

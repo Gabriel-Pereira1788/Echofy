@@ -10,13 +10,15 @@ import {useTheme} from '@hooks';
 
 type Props = {};
 
-export default function ErrorScreen({}: Props) {
+export function ErrorScreen({}: Props) {
   const {colorScheme} = useTheme();
   const navigation = useNavigation();
+
   const $source =
     colorScheme === 'dark'
       ? images.errorIllustrationDark
       : images.errorIllustrationLight;
+
   return (
     <SharedWrapperScreen goBack>
       <Box

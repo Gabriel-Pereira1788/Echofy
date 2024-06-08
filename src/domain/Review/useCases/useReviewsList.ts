@@ -1,7 +1,7 @@
 import {usePaginatedList} from '@infra';
 
 import {Queries} from '../../types';
-import {reviewService} from '../review-service';
+import {reviewService} from '../reviewService';
 
 export function useReviewsList(bookId: string, customCount?: number) {
   const {list, ...rest} = usePaginatedList({

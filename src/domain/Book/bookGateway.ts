@@ -8,6 +8,8 @@ import {
   managerRepositoryData,
 } from '@repositories';
 
+import {QueryParams} from '../types';
+
 import {QueryByCategory, QuerySearchByText} from './bookTypes';
 
 async function getCategories() {
@@ -56,10 +58,21 @@ async function update(id: string, body: Partial<IBookExternalData>) {
   bookLocalRepository.update(id, body);
 }
 
+async function syncLocalBooks(query: QueryParams) {
+  const result = await bookApiRepository.get(query);
+
+  if (result && result.docs.length > 0) {
+    bookLocalRepository.create(result);
+  }
+
+  return result;
+}
+
 export const bookGateway = {
   getCategories,
   findByCategory,
   findById,
   findBySearchText,
   update,
+  syncLocalBooks,
 };

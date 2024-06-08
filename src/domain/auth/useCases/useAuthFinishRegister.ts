@@ -1,8 +1,8 @@
 import {useAuthContext} from '@providers';
 import {CommonError, MutationConfig} from 'src/domain/types';
 
-import {authService} from '../auth-service';
-import {AuthCredentials, FinishRegisterVariables} from '../auth-types';
+import {authService} from '../authService';
+import {AuthCredentials, FinishRegisterVariables} from '../authTypes';
 import {useAuthMutation} from '../hooks';
 
 export function useAuthFinishRegister(

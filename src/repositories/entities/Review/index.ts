@@ -1,2 +1,2 @@
-export * from './review-api-repository';
-export * from './review-local-repository';
+export * from './reviewApiRepository';
+export * from './reviewLocalRepository';

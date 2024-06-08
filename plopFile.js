@@ -15,23 +15,23 @@ module.exports = function (plop) {
     actions: [
       {
         type: 'add',
-        path: 'src/domain/{{pascalCase name}}/{{name}}-controller.ts',
-        templateFile: 'generate/domain/domain-controller.hbs',
+        path: 'src/domain/{{pascalCase name}}/{{name}}Gateway.ts',
+        templateFile: 'generate/domain/domainGateway.hbs',
       },
       {
         type: 'add',
-        path: 'src/domain/{{pascalCase name}}/{{name}}-service.ts',
-        templateFile: 'generate/domain/domain-service.hbs',
+        path: 'src/domain/{{pascalCase name}}/{{name}}Service.ts',
+        templateFile: 'generate/domain/domainService.hbs',
       },
       {
         type: 'add',
-        path: 'src/domain/{{pascalCase name}}/{{name}}-adapter.ts',
-        templateFile: 'generate/domain/domain-adapter.hbs',
+        path: 'src/domain/{{pascalCase name}}/{{name}}Adapter.ts',
+        templateFile: 'generate/domain/domainAdapter.hbs',
       },
       {
         type: 'add',
-        path: 'src/domain/{{pascalCase name}}/{{name}}-types.ts',
-        templateFile: 'generate/domain/domain-types.hbs',
+        path: 'src/domain/{{pascalCase name}}/{{name}}Types.ts',
+        templateFile: 'generate/domain/domainTypes.hbs',
       },
       {
         type: 'add',
@@ -47,26 +47,6 @@ module.exports = function (plop) {
         type: 'add',
         path: 'src/domain/{{pascalCase name}}/useCases/index.ts',
         templateFile: 'generate/domain/useCases/index.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/domain/{{pascalCase name}}/repository/{{name}}-api-repository.ts',
-        templateFile: 'generate/domain/repository/domain-api-repository.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/domain/{{pascalCase name}}/repository/{{name}}-local-repository.ts',
-        templateFile: 'generate/domain/repository/domain-local-repository.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/domain/{{pascalCase name}}/repository/types.ts',
-        templateFile: 'generate/domain/repository/types.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/domain/{{pascalCase name}}/repository/index.ts',
-        templateFile: 'generate/domain/repository/index.hbs',
       },
     ],
   });

@@ -4,8 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {AppStack} from './AppStack';
 import {AuthStack} from './AuthStack';
+import {Stacks, useStackRouter} from './hooks';
 import {OnboardingStack} from './OnboardingStack';
-import {Stacks, useStackRouter} from './useStackRouter';
 
 type Props = {};
 

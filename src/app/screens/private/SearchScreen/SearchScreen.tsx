@@ -15,10 +15,10 @@ export function SearchScreen({}: CommonStackProps<'MainScreen'>) {
   const {list, hasNextPage, getMore, loadingNextPage, isLoading} =
     useBookFindByText(searchText);
 
+  const {onScroll} = useScrollEndReached(handleOnEndReached);
+
   const renderSearchHistory =
     (list && list.length === 0) || searchText.trim() === '';
-
-  const {onScroll} = useScrollEndReached(handleOnEndReached);
 
   const handleOnChangeText = useCallback((text: string) => {
     setSearchText(text);

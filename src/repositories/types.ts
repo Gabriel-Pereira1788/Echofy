@@ -1,19 +1,4 @@
-import {BookGetQuery, BookRepository} from './entities/Book/types';
-import {CategoryRepository} from './entities/Category/types';
-import {FavoriteGetQuery, FavoriteRepository} from './entities/Favorites/types';
-import {ReviewGetQuery, ReviewRepository} from './entities/Review/types';
-
 export type EntityName = 'review' | 'book' | 'category' | 'favorites';
-
-export type EntityRepository<Name = EntityName> = Name extends 'review'
-  ? ReviewRepository
-  : Name extends 'book'
-  ? BookRepository
-  : Name extends 'category'
-  ? CategoryRepository
-  : Name extends 'favorites'
-  ? FavoriteRepository
-  : unknown;
 
 export interface Entity {
   api: Omit<RepoImpl, 'create'>;
@@ -27,13 +12,6 @@ export type EntitySync<TData = any> = {
   localId?: string;
   data?: TData;
 };
-export type EntityQuery<Name = EntityName> = Name extends 'review'
-  ? ReviewGetQuery
-  : Name extends 'book'
-  ? BookGetQuery
-  : Name extends 'favorites'
-  ? FavoriteGetQuery
-  : unknown;
 
 type GetMethod<TQuery = any, TReturn = any> = (
   query: TQuery,

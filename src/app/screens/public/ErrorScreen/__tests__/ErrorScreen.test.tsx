@@ -2,7 +2,7 @@ import React from 'react';
 
 import {fireEvent, renderScreen, screen} from '@test';
 
-import ErrorScreen from '../ErrorScreen';
+import {ErrorScreen} from '../ErrorScreen';
 
 const mockedGoBack = jest.fn();
 jest.mock('@react-navigation/native', () => {

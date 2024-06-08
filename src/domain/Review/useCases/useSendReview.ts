@@ -2,8 +2,8 @@ import {Queries, CommonError, MutationConfig} from '@domain';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 
-import {reviewService} from '../review-service';
-import {ReviewDTO} from '../review-types';
+import {reviewService} from '../reviewService';
+import {ReviewDTO} from '../reviewTypes';
 
 export function useSendReview(
   bookId: string,

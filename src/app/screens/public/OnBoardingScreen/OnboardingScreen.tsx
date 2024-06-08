@@ -12,19 +12,21 @@ import {OnboardingPage, onboardingPages} from './onBoardingPage';
 type Props = {};
 
 export function OnboardingScreen({}: Props) {
-  const carouselRef = useRef<CarouselRef>(null);
   const {colorScheme} = useTheme();
   const {finishOnboarding} = useSettingsService();
 
-  const [isLastPage, setIsLastPage] = useState(false);
+  const [lastPage, setLatPage] = useState(false);
+
+  const carouselRef = useRef<CarouselRef>(null);
 
   function onPressNextPage() {
     const currentPosition = carouselRef.current?.currentPosition;
 
-    if (
+    const enabledToSelect =
       typeof currentPosition === 'number' &&
-      currentPosition < onboardingPages.length - 1
-    ) {
+      currentPosition < onboardingPages.length - 1;
+
+    if (enabledToSelect) {
       carouselRef.current?.onSelect(currentPosition + 1);
     }
   }
@@ -55,14 +57,14 @@ export function OnboardingScreen({}: Props) {
         renderItem={renderItem}
         onChangeCurrentPosition={position => {
           if (position === onboardingPages.length - 1) {
-            setIsLastPage(true);
+            setLatPage(true);
           } else {
-            setIsLastPage(false);
+            setLatPage(false);
           }
         }}
       />
       <Box flexDirection="row" alignItems="center">
-        {isLastPage ? (
+        {lastPage ? (
           <Box flex={1}>
             <Button text="Let`s Get Started!" onPress={finishOnboarding} />
           </Box>

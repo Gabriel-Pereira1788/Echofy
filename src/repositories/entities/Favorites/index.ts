@@ -1,2 +1,2 @@
-export * from './favorite-api-repository';
-export * from './favorite-local-repository';
+export * from './favoriteApiRepository';
+export * from './favoriteLocalRepository';

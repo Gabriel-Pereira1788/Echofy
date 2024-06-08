@@ -1,3 +1,3 @@
 export * from './useCases';
-export type {Review, Author} from './review-types';
-export * from './review-service';
+export type {Review, Author} from './reviewTypes';
+export * from './reviewService';

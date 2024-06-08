@@ -4,53 +4,12 @@ import {QueryParams} from '../types';
 
 import {bookAdapter} from './bookAdapter';
 import {bookGateway} from './bookGateway';
-import {Book, BookSection, CategoryIdentify} from './bookTypes';
+import {Book, CategoryIdentify} from './bookTypes';
 
 async function getCategories() {
   const result = await bookGateway.getCategories();
   const categories = bookAdapter.toBookCategory(result);
   return categories;
-}
-
-async function getBookSections(uid?: string): Promise<BookSection[]> {
-  if (!uid) {
-    return [];
-  }
-
-  return [
-    {
-      identify: 'recommended-for-you',
-      title: 'Recommended For You',
-    },
-    {
-      identify: 'best-seller',
-      title: 'Best Seller',
-    },
-    {
-      identify: 'fiction',
-      title: 'Fiction',
-    },
-    {
-      identify: 'fantasy',
-      title: 'Fantasy',
-    },
-    {
-      identify: 'adventure',
-      title: 'Adventure',
-    },
-    {
-      identify: 'fairy tales',
-      title: 'Fairy Tales',
-    },
-    {
-      identify: 'philosophy',
-      title: 'Philosophy',
-    },
-    {
-      identify: 'mystery',
-      title: 'Mystery',
-    },
-  ];
 }
 
 async function getBookListByCategory({
@@ -133,12 +92,30 @@ async function getBookChapter(bookId?: string, chapterNumber?: number) {
     : null;
 }
 
+async function syncBooksData() {
+  //TODO: SYNC LOCAL BOOKS
+
+  let skip: number | undefined;
+  while (true) {
+    const result = await bookGateway.syncLocalBooks({
+      top: 10,
+      skip: skip ? skip : 0,
+    });
+
+    skip = result ? (skip ? skip + result.docs.length : result.docs.length) : 0;
+
+    if (skip && skip === 0) {
+      break;
+    }
+  }
+}
+
 export const bookService = {
   getBookData,
   getCategories,
-  getBookSections,
+  syncBooksData,
+  getBookChapter,
   getBooksBySearchText,
   getBookListByCategory,
-  getBookChapter,
   updateLocalBookChapter,
 };

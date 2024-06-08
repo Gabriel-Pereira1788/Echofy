@@ -1,8 +1,8 @@
 import {useAuthContext} from '@providers';
 
 import {CommonError, MutationConfig} from '../../types';
-import {authService} from '../auth-service';
-import {AuthCredentials, AuthSignInDTO} from '../auth-types';
+import {authService} from '../authService';
+import {AuthCredentials, AuthSignInDTO} from '../authTypes';
 import {useAuthMutation} from '../hooks';
 
 export function useAuthSignIn(

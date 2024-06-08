@@ -2,7 +2,7 @@ import {AuthCredentials, CommonError, MutationConfig} from '@domain';
 import {ImageAsset} from '@infra';
 import {useAuthContext} from '@providers';
 
-import {authService} from '../auth-service';
+import {authService} from '../authService';
 import {useAuthMutation} from '../hooks';
 
 export function useAuthUpdateProfileImage(

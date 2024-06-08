@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import {database} from '@database';
+import {bookService} from '@domain';
 import {netStatus} from '@infra';
 import {useAuthContext} from '@providers';
 import {QueueManager} from '@repositories';
@@ -18,6 +19,7 @@ export function InitializeHandler({children}: React.PropsWithChildren) {
 
       await database.open(credentials?.id);
       await QueueManager.syncEntities();
+      bookService.syncBooksData();
       BootSplash.hide();
     } catch (error) {
       BootSplash.hide();
