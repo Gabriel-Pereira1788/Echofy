@@ -8,6 +8,12 @@ export const bookHandler = [
   http.get('http://127.0.0.1:49361/', () => {
     return HttpResponse.json(null, {status: 200});
   }),
+  http.get(`${BASE_URL}book/get-books`, () => {
+    return HttpResponse.json(
+      {...bookMockApi, page: 2, totalPages: 2},
+      {status: 200},
+    );
+  }),
   http.get(`${BASE_URL}book/categories`, () => {
     return HttpResponse.json(bookCategoryMock, {status: 200});
   }),

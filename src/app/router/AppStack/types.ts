@@ -7,4 +7,5 @@ export type AppStackParamList = {
   ProfileScreen: undefined;
   PlayerControllerScreen: undefined;
   SettingsScreen: undefined;
+  SyncScreen: undefined;
 };

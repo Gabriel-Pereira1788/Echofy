@@ -1,4 +1,4 @@
-import {netStatus, storage} from '@infra';
+import {storage} from '@infra';
 
 import {syncHandler} from './syncHandler';
 import {EntitySync} from './types';
@@ -12,10 +12,6 @@ function addToQueueRequest<TData>(data: EntitySync<TData>) {
 }
 
 async function syncEntities() {
-  const connectionStatus = netStatus.getConnectionStatus();
-  if (!connectionStatus || (connectionStatus && !connectionStatus.connected)) {
-    return;
-  }
   const _queueRequests = await storage.getItem<EntitySync[]>('@QueueRequest');
 
   if (_queueRequests && _queueRequests.length > 0) {

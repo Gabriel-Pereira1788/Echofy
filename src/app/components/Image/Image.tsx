@@ -7,6 +7,7 @@ import {
   Logo,
   LogoBlank,
   ReviewsIllustration,
+  SyncIllustration,
 } from '@assets';
 import {ColorSchemeName} from 'react-native/types';
 
@@ -18,7 +19,8 @@ type KeyMappedImage =
   | 'huray'
   | 'logo'
   | 'logoBlank'
-  | 'reviewsIllustration';
+  | 'reviewsIllustration'
+  | 'syncIllustration';
 
 interface ImageProps {
   imageName: KeyMappedImage;
@@ -51,4 +53,5 @@ const mappedImage: Record<
   logo: Logo,
   logoBlank: LogoBlank,
   reviewsIllustration: ReviewsIllustration,
+  syncIllustration: SyncIllustration,
 };

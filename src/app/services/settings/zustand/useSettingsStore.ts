@@ -50,7 +50,7 @@ export const useSettingsStore = create<SettingsStore>()(
       },
     }),
     {
-      name: StorageKeys.SettingsPersistence + '9999',
+      name: StorageKeys.SettingsPersistence,
       storage: storage,
     },
   ),

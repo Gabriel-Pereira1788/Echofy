@@ -8,3 +8,4 @@ export * from './PlayerControllerScreen/PlayerControllerScreen';
 export * from './BookReviewPanel/BookReviewPanel';
 export * from './NewReviewScreen/NewReviewScreen';
 export * from './SettingsScreen/SettingsScreen';
+export * from './SyncScreen/SyncScreen';

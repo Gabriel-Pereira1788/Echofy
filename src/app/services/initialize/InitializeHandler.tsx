@@ -1,30 +1,30 @@
 import React, {useState} from 'react';
 
 import {database} from '@database';
-import {bookService} from '@domain';
 import {netStatus} from '@infra';
 import {useAuthContext} from '@providers';
 import {QueueManager} from '@repositories';
-import BootSplash from 'react-native-bootsplash';
 
 import {AnimatedSplashScreen} from '@components';
 
+import {settingsService} from '../settings';
+
 export function InitializeHandler({children}: React.PropsWithChildren) {
-  const [visible, setVisible] = useState(true);
   const {credentials} = useAuthContext();
 
-  async function initializeApp() {
-    try {
-      netStatus.getConnectionStatus();
+  const [visible, setVisible] = useState(true);
 
-      await database.open(credentials?.id);
+  async function initializeApp() {
+    await database.open(credentials?.id);
+
+    const connection = netStatus.getConnectionStatus();
+    if (connection && connection.connected) {
       await QueueManager.syncEntities();
-      bookService.syncBooksData();
-      BootSplash.hide();
-    } catch (error) {
-      BootSplash.hide();
     }
+
+    settingsService.hideSplashScreen();
   }
+
   if (visible) {
     return (
       <AnimatedSplashScreen

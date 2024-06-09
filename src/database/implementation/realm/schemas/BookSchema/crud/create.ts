@@ -6,9 +6,11 @@ import {CrudSchemaData, Schemas} from '../../../../../types';
 export function create(realm: Realm) {
   return (value: CrudSchemaData<Schemas.Book>): IBookSchema | null => {
     const results = realm.objects(Schemas.Book).filtered('id == $0', value.id);
+
     if (results && results.length > 0) {
       return null;
     }
+
     const book = realm.create(Schemas.Book, {
       name: Schemas.Book,
       ...value,

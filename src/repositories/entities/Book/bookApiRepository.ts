@@ -1,7 +1,6 @@
 import {api} from '@api';
 import {QueryParams} from '@domain';
 import {PaginatedDocs} from '@infra';
-import reactotron from 'reactotron-react-native';
 import {IBookExternalData} from 'src/models';
 
 import {BookRepository, QueryByCategory} from './types';
@@ -53,7 +52,6 @@ async function getBooks({skip, top}: QueryParams) {
   return response.data;
 }
 const get: BookRepository['get'] = async query => {
-  reactotron.log('QUERY', query);
   if (query.searchText && query.searchText.trim() !== '') {
     return await findBySearchText(query.searchText, query.top, query.skip);
   }

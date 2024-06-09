@@ -4,7 +4,7 @@ export * from './huray/Huray';
 export * from './logo/Logo';
 export * from './logo/LogoBlank';
 export * from './reviewsIllustration/ReviewsIllustration';
-
+export * from './syncIllustration/SyncIllustration';
 export const images = {
   errorIllustrationLight: require('./errorIllustration/errorIllustrationLight.png'),
   errorIllustrationDark: require('./errorIllustration/errorIllustrationDark.png'),

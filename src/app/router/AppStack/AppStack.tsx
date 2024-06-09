@@ -2,7 +2,12 @@ import React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {PlayerControllerScreen, ProfileScreen, SettingsScreen} from '@screens';
+import {
+  PlayerControllerScreen,
+  ProfileScreen,
+  SettingsScreen,
+  SyncScreen,
+} from '@screens';
 
 import {AppStackParamList} from '../AppStack/types';
 import {AppTabNavigator} from '../AppTabNavigator/AppTabNavigator';
@@ -13,7 +18,7 @@ type Props = {
   initialRouteName?: keyof AppStackParamList;
 };
 
-export function AppStack({initialRouteName = 'AppTabNavigator'}: Props) {
+export function AppStack({initialRouteName = 'SyncScreen'}: Props) {
   return (
     <Stack.Navigator
       initialRouteName={initialRouteName}
@@ -31,6 +36,7 @@ export function AppStack({initialRouteName = 'AppTabNavigator'}: Props) {
       />
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <Stack.Screen name="SyncScreen" component={SyncScreen} />
     </Stack.Navigator>
   );
 }

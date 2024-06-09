@@ -8,7 +8,7 @@ import {
 } from '@domain';
 import {dimensions} from '@utils';
 
-import {ActivityIndicator, Box} from '@components';
+import {Box, Loader} from '@components';
 
 import {HomeScreenBackdrop} from './HomeScreenBackdrop';
 import {HomeScreenBookItem, ITEM_SIZE} from './HomeScreenBookItem';
@@ -43,8 +43,13 @@ export function HomeScreenCarousel({identify}: Props) {
 
   if (isLoading) {
     return (
-      <Box flex={1} alignItems={'center'} justifyContent={'center'}>
-        <ActivityIndicator />
+      <Box
+        flex={1}
+        width={'100%'}
+        height={700}
+        alignItems={'center'}
+        justifyContent={'center'}>
+        <Loader />
       </Box>
     );
   }

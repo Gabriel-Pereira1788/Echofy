@@ -1,5 +1,6 @@
 import {Schemas, database} from '@database';
 import {QueryParams} from '@domain';
+import reactotron from 'reactotron-react-native';
 
 import {BookRepository, QueryByCategory} from './types';
 
@@ -93,7 +94,7 @@ const create: BookRepository['create'] = async data => {
       database.create(Schemas.Book, data);
     }
   } catch (error) {
-    console.log('ERROR ON CREATE', Schemas.Book, error);
+    reactotron.log('ERROR ON CREATE', Schemas.Book, error);
   }
 };
 const update: BookRepository['update'] = async (id, body) => {

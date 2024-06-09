@@ -7,6 +7,7 @@ import {SharedWrapperScreen} from '@shared';
 
 import {Box, Button, RadioButtonSelector, Separator, Text} from '@components';
 
+import {clearStorage} from './clearStorage';
 import {ProfileSection} from './components/ProfileSection';
 import {Option, themeOptions} from './constants/themeOptions';
 
@@ -22,6 +23,7 @@ export function SettingsScreen() {
   async function signOut() {
     removeCredentials();
     await database.reset();
+    clearStorage();
   }
 
   function onSelect(item: Option) {

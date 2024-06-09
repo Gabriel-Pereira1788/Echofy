@@ -1,4 +1,5 @@
 import {PaginatedResult} from '@infra';
+import reactotron from 'reactotron-react-native';
 
 import {QueryParams} from '../types';
 
@@ -92,21 +93,21 @@ async function getBookChapter(bookId?: string, chapterNumber?: number) {
     : null;
 }
 
-async function syncBooksData() {
-  //TODO: SYNC LOCAL BOOKS
-
-  let skip: number | undefined;
-  while (true) {
+async function syncBooksData(skip: number = 0) {
+  try {
     const result = await bookGateway.syncLocalBooks({
       top: 10,
       skip: skip ? skip : 0,
     });
 
-    skip = result ? (skip ? skip + result.docs.length : result.docs.length) : 0;
+    const isLastPage = result && result.page === result.totalPages;
 
-    if (skip && skip === 0) {
-      break;
+    if (!isLastPage) {
+      const syncedCount = result ? skip + result.docs.length : 0;
+      return syncBooksData(syncedCount);
     }
+  } catch (err) {
+    reactotron.log('[ERROR ON SYNC BOOK DATA]', err);
   }
 }
 

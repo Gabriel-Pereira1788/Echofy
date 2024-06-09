@@ -32,3 +32,4 @@ export * from './SearchBar/SearchBar';
 export * from './ActivityIndicator/ActivityIndicator';
 export * from './RadioButton';
 export * from './Separator/Separator';
+export * from './Loader/Loader';

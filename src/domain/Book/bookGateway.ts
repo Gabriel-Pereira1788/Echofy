@@ -17,8 +17,8 @@ async function getCategories() {
     string[] | null
   >({
     toUseLocalData: result => !!result && result.length > 0,
-    fetchApiRepository: async () => categoryApiRepository.get({}),
-    fetchLocalRepository: async () => categoryLocalRepository.get({}),
+    fetchApiRepository: async () => await categoryApiRepository.get({}),
+    fetchLocalRepository: async () => await categoryLocalRepository.get({}),
     syncLocalRepository: result => categoryLocalRepository.create(result),
   });
 
@@ -29,8 +29,8 @@ async function findByCategory(query: QueryByCategory) {
   return await managerRepositoryData.fetchAndSync<PaginatedDocs<IBookExternalData> | null>(
     {
       toUseLocalData: result => !!result && result.docs.length > 0,
-      fetchApiRepository: async () => bookApiRepository.get(query),
-      fetchLocalRepository: async () => bookLocalRepository.get(query),
+      fetchApiRepository: async () => await bookApiRepository.get(query),
+      fetchLocalRepository: async () => await bookLocalRepository.get(query),
       syncLocalRepository: result => bookLocalRepository.create(result!),
     },
   );
@@ -39,8 +39,8 @@ async function findByCategory(query: QueryByCategory) {
 async function findBySearchText(query: QuerySearchByText) {
   return await managerRepositoryData.fetchAndSync({
     toUseLocalData: result => !!result && result.docs.length > 0,
-    fetchApiRepository: async () => bookApiRepository.get(query),
-    fetchLocalRepository: async () => bookLocalRepository.get(query),
+    fetchApiRepository: async () => await bookApiRepository.get(query),
+    fetchLocalRepository: async () => await bookLocalRepository.get(query),
     syncLocalRepository: result => bookLocalRepository.create(result!),
   });
 }
@@ -48,8 +48,8 @@ async function findBySearchText(query: QuerySearchByText) {
 async function findById(id: string) {
   return await managerRepositoryData.fetchAndSync({
     toUseLocalData: result => !!result,
-    fetchApiRepository: async () => bookApiRepository.findById(id),
-    fetchLocalRepository: async () => bookLocalRepository.findById(id),
+    fetchApiRepository: async () => await bookApiRepository.findById(id),
+    fetchLocalRepository: async () => await bookLocalRepository.findById(id),
     syncLocalRepository: result => bookLocalRepository.create(result!),
   });
 }
@@ -62,7 +62,7 @@ async function syncLocalBooks(query: QueryParams) {
   const result = await bookApiRepository.get(query);
 
   if (result && result.docs.length > 0) {
-    bookLocalRepository.create(result);
+    await bookLocalRepository.create(result);
   }
 
   return result;

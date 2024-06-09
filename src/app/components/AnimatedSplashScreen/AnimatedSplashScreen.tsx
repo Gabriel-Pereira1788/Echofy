@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {Animated, View} from 'react-native';
 
-import {pallete} from '@styles';
 import {getDynamicSize} from '@utils';
-import LottieView from 'lottie-react-native';
 import BootSplash from 'react-native-bootsplash';
+
+import {Loader} from '../Loader/Loader';
 type Props = {
   onFinish: () => void;
   onInitializeApp: () => Promise<void>;
@@ -82,25 +82,7 @@ export function AnimatedSplashScreen({onFinish, onInitializeApp}: Props) {
 
         {showLoader && (
           <View style={{position: 'absolute', top: 100}}>
-            <LottieView
-              style={{width: 50, height: 50}}
-              source={require('./animations/loading_round.json')}
-              colorFilters={[
-                {
-                  keypath: 'icon',
-                  color: pallete.primary50,
-                },
-                {
-                  keypath: 'icon 2',
-                  color: pallete.primary50,
-                },
-              ]}
-              autoPlay
-              loop
-              duration={1800}
-              resizeMode="cover"
-              renderMode="SOFTWARE"
-            />
+            <Loader />
           </View>
         )}
       </View>

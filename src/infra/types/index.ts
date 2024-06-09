@@ -28,4 +28,5 @@ export enum StorageKeys {
   TrackPersistence = '@trackPersistence',
   TrackProgressPersistence = '@trackProgressPersistence',
   SettingsPersistence = '@settingsPersistence',
+  SyncBooks = '@syncBooks',
 }
