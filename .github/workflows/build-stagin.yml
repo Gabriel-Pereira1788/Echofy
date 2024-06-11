@@ -1,0 +1,52 @@
+name: Build Staging Version (Android)
+
+env:
+  APK_PATH: app/build/outputs/apk/release/app-release.apk
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./android
+
+    steps:
+      - uses: action/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "17"
+
+      - name: Install Packages
+        run: yarn Install
+
+      - name: Decode Keystore
+        run: echo ${{secrets.ANDROID_UPLOAD_KEY_BASE64}} | base64 -d > app/upload.jks
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleRelease
+        env: ECHOFY_STORE_PASSWORD:${{ secrets.ANDROID_STORE_PASSWORD }}
+          ECHOFY_KEY_ALIAS:${{ secrets.ANDROID_KEY_ALIAS }}
+          ECHOFY_KEY_PASSWORD:${{ secrets.ANDROID_KEY_PASSWORD }}
+
+      - name: Upload APK to Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release.apk
+          path: ${{env.APK_PATH}}
+          retention-days: 7
