@@ -30,7 +30,7 @@ jobs:
           java-version: "17"
 
       - name: Install Packages
-        run: yarn Install
+        run: yarn install
 
       - name: Decode Keystore
         run: echo ${{secrets.ANDROID_UPLOAD_KEY_BASE64}} | base64 -d > app/upload.jks
@@ -40,7 +40,8 @@ jobs:
 
       - name: Build APK
         run: ./gradlew assembleRelease
-        env: ECHOFY_STORE_PASSWORD:${{ secrets.ANDROID_STORE_PASSWORD }}
+        env: 
+          ECHOFY_STORE_PASSWORD:${{ secrets.ANDROID_STORE_PASSWORD }}
           ECHOFY_KEY_ALIAS:${{ secrets.ANDROID_KEY_ALIAS }}
           ECHOFY_KEY_PASSWORD:${{ secrets.ANDROID_KEY_PASSWORD }}
 
