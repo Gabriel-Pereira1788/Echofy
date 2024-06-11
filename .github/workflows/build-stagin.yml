@@ -1,7 +1,7 @@
 name: Build Staging Version (Android)
 
 env:
-  APK_PATH: app/build/outputs/apk/release/app-release.apk
+  APK_PATH: android/app/build/outputs/apk/release/app-release.apk
 
 on:
   workflow_dispatch:
