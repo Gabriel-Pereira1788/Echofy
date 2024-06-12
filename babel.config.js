@@ -4,9 +4,8 @@ module.exports = {
     [
       'module-resolver',
       {
-        root: './src',
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-
+        root: '.',
+        extensions: ['js', 'jsx', 'ts', 'tsx'],
         alias: {
           '@api': './src/api',
           '@animations': './src/app/animations',
