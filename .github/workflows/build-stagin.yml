@@ -35,6 +35,9 @@ jobs:
       - name: Decode Keystore
         run: echo ${{secrets.ANDROID_UPLOAD_KEY_BASE64}} | base64 -d > app/upload.jks
 
+      - name: Decode Environment Variables
+        run: echo ${{secrets.ENV_FILE_BASE64}} | base64 -d > ../.env
+        
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
