@@ -15,13 +15,21 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android build_release
+### android build_and_upload_internal
 
 ```sh
-[bundle exec] fastlane android build_release
+[bundle exec] fastlane android build_and_upload_internal
 ```
 
-Submit a new Beta Build to Crashlytics Beta
+Build AAB and upload to Google Play
+
+### android upload_internal_version
+
+```sh
+[bundle exec] fastlane android upload_internal_version
+```
+
+
 
 ----
 
