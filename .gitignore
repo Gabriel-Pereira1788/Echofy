@@ -76,3 +76,4 @@ default.realm.note
 dist/
 web-build/
 android/app/release/app-release.aab
+google-service-account.json
