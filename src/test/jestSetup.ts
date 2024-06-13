@@ -10,6 +10,8 @@ import {setFileSystemImpl} from '../infra/adapters/fileSystem';
 import {jestFsImpl} from '../infra/adapters/fileSystem/implementation/jest-fs-impl';
 import {setImagePickerImpl} from '../infra/adapters/imagePicker';
 import {imagePickerJest} from '../infra/adapters/imagePicker/implementation/image-picker.jest';
+import {jestStorage} from '../infra/adapters/storage/implementation/jest-storage';
+import {setStorageImpl} from '../infra/adapters/storage/storage';
 
 import {authCredentialsMock} from './serverHandlers';
 
@@ -17,6 +19,7 @@ setAudioTrackerImpl(audioTrackerJest);
 setDatabaseImpl(databaseJest);
 setFileSystemImpl(jestFsImpl);
 setImagePickerImpl(imagePickerJest);
+setStorageImpl(jestStorage);
 
 jest.mock('react-native-safe-area-context', () => ({
   ...mockSafeAreaContext,

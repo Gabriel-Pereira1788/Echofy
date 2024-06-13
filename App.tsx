@@ -11,23 +11,18 @@ import {StatusBar} from 'react-native';
 import {realmImpl, setDatabaseImpl} from '@database';
 import {
   expoFsImpl,
-  queryClient,
   setAudioTrackerImpl,
   setFileSystemImpl,
   trackPlayerImpl,
 } from '@infra';
-import {InitializeHandler, settingsService, useAppColor} from '@services';
-import {ThemeProvider} from '@shopify/restyle';
-import {QueryClientProvider} from '@tanstack/react-query';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {settingsService, useAppColor} from '@services';
 
 import {useAppColorScheme} from '@hooks';
 
 import {Toast} from './src/app/components/Toast/Toast';
 import {
   AudioTrackerPersistenceProvider,
-  AuthProvider,
+  RootProvider,
 } from './src/app/providers';
 import {Router} from './src/app/router/Routes';
 import {darkTheme, theme} from './src/app/styles/theme';
@@ -52,25 +47,17 @@ function App(): React.JSX.Element {
   }, [appColor]);
 
   return (
-    <AuthProvider>
-      <InitializeHandler>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
-            <SafeAreaProvider style={{flex: 1, backgroundColor}}>
-              <GestureHandlerRootView style={{flex: 1}}>
-                <StatusBar
-                  backgroundColor={backgroundColor}
-                  barStyle={isDarkMode ? 'default' : 'dark-content'}
-                />
-                <Router />
-                <Toast />
-                <AudioTrackerPersistenceProvider />
-              </GestureHandlerRootView>
-            </SafeAreaProvider>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </InitializeHandler>
-    </AuthProvider>
+    <RootProvider
+      theme={isDarkMode ? darkTheme : theme}
+      backgroundColor={backgroundColor}>
+      <StatusBar
+        backgroundColor={backgroundColor}
+        barStyle={isDarkMode ? 'default' : 'dark-content'}
+      />
+      <Router />
+      <Toast />
+      <AudioTrackerPersistenceProvider />
+    </RootProvider>
   );
 }
 

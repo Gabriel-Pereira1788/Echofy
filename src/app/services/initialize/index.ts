@@ -1,2 +1,2 @@
 export * from './InitializeHandler';
-export * from './initializeService';
+export {initializeService} from './initializeService';

@@ -23,9 +23,9 @@ function clearAll() {
   mmkv.clearAll();
 }
 
-export const mmkvImpl = (): StorageImpl => ({
+export const mmkvImpl: StorageImpl = {
   setItem,
   getItem,
   removeItem,
   clearAll,
-});
+};

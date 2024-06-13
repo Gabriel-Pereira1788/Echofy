@@ -49,7 +49,7 @@ jobs:
         run: ./gradlew bundleRelease
         env: 
           ECHOFY_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
-          ECHOFY_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ECHOFY_ALIAS_PASSWORD: ${{ secrets.ANDROID_KEY_ALIAS }}
           ECHOFY_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
       - name: Decode Google Service Account
