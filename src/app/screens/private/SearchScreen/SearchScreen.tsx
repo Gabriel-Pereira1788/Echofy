@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 
 import {useBookFindByText} from '@domain';
 import {CommonStackProps} from '@router';
@@ -12,28 +12,24 @@ import {SearchScreenMainContent} from './components/SearchScreenMainContent';
 export function SearchScreen({}: CommonStackProps<'MainScreen'>) {
   const [searchText, setSearchText] = useState('');
 
-  const {list, hasNextPage, getMore, loadingNextPage, isLoading} =
+  const {list, hasNextPage, loadingNextPage, isLoading, getMore} =
     useBookFindByText(searchText);
 
   const {onScroll} = useScrollEndReached(handleOnEndReached);
 
-  const renderSearchHistory =
-    (list && list.length === 0) || searchText.trim() === '';
-
-  const handleOnChangeText = useCallback((text: string) => {
-    setSearchText(text);
-  }, []);
-
   function handleOnEndReached() {
     hasNextPage && getMore();
   }
+
+  const renderSearchHistory =
+    (list && list.length === 0) || searchText.trim() === '';
 
   return (
     <SharedWrapperScreen scrollEnabled scrollProps={{onScroll}} customPadding>
       <SharedBrandHeader />
       <Box paddingHorizontal="sp25" flex={1} width={'100%'} mt="sp20">
         <SearchBar
-          onChangeText={handleOnChangeText}
+          onChangeText={setSearchText}
           placeholder="Search Books or Author ..."
           title="Explore"
         />

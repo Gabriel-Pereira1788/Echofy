@@ -7,9 +7,9 @@ import {SharedWrapperScreen} from '@shared';
 
 import {Box, Button, RadioButtonSelector, Separator, Text} from '@components';
 
-import {clearStorage} from './clearStorage';
 import {ProfileSection} from './components/ProfileSection';
 import {Option, themeOptions} from './constants/themeOptions';
+import {clearStorage} from './functions/clearStorage';
 
 export function SettingsScreen() {
   const themePreference = useThemePreference();
