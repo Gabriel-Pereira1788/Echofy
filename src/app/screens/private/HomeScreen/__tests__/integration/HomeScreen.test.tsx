@@ -38,6 +38,7 @@ afterAll(() => {
   jest.resetAllMocks();
 });
 const categoriesMock = buildBookSections();
+
 describe('HomeScreen', () => {
   it('render homeScreen correctly', async () => {
     const {settingsButton, bookItens, seeMoreButton} =

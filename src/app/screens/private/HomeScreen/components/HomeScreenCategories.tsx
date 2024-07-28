@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useMemo, useRef} from 'react';
 import {
   ListRenderItem,
   FlatList,
@@ -11,23 +11,20 @@ import {BookSection} from '@domain';
 
 import {Box, Category} from '@components';
 
-type Props = {
-  bookSections: BookSection[];
-  currentSection: BookSection | null;
-  onSelect: (item: BookSection) => void;
-};
+import {buildBookSections} from '../functions/buildBookSections';
+import {useHomeScreenState} from '../store';
 
-export function HomeScreenCategories({
-  bookSections,
-  onSelect,
-  currentSection,
-}: Props) {
+export function HomeScreenCategories() {
+  const bookSections = useMemo(() => buildBookSections(), []);
   const flatListRef = useRef<FlatList>(null);
+
+  const [currentSection, setCurrentSection] =
+    useHomeScreenState('currentSection');
 
   const renderItem: ListRenderItem<BookSection> = useCallback(
     ({item, index}) => {
       function handlePress() {
-        onSelect(item);
+        setCurrentSection(item);
         flatListRef.current?.scrollToIndex({
           index,
           animated: true,
@@ -46,7 +43,7 @@ export function HomeScreenCategories({
         </Animated.View>
       );
     },
-    [onSelect, currentSection],
+    [currentSection, setCurrentSection],
   );
 
   return (
@@ -74,7 +71,6 @@ const $contentContainerStyle: StyleProp<ViewStyle> = {
   flexGrow: 1,
   gap: 10,
   paddingHorizontal: 25,
-  // marginVertical: 25,
   justifyContent: 'flex-start',
   alignItems: 'flex-end',
 };

@@ -9,13 +9,7 @@ import {HomeScreenCategories} from '../HomeScreenCategories';
 const bookSectionsMock = buildBookSections();
 const onSelectMock = jest.fn();
 function customRender() {
-  render(
-    <HomeScreenCategories
-      bookSections={bookSectionsMock}
-      currentSection={bookSectionsMock[0]}
-      onSelect={onSelectMock}
-    />,
-  );
+  render(<HomeScreenCategories />);
 
   return {
     categoriesElements: screen.getAllByTestId('category'),

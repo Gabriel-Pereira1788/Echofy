@@ -1,26 +1,21 @@
 import React, {useCallback, useRef} from 'react';
 import {Animated, ListRenderItemInfo, StatusBar, View} from 'react-native';
 
-import {
-  Book as BookType,
-  CategoryIdentify,
-  useGetBookListByCategory,
-} from '@domain';
+import {Book as BookType, useGetBookListByCategory} from '@domain';
 import {dimensions} from '@utils';
 
 import {Box, Loader} from '@components';
 
+import {useHomeScreenState} from '../store';
+
 import {HomeScreenBackdrop} from './HomeScreenBackdrop';
 import {HomeScreenBookItem, ITEM_SIZE} from './HomeScreenBookItem';
 
-type Props = {
-  identify: CategoryIdentify;
-};
-
 const EMPTY_ITEM_SIZE = (dimensions.width - ITEM_SIZE) / 2;
 
-export function HomeScreenCarousel({identify}: Props) {
-  const {list, isLoading} = useGetBookListByCategory(identify);
+export function HomeScreenCarousel() {
+  const [currentSection] = useHomeScreenState('currentSection');
+  const {list, isLoading} = useGetBookListByCategory(currentSection.identify);
 
   const scrollX = useRef(new Animated.Value(0)).current;
 
