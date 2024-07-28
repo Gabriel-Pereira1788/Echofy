@@ -17,7 +17,7 @@ type Props = {
   redirectToNewReviewScreen: () => void;
 };
 
-export function HeaderPanel({
+export function BookReviewHeaderPanel({
   reviews,
   bookTitle,
   goBack,

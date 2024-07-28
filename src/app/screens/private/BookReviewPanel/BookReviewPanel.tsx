@@ -8,8 +8,7 @@ import {InfinityScrollList} from '@super-components';
 
 import {Box, ReviewCard} from '@components';
 
-import {BookReviewPanelSkeleton} from './components/BookReviewPanelSkeleton';
-import {HeaderPanel} from './components/HeaderPanel';
+import {BookReviewHeaderPanel, BookReviewPanelSkeleton} from './components';
 
 export function BookReviewPanel({
   route,
@@ -43,7 +42,7 @@ export function BookReviewPanel({
           })
         }
         renderHeaderComponent={list => (
-          <HeaderPanel
+          <BookReviewHeaderPanel
             bookTitle={bookTitle}
             reviews={list}
             goBack={navigation.goBack}

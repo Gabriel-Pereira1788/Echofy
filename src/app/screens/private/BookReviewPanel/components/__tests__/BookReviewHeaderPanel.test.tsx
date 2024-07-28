@@ -3,7 +3,7 @@ import React from 'react';
 import {bookMock, fireEvent, render, reviewsListMock, screen} from '@test';
 
 import {makeVoteAverage} from '../../functions/makeVoteAverage';
-import {HeaderPanel} from '../HeaderPanel';
+import {BookReviewHeaderPanel} from '../BookReviewHeaderPanel';
 
 const bookTitle = bookMock.bookTitle;
 
@@ -12,7 +12,7 @@ const redirectToNewReviewScreen = jest.fn();
 
 function customRender() {
   render(
-    <HeaderPanel
+    <BookReviewHeaderPanel
       reviews={reviewsListMock}
       bookTitle={bookTitle}
       goBack={goBack}

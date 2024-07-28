@@ -1,12 +1,7 @@
 import React, {useCallback} from 'react';
 import {ListRenderItemInfo, ViewStyle} from 'react-native';
 
-import {
-  Book as BookType,
-  CategoryIdentify,
-  Queries,
-  bookService,
-} from '@domain';
+import {Book as BookType, Queries, bookService} from '@domain';
 import {useAuthContext} from '@providers';
 import {CommonStackProps} from '@router';
 import {SharedWrapperScreen} from '@shared';
@@ -15,19 +10,14 @@ import {InfinityScrollList, SkeletonsList} from '@super-components';
 import {BookSkeleton} from '@components';
 
 import {CategoryBookItem} from './components';
+import {buildBookCategory} from './functions';
 
 export function CategoryBookScreen({
   route,
 }: CommonStackProps<'CategoryBookScreen'>) {
   const {uid} = useAuthContext();
 
-  const category: CategoryIdentify =
-    route && route.params
-      ? route.params.categoryIdentify
-      : 'recommended-for-you';
-
-  const categoryTitle =
-    route && route.params ? route.params.categoryTitle : 'Recommended For You';
+  const {identify, title} = buildBookCategory(route.params);
 
   const renderItem = useCallback(({item}: ListRenderItemInfo<BookType>) => {
     return <CategoryBookItem book={item} />;
@@ -35,7 +25,7 @@ export function CategoryBookScreen({
 
   return (
     <SharedWrapperScreen
-      headerTitle={categoryTitle}
+      headerTitle={title}
       goBack
       playerSpacingEnabled={false}>
       <InfinityScrollList
@@ -54,7 +44,7 @@ export function CategoryBookScreen({
           bookService.getBookListByCategory({
             uid,
             page,
-            category,
+            category: identify,
           })
         }
         flatListProps={{
